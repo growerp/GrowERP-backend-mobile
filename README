@@ -1,7 +1,8 @@
 
 How to get started with the GrowERP backend
 
-execute the following script file to load all components all standard exept for the mobile backend.
+execute the following script file to load standard Moqui and 
+out specific component mobile backend.
 
 
 git clone https://github.com/moqui/moqui-framework.git moqui
@@ -13,14 +14,9 @@ git clone https://github.com/moqui/mantle-usl
 git clone https://github.com/moqui/moqui-elasticsearch
 git clone https://github.com/moqui/moqui-fop
 git clone https://github.com/moqui/SimpleScreens
-git clone http://www.antwebsystems.com/gerrit/a/GrowERP-backend-mobile
+git clone ssh://awsadmin@antwebsystems.com:55555/GrowERP-backend-mobile backend
 cd ../..
-
 ./gradlew build
 java -jar moqui.war load types=seed,seed-initial
 java -jar moqui.war
-
-
-
-
 
