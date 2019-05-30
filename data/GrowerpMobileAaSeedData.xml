@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<entity-facade-xml type="seed">
+
+
+     <!-- allocate parties to mobile application -->
+    <moqui.basic.Enumeration description="Mobile App user" enumId="PcltMobileApp" enumTypeId="PartyClassificationType"/>
+    <mantle.party.PartyClassification partyClassificationId="AppRestaurant" classificationTypeEnumId="PcltMobileApp" description="App for restaurant,cafe,bar"/>
+    <mantle.party.PartyClassification partyClassificationId="AppShop" classificationTypeEnumId="PcltMobileApp" description="App for Physical Shop"/>
+    <mantle.party.PartyClassification partyClassificationId="AppHospital" classificationTypeEnumId="PcltMobileApp" description="App for Hospital/Clinic/Dentist/Doctor/Beauty Shop"/>
+    <mantle.party.PartyClassification partyClassificationId="AppService" classificationTypeEnumId="PcltMobileApp" description="App for Service company, freelancer"/>
+    <mantle.party.PartyClassification partyClassificationId="AppHotel" classificationTypeEnumId="PcltMobileApp" description="App for Hotel, Bed &amp; Breakfeast"/>
+    <mantle.party.PartyClassification partyClassificationId="AppRealtor" classificationTypeEnumId="PcltMobileApp" description="App for Realtor/property management"/>
+
+    <!-- added thumbnail image size for party -->
+    <moqui.basic.Enumeration description="Logo Image Thump Nail"  enumId="PcntLogoThumbImage" enumTypeId="PartyContentType"/>
+    <moqui.basic.Enumeration description="Face Image Thump Nail"  enumId="PcntFaceThumbImage" enumTypeId="PartyContentType"/>
+
+    <!-- images for tasks -->
+    <moqui.basic.Enumeration enumId="WectImageSmall" description="Task small image" enumTypeId="WorkEffortContentType"/>
+    <moqui.basic.Enumeration enumId="WectImageMedium" description="Task medium image" enumTypeId="WorkEffortContentType"/>
+    
+    <!-- added images for category -->
+    <moqui.basic.Enumeration description="Category Image Thumb Nail" enumId="PcctImageThumbNail" enumTypeId="ProductCategoryContentType"/>
+    <moqui.basic.Enumeration description="Category Image Medium Size" enumId="PcctImageMedium" enumTypeId="ProductCategoryContentType"/>
+
+    <!-- preparation area images -->
+    <moqui.basic.EnumerationType description="Preparation Area Content Type" enumTypeId="PreparationAreaContentType"/>
+    <moqui.basic.Enumeration description="Preparation Area Image small" enumId="PactImageThumbNail" enumTypeId="PreparationAreaContentType"/>
+    <moqui.basic.Enumeration description="Preparation Area Image Medium" enumId="PactImageMedium" enumTypeId="PreparationAreaContentType"/>
+
+    <!-- accommodation area images -->
+    <moqui.basic.EnumerationType description="Accommodation Area Content Type" enumTypeId="AccommodationAreaContentType"/>
+    <moqui.basic.Enumeration description="Accommodation Area  Image small" enumId="AactImageThumbNail" enumTypeId="AccommodationAreaContentType"/>
+    <moqui.basic.Enumeration description="Accommodation Area  Image Medium" enumId="AactImageMedium" enumTypeId="AccommodationAreaContentType"/>
+
+    <!-- FAQ in requests -->
+    <moqui.basic.Enumeration enumId="RqtFAQ" description="Frequently Asked Questions" enumTypeId="RequestType"/>
+    <moqui.basic.Enumeration enumId="RqtQUEST" description="Question or request" enumTypeId="RequestType"/>
+    
+    <!-- define a top level category for a restaurant menu -->
+    <moqui.basic.Enumeration enumId="PctRestaurant" description="Menu for Restauarant" enumTypeId="ProductCategoryType"/>
+}
+</entity-facade-xml>

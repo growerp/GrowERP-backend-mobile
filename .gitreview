@@ -1,0 +1,7 @@
+[gerrit]
+host=www.antwebsystems.com
+port=55555
+project=GrowERP-backend-mobile
+defaultbranch=master
+defaultrebase=0
+
