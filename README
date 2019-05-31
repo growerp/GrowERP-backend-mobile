@@ -16,6 +16,7 @@ git clone https://github.com/moqui/moqui-fop
 git clone https://github.com/moqui/SimpleScreens
 git clone ssh://USERNAME@antwebsystems.com:55555/GrowERP-backend-mobile backend
 cd ../..
+patch -p1 <runtime/comonent/backend/patch.txt
 ./gradlew build
 java -jar moqui.war load types=seed,seed-initial
 java -jar moqui.war

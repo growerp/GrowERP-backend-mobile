@@ -1,0 +1,14 @@
+diff --git a/framework/src/main/groovy/org/moqui/impl/screen/ScreenRenderImpl.groovy b/framework/src/main/groovy/org/moqui/impl/screen/ScreenRenderImpl.groovy
+index 66dba9fb..d5334f60 100644
+--- a/framework/src/main/groovy/org/moqui/impl/screen/ScreenRenderImpl.groovy
++++ b/framework/src/main/groovy/org/moqui/impl/screen/ScreenRenderImpl.groovy
+@@ -334,7 +334,8 @@ class ScreenRenderImpl implements ScreenRender {
+                         if (passedToken == null || passedToken.length() == 0) {
+                             throw new AuthenticationRequiredException("Session token required (in moquiSessionToken) for URL ${screenUrlInstance.url}")
+                         } else if (!curToken.equals(passedToken)) {
+-                            throw new AuthenticationRequiredException("Session token does not match (in moquiSessionToken) for URL ${screenUrlInstance.url}")
++							logger.warn("====== passed moquiSessionToken does not match, however disabled for now.....passed / current : ${passedToken} / ${curToken}")
++                            // throw new AuthenticationRequiredException("Session token does not match (in moquiSessionToken) for URL ${screenUrlInstance.url}")
+                         }
+                     }
+                 }
