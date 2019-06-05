@@ -752,7 +752,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="create#growerp.mobile.location.PreparationAreaContent" in-map="context" out-map="context"/>
             </if>
             <!-- update content location -->
-            <set field="contentRoot" value="file:runtime/${ownerPartyId}"/>
+            <set field="contentRoot" value="file:runtime/mobile/${ownerPartyId}"/>
             <if condition="partyId">
                 <set field="contentLocation" value="${contentRoot}/party/${partyId}/content_${partyContentId}/${filename}"/>
                 <service-call name="update#mantle.party.PartyContent"
@@ -1464,7 +1464,9 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="orderItem" from="[
                     orderItemSeqId: item.orderItemSeqId,
                     description: item.itemDescription,
-                    quantity: item.quantity
+                    quantity: item.quantity,
+                    unitAmount: item.unitAmount,
+                    totalAmount: item.unitAmount * item.quantity,
                     ]"/>
                 <script>orderItems.add(orderItem)</script>
                 <set field="order" from="[
@@ -1472,6 +1474,7 @@ along with this software (see the LICENSE.md file). If not, see
                     placedDate: ec.l10n.format(item.placedDate,'dd-MM-yyyy'),
                     partyId: item.partyId,
                     statusId: item.statusId in statusList?'Open':'Closed',
+                    nbrOfGuests: item.nbrOfGuests,
                     grandTotal: item.grandTotal,
                     table: item.description + '-' + item.spotNumber,
                     nbrOfItems: orderItems.size(),
@@ -1974,16 +1977,15 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="period" default="day"/></in-parameters>
         <out-parameters><parameter name="periods"/></out-parameters>
         <actions>
-            <set field="toDay" from="ec.user.nowTimestamp" type="Timestamp" />
+            <set field="nowZdt" from="java.time.ZonedDateTime.ofInstant(java.time.Instant.now(), java.time.ZoneId.systemDefault())"/>
             <if condition="period == 'day'">
                 <set field="procPeriods" from="[]"/>
                 <set field="maxPeriod" value="7" type="Integer"/>
                 <set field="count" value="0" type="Integer"/>
                 <while condition="count &lt; maxPeriod">
-                    <set field="procPeriod" from="[ start: org.moqui.UtilDateTime.getDayStart(
-                                                        org.moqui.UtilDateTime.addDaysToTimestamp(toDay, count * -1)),
-                                                    end: org.moqui.UtilDateTime.getDayEnd(
-                                                        org.moqui.UtilDateTime.addDaysToTimestamp(toDay, count * -1))]"/>
+                    <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count).toInstant())"/>
+                    <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count - 1).toInstant())"/>
+                    <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
                     <script>procPeriods.add(procPeriod)</script>
                     <set field="count" from="++count"/>
                 </while>
@@ -1993,10 +1995,9 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="maxPeriod" value="4" type="Integer"/>
                 <set field="count" value="0" type="Integer"/>
                 <while condition="count &lt; maxPeriod">
-                    <set field="procPeriod" from="[ start: org.moqui.UtilDateTime.getDayStart(
-                                                        org.moqui.UtilDateTime.addDaysToTimestamp(toDay, count * -7)),
-                                                    end: org.moqui.UtilDateTime.getDayEnd(
-                                                        org.moqui.UtilDateTime.addDaysToTimestamp(toDay, count * -7))]"/>
+                    <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * 7).toInstant())"/>
+                    <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * 7 - 7).toInstant())"/>
+                    <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
                     <script>procPeriods.add(procPeriod)</script>
                     <set field="count" from="++count"/>
                 </while>
@@ -2014,7 +2015,8 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="orderCount" from="orderCount + 1"/>
                     <set field="periodTotal" from="periodTotal + order.grandTotal"/>
                 </iterate>
-                <set field="periodOut" from="[period: ec.l10n.format(procPeriod.start,'dd-MM-yyyy'), amount: periodTotal, orderCount: orderCount]"/>
+                <set field="periodOut" from="[period: ec.l10n.format(procPeriod.start,'dd-MM'), 
+                                              amount: periodTotal, orderCount: orderCount]"/>
                 <script>periods.add(periodOut)</script>
             </iterate>
         </actions>

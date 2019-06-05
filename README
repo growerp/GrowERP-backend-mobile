@@ -21,6 +21,9 @@ patch -p1 <runtime/component/backend/patch.txt
 java -jar moqui.war load types=seed,seed-initial
 java -jar moqui.war
 
+runtime/mobile should be an external directory and not in the docker instance
+
+
 the mobile frontend can be downloaded with:
 git clone ssh://USERNAME@antwebsystems.com:55555/GrowERP-restaurant
 
