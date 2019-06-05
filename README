@@ -4,22 +4,31 @@ How to get started with the GrowERP mobile backend?
 execute the following script file to load standard Moqui and 
 our specific component mobile backend.
 
+1. Clone the Moqui.
 
-git clone https://github.com/moqui/moqui-framework.git moqui
-cd moqui
-git clone https://github.com/moqui/moqui-runtime runtime
-cd runtime/component
-git clone https://github.com/moqui/mantle-udm
-git clone https://github.com/moqui/mantle-usl
-git clone https://github.com/moqui/moqui-elasticsearch
-git clone https://github.com/moqui/moqui-fop
-git clone https://github.com/moqui/SimpleScreens
-git clone ssh://awsadmin@antwebsystems.com:55555/GrowERP-backend-mobile backend
-cd ../..
-patch -p1 <runtime/component/backend/patch.txt
-./gradlew build
-java -jar moqui.war load types=seed,seed-initial
-java -jar moqui.war
+	$ git clone https://github.com/moqui/moqui-framework.git moqui && cd moqui
+
+2. Copy myaddons.xml from GrowERP-backend-mobile repository to the moqui dir.
+
+	$ git archive --remote=ssh://awsadmin@www.antwebsystems.com:55555/GrowERP-backend-mobile.git HEAD myaddons.xml | tar -x
+
+3. Get the "GrowERP-backend-mobile" component and its dependencies.
+
+	$ ./gradlew getComponent -Pcomponent=GrowERP-backend-mobile
+
+4. Apply patch
+
+	$ patch -p1 < runtime/component/GrowERP-backend-mobile/patch.txt
+
+5. Build and Load seed data.
+
+	$ ./gradlew build
+	$ java -jar moqui.war load types=seed,seed-initial
+	$ java -jar moqui.war
+
+
+runtime/mobile should be an external directory and not in the docker instance
+
 
 runtime/mobile should be an external directory and not in the docker instance
 

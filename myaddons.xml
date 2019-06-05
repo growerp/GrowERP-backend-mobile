@@ -1,0 +1,13 @@
+<addons>
+    <!--GrowERP mobile addons -->
+
+    <repository name="antwebsystems"><!-- read only -->
+        <location type="git" url="http://www.antwebsystems.com/gerrit/${component.'@name'}"/>
+    </repository>
+
+    <!-- GrowERP Component -->
+    <component name="GrowERP-backend-mobile" group="moqui" version="" branch="master" repository="antwebsystems"/>
+
+    <!-- Component Sets -->
+    <component-set name="GrowERP"/>
+</addons>
