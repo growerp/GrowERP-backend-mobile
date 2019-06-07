@@ -391,11 +391,11 @@ along with this software (see the LICENSE.md file). If not, see
             add a new user on the same company as the logged in user
         </description>
         <in-parameters>
-            <parameter name="firstName"/>
-            <parameter name="lastName"/>
-            <parameter name="emailAddress"/>
+            <parameter name="firstName" required="true"/>
+            <parameter name="lastName" required="true"/>
+            <parameter name="emailAddress"  required="true"/>
             <parameter name="locale"/>
-            <parameter name="roleTypeId"/>
+            <parameter name="roleTypeId" required="true"/>
             <parameter name="externalId"/>
             <parameter name="functionDescription"/>
         </in-parameters>
@@ -403,6 +403,10 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="partyId"/>
         </out-parameters>
         <actions>
+            <if condition="roleTypeId == 'Customer' &amp;&amp; !externalId">
+                <return error="true" message="If the new user is a cusomer, externalId should be provided"/></if>
+            <if condition="roleTypeId == 'Employee' &amp;&amp; !functionDescription">
+                <return error="true" message="If the new user is a employee, functionDescription should be provided"/></if>
             <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="compOut"/>
             <if condition="roleTypeId == 'Employee'">
                 <set field="newPassword" value="justTemp99!"/>
@@ -1610,13 +1614,20 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="productStoreId" from="productStores[0].productStoreId"/></else>
             </if>
             <set field="customerPartyId" value="_NA_"/>
-            <if condition="header.externalId"><!-- try find existing one -->
+            <set field="externalIds" from="header.externalId.trim().split(' ')"/>
+            <if condition="externalIds[0]"><!-- try find existing one -->
                 <entity-find entity-name="CompanyPersonAndLogin"  list="customer">
                     <econdition field-name="fromRoleTypeId" value="Customer"/>
                     <econdition field-name="toPartyId" from="company.partyId"/>
-                    <econdition field-name="externalId"/>
+                    <econdition field-name="externalId" from="externalIds[0]"/>
                 </entity-find>
-                <if condition="customer"><set field="customerPartyId" value="fromPartyId"/></if></if>
+                <if condition="customer"><set field="customerPartyId" from="customer[0].fromPartyId"/>
+                <else>
+                    <service-call name="growerp.mobile.MobileRestServices.create#User" out-map="newCustomer"
+                        in-map="[firstName: 'TBA', lastName: externalIds.size() &gt; 1?externalIds[1]:'TBA', emailAddress: 'notYet@provided.com',
+                                roleTypeId: 'Customer', externalId: externalIds[0]]"/>
+                    <set field="customerPartyId" from="newCustomer.partyId"/>
+                </else></if></if>
             <set field="placedDate" from="ec.user.nowTimestamp"/>
             <service-call name="mantle.order.OrderServices.create#Order" 
                 in-map="context" out-map="context"/>
@@ -1633,13 +1644,10 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="orderId"/></entity-find>
                 <if condition="parts">
                     <set field="orderPartSeqId" from="parts[0].orderPartSeqId"/>
-                    <else>
-                        <service-call name="mantle.order.OrderServices.create#OrderPart"
-                            in-map="context" out-map="context"/></else></if>
-                <set field="orderItemSeqId" from="null"/>
+                <else>
+                    <service-call name="mantle.order.OrderServices.create#OrderPart" in-map="context" out-map="context"/></else></if>
                 <service-call name="mantle.order.OrderServices.add#OrderProductQuantity"
-                    in-map="[orderId: orderId, orderPartSeqId: orderPartSeqId, productId: item.productId,
-                                    quantity: item.quantity]" out-map="itemcreate"/>
+                    in-map="[context + [productId: item.productId, quantity: item.quantity]]" out-map="itemcreate"/>
             </iterate>
             <!-- keep record of where the customer with quests where seated and what was ordered -->
             <service-call name="create#AccommodationSpotParty"

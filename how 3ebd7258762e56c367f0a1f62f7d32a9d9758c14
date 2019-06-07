@@ -1,0 +1,59 @@
+[33mcommit 3ebd7258762e56c367f0a1f62f7d32a9d9758c14[m
+Author: Supatthra Nawicha <tukkata@antwebsystems.com>
+Date:   Wed Jun 5 13:53:55 2019 +0700
+
+    Adjusted the README file and steps to start.
+
+[33mcommit 0861f6e25eca6ed261c314977818227c938a363c[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Wed Jun 5 09:06:48 2019 +0700
+
+    improved reporting, changed images directory, need external docker dir
+
+[33mcommit 912cf6b9c0b69a6f5893d9c92b176275608df776[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Fri May 31 11:39:51 2019 +0700
+
+    fix script in README
+
+[33mcommit 6e0030b6ae914417ae83ed9af0780cc56ca4ce99[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Fri May 31 10:45:11 2019 +0700
+
+    disabled moquisession token checking, see patch in README file
+
+[33mcommit dce036b765c56703f59cfe1ea8c0054f79f5c176[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Thu May 30 13:17:05 2019 +0700
+
+    readme update
+
+[33mcommit e8f163320c6c8a86a3d5db4d183d5cc106c966f5[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Thu May 30 12:46:26 2019 +0700
+
+    updated README
+
+[33mcommit 692227c03ae45c9f93df4c3fcc0194b3f0963549[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Thu May 30 12:23:02 2019 +0700
+
+    fixed README file
+
+[33mcommit 9a02a9c25cd19b25074a9de9d5c9b6a5cfa4a0b7[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Thu May 30 12:13:41 2019 +0700
+
+    services in wrong location
+
+[33mcommit 77aadbf7649d2a32cfe041250368676318655526[m
+Author: Hans Bakker <admin@antwebsystems.com>
+Date:   Thu May 30 07:21:02 2019 +0700
+
+    initial load
+
+[33mcommit 2a7ecda8f3650eccb5538ebb42416384b671cfe6[m
+Author: Admin at Antwebsystems.com <admin@antwebsystems.com>
+Date:   Wed May 29 10:23:59 2019 +0000
+
+    Initial empty repository
