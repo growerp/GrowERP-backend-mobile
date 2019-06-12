@@ -155,17 +155,4 @@
     <resource name="DeleteRequest">
         <method type="post"><service name="growerp.mobile.MobileRestServices.delete#Request"/></method></resource>
     
-    <!-- WikiContent Information for each store -->
-    <resource name="storecontents" require-authentication="anonymous-view">
-        <id name="productStoreId">
-            <resource name="info"><method type="get">
-                <service name="growerp.website.WebSiteRestServices.get#ProductStoreWikiContentInfo"/></method></resource>
-            <resource name="BlogInfo"><method type="get">
-                <service name="growerp.website.WebSiteRestServices.get#BlogInfo"/></method></resource>
-            <resource name="BlogPost"><method type="get">
-                <service name="growerp.website.WebSiteRestServices.get#PublishedBlogPost"/></method></resource>
-            <resource name="PublishedWikiPageText"><method type="get">
-                <service name="growerp.website.WebSiteRestServices.get#PublishedWikiPageText"/></method></resource>
-        </id>
-    </resource>
 </resource>

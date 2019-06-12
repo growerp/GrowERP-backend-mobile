@@ -6,5 +6,9 @@
             <subscreens-item name="MobileAdmin" menu-index="99"
                     location="component://GrowERP-backend-mobile/screen/MobileAdmin.xml"/>
         </screen>
+        <screen location="component://webroot/screen/webroot/apps.xml">
+            <subscreens-item name="MobileAdmin" menu-index="10"
+                 location="component://GrowERP-backend-mobile/screen/MobileAdmin.xml"/>
+        </screen>
     </screen-facade>
 </moqui-conf>
