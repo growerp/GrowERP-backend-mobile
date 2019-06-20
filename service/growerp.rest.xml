@@ -6,6 +6,8 @@
         name="growerp" displayName="GrowERP REST API" version="1.0.0" description="Services for GrowERP mobile apps">
 
    <!-- Login and Register, security -->
+    <resource name="Ping"  require-authentication="anonymous-all">
+        <method type="get"><service name="growerp.mobile.MobileRestServices.check#ApiKey"/></method></resource>
     <resource name="CheckApiKey">
         <method type="get"><service name="growerp.mobile.MobileRestServices.check#ApiKey"/></method></resource>
     <resource name="LoginUser" require-authentication="anonymous-all">
