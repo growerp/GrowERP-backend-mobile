@@ -2,7 +2,7 @@
     <!--GrowERP mobile addons -->
 
     <repository name="antwebsystems"><!-- read only -->
-        <location type="git" url="http://www.antwebsystems.com/gerrit/${component.'@name'}"/>
+        <location type="git" url="ssh://awsadmin@antwebsystems.com:55555/${component.'@name'}"/>
     </repository>
 
     <!-- GrowERP Component -->
