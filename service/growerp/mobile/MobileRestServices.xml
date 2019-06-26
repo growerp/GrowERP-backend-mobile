@@ -183,7 +183,8 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="areasAndSpots" from="[]"/>
             <iterate entry="group" list="groups">
                 <entity-find entity-name="growerp.mobile.location.AccommodationSpot" list="items">
-                    <econdition field-name="accommodationAreaId" from="group.accommodationAreaId"/><date-filter/><order-by field-name="accommodationSpotId:"/></entity-find>
+                    <econdition field-name="accommodationAreaId" from="group.accommodationAreaId"/>
+                        <date-filter/><order-by field-name="accommodationSpotId"/></entity-find>
                     <set field="itemsOut" from="[]"/>
                     <iterate entry="item" list="items">
                         <set field="itemOut" from="[
@@ -405,7 +406,7 @@ along with this software (see the LICENSE.md file). If not, see
         </out-parameters>
         <actions>
             <if condition="roleTypeId == 'Customer' &amp;&amp; !externalId">
-                <return error="true" message="If the new user is a cusomer, externalId should be provided"/></if>
+                <return error="true" message="If the new user is a customer, externalId should be provided"/></if>
             <!-- if condition="roleTypeId == 'Employee' &amp;&amp; !functionDescription">
                 <return error="true" message="If the new user is a employee, functionDescription should be provided"/></if-->
             <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="compOut"/>
@@ -496,21 +497,25 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="delete" noun="User">
         <in-parameters>
-            <parameter name="partyId"/>
+            <parameter name="partyId" required="true"/>
         </in-parameters>
         <actions>
-            <entity-find entity-name="moqui.security.UserAccount" list="userAccounts">
-                <econdition field-name="partyId"/></entity-find><!-- assuming user has a single account -->
-            <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
-                <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                <date-filter/></entity-find>
-            <entity-find entity-name="moqui.security.UserGroupAndMember" list="thisUsers">
-                <econdition field-name="userId" from="userAccounts[0].userId"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                <date-filter/></entity-find>
-            <if condition="admins.size() == 1 &amp;&amp; thisUsers[0].userGroupId == 'GROWERP_M_ADMIN'">
-                <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
+            <entity-find-one value-field="employee" entity-name="mantle.party.PartyRole">
+                <field-map field-name="partyId"/><field-map field-name="roleTypeId" value="Employee"/></entity-find-one>
+            <if condition="employee">
+                <entity-find entity-name="moqui.security.UserAccount" list="userAccounts">
+                    <econdition field-name="partyId"/></entity-find><!-- assuming user has a single account -->
+                <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
+                    <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
+                    <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
+                    <date-filter/></entity-find>
+                <entity-find entity-name="moqui.security.UserGroupAndMember" list="thisUsers">
+                    <econdition field-name="userId" from="userAccounts[0].userId"/>
+                    <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
+                    <date-filter/></entity-find>
+                <if condition="admins.size() == 1 &amp;&amp; thisUsers[0].userGroupId == 'GROWERP_M_ADMIN'">
+                    <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if></if>
+
             <service-call name="update#mantle.party.Party" in-map="[partyId: partyId, disabled: 'Y']"/>
         </actions>
     </service>
@@ -549,7 +554,6 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
                 <date-filter/>
                 <econdition field-name="fromPartyId"/>
-                <econdition field-name="fromRoleTypeId" value="Employee"/>
                 <econdition field-name="toRoleTypeId" value="OrgInternal"/>
                 <select-field field-name="toPartyId"/>
             </entity-find>
