@@ -1636,6 +1636,59 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
+    <service verb="get" noun="Order">
+        <description>
+            Get order information by part/preparationAreaId, only when billed show all items
+        </description>
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
+        </in-parameters>
+        <out-parameters><parameter name="order" type="List"/></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find entity-name="growerp.mobile.location.OrderHeaderPartPrepAndItems" list="items">
+                <econdition field-name="vendorPartyId" from="ownerPartyId"/>
+                <econdition field-name="orderId"/>
+                <order-by field-name="orderItemSeqId"/></entity-find>
+                <set field="itemsOut" from="[]"/>
+                <set field="totalQuantity" value="0" type="Integer"/>
+                <set field="totalAmount" value="0" type="BigDecimal"/>
+                <iterate entry="item" list="items">
+                    <set field="itemOut" from="[
+                            orderItemSeqId: item.orderItemSeqId,
+                            productId: item.productId,
+                            itemDescription: item.itemDescription,
+                            price: item.unitAmount,
+                            quantity: item.quantity]"/>
+                    <set field="totalQuantity" from="totalQuantity + item.quantity"/>
+                    <set field="totalAmount" from="totalAmount + (item.quantity * item.unitAmount)"/>
+                    <script>itemsOut.add(itemOut)</script>
+                </iterate>
+                <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
+                        <econdition field-name="orderId"/></entity-find>
+                <entity-find-one entity-name="mantle.party.Person" value-field="person">
+                        <field-map field-name="partyId" from="items[0].customerPartyId"/></entity-find-one>
+                <set field="order" from="[
+                        orderId: items[0].orderId,
+                        preparationAreaId: items[0].preparationAreaId,
+                        orderPartSeqId: items[0].orderPartSeqId,
+                        prepDescription: items[0].prepDescription,
+                        customerPartyId: items[0].customerPartyId,
+                        firstName: person.firstName,
+                        lastName: person.lastName,
+                        accommodationAreaId: spotParty[0].accommodationAreaId,
+                        description: spotParty[0].description,
+                        accommodationSpotId: spotParty[0].accommodationSpotId,
+                        spotNumber: spotParty[0].spotNumber,
+                        nbrOfGuests: spotParty[0].nbrOfGuests,
+                        totalQuantity: totalQuantity,
+                        totalAmount: totalAmount,
+                        currency: items[0].currencyUomId,
+                        nbrOfItems: itemsOut.size(),
+                        items: itemsOut]"/>
+        </actions>
+    </service>
+
     <service verb="create" noun="SalesOrder">
         <description> Create a sales orders for the users company</description>
         <in-parameters><parameter name="orderHeader" required="true"/><parameter name="orderItems"  required="true" /></in-parameters>

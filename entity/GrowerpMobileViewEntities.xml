@@ -145,6 +145,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="orderId" entity-alias="ORHD"/>
         <alias name="placedDate" entity-alias="ORHD"/>
         <alias name="grandTotal" entity-alias="ORHD"/>
+        <alias name="currencyUomId" entity-alias="ORHD"/>
         <alias name="orderStatusId" entity-alias="ORHD" field="statusId"/>
         <alias name="vendorPartyId" entity-alias="PART"/>
         <alias name="customerPartyId" entity-alias="PART"/>
