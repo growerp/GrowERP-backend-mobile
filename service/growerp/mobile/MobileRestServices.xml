@@ -1552,7 +1552,7 @@ along with this software (see the LICENSE.md file). If not, see
             <else>
                 <set field="orderStatusId" from="statusId"/></else></if>
 
-            <entity-find entity-name="growerp.mobile.location.OrderHeaderPartPrepAndItems" list="ordersPartsItems" limit="50">
+            <entity-find entity-name="growerp.mobile.order.OrderHeaderPartPrepAndItems" list="ordersPartsItems" limit="50">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                 <econdition field-name="orderId" ignore-if-empty="true"/>
                 <econdition field-name="partStatusId" from="partStatusId" ignore-if-empty="true"/>
@@ -1646,7 +1646,7 @@ along with this software (see the LICENSE.md file). If not, see
         <out-parameters><parameter name="order" type="List"/></out-parameters>
         <actions>
             <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <entity-find entity-name="growerp.mobile.location.OrderHeaderPartPrepAndItems" list="items">
+            <entity-find entity-name="growerp.mobile.order.OrderHeaderPartPrepAndItems" list="items">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                 <econdition field-name="orderId"/>
                 <order-by field-name="orderItemSeqId"/></entity-find>
@@ -1709,7 +1709,7 @@ along with this software (see the LICENSE.md file). If not, see
             <else>
                 <set field="productStoreId" from="productStores[0].productStoreId"/></else>
             </if>
-            <if condition="header.orderId">
+            <if condition="header.orderId"><!-- look for existing order -->
                 <entity-find entity-name="mantle.order.OrderPart" list="orderParts"><!-- get last partNumber -->
                     <econdition field-name="orderId" from="header.orderId"/>
                     <select-field field-name="orderPartSeqId"/>
@@ -1736,7 +1736,7 @@ along with this software (see the LICENSE.md file). If not, see
                             in-map="[firstName: 'TBA', lastName: externalIds.size() &gt; 1?externalIds[1]:'TBA', emailAddress: 'notYet@provided.com',
                                 roleTypeId: 'Customer', externalId: externalIds[0]]"/>
                         <set field="customerPartyId" from="newCustomer.partyId"/></else>
-                </if></if>
+                </if></if> 
                 <set field="placedDate" from="ec.user.nowTimestamp"/>
                 <service-call name="mantle.order.OrderServices.create#Order" 
                     in-map="context" out-map="context"/>
@@ -1763,7 +1763,11 @@ along with this software (see the LICENSE.md file). If not, see
                 <if condition="parts">
                     <set field="orderPartSeqId" from="parts[0].orderPartSeqId"/>
                 <else>
-                    <service-call name="mantle.order.OrderServices.create#OrderPart" in-map="context" out-map="context"/></else></if>
+                    <service-call name="mantle.order.OrderServices.create#OrderPart" in-map="context" out-map="context"/>
+                    <!-- taking parameters from context does not work -->
+                    <service-call name="create#mantle.order.OrderPartParty"
+                        in-map="[orderId: orderId, orderPartSeqId: orderPartSeqId,
+                            partyId: ec.user.userAccount.partyId, roleTypeId: 'OrderTakeMore']"/></else></if>
                 <service-call name="mantle.order.OrderServices.add#OrderProductQuantity"
                     in-map="[context + [productId: item.productId, quantity: item.quantity]]" out-map="itemcreate"/>
             </iterate>
@@ -1776,10 +1780,17 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="orderPartSeqId"/>
             <parameter name="statusId" required="true"/></in-parameters>
         <actions>
-            <if condition="statusId == &quot;prep&quot;"><set field="statusId" value="OrderOpen"/></if>
-            <if condition="statusId == &quot;serv&quot;"><set field="statusId" value="OrderPlaced"/></if>
-            <if condition="statusId == &quot;bill&quot;"><set field="statusId" value="OrderApproved"/></if>
-            <if condition="statusId == &quot;completed&quot;"><set field="statusId" value="OrderCompleted"/></if>
+            <if condition="statusId == &quot;prep&quot;">
+                <set field="statusId" value="OrderOpen"/></if>
+            <if condition="statusId == &quot;serv&quot;">
+                <set field="statusId" value="OrderPlaced"/>
+                <set field="roleTypeId" value="OrderPrepare"/></if>
+            <if condition="statusId == &quot;bill&quot;">
+                <set field="statusId" value="OrderApproved"/>
+                <set field="roleTypeId" value="OrderServe"/></if>
+            <if condition="statusId == &quot;completed&quot;">
+                <set field="statusId" value="OrderCompleted"/>
+                <set field="roleTypeId" value="Cashier"/></if>
             <if condition="statusId == &quot;cancelled&quot;"><set field="statusId" value="OrderCancelled"/></if>
             <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
             <if condition="!orderPartSeqId &amp;&amp; statusId == 'OrderOpen'"><!-- parts where added so set back to open -->
@@ -1789,12 +1800,16 @@ along with this software (see the LICENSE.md file). If not, see
                 <entity-update value-field="orderHeader"/>
                 <return/></if>
             <if condition="!orderPartSeqId &amp;&amp; statusId == 'OrderCompleted'"><!-- set the whole order to completed -->
+                <service-call name="mantle.party.PartyServices.ensure#PartyRole" in-map="[context + [partyId: ec.user.userAccount.partyId]]"/>
                 <entity-find entity-name="mantle.order.OrderPart" list="orderParts" for-update="true">
                     <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                     <econdition field-name="orderId"/></entity-find>
                 <iterate entry="orderPart" list="orderParts">
                     <set field="orderPart.statusId" from="statusId"/>
-                    <entity-update value-field="orderPart"/></iterate>
+                    <entity-update value-field="orderPart"/>
+                    <service-call name="create#mantle.order.OrderPartParty"
+                        in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
+                            partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/></iterate>
                 <entity-find-one value-field="orderHeader" entity-name="mantle.order.OrderHeader" for-update="true">
                     <field-map field-name="orderId"/><field-map field-name="vendorPartyId" from="ownerPartyId"/>
                 </entity-find-one>
@@ -1808,9 +1823,14 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="orderPart">
                 <set field="orderPart.statusId" from="statusId"/>
                 <entity-update value-field="orderPart"/>
+                <service-call name="mantle.party.PartyServices.ensure#PartyRole" 
+                    in-map="[context + [partyId: ec.user.userAccount.partyId]]"/>
+                <service-call name="create#mantle.order.OrderPartParty"
+                    in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
+                        partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/>
             <else>
                 <return error="true" message="cannot find orderpart order/prepId: ${orderId}/${orderPartSeqId} "/></else></if>
-            <!-- check if all parts have new status, update statusId at order level -->
+            <!-- check if all parts have new status, update statusId at orderheader level -->
             <entity-find list="parts" entity-name="OrderPart">
                 <econdition field-name="orderId"/>
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/></entity-find>

@@ -22,5 +22,13 @@
         "description": "In the help function you can enter in the second tab, your own questions which will be answered within 24 hours by the system support team.",
         "requestTypeEnumId": "RqtFAQ",
         "statusId": "ReqCompleted"
+    },
+    {
+        "_entity": "mantle.request.Request",
+        "requestId": "GROWERP-HELP-004",
+        "requestName": "4 Using a receipt printer",
+        "description": "<p>The system is prepared to print receipts in the order bill option. In order to be able to print you need a receipt printer. We tested a relatively cheap printer of about $90 : HOIN HOP-HL80 Aliexpress sell them here: https://www.aliexpress.com/item/32951549891.html?spm=a2g0s.9042311.0.0.e62b4c4dTfZsvP This printer can do network/wifi and USB we Advice to use a normal Ethernet cable and connect it to your router. if you installed the printer you need to know its ip address in the form of 192.168.X.XX.</p><p>You can find it by making your printer do a selftest:<br />1. switch power off.<br />2. push the feed button and keep it pressed until about 3 seconds after you switched on the power at the seem time you keep the feed button pressed.<br />3. on the selftest print you can find the IP address.</p><p>Now go to the play or app store and search for &#39;esc pos&#39; without the quotes, You will see several printer drivers. We found that RAWBT is working fine. In this or another app enter the IP number and try to print again within GrowERP-restaurant.</p><p>I should now be possible to select the installed driver and the system should work.</p>",
+        "requestTypeEnumId": "RqtFAQ",
+        "statusId": "ReqCompleted"
     }
 ]

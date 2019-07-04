@@ -95,7 +95,7 @@ along with this software (see the LICENSE.md file). If not, see
          <alias name="preparationAreaId" entity-alias="PA"/>
          <alias name="description" entity-alias="PA"/>
     </view-entity>
-    <view-entity entity-name="OrderHeaderItemAccommodationParty" package="growerp.mobile.location">
+    <view-entity entity-name="OrderHeaderItemAccommodationParty" package="growerp.mobile.order">
         <member-entity entity-alias="ORHD" entity-name="mantle.order.OrderHeader"/>
         <member-entity entity-alias="ORPART" entity-name="mantle.order.OrderPart" join-from-alias="ORHD">
             <key-map field-name="orderId"/></member-entity>
@@ -134,7 +134,39 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="PERSON" name="firstName"/>
         <alias entity-alias="PERSON" name="lastName"/>
     </view-entity>
-    <view-entity entity-name="OrderHeaderPartPrepAndItems" package="growerp.mobile.location">
+    <view-entity entity-name="OrderActivities" package="growerp.mobile.order">
+        <member-entity entity-alias="ORHD" entity-name="mantle.order.OrderHeader"/>
+        <member-entity entity-alias="PERSENTER" entity-name="mantle.party.Person" join-from-alias="ORHD" join-optional="true">
+            <key-map field-name="enteredByPartyId" related="partyId"/></member-entity>
+        <member-entity entity-alias="ORPART" entity-name="mantle.order.OrderPart" join-from-alias="ORHD">
+            <key-map field-name="orderId"/></member-entity>
+        <member-entity entity-alias="PREP" entity-name="growerp.mobile.location.PreparationArea" join-from-alias="ORPART">
+            <key-map field-name="preparationAreaId"/></member-entity>
+        <member-entity entity-alias="ORPARTPARTY" entity-name="mantle.order.OrderPartParty" join-from-alias="ORPART">
+            <key-map field-name="orderId"/><key-map field-name="orderPartSeqId"/></member-entity>
+        <member-entity entity-alias="PERSROLE" entity-name="mantle.party.Person" join-from-alias="ORPARTPARTY" join-optional="true">
+            <key-map field-name="partyId"/></member-entity>
+        <member-entity entity-alias="ORIT" entity-name="mantle.order.OrderItem" join-from-alias="ORPART">
+            <key-map field-name="orderId"/><key-map field-name="orderPartSeqId"/></member-entity>
+        <alias entity-alias="ORHD" name="orderId"/>
+        <alias entity-alias="ORHD" name="placedDate"/>
+        <alias entity-alias="ORHD" name="grandTotal"/>
+        <alias entity-alias="ORHD" name="statusId"/>
+        <alias entity-alias="PERSENTER" name="enterFirstName" field="firstName"/>
+        <alias entity-alias="PERSENTER" name="enterLastName" field="lastName"/>
+        <alias entity-alias="ORPART" name="vendorPartyId"/>
+        <alias entity-alias="PREP" name="preparationAreaId"/>
+        <alias entity-alias="PREP" name="prepDescription" field="description"/>
+        <alias entity-alias="ORPARTPARTY" name="doneDate" field="lastUpdatedStamp"/>
+        <alias entity-alias="ORPARTPARTY" name="roleTypeId"/>
+        <alias entity-alias="PERSROLE" name="firstName"/>
+        <alias entity-alias="PERSROLE" name="lastName"/>
+        <alias entity-alias="ORIT" name="orderItemSeqId"/>
+        <alias entity-alias="ORIT" name="itemDescription"/>
+        <alias entity-alias="ORIT" name="quantity"/>
+        <alias entity-alias="ORIT" name="unitAmount"/>
+    </view-entity>
+    <view-entity entity-name="OrderHeaderPartPrepAndItems" package="growerp.mobile.order">
         <member-entity entity-alias="ORHD" entity-name="mantle.order.OrderHeader"/>
         <member-entity entity-alias="PART" entity-name="mantle.order.OrderPart" join-from-alias="ORHD">
             <key-map field-name="orderId"/></member-entity>
@@ -144,6 +176,7 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="orderId"/><key-map field-name="orderPartSeqId"/></member-entity>
         <alias name="orderId" entity-alias="ORHD"/>
         <alias name="placedDate" entity-alias="ORHD"/>
+        <alias name="enteredByPartyId" entity-alias="ORHD"/>
         <alias name="grandTotal" entity-alias="ORHD"/>
         <alias name="currencyUomId" entity-alias="ORHD"/>
         <alias name="orderStatusId" entity-alias="ORHD" field="statusId"/>
