@@ -52,5 +52,10 @@ along with this software (see the LICENSE.md file). If not, see
     
     <!-- define a top level category for a restaurant menu -->
     <moqui.basic.Enumeration enumId="PctRestaurant" description="Menu for Restauarant" enumTypeId="ProductCategoryType"/>
-}
+
+    <moqui.basic.email.EmailServer emailServerId="SYSTEM"
+            smtpHost="smtp.gmail.com" smtpPort="587" smtpStartTls="Y" smtpSsl="N"
+            storeHost="imap.gmail.com" storePort="993" storeProtocol="imaps" storeFolder=""
+            storeDelete="N" storeMarkSeen="Y" storeSkipSeen="Y" mailUsername="mobile@growerp.com" mailPassword="Z2gqJ%E3"/>
+
 </entity-facade-xml>
