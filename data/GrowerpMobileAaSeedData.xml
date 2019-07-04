@@ -14,6 +14,11 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <entity-facade-xml type="seed">
 
+    <!-- Configuration send email -->
+    <moqui.basic.email.EmailServer emailServerId="SYSTEM"
+            smtpHost="smtp.gmail.com" smtpPort="587" smtpStartTls="Y" smtpSsl="N"
+            storeHost="imap.gmail.com" storePort="993" storeProtocol="imaps" storeFolder=""
+            storeDelete="N" storeMarkSeen="Y" storeSkipSeen="Y" mailUsername="mobile@growerp.com" mailPassword="s#m7XyP?"/>
 
      <!-- allocate parties to mobile application -->
     <moqui.basic.Enumeration description="Mobile App user" enumId="PcltMobileApp" enumTypeId="PartyClassificationType"/>
