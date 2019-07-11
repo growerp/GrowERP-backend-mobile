@@ -124,10 +124,12 @@
         <method type="post"><service name="growerp.mobile.MobileRestServices.create#SalesOrder"/></method></resource>
     <resource name="ChangeOrderPartStatus">
         <method type="post"><service name="growerp.mobile.MobileRestServices.change#OrderPartStatus"/></method></resource>
+    <!-- Unused services
     <resource name="GetOrderList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.getOrderList"/></method></resource>
     <resource name="GetOrder">
         <method type="post"><service name="growerp.mobile.MobileRestServices.getOrder"/></method></resource>
+    -->
     <resource name="GetOrdersAndItems">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#OrdersAndItems"/></method></resource>
     <resource name="GetOrdersItemsPartySpot">
