@@ -1185,21 +1185,28 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="parentProductCategoryId" from="rootList[0].productCategoryId"/>
             <else><return error="true" message="Category root not found for company: ${ownerCompanyId}"/></else></if>
             <entity-find entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" list="groups">
+                <date-filter/>
                 <econdition field-name="ownerPartyId"/>
                 <econdition field-name="parentProductCategoryId"/>
                 <econdition field-name="productCategoryId" ignore-if-empty="true"/>
                 <order-by field-name="categoryName"/></entity-find>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
             <set field="categoriesAndProducts" from="[]"/>
             <iterate entry="group" list="groups">
                 <entity-find entity-name="mantle.product.category.ProductCategoryMemberProduct" list="items">
+                    <date-filter/>
                     <econdition field-name="ownerPartyId"/>
-                    <econdition field-name="productCategoryId" from="group.productCategoryId"/></entity-find>
+                    <econdition field-name="productCategoryId" from="group.productCategoryId"/>
+                    <econditions combine="or">
+                        <econdition field-name="salesDiscontinuationDate" operator="is-null"/>
+                        <econdition field-name="salesDiscontinuationDate" operator="greater-equals" from="ec.user.nowTimestamp"/>
+                    </econditions>
+                    </entity-find>
                 <set field="itemsOut" from="[]"/>
                 <iterate entry="item" list="items">
                     <set field="priceTypeEnumId" value='PptCurrent'/>
                     <entity-find entity-name="mantle.product.ProductPrice" list="prices">
-                        <date-filter/><econdition field-name="productId" from="item.productId"/>
+                        <date-filter/>
+                        <econdition field-name="productId" from="item.productId"/>
                         <econdition field-name="priceTypeEnumId" value="PptCurrent"/></entity-find>
                     <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'product', id: item.productId]" out-map="context"/>
