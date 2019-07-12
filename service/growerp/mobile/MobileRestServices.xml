@@ -1800,6 +1800,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <else>
                     <service-call name="mantle.order.OrderServices.create#OrderPart" in-map="context" out-map="context"/>
                     <!-- taking parameters from context does not work -->
+                    <service-call name="mantle.party.PartyServices.ensure#PartyRole" 
+                        in-map="[roleTypeId: 'OrderTakeMore', partyId: ec.user.userAccount.partyId]"/>
                     <service-call name="create#mantle.order.OrderPartParty"
                         in-map="[orderId: orderId, orderPartSeqId: orderPartSeqId,
                             partyId: ec.user.userAccount.partyId, roleTypeId: 'OrderTakeMore']"/></else></if>
@@ -1842,9 +1844,18 @@ along with this software (see the LICENSE.md file). If not, see
                 <iterate entry="orderPart" list="orderParts">
                     <set field="orderPart.statusId" from="statusId"/>
                     <entity-update value-field="orderPart"/>
-                    <service-call name="create#mantle.order.OrderPartParty"
-                        in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
-                            partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/></iterate>
+                    <entity-find entity-name="mantle.order.OrderPartParty" list="partiesExist">
+                        <econdition field-name="orderId"/><econdition field-name="orderPartSeqId" from="orderPart.orderPartSeqId"/>
+                        <econdition field-name="partyId" from="ec.user.userAccount.partyId"/>
+                        <econdition field-name="roleTypeId"/></entity-find>
+                    <if condition="!partiesExist">
+                        <service-call name="mantle.party.PartyServices.ensure#PartyRole" 
+                            in-map="[roleTypeId: roleTypeId, partyId: ec.user.userAccount.partyId]"/>
+                        <service-call name="create#mantle.order.OrderPartParty"
+                            in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
+                                partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/>
+                    </if>
+                </iterate>
                 <entity-find-one value-field="orderHeader" entity-name="mantle.order.OrderHeader" for-update="true">
                     <field-map field-name="orderId"/><field-map field-name="vendorPartyId" from="ownerPartyId"/>
                 </entity-find-one>
