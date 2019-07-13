@@ -1729,6 +1729,7 @@ along with this software (see the LICENSE.md file). If not, see
             </script>
             <!-- check if productStore exist otherwise create -->
             <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <set field="currencyUomId" from="company.currency"/>
             <entity-find entity-name="mantle.product.store.ProductStore" list="productStores">
                 <econdition field-name="organizationPartyId" from="company.partyId"/></entity-find>
             <if condition="!productStores">
