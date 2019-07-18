@@ -2215,4 +2215,24 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
+    <service verb="get" noun="CurrencyList">
+        <description>
+            Get currency list for registration.
+        </description>
+        <out-parameters>
+            <parameter name="currencyList" type="List"><parameter name="currencyInfo" type="Map"/></parameter>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="moqui.basic.Uom" list="allCurrencyList">
+                <econdition field-name="uomTypeEnumId" value="UT_CURRENCY_MEASURE"/><order-by field-name="description"/>
+            </entity-find>
+            <set field="currencyList" from="[]"/>
+            <iterate entry="currencyCtx" list="allCurrencyList">
+                <set field="currencyInfo" from="[:]"></set>
+                <set field="currencyInfo.uomId" from="currencyCtx.uomId"/>
+                <set field="currencyInfo.description" value="${currencyCtx.description} [${currencyCtx.abbreviation}]"/>
+                <script>currencyList.add(currencyInfo)</script>
+            </iterate>
+        </actions>
+    </service>
 </services>
