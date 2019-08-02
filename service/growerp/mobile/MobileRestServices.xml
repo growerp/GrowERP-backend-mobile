@@ -339,7 +339,7 @@ along with this software (see the LICENSE.md file). If not, see
                 userId: accounts? accounts[0].userId: null,
                 firstName: person.firstName,
                 lastName: person.lastName,
-                username: accounts? accounts[0].username: null,
+                name: accounts? accounts[0].username: null,
                 email: emailAddress,
                 groupDescription: accounts?groups[0].description: null,
                 userGroupId: accounts?groups[0].userGroupId: null,
