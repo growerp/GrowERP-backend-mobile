@@ -16,21 +16,16 @@ our specific component mobile backend.
 
 	$ ./gradlew getComponent -Pcomponent=GrowERP-backend-mobile
 
-4. Apply patch
-
-	$ patch -p1 < runtime/component/GrowERP-backend-mobile/patch.txt
-
-5. Build and Load seed data.
+4. Build and Load seed data.
 
 	$ ./gradlew build
 	$ java -jar moqui.war load types=seed,seed-initial
 	$ java -jar moqui.war
 
-6. Go to the browser for local (URL : http:localhost:8080), it will show the screen to initial create admin user for the GrowERP mobile backend.
+5. Go to the browser for local (URL : http:localhost:8080), it will show the screen to initial create admin user for the GrowERP mobile backend.
 
 
 runtime/mobile should be an external directory and not in the docker instance
-
 
 
 the mobile frontend can be downloaded with:
