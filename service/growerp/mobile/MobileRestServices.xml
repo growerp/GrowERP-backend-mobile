@@ -744,9 +744,9 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="productId">
                 <entity-find entity-name="mantle.product.ProductContent" list="productContents" for-update="true">
                     <econdition field-name="productId"/><econdition field-name="productContentTypeEnumId"/>
-                    <date-filter/></entity-find>
+                    <econdition field-name="thruDate" from="null"/></entity-find>
                 <iterate entry="productContent" list="productContents">
-                    <set field="thruDate" from="ec.user.nowTimestamp"/>
+                    <set field="productContent.thruDate" from="ec.user.nowTimestamp"/>
                     <entity-update value-field="productContent"/>
                 </iterate>
                 <service-call name="create#mantle.product.ProductContent" in-map="context" out-map="context"/>
@@ -754,9 +754,9 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="productCategoryId">
                 <entity-find entity-name="mantle.product.category.ProductCategoryContent" list="productCategoryContents" for-update="true">
                     <econdition field-name="productCategoryId"/><econdition field-name="categoryContentTypeEnumId"/>
-                    <date-filter/></entity-find>
+                    <econdition field-name="thruDate" from="null"/></entity-find>
                 <iterate entry="productCategoryContent" list="productCategoryContents">
-                    <set field="thruDate" from="ec.user.nowTimestamp"/>
+                    <set field="productCategoryContent.thruDate" from="ec.user.nowTimestamp"/>
                     <entity-update value-field="productCategoryContent"/>
                 </iterate>
                 <service-call name="create#mantle.product.category.ProductCategoryContent" in-map="context" out-map="context"/>
@@ -764,9 +764,9 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="accommodationAreaId">
                 <entity-find entity-name="growerp.mobile.location.AccommodationAreaContent" list="areaContents" for-update="true">
                     <econdition field-name="accommodationAreaId"/><econdition field-name="accommodationAreaContentTypeEnumId"/>
-                    <date-filter/></entity-find>
+                    <econdition field-name="thruDate" from="null"/></entity-find>
                 <iterate entry="areaContent" list="areaContents">
-                    <set field="thruDate" from="ec.user.nowTimestamp"/>
+                    <set field="areaContent.thruDate" from="ec.user.nowTimestamp"/>
                     <entity-update value-field="areaContent"/>
                 </iterate>
                 <service-call name="create#growerp.mobile.location.AccommodationAreaContent" in-map="context" out-map="context"/>
@@ -774,9 +774,9 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="preparationAreaId">
                 <entity-find entity-name="growerp.mobile.location.PreparationAreaContent" list="prepContents" for-update="true">
                     <econdition field-name="preparationAreaId"/><econdition field-name="preparationAreaContentTypeEnumId"/>
-                    <date-filter/></entity-find>
+                    <econdition field-name="thruDate" from="null"/></entity-find>
                 <iterate entry="prepContent" list="prepContents">
-                    <set field="thruDate" from="ec.user.nowTimestamp"/>
+                    <set field="prepContent.thruDate" from="ec.user.nowTimestamp"/>
                     <entity-update value-field="prepContent"/>
                 </iterate>
                 <service-call name="create#growerp.mobile.location.PreparationAreaContent" in-map="context" out-map="context"/>
