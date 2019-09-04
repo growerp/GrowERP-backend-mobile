@@ -489,9 +489,15 @@ along with this software (see the LICENSE.md file). If not, see
                         <date-filter/></entity-find>
                     <if condition="admins.size() == 1">
                         <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
-                    <entity-find entity-name="moqui.security.UserGroupAndMember" list="groupMembers" for-update="true">
+                    <set field="growerpMobileGroups" from="[]"/>
+                    <entity-find entity-name="moqui.security.UserGroup" list="mobileGroupMembers">
+                        <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
+                    <iterate entry="mobileGroupMember" list="mobileGroupMembers">
+                        <script>growerpMobileGroups.add(mobileGroupMember.userGroupId)</script>
+                    </iterate>
+                    <entity-find entity-name="moqui.security.UserGroupMember" list="groupMembers" for-update="true">
                         <econdition field-name="userId" from="oldValue.user.userId"/>
-                        <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
+                        <econdition field-name="userGroupId" operator="in" from="growerpMobileGroups"/>
                         <date-filter/></entity-find>
                     <set field="groupMembers[0].thruDate" from="ec.user.nowTimestamp"/>
                     <entity-update value-field="groupMembers[0]"/>
