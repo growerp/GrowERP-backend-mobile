@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domaicrn Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+    <service verb="get" noun="TableAreasAndSpots">
+        <description>
+            Get table data for data entry starting with areas and spots
+        </description>
+        <out-parameters>
+            <parameter name="areasAndSpots" type="List"><parameter name="areasAndSpotInfo" type="Map"/></parameter>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <entity-find entity-name="growerp.mobile.location.AccommodationArea" list="areas">
+                <econdition field-name="ownerPartyId"/><date-filter/><order-by field-name="description"/></entity-find>
+            <set field="areasAndSpots" from="[]"/>
+            <iterate entry="area" list="areas">
+                <entity-find entity-name="growerp.mobile.location.AccommodationSpot" list="items">
+                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/>
+                        <date-filter/><order-by field-name="accommodationSpotId"/></entity-find>
+                    <set field="itemsOut" from="[]"/>
+                    <iterate entry="item" list="items">
+                        <set field="itemOut" from="[
+                            accommodationAreaId: area.accommodationAreaId,
+                            accommodationSpotId: item.accommodationSpotId,
+                            spotNumber: item.spotNumber]"/>
+                        <script>itemsOut.add(itemOut)</script>
+                    </iterate>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'area', id: area.accommodationAreaId]" out-map="context"/>
+                <set field="areaOut" from="[
+                    accommodationAreaId: area.accommodationAreaId,
+                    description: area.description,
+                    image: imageFile? imageFile : '~/assets/images/addImage.png',
+                    spots: itemsOut]"/>
+                <script>areasAndSpots.add(areaOut)</script>
+            </iterate>
+        </actions>
+    </service>
+
+    <service verb="get" noun="PrepAreasAndCategories">
+        <description>Get categories allocated to preparation areas</description>
+        <in-parameters><parameter name="preparationAreaId"></parameter></in-parameters>
+        <out-parameters><parameter name="prepAreasAndCategories" type="List"><parameter name="preparationAreaInfo" type="Map"/></parameter></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <entity-find entity-name="growerp.mobile.location.PreparationArea" list="areas">
+                <econdition field-name="preparationAreaId" ignore-if-empty="true"/>
+                <econdition field-name="ownerPartyId"/><date-filter/>
+                <order-by field-name="description"/></entity-find>
+            <set field="prepAreasAndCategories" from="[]"/>
+            <iterate entry="area" list="areas">
+                <entity-find entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" list="items">
+                    <econdition field-name="preparationAreaId" from="area.preparationAreaId"/>
+                    <econdition field-name="ownerPartyId"/><date-filter/>
+                    <order-by field-name="categoryName"/></entity-find>
+                <set field="itemsOut" from="[]"/>
+                <iterate entry="item" list="items">
+                    <set field="itemOut" from="[
+                        productCategoryId: item.productCategoryId,
+                        categoryName: item.categoryName]"/>
+                    <script>itemsOut.add(itemOut)</script>
+                </iterate>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'prep', id: area.preparationAreaId]" out-map="context"/>
+                <set field="areaOut" from="[
+                    preparationAreaId: area.preparationAreaId,
+                    description: area.description,
+                    image: imageFile? imageFile : '~/assets/images/addImage.png',
+                    categories: itemsOut]"/>
+                <script>prepAreasAndCategories.add(areaOut)</script>
+            </iterate>
+        </actions>
+    </service>
+
+
+
+
+</services>
