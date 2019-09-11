@@ -289,63 +289,6 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
-    <service verb="get" noun="UserList">
-        <description>
-            Get all users of the company they belong to except logged in user when not specifically asked for
-        </description>
-        <in-parameters>
-            <parameter name="partyId"/>
-            <parameter name="full" type="Boolean" default-value="true"/>
-            <parameter name="roleTypeId" default-value="Employee"/>
-        </in-parameters>
-        <out-parameters><parameter name="users" type="List"><parameter name="userInfo" type="Map"/></parameter></out-parameters>
-        <actions>
-            <if condition="partyId == '0'"><!-- get logged in user -->
-                <set field="partyId" from="ec.user.userAccount.partyId"/></if>
-            <set field="users" from="[]"/>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
-            <entity-find entity-name="CompanyPersonAndLogin"  list="userInfos">
-                <econdition field-name="fromRoleTypeId" from="roleTypeId"/>
-                <econdition field-name="toPartyId" from="company.partyId"/>
-                <econdition field-name="fromPartyId" from="partyId" ignore-if-empty="true"/>
-                <order-by field-name="lastName"/><order-by field-name="firstName"/>
-            </entity-find>
-            <iterate entry="userInfo" list="userInfos">
-                <!-- if condition="!partyId &amp;&amp; userInfo.fromPartyId == ec.user.userAccount.partyId"><continue/></if-->
-                <set field="imageFile" value=""/>
-                <if condition="full == true">
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: partyId?'medium':'small', type: 'user', id: userInfo.fromPartyId]" out-map="context"/>
-                    <set field="email" from="userInfo.emailAddress"/>
-                    <if condition="roleTypeId == 'Employee'">
-                        <entity-find entity-name="moqui.security.UserGroupAndMember" list="groupList">
-                            <econdition field-name="userId" from="userInfo.userId"/>
-                            <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/><date-filter/></entity-find></if>
-                    <if condition="!email">
-                        <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                            in-map="[partyId: userInfo.fromPartyId]" out-map="context"/>
-                        <set field="email" from="emailAddress"/></if>
-                    <set field="user" from="[
-                        partyId: userInfo.fromPartyId,
-                        email: email,
-                        username: userInfo.username,
-                        firstName: userInfo.firstName,
-                        lastName: userInfo.lastName,
-                        userId: userInfo.userId? userInfo.userId: null,
-                        userGroupId: userInfo.userId? groupList[0].userGroupId: null,
-                        groupDescription: userInfo.userId? groupList[0].description: null,
-                        externalId: userInfo.externalId,
-                        image: imageFile]"/>
-                <else>
-                    <if condition="roleTypeId == 'Customer'">
-                        <set field="user" from="userInfo.externalId + ' ' + userInfo.firstName + ' ' + userInfo.lastName"/></if>
-                    <if condition="roleTypeId == 'Employee'">
-                        <set field="user" from="[partyId: userInfo.fromPartyId, firstName: userInfo.firstName, lastName: userInfo.lastName]"/></if>
-                </else></if>
-                <script>users.add(user)</script>
-            </iterate>
-        </actions>
-    </service>
 
     <service verb="create" noun="User">
         <description>
@@ -391,6 +334,7 @@ along with this software (see the LICENSE.md file). If not, see
             </if>
         </actions>
     </service>
+    
     <service verb="update" noun="User">
         <description>
             update user information if partyId present, else create
@@ -1213,57 +1157,6 @@ along with this software (see the LICENSE.md file). If not, see
                     productCategoryId: productList[0].productCategoryId,
                     categoryName: productList[0].categoryName,
                     products: products]"/>
-        </actions></service>
-
-    <service verb="create" noun="ProductCategory">
-        <description> Create a category to group products by drinks , salads, deserts etc</description>
-        <in-parameters><parameter name="categoryName" required="true"/>
-            <parameter name="preparationAreaId"/></in-parameters>
-        <out-parameters><parameter name="productCategoryId"/></out-parameters>
-        <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
-                <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
-                <econdition field-name="ownerPartyId"/></entity-find>
-            <if condition="rootList">
-                <set field="rootProductCategoryId" from="rootList[0].productCategoryId"/>
-            <else>
-                <return error="true" message="Root category could not be found for compant: ${ownerPartyId}"/></else></if>
-            <service-call name="create#mantle.product.category.ProductCategory" in-map="context" out-map="context"/>
-            <service-call name="create#mantle.product.category.ProductCategoryRollup"
-                    in-map="[description: description, parentProductCategoryId: rootProductCategoryId,
-                    productCategoryId: productCategoryId]"/>
-        </actions></service>
-
-    <service verb="delete" noun="ProductCategory">
-        <description> delete a category to group products by drinks , salads, deserts etc</description>
-        <in-parameters><parameter name="productCategoryId"/></in-parameters>
-        <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <entity-find-one value-field="productCategory" entity-name="mantle.product.category.ProductCategory">
-                <field-map field-name="productCategoryId"/><field-map field-name="ownerPartyId"/></entity-find-one>
-            <entity-find-count count-field="nbrOfProducts" entity-name="mantle.product.category.ProductCategoryMemberProduct">
-                <econdition field-name="productCategoryId"/>
-                    <econditions combine="or">
-                        <econdition field-name="salesDiscontinuationDate" from="null"/>
-                        <econdition field-name="salesDiscontinuationDate" operator="greater" from="ec.user.nowTimestamp"/>
-                </econditions><date-filter/></entity-find-count>
-            <if condition="nbrOfProducts">
-                <return error="true" message="Cannot delete category, ${nbrOfProducts} products still related to it....!"/></if>
-            <!-- disable category in categoryRollUp entity -->
-            <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
-                <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
-                <econdition field-name="ownerPartyId"/></entity-find>
-             <entity-find entity-name="mantle.product.category.ProductCategoryRollup" list="rollUpList" for-update="true">
-                <econdition field-name="productCategoryId"/>
-                <econdition field-name="parentProductCategoryId" from="rootList[0].productCategoryId"/>
-                <date-filter/>
-            </entity-find>
-            <if condition="rollUpList">
-                <set field="rollUpList[0].thruDate" from="ec.user.nowTimestamp"/>
-                <entity-update value-field="rollUpList[0]"/>
-            <else>
-                <return error="true" message="could not find rollup for category: ${productCategoryId}"/></else></if>
         </actions></service>
 
     <!-- ================================================ORDERS ========================================================== -->

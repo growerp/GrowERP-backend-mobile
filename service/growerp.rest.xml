@@ -41,6 +41,10 @@
     <resource name="UpdateCompany">
         <method type="post"><service name="growerp.mobile.MobileRestServices.update#Company"/></method></resource>
 
+    <!-- parties (will replace the user services below) -->
+    <resource name="GetUsers">
+        <method type="post"><service name="growerp.mobile.MobilePartyServices.get#Users"/></method></resource>
+
     <!--  user -->
     <resource name="GetUserList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#UserList"/></method></resource>
