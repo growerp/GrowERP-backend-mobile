@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
 
-    <view-entity package="growerp.mobile" entity-name="CompanyPersonAndLogin">
+    <view-entity entity-name="CompanyPersonAndLogin" package="growerp.mobile">
         <description>get all people related to a certain companyId = PR => toPartyId</description>
         <member-entity entity-alias="PR" entity-name="PartyRelationship">
             <entity-condition>
@@ -55,7 +55,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="ACCT" name="locale"/>
    </view-entity>
    
-    <view-entity package="growerp.mobile.location" entity-name="AccommodationAreaSpotAndParty">
+    <view-entity entity-name="AccommodationAreaSpotAndParty" package="growerp.mobile.location">
         <description>get all accommodation areas and spots for a certain companyId and area id</description>
         <member-entity entity-name="growerp.mobile.location.AccommodationArea" entity-alias="AREA">
             <entity-condition><date-filter/></entity-condition></member-entity>
@@ -322,7 +322,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="PTYORG" name="orgPartyId" field="partyId"/>
     </view-entity>
 
-    <view-entity package="growerp.mobile.party" entity-name="CompanyPreferenceAndClassification">
+    <view-entity entity-name="CompanyPreferenceAndClassification" package="growerp.mobile.party">
         <member-entity entity-alias="PARTY" entity-name="mantle.party.Party"/>
         <member-entity entity-alias="ORG" entity-name="mantle.party.Organization" join-from-alias="PARTY">
             <key-map field-name="partyId"/></member-entity>
@@ -348,6 +348,9 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-condition><date-filter/></entity-condition></member-entity>
         <member-entity entity-alias="CHILD" entity-name="mantle.product.category.ProductCategory" join-from-alias="ROLLUP">
             <key-map field-name="productCategoryId"/></member-entity>
+        <member-entity entity-alias="PREP" entity-name="growerp.mobile.location.PreparationArea" join-from-alias="CHILD">
+            <key-map field-name="preparationAreaId"/>
+            <entity-condition><date-filter/></entity-condition></member-entity>
         <alias name="parentProductCategoryId" entity-alias="ROLLUP"/>
         <alias name="ownerPartyId" entity-alias="PARENT"/>
         <alias name="fromDate" entity-alias="ROLLUP"/>
@@ -356,6 +359,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="productCategoryId" entity-alias="ROLLUP"/>
         <alias name="categoryName" entity-alias="CHILD"/>
         <alias name="preparationAreaId" entity-alias="CHILD"/>
+        <alias name="description" entity-alias="PREP"/>
     </view-entity>
 
     <view-entity entity-name="SubscriptionAndPartyAndCompany" package="growerp.mobile.Subscription" >

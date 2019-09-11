@@ -97,29 +97,30 @@
     <resource name="MovePreparationAreaCategory">
         <method type="post"><service name="growerp.mobile.MobileRestServices.move#PreparationAreaCategory"/></method></resource>
 
-    <!-- Category/Product and Product store(created by first order)-->
+    <!-- Category/Product and Product store-->
     <resource name="GetCategoriesAndProducts">
-        <method type="get"><service name="growerp.mobile.MobileRestServices.get#CategoriesAndProducts"/></method></resource>
+        <method type="get"><service name="growerp.mobile.MobileCatgProdServices.get#CategoriesAndProducts"/></method></resource>
+    <resource name="CreateProductCategory">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.create#ProductCategory"/></method></resource>
+    <resource name="UpdateProductCategory">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.update#ProductCategory"/></method></resource>
+    <resource name="DeleteProductCategory">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.delete#ProductCategory"/></method></resource>
+    <resource name="CreateProduct">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.create#Product"/></method></resource>
+    <resource name="UpdateProduct">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.update#Product"/></method></resource>
+    <resource name="DeleteProduct">
+        <method type="post"><service name="growerp.mobile.MobileCatgProdServices.delete#Product"/></method></resource>
+
     <resource name="GetProduct">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#Product"/></method></resource>
     <resource name="GetProductList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#ProductList"/></method></resource>
-    <resource name="CreateProduct">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.create#Product"/></method></resource>
-    <resource name="UpdateProduct">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.update#Product"/></method></resource>
-   <resource name="DeleteProduct">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.delete#Product"/></method></resource>
     <resource name="GetProductCategoryList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#ProductCategoryList"/></method></resource>
     <resource name="GetProductCategory">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#ProductCategory"/></method></resource>
-    <resource name="CreateProductCategory">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.create#ProductCategory"/></method></resource>
-    <resource name="UpdateProductCategory">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.update#ProductCategory"/></method></resource>
-    <resource name="DeleteProductCategory">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.delete#ProductCategory"/></method></resource>
 
     <!-- order -->
     <resource name="CreateSalesOrder">

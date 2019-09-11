@@ -68,9 +68,12 @@ along with this software (see the LICENSE.md file). If not, see
                     <order-by field-name="categoryName"/></entity-find>
                 <set field="itemsOut" from="[]"/>
                 <iterate entry="item" list="items">
+                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'category', id: item.productCategoryId]" out-map="context"/>
                     <set field="itemOut" from="[
                         productCategoryId: item.productCategoryId,
-                        categoryName: item.categoryName]"/>
+                        categoryName: item.categoryName,
+                        image: imageFile? imageFile : '~/assets/images/addImage.png']"/>
                     <script>itemsOut.add(itemOut)</script>
                 </iterate>
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
