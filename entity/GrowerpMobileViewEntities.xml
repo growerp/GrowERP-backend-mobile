@@ -78,6 +78,25 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="SPOTPARTY" name="orderId"/>
         <alias entity-alias="SPOTPARTY" name="nbrOfGuests"/>
     </view-entity>
+    <view-entity entity-name="AccommodationAreasAndSpots" package="growerp.mobile.location">
+        <description>get all accommodation areas and spots for a certain companyId and area id</description>
+        <member-entity entity-name="growerp.mobile.location.AccommodationArea" entity-alias="AREA">
+            <entity-condition><date-filter/></entity-condition></member-entity>
+        <member-entity entity-name="growerp.mobile.location.AccommodationSpot" entity-alias="SPOT" join-from-alias="AREA">
+            <key-map field-name="accommodationAreaId"/>
+            <entity-condition><date-filter from-field-name="spotFromDate" thru-field-name="spotThruDate"/></entity-condition>
+        </member-entity>
+        <alias entity-alias="AREA" name="accommodationAreaId"/>
+        <alias entity-alias="AREA" name="ownerPartyId"/>
+        <alias entity-alias="AREA" name="description"/>
+        <alias entity-alias="AREA" name="fromDate"/>
+        <alias entity-alias="AREA" name="thruDate"/>
+        <alias entity-alias="SPOT" name="accommodationSpotId"/>
+        <alias entity-alias="SPOT" name="spotNumber"/>
+        <alias entity-alias="SPOT" name="nbrOfSeats"/>
+        <alias entity-alias="SPOT" name="spotFromDate" field="fromDate"/>
+        <alias entity-alias="SPOT" name="spotThruDate" field="thruDate"/>
+    </view-entity>
     <view-entity entity-name="ProductAndPreparationArea" package="growerp.mobile.product" >
         <member-entity entity-alias="PRODMEM" entity-name="mantle.product.category.ProductCategoryMember">
             <entity-condition><date-filter/></entity-condition></member-entity>

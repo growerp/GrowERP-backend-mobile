@@ -14,42 +14,233 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
-    <service verb="get" noun="TableAreasAndSpots">
-        <description>
-            Get table data for data entry starting with areas and spots
-        </description>
+    <!-- =========Accommodation area ========== -->
+    <service verb="get" noun="AccommodationAreas">
+        <description>  Get table areas  </description>
         <out-parameters>
-            <parameter name="areasAndSpots" type="List"><parameter name="areasAndSpotInfo" type="Map"/></parameter>
+            <parameter name="accommodationAreas" type="List"/>
         </out-parameters>
         <actions>
             <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="growerp.mobile.location.AccommodationArea" list="areas">
                 <econdition field-name="ownerPartyId"/><date-filter/><order-by field-name="description"/></entity-find>
-            <set field="areasAndSpots" from="[]"/>
+            <set field="accommodationAreas" from="[]"/>
             <iterate entry="area" list="areas">
-                <entity-find entity-name="growerp.mobile.location.AccommodationSpot" list="items">
-                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/>
-                        <date-filter/><order-by field-name="accommodationSpotId"/></entity-find>
-                    <set field="itemsOut" from="[]"/>
-                    <iterate entry="item" list="items">
-                        <set field="itemOut" from="[
-                            accommodationAreaId: area.accommodationAreaId,
-                            accommodationSpotId: item.accommodationSpotId,
-                            spotNumber: item.spotNumber]"/>
-                        <script>itemsOut.add(itemOut)</script>
-                    </iterate>
+                <entity-find-count entity-name="growerp.mobile.location.AccommodationSpot" count-field="nbrOfSpots">
+                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/></entity-find-count>
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'area', id: area.accommodationAreaId]" out-map="context"/>
                 <set field="areaOut" from="[
                     accommodationAreaId: area.accommodationAreaId,
                     description: area.description,
                     image: imageFile? imageFile : '~/assets/images/addImage.png',
-                    spots: itemsOut]"/>
-                <script>areasAndSpots.add(areaOut)</script>
+                    nbrOfSpots: nbrOfSpots
+                    ]"/>
+                <script>accommodationAreas.add(areaOut)</script>
             </iterate>
+            <log message="=======accomdationareas(${accommodationAreas.size()}) retieved"/>
+        </actions>
+    </service>
+    <service verb="create" noun="AccommodationArea">
+        <description>Add a accommodation area and optionally add spots and seats to it.</description>
+        <in-parameters>
+            <parameter name="description"/>
+            <parameter name="nbrOfSpots"/>
+            <parameter name="nbrOfSeats"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="accommodationAreaId"/>
+            <parameter name="accommodationSpots"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <set field="fromDate" from="ec.user.nowTimestamp"/>
+            <service-call name="create#growerp.mobile.location.AccommodationArea" in-map="context"  out-map="context"/>
+            <if condition="!nbrOfSeats"><set field="nbrOfSeats" value="4"/></if>
+            <if condition="nbrOfSpots">
+                <if condition="nbrOfSpots.toInteger() > 100"><set field="nbrOfSpots" value="100"/></if>
+                <set field="spotNumber" value="0"/>
+                <script>
+                    int max = nbrOfSpots.toInteger()
+                    for (int count = 1; count &lt;= max; count++) {
+                        context.spotNumber = count;
+                        def call_service_result = ec.service.sync().name("create#growerp.mobile.location.AccommodationSpot")
+                            .parameters(context).call() }</script>
+            </if>
+            <entity-find entity-name="growerp.mobile.location.AccommodationSpot" list="spots">
+                <econdition field-name="accommodationAreaId"/>
+            </entity-find>
+            <set field="accommodationSpots" from="[]"/>
+            <iterate entry="spot" list="spots">
+                <set field="spotOut" from="[
+                    accommodationSpotId: spot.accommodationSpotId,
+                    spotNumber: spot.spotNumber,
+                    accommodationAreaId: accommodationAreaId,
+                ]"/>
+                <script>accommodationSpots.add(spotOut)</script>
+            </iterate>
+    </actions></service>
+    <service verb="update" noun="AccommodationArea">
+        <description>Update a single area</description>
+        <in-parameters><parameter name="accommodationAreaId" required="true"/>
+            <parameter name="description"/></in-parameters>
+        <out-parameters><parameter name="accommodationArea" type="Map"/></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea" for-update="true">
+                <field-map field-name="ownerPartyId"/><field-map field-name="accommodationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
+            <set field="accommodationArea.description" from="description"/>
+            <entity-update value-field="accommodationArea"/></actions></service>
+    <service verb="delete" noun="AccommodationArea">
+        <description>delete (inactivate) an area</description>
+        <in-parameters><parameter name="accommodationAreaId" required="true"/></in-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea" for-update="true">
+                <field-map field-name="ownerPartyId"/><field-map field-name="accommodationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
+            <set field="accommodationArea.thruDate" from="ec.user.nowTimestamp"/>
+            <entity-update value-field="accommodationArea"/>
+            <entity-find-related relationship-name="AccommodationSpot" list="spots"
+                value-field="accommodationArea"/>
+            <set field="thruDate" from="ec.user.nowTimestamp"/>
+            <iterate entry="spot" list="spots">
+                <set field="spot.thruDate" from="thruDate"/>
+                <entity-update value-field="spot"/>
+            </iterate>
+            </actions></service>
+
+    <!-- accommodation area spot -->
+    <service verb="get" noun="AccommodationSpots">
+        <description>Get all the tables in an area</description>
+        <in-parameters>
+            <parameter name="accommodationAreaId"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="accommodationSpots" type="List"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find entity-name="growerp.mobile.location.AccommodationAreasAndSpots"  list="spots">
+                <econdition field-name="ownerPartyId"/>
+                <econdition field-name="accommodationAreaId" ignore-if-empty="true"/>
+                <date-filter/><order-by field-name="spotNumber"/>
+                </entity-find>
+            <set field="accommodationSpots" from="[]"/>
+            <iterate entry="spot" list="spots">
+                <set field="accommodationSpot" from="[
+                    accommodationSpotId: spot.accommodationSpotId,
+                    spotNumber: spot.spotNumber,
+                    nbrOfSeats: spot.nbrOfSeats,
+                    accommodationAreaId: spot.accommodationAreaId,
+                    description: spot.description
+                    ]"/>
+                <script>accommodationSpots.add(accommodationSpot)</script></iterate>
+            <log message="=======accommodationSpots ${accommodationSpots.size()} retieved"/>
+        </actions>
+    </service>
+                
+    <service verb="create" noun="AccommodationSpot">
+        <description>Add a spot to an accommodation area.</description>
+        <in-parameters>
+            <parameter name="accommodationAreaId"/>
+            <parameter name="spotNumber"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="accommodationSpotId"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <set field="fromDate" from="ec.user.nowTimestamp"/>
+            <service-call name="create#growerp.mobile.location.AccommodationSpot" in-map="context"  out-map="context"/>
+        </actions>
+    </service>
+    
+    <service verb="delete" noun="AccommodationSpot">
+        <description>Add a spot to an accommodation area.</description>
+        <in-parameters><parameter name="accommodationAreaId"/><parameter name="accommodationSpotId"/></in-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one value-field="accommodationArea" entity-name="AccommodationArea">
+                <field-map field-name="accommodationAreaId"/><field-map field-name="ownerPartyId"/></entity-find-one>
+            <if condition="accommodationArea">
+                <set field="thruDate" from="ec.user.nowTimestamp"/>
+                <service-call name="update#growerp.mobile.location.AccommodationSpot" in-map="context"/>
+            </if>
         </actions>
     </service>
 
+    <!-- ==================Preparation Area -->
+    <service verb="get" noun="PreparationAreas">
+        <description>Get all the Preparation areas of the company</description>
+        <out-parameters>
+            <parameter name="preparationAreas" type="List"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find entity-name="growerp.mobile.location.PreparationArea"  list="preps">
+                <econdition field-name="ownerPartyId"/><date-filter/>
+                <order-by field-name="description"/> </entity-find>
+           <set field="preparationAreas" from="[]"/>
+           <iterate entry="prep" list="preps">
+                <set field="imageFile" value=""/>
+                    <entity-find-count entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" count-field="nbrOfCatg">
+                        <econdition field-name="preparationAreaId" from="prep.preparationAreaId"/></entity-find-count>
+                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'prep', id: prep.preparationAreaId]" out-map="context"/>
+                    <set field="preparationArea" from="[
+                        preparationAreaId: prep.preparationAreaId,
+                        description: prep.description,
+                        image: imageFile? imageFile : '~/assets/images/addImage.png',
+                        nbrOfCatg: nbrOfCatg]"/>
+                <script>preparationAreas.add(preparationArea)</script></iterate>
+        </actions>
+    </service>
+
+    <service verb="create" noun="PreparationArea">
+        <description>Add a Preparation area</description>
+        <in-parameters><parameter name="description"/></in-parameters>
+        <out-parameters><parameter name="preparationAreaId" type="Map"/></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <set field="fromDate" from="ec.user.nowTimestamp"/>
+            <service-call name="create#growerp.mobile.location.PreparationArea" in-map="context"  out-map="context"/>
+         </actions>
+    </service>
+
+    <service verb="update" noun="PreparationArea">
+        <description>Update a single preparation area</description>
+        <in-parameters><parameter name="preparationAreaId" required="true"/>
+            <parameter name="description"/></in-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
+                <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
+            <set field="preparationArea.description" from="description"/>
+            <entity-update value-field="preparationArea"/>
+        </actions>
+    </service>
+
+    <service verb="delete" noun="PreparationArea">
+        <description>delete (inactivate) an preparation area</description>
+        <in-parameters><parameter name="preparationAreaId" required="true"/></in-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
+                <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
+            <if condition="!preparationArea"><return error="true" message="Could not find area ${preparationAreaId}"/></if>
+            <!-- check for related categories -->
+            <entity-find entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" list="catgs">
+                <econdition field-name="preparationAreaId"/>
+                <econdition field-name="ownerPartyId"/> <date-filter/></entity-find>
+            <if condition="catgs">
+                <return error="true" message="Preparation area ${description} has depending productCategories, move them first...."/></if>
+            <set field="preparationArea.thruDate" from="ec.user.nowTimestamp"/>
+            <entity-update value-field="preparationArea"/>
+        </actions>
+    </service>
+
+
+    <!-- ============ depreciated =========================-->
     <service verb="get" noun="PrepAreasAndCategories">
         <description>Get categories allocated to preparation areas</description>
         <in-parameters><parameter name="preparationAreaId"></parameter></in-parameters>
@@ -88,6 +279,60 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
+    <service verb="get" noun="AccommodationSpotList">
+        <description>Get all the tables in an area</description>
+        <in-parameters><parameter name="accommodationAreaId"></parameter> </in-parameters>
+        <out-parameters><parameter name="accommodationSpots" type="List"><parameter name="accommodationSpotInfo" type="Map"/></parameter></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <!-- entity-find entity-name="growerp.mobile.location.AccommodationAreaAndSpots"  list="spots">
+                <econdition field-name="ownerPartyId"/><econdition field-name="accommodationAreaId"/><date-filter/></entity-find-->
+            <entity-find entity-name="growerp.mobile.location.AccommodationSpot"  list="spots">
+                <econdition field-name="accommodationAreaId"/><date-filter/></entity-find>
+            <set field="accommodationSpots" from="[]"/>
+            <iterate entry="spot" list="spots">
+                <set field="accommodationSpot" from="[
+                    accommodationSpotId: spot.accommodationSpotId,
+                    spotNumber: spot.spotNumber,
+                    nbrOfSeats: spot.nbrOfSeats,
+                    ]"/>
+                <script>accommodationSpots.add(accommodationSpot)</script></iterate></actions></service>
+
+    <service verb="get" noun="TableAreasAndSpots"><!-- depreciated -->
+        <description>
+            Get table data for data entry starting with areas and spots
+        </description>
+        <out-parameters>
+            <parameter name="areasAndSpots" type="List"><parameter name="areasAndSpotInfo" type="Map"/></parameter>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <entity-find entity-name="growerp.mobile.location.AccommodationArea" list="areas">
+                <econdition field-name="ownerPartyId"/><date-filter/><order-by field-name="description"/></entity-find>
+            <set field="areasAndSpots" from="[]"/>
+            <iterate entry="area" list="areas">
+                <entity-find entity-name="growerp.mobile.location.AccommodationSpot" list="items">
+                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/>
+                        <date-filter/><order-by field-name="accommodationSpotId"/></entity-find>
+                    <set field="itemsOut" from="[]"/>
+                    <iterate entry="item" list="items">
+                        <set field="itemOut" from="[
+                            accommodationAreaId: area.accommodationAreaId,
+                            accommodationSpotId: item.accommodationSpotId,
+                            spotNumber: item.spotNumber]"/>
+                        <script>itemsOut.add(itemOut)</script>
+                    </iterate>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'area', id: area.accommodationAreaId]" out-map="context"/>
+                <set field="areaOut" from="[
+                    accommodationAreaId: area.accommodationAreaId,
+                    description: area.description,
+                    image: imageFile? imageFile : '~/assets/images/addImage.png',
+                    spots: itemsOut]"/>
+                <script>areasAndSpots.add(areaOut)</script>
+            </iterate>
+        </actions>
+    </service>
 
 
 

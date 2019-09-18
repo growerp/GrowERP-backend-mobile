@@ -68,40 +68,51 @@
         <method type="get"><service name="growerp.mobile.MobileRestServices.check#Username"/></method></resource>
 
      <!--  AccommodationSpot -->
-    <resource name="GetAccommodationSpotList">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.get#AccommodationSpotList"/></method></resource>
+    <resource name="GetAccommodationSpots">
+        <method type="get"><service name="growerp.mobile.MobileLocationServices.get#AccommodationSpots"/></method></resource>
     <resource name="CreateAccommodationSpot">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.create#AccommodationSpot"/></method></resource>
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.create#AccommodationSpot"/></method></resource>
     <resource name="DeleteAccommodationSpot">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.delete#AccommodationSpot"/></method></resource>
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.delete#AccommodationSpot"/></method></resource>
+    <!--  depreciated -->
+    <resource name="GetAccommodationSpotList">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.get#AccommodationSpotList"/></method></resource>
 
     <!--  AccommodationArea -->
+    <resource name="GetAccommodationAreas">
+        <method type="get"><service name="growerp.mobile.MobileLocationServices.get#AccommodationAreas"/></method></resource>
+    <resource name="CreateAccommodationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.create#AccommodationArea"/></method></resource>
+    <resource name="UpdateAccommodationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.update#AccommodationArea"/></method></resource>
+    <resource name="DeleteAccommodationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.delete#AccommodationArea"/></method></resource>
+    <!-- depreciated -->
     <resource name="GetAccommodationAreaList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#AccommodationAreaList"/></method></resource>
     <resource name="GetAccommodationArea">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#AccommodationArea"/></method></resource>
-    <resource name="UpdateAccommodationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.update#AccommodationArea"/></method></resource>
-    <resource name="CreateAccommodationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.create#AccommodationArea"/></method></resource>
-    <resource name="DeleteAccommodationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.delete#AccommodationArea"/></method></resource>
 
     <!--  PreparationArea -->
+    <resource name="GetPreparationAreas">
+        <method type="get"><service name="growerp.mobile.MobileLocationServices.get#PreparationAreas"/></method></resource>
+    <resource name="CreatePreparationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.create#PreparationArea"/></method></resource>
+    <resource name="UpdatePreparationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.update#PreparationArea"/></method></resource>
+    <resource name="DeletePreparationArea">
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.delete#PreparationArea"/></method></resource>
+    <!-- depreciated -->
     <resource name="GetPreparationAreaList">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#PreparationAreaList"/></method></resource>
     <resource name="GetPreparationArea">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#PreparationArea"/></method></resource>
-    <resource name="UpdatePreparationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.update#PreparationArea"/></method></resource>
-    <resource name="CreatePreparationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.create#PreparationArea"/></method></resource>
-    <resource name="DeletePreparationArea">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.delete#PreparationArea"/></method></resource>
     <resource name="MovePreparationAreaCategory">
-        <method type="post"><service name="growerp.mobile.MobileRestServices.move#PreparationAreaCategory"/></method></resource>
+        <method type="post"><service name="growerp.mobile.MobileLocationServices.move#PreparationAreaCategory"/></method></resource>
 
     <!-- Category/Product and Product store-->
+    <resource name="GetProductCategories">
+        <method type="get"><service name="growerp.mobile.MobileCatgProdServices.get#ProductCategories"/></method></resource>
     <resource name="GetCategoriesAndProducts">
         <method type="get"><service name="growerp.mobile.MobileCatgProdServices.get#CategoriesAndProducts"/></method></resource>
     <resource name="CreateProductCategory">
