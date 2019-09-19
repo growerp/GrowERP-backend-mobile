@@ -138,7 +138,7 @@ along with this software (see the LICENSE.md file). If not, see
             <log message="=======accommodationSpots ${accommodationSpots.size()} retieved"/>
         </actions>
     </service>
-                
+
     <service verb="create" noun="AccommodationSpot">
         <description>Add a spot to an accommodation area.</description>
         <in-parameters>
@@ -154,7 +154,7 @@ along with this software (see the LICENSE.md file). If not, see
             <service-call name="create#growerp.mobile.location.AccommodationSpot" in-map="context"  out-map="context"/>
         </actions>
     </service>
-    
+
     <service verb="delete" noun="AccommodationSpot">
         <description>Add a spot to an accommodation area.</description>
         <in-parameters><parameter name="accommodationAreaId"/><parameter name="accommodationSpotId"/></in-parameters>

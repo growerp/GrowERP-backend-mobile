@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
-<!-- category realted-->
+<!-- category related-->
     <service verb="get" noun="ProductCategories">
         <description>
             Get table data for data entry product categories and products
@@ -40,12 +40,16 @@ along with this software (see the LICENSE.md file). If not, see
             <iterate entry="group" list="groups">
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
                     in-map="[size: 'small', type: 'category', id: group.productCategoryId]" out-map="context"/>
+                <entity-find-count entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" count-field="nbrOfProducts">
+                    <econdition field-name="ownerPartyId"/>
+                    <econdition field-name="productCategoryId" from="group.productCategoryId"/></entity-find-count>
                 <set field="groupOut" from="[
                     productCategoryId: group.productCategoryId,
-                    name: group.categoryName,
+                    categoryName: group.categoryName,
                     preparationAreaId: group.preparationAreaId,
                     description: group.description,
                     image: imageFile,
+                    nbrOfProducts: nbrOfProducts
                     ]"/>
                 <script>productCategories.add(groupOut)</script>
             </iterate>
@@ -126,6 +130,31 @@ along with this software (see the LICENSE.md file). If not, see
         </actions></service>
 
 <!-- Product related -->
+    <service verb="get" noun="Products">
+        <description> Get all products within a company</description>
+        <out-parameters><parameter name="products"/></out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <set field="ownerPartyId" from="company.partyId"/>
+            <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
+                <econdition field-name="ownerPartyId"/><econdition field-name="productCategoryId" ignore-if-empty="true"/>
+                <order-by field-name="productName"/></entity-find>
+            <set field="products" from="[]"/>
+            <iterate entry="product" list="productList">
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                    in-map="[size: 'small', type: 'product', id: product.productId]" out-map="context"/>
+                <set field="productOut" from="[
+                    productId: product.productId,
+                    name: product.productName,
+                    price: product.price,
+                    productCategoryId: product.productCategoryId,
+                    categoryName: product.categoryName,
+                    image: imageFile? imageFile : '~/assets/images/addImage.png']"/>
+                <script>products.add(productOut)</script>
+            </iterate>
+        </actions>
+    </service>
+
     <service verb="create" noun="Product">
         <description> Create a Product with a price in a category</description>
         <in-parameters>
