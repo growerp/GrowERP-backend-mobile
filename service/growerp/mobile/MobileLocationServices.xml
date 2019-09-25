@@ -27,7 +27,8 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="accommodationAreas" from="[]"/>
             <iterate entry="area" list="areas">
                 <entity-find-count entity-name="growerp.mobile.location.AccommodationSpot" count-field="nbrOfSpots">
-                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/></entity-find-count>
+                    <econdition field-name="accommodationAreaId" from="area.accommodationAreaId"/>
+                    <date-filter/></entity-find-count>
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'area', id: area.accommodationAreaId]" out-map="context"/>
                 <set field="areaOut" from="[
@@ -142,29 +143,46 @@ along with this software (see the LICENSE.md file). If not, see
     <service verb="create" noun="AccommodationSpot">
         <description>Add a spot to an accommodation area.</description>
         <in-parameters>
-            <parameter name="accommodationAreaId"/>
-            <parameter name="spotNumber"/>
+            <parameter name="accommodationAreaId" required="true"/>
+            <parameter name="spotNumber" required="true"/>
+            <parameter name="nbrOfSeats"/>
         </in-parameters>
         <out-parameters>
             <parameter name="accommodationSpotId"/>
         </out-parameters>
         <actions>
             <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <set field="fromDate" from="ec.user.nowTimestamp"/>
-            <service-call name="create#growerp.mobile.location.AccommodationSpot" in-map="context"  out-map="context"/>
+            <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea">
+                <field-map field-name="ownerPartyId"/>
+                <field-map field-name="accommodationAreaId"/></entity-find-one>
+            <if condition="accommodationArea">
+                <service-call name="create#growerp.mobile.location.AccommodationSpot" out-map="context"
+                    in-map="[
+                        accommodationAreaId: accommodationAreaId,
+                        spotNumber: spotNumber,
+                        nbrOfSeats: nbrOfSeats,
+                        fromDate: ec.user.nowTimestamp
+                        ]"/>
+            </if>
         </actions>
     </service>
 
     <service verb="delete" noun="AccommodationSpot">
         <description>Add a spot to an accommodation area.</description>
-        <in-parameters><parameter name="accommodationAreaId"/><parameter name="accommodationSpotId"/></in-parameters>
+        <in-parameters>
+            <parameter name="accommodationSpotId" required="true"/></in-parameters>
         <actions>
             <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <entity-find-one value-field="accommodationArea" entity-name="AccommodationArea">
-                <field-map field-name="accommodationAreaId"/><field-map field-name="ownerPartyId"/></entity-find-one>
-            <if condition="accommodationArea">
-                <set field="thruDate" from="ec.user.nowTimestamp"/>
-                <service-call name="update#growerp.mobile.location.AccommodationSpot" in-map="context"/>
+            <!-- make sure spot is owned by the related company -->
+            <entity-find entity-name="growerp.mobile.location.AccommodationAreasAndSpots"  list="spots">
+                <econdition field-name="ownerPartyId"/>
+                <date-filter/><order-by field-name="spotNumber"/>
+                </entity-find>
+            <if condition="spots">
+                <entity-find-one entity-name="AccommodationSpot" value-field="accommodationSpot">
+                    <field-map field-name="accommodationSpotId"/></entity-find-one>
+                <set field="accommodationSpot.thruDate" from="ec.user.nowTimestamp"/>
+                <service-call name="update#growerp.mobile.location.AccommodationSpot" in-map="accommodationSpot"/>
             </if>
         </actions>
     </service>
