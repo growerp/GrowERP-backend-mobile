@@ -42,7 +42,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="subscriptions" type="List"><parameter name="subscriptionInfo" type="Map"/></parameter>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <entity-find entity-name="growerp.mobile.Subscription.SubscriptionAndPartyAndCompany" list="subs">
                 <econdition field-name="orgPartyId" from="relCompany.ownerPartyId"/><date-filter/>
                 <select-field field-name="externalSubscriptionId"/>

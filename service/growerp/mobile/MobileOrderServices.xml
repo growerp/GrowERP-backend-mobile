@@ -26,7 +26,7 @@ along with this software (see the LICENSE.md file). If not, see
                 Object header = new JsonSlurper().parseText(orderHeader)
             </script>
             <!-- check if productStore exist otherwise create -->
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="currencyUomId" from="company.currency"/>
             <entity-find entity-name="mantle.product.store.ProductStore" list="productStores">
                 <econdition field-name="organizationPartyId" from="company.partyId"/></entity-find>
@@ -128,7 +128,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="statusId" value="OrderCompleted"/>
                 <set field="roleTypeId" value="Cashier"/></if>
             <if condition="statusId == &quot;cancelled&quot;"><set field="statusId" value="OrderCancelled"/></if>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <if condition="!orderPartSeqId &amp;&amp; statusId == 'OrderOpen'"><!-- parts where added so set back to open -->
                 <entity-find-one value-field="orderHeader" entity-name="mantle.order.OrderHeader" for-update="true">
                     <field-map field-name="orderId"/><field-map field-name="vendorPartyId" from="ownerPartyId"/></entity-find-one>
@@ -212,7 +212,7 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="statusId == &quot;bill&quot;"><set field="statusId" value="OrderApproved"/></if>
             <if condition="statusId == &quot;completed&quot;"><set field="statusId" value="OrderCompleted"/></if>
             <if condition="statusId == &quot;cancelled&quot;"><set field="statusId" value="OrderCancelled"/></if>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
 
             <if condition="byPart == 'YES'">
                 <set field="partStatusId" from="statusId"/>
@@ -322,7 +322,7 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="startDate">
                 <set field="tsDate" from="ec.l10n.parseTimestamp(ec.l10n.format(startDate, 'yyyy-MM-dd') + ' 23:59:59.999', 'yyyy-MM-dd HH:mm:ss.SSS')"/>
             </if>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="OrderHeaderItemAccommodationParty" list="items">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                 <econdition field-name="statusId" operator="in" from="status" ignore-if-empty="true"/>

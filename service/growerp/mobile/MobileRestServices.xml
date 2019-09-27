@@ -108,7 +108,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <!-- setup the organization -->
                 <service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo"/>
                 <!-- fill user map -->
-                <service-call name="growerp.mobile.MobileRestServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
+                <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
                 <if condition="login"><script>ec.user.logoutUser()</script></if>
             </if>
         </actions>
@@ -135,7 +135,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <actions>
             <if condition="ec.user.userAccount"><!-- only possible with a loggedin user -->
-                <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
                 <!-- make sure that username is only searched for in the logged in user own company -->
                 <entity-find entity-name="growerp.mobile.CompanyPersonAndLogin" list="accounts">
                     <econdition field-name="username"/><econdition field-name="toPartyId" from="ownerPartyId"/></entity-find>
@@ -182,7 +182,7 @@ along with this software (see the LICENSE.md file). If not, see
                     </if>
                 </if>
             <if condition="!passwordChange">
-                <service-call name="growerp.mobile.MobileRestServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
+                <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
                 <script>ec.user.loginUser(username, password)</script>
                 <set field="apiKey" from="ec.user.getLoginKey()"/>
                 <set field="moquiSessionToken" from="ec.web.sessionToken"/></if>
@@ -193,385 +193,6 @@ along with this software (see the LICENSE.md file). If not, see
         <actions><set field="ok" value="ok"/></actions>
     </service>
 
-    <service verb="find" noun="Customer">
-        <description>
-            Get all or some customers of the company they belong to
-        </description>
-        <in-parameters>
-            <parameter name="externalId"/>
-            <parameter name="lastName"/>
-            <parameter name="full" type="Boolean" default-value="true"/>
-        </in-parameters>
-        <out-parameters><parameter name="customers" type="List"><parameter name="customerInfo" type="Map"/></parameter></out-parameters>
-        <actions>
-            <set field="customers" from="[]"/>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
-            <entity-find entity-name="CompanyPersonAndLogin"  list="userInfos">
-                <econdition field-name="fromRoleTypeId" value="Customer"/>
-                <econdition field-name="toPartyId" from="company.partyId"/>
-                <econdition field-name="externalId" ignore-if-empty="true"/>
-                <econdition field-name="lastName" ignore-if-empty="true"/>
-            </entity-find>
-            <iterate entry="userInfo" list="userInfos">
-                <set field="imageFile" value=""/>
-                <if condition="full">
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: 'small', type: 'user', id: userInfo.partyId]" out-map="context"/>
-                    <set field="customer" from="[
-                        id: userInfo.partyId,
-                        email: userInfo.emailAddress,
-                        username: userInfo.username,
-                        userFullName: userInfo.userfirstName + ' ' + userInfo.lastName,
-                        function: description,
-                        image: imageFile? imageFile : '~/assets/images/addImage.png',
-                        ]"/>
-                <else>
-                    <set field="customer" from="[
-                        partyId: userInfo.partyId,
-                        userFullName: userInfo.userfirstName + ' ' + userInfo.lastName,
-                        externalId; userInfo.externalId
-                    ]"/></else></if>
-                <script>customers.add(customer)</script>
-            </iterate>
-        </actions>
-    </service>
-
-    <service verb="get" noun="UserGroups">
-        <description>task
-            Get possible values of security usergroups
-        </description>
-        <out-parameters><parameter name="userGroups" type="List"><parameter name="userGroupInfo" type="Map"/></parameter></out-parameters>
-        <actions>
-            <entity-find entity-name="moqui.security.UserGroup" list="groupValues">
-                <econdition field-name="userGroupId" operator="not-equals" value="GROWERP_M_SYSTEM"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
-            <set field="userGroups" from="[]"/>
-            <iterate entry="group" list="groupValues">
-                <set field="value" from="[userGroupId: group.userGroupId, description: group.description]"/>
-                <script>userGroups.add(value)</script>
-            </iterate>
-    </actions></service>
-
-    <service verb="get" noun="User"><!-- could be replaced by userlist? -->
-        <in-parameters>
-            <parameter name="partyId" default="ec.user.userAccount.partyId" required="true"/>
-        </in-parameters>
-        <out-parameters>
-            <parameter name="user" type="Map"/>
-            <parameter name="partyId"/>
-        </out-parameters>
-        <actions>
-            <entity-find-one value-field="party" entity-name="mantle.party.Party">
-                <field-map field-name="partyId"/></entity-find-one>
-            <entity-find-one entity-name="mantle.party.Person" value-field="person">
-                <field-map field-name="partyId"/></entity-find-one>
-            <entity-find entity-name="moqui.security.UserAccount" list="accounts">
-                <econdition field-name="partyId"/></entity-find>
-            <if condition="accounts">
-                <entity-find entity-name="moqui.security.UserGroupAndMember" list="groups">
-                    <econdition field-name="userId" from="accounts[0].userId"/><date-filter/></entity-find>
-                <set field="emailAddress" from="accounts[0].emailAddress"/>
-            <else>
-                <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                    in-map="[partyId: partyId]" out-map="context"/></else></if>
-            <set field="user"
-                from="[
-                partyId: partyId,
-                userId: accounts? accounts[0].userId: null,
-                firstName: person.firstName,
-                lastName: person.lastName,
-                name: accounts? accounts[0].username: null,
-                email: emailAddress,
-                groupDescription: accounts?groups[0].description: null,
-                userGroupId: accounts?groups[0].userGroupId: null,
-                locale: accounts?accounts[0].locale: null,
-                externalId: party?party.externalId: null]"/>
-        </actions>
-    </service>
-
-    <service verb="get" noun="UserList">
-        <description>
-            Get all users of the company they belong to except logged in user when not specifically asked for
-        </description>
-        <in-parameters>
-            <parameter name="partyId"/>
-            <parameter name="full" type="Boolean" default-value="true"/>
-            <parameter name="roleTypeId" default-value="Employee"/>
-        </in-parameters>
-        <out-parameters><parameter name="users" type="List"><parameter name="userInfo" type="Map"/></parameter></out-parameters>
-        <actions>
-            <if condition="partyId == '0'"><!-- get logged in user -->
-                <set field="partyId" from="ec.user.userAccount.partyId"/></if>
-            <set field="users" from="[]"/>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
-            <entity-find entity-name="CompanyPersonAndLogin"  list="userInfos">
-                <econdition field-name="fromRoleTypeId" from="roleTypeId"/>
-                <econdition field-name="toPartyId" from="company.partyId"/>
-                <econdition field-name="fromPartyId" from="partyId" ignore-if-empty="true"/>
-                <order-by field-name="lastName"/><order-by field-name="firstName"/>
-            </entity-find>
-            <iterate entry="userInfo" list="userInfos">
-                <!-- if condition="!partyId &amp;&amp; userInfo.fromPartyId == ec.user.userAccount.partyId"><continue/></if-->
-                <set field="imageFile" value=""/>
-                <if condition="full == true">
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: partyId?'medium':'small', type: 'user', id: userInfo.fromPartyId]" out-map="context"/>
-                    <set field="email" from="userInfo.emailAddress"/>
-                    <if condition="roleTypeId == 'Employee'">
-                        <entity-find entity-name="moqui.security.UserGroupAndMember" list="groupList">
-                            <econdition field-name="userId" from="userInfo.userId"/>
-                            <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/><date-filter/></entity-find></if>
-                    <if condition="!email">
-                        <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                            in-map="[partyId: userInfo.fromPartyId]" out-map="context"/>
-                        <set field="email" from="emailAddress"/></if>
-                    <set field="user" from="[
-                        partyId: userInfo.fromPartyId,
-                        email: email,
-                        username: userInfo.username,
-                        firstName: userInfo.firstName,
-                        lastName: userInfo.lastName,
-                        userId: userInfo.userId? userInfo.userId: null,
-                        userGroupId: userInfo.userId? groupList[0].userGroupId: null,
-                        groupDescription: userInfo.userId? groupList[0].description: null,
-                        externalId: userInfo.externalId,
-                        image: imageFile]"/>
-                <else>
-                    <if condition="roleTypeId == 'Customer'">
-                        <set field="user" from="userInfo.externalId + ' ' + userInfo.firstName + ' ' + userInfo.lastName"/></if>
-                    <if condition="roleTypeId == 'Employee'">
-                        <set field="user" from="[partyId: userInfo.fromPartyId, firstName: userInfo.firstName, lastName: userInfo.lastName]"/></if>
-                </else></if>
-                <script>users.add(user)</script>
-            </iterate>
-        </actions>
-    </service>
-
-    <service verb="create" noun="User">
-        <description>
-            add a new user on the same company as the logged in user
-        </description>
-        <in-parameters>
-            <parameter name="firstName" required="true"/>
-            <parameter name="lastName" required="true"/>
-            <parameter name="emailAddress"  required="true"/>
-            <parameter name="locale"/>
-            <parameter name="roleTypeId" required="true"/>
-            <parameter name="externalId"/>
-            <parameter name="groupDescription"/>
-        </in-parameters>
-        <out-parameters>
-            <parameter name="partyId"/>
-        </out-parameters>
-        <actions>
-            <if condition="roleTypeId == 'Customer' &amp;&amp; !externalId">
-                <log level="error" message="If the new user is a customer, externalId should be provided"/>
-                <return/></if>
-            <if condition="roleTypeId == 'Employee' &amp;&amp; !groupDescription">
-                <log level="error" message="If the new user is a employee, groupDescription should be provided"/>
-                <return/></if>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="compOut"/>
-            <if condition="roleTypeId == 'Employee'">
-                <set field="newPassword" value="justTemp99!"/>
-                <service-call name="growerp.mobile.MobileRestServices.register#UserAndCompany"
-                    in-map="[context + [companyPartyId: compOut.company.partyId]]" out-map="context"/>
-                <service-call name="growerp.mobile.MobileRestServices.reset#Password" in-map="[username: user.name]"/>
-            </if>
-            <if condition="roleTypeId == 'Customer'">
-                <service-call name="create#mantle.party.Party" in-map="[externalId: externalId, partyTypeEnumId: 'PtyPerson']"
-                    out-map="context"/>
-                <service-call name="create#mantle.party.Person" in-map="context"/>
-                <!-- attach the user as an employee to the organization. -->
-                <service-call name="mantle.party.PartyServices.ensure#PartyRole" in-map="[context+ [roleTypeId: 'Customer']]"/>
-                <service-call name="create#mantle.party.PartyRelationship"
-                    in-map="[fromPartyId: partyId, fromRoleTypeId: 'Customer',
-                        fromDate: ec.user.nowTimestamp, toPartyId: compOut.company.partyId, toRoleTypeId: 'OrgInternal']"/>
-                <service-call name="mantle.party.ContactServices.create#EmailAddress"
-                    in-map="[partyId: partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: emailAddress]"/>
-            </if>
-        </actions>
-    </service>
-    <service verb="update" noun="User">
-        <description>
-            update user information if partyId present, else create
-        </description>
-        <in-parameters>
-            <parameter name="partyId" default="ec.user.userAccount.partyId"/>
-            <parameter name="userId"/>
-            <parameter name="username"/>
-            <parameter name="firstName"/>
-            <parameter name="lastName"/>
-            <parameter name="emailAddress"/>
-            <parameter name="locale"/>
-            <parameter name="groupDescription"/>
-            <parameter name="externalId"/>
-        </in-parameters>
-        <out-parameters>
-            <parameter name="user" type="Map"/>
-        </out-parameters>
-        <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#User" in-map="[partyId: partyId]" out-map="oldValue"/>
-            <service-call name="update#mantle.party.Person" in-map="[partyId: partyId, firstName: firstName, lastName: lastName]"/>
-            <entity-find-one value-field="employeeRole" entity-name="mantle.party.PartyRole">
-                <field-map field-name="partyId"/><field-map field-name="roleTypeId" value="Employee"/></entity-find-one>
-            <if condition="employeeRole">
-                <service-call name="mantle.party.PartyServices.update#PartyUserAccount"
-                    in-map="[partyId: partyId, emailAddress: emailAddress, username: username]"/>
-                <if condition="groupDescription &amp;&amp; groupDescription != oldValue.user.groupDescription">
-                    <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
-                        <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
-                        <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                        <date-filter/></entity-find>
-                    <if condition="admins.size() == 1">
-                        <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
-                    <set field="growerpMobileGroups" from="[]"/>
-                    <entity-find entity-name="moqui.security.UserGroup" list="mobileGroupMembers">
-                        <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
-                    <iterate entry="mobileGroupMember" list="mobileGroupMembers">
-                        <script>growerpMobileGroups.add(mobileGroupMember.userGroupId)</script>
-                    </iterate>
-                    <entity-find entity-name="moqui.security.UserGroupMember" list="groupMembers" for-update="true">
-                        <econdition field-name="userId" from="oldValue.user.userId"/>
-                        <econdition field-name="userGroupId" operator="in" from="growerpMobileGroups"/>
-                        <date-filter/></entity-find>
-                    <set field="groupMembers[0].thruDate" from="ec.user.nowTimestamp"/>
-                    <entity-update value-field="groupMembers[0]"/>
-                    <entity-find entity-name="moqui.security.UserGroup" list="groupValues">
-                        <econdition field-name="description" from="groupDescription"/>
-                        <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
-                    <if condition="!groupValues"><return error="true" message="Updating security group failed, group description: ${groupDescription} not found"/></if>
-                    <service-call name="create#moqui.security.UserGroupMember"
-                        in-map="[userGroupId: groupValues[0].userGroupId, userId: oldValue.user.userId, fromDate: ec.user.nowTimestamp]"/></if>
-            <else><!-- customer -->
-                <entity-find-one value-field="party" entity-name="mantle.party.Party" for-update="true">
-                    <field-map field-name="partyId"/></entity-find-one>
-                <if condition="externalId != party.externalId">
-                    <set field="party.externalId" from="externalId"/>
-                    <entity-update value-field="party"/></if>
-                <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                    in-map="[partyId: partyId]" out-map="oldEmail"/>
-                <if condition="emailAddress != oldEmail.emailAddress">
-                    <entity-find list="partyContactMechs" entity-name="mantle.party.contact.PartyContactMech" for-update="true">
-                        <econdition field-name="partyId"/>
-                        <econdition field-name="contactMechId" from="oldEmail.contactMechId"/><date-filter/></entity-find>
-                    <set field="partyContactMechs[0].thruDate" from="ec.user.nowTimestamp"/>
-                    <entity-update value-field="partyContactMechs[0]"/>
-                    <service-call name="mantle.party.ContactServices.create#EmailAddress"
-                        in-map="[partyId: partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: emailAddress]"/></if></else></if>
-            <service-call name="growerp.mobile.MobileRestServices.get#User" out-map="context"/>
-        </actions>
-    </service>
-
-    <service verb="delete" noun="User">
-        <in-parameters>
-            <parameter name="partyId" required="true"/>
-        </in-parameters>
-        <actions>
-            <entity-find-one value-field="employee" entity-name="mantle.party.PartyRole">
-                <field-map field-name="partyId"/><field-map field-name="roleTypeId" value="Employee"/></entity-find-one>
-            <if condition="employee">
-                <entity-find entity-name="moqui.security.UserAccount" list="userAccounts">
-                    <econdition field-name="partyId"/></entity-find><!-- assuming user has a single account -->
-                <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
-                    <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
-                    <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                    <date-filter/></entity-find>
-                <entity-find entity-name="moqui.security.UserGroupAndMember" list="thisUsers">
-                    <econdition field-name="userId" from="userAccounts[0].userId"/>
-                    <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                    <date-filter/></entity-find>
-                <if condition="admins.size() == 1 &amp;&amp; thisUsers[0].userGroupId == 'GROWERP_M_ADMIN'">
-                    <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if></if>
-
-            <service-call name="update#mantle.party.Party" in-map="[partyId: partyId, disabled: 'Y']"/>
-        </actions>
-    </service>
-
-    <service verb="get" noun="Company">
-        <out-parameters>
-            <parameter name="company" type="Map"/>
-        </out-parameters>
-        <actions>
-            <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
-                <date-filter/>
-                <econditions><econdition field-name="fromPartyId" from="ec.user.userAccount.partyId"/>
-                <econdition field-name="fromRoleTypeId" value="Employee"/>
-                <econdition field-name="toRoleTypeId" value="OrgInternal"/></econditions></entity-find>
-            <set field="companyPartyId" from="relList[0].toPartyId"/>
-            <entity-find-one entity-name="mantle.party.Organization" value-field="org">
-                <field-map field-name="partyId" from="companyPartyId"/></entity-find-one>
-            <entity-find-one entity-name="mantle.ledger.config.PartyAcctgPreference" value-field="pref">
-                <field-map field-name="organizationPartyId" from="companyPartyId"/></entity-find-one>
-            <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                in-map="[partyId: companyPartyId]" out-map="context"/>
-            <set field="company" from="[
-                partyId: companyPartyId,
-                name: org.organizationName,
-                email: emailAddress,
-                contactMechId: contactMechId,
-                currency: pref.baseCurrencyUomId
-                ]"/>
-        </actions>
-    </service>
-    <service verb="get" noun="RelatedCompanyPartyId">
-        <in-parameters><parameter name="userPartyId" default="ec.user.userAccount.partyId"/></in-parameters>
-        <out-parameters><parameter name="partyId"/><parameter name="ownerPartyId"/></out-parameters>
-        <actions>
-            <set field="fromPartyId" from="userPartyId"/>
-            <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
-                <date-filter/>
-                <econdition field-name="fromPartyId"/>
-                <econdition field-name="toRoleTypeId" value="OrgInternal"/>
-                <select-field field-name="toPartyId"/>
-            </entity-find>
-            <if condition="relList">
-                <set field="partyId" from="fromPartyId"/>
-                <set field="ownerPartyId" from="relList[0].toPartyId"/>
-            <else><return message="User ${fromPartyId} has no related company!!" error="true"/></else></if>
-        </actions>
-    </service>
-    <service verb="get" noun="UserAndCompany">
-        <description>
-            get user and related company information from the current logged in user
-        </description>
-        <out-parameters>
-            <parameter name="user" type="Map"/>
-            <parameter name="company" type="Map"/>
-        </out-parameters>
-        <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#User" out-map="context"/>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
-        </actions>
-    </service>
-
-    <service verb="update" noun="Company">
-        <description>
-            update company information
-        </description>
-        <in-parameters>
-            <parameter name="organizationName"/>
-            <parameter name="emailAddress"/>
-        </in-parameters>
-        <out-parameters>
-            <parameter name="company" type="Map"/>
-        </out-parameters>
-        <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="oldValue"/>
-            <if condition="organizationName &amp;&amp; !oldValue.company.name.equals(organizationName)">
-                <service-call name="update#mantle.party.Organization"
-                    in-map="[partyId: oldValue.company.partyId, organizationName: organizationName]"/>
-            </if>
-            <if condition="emailAddress != oldValue.company.emailAddress">
-                <entity-find list="partyContactMechs" entity-name="mantle.party.contact.PartyContactMech" for-update="true">
-                    <econdition field-name="partyId" from="oldValue.company.partyId"/>
-                    <econdition field-name="contactMechId" from="oldValue.company.contactMechId"/><date-filter/></entity-find>
-                <set field="partyContactMechs[0].thruDate" from="ec.user.nowTimestamp"/>
-                <entity-update value-field="partyContactMechs[0]"/>
-                <service-call name="mantle.party.ContactServices.create#EmailAddress"
-                    in-map="[partyId: oldValue.company.partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: emailAddress]"/>
-            </if>
-        </actions>
-    </service>
 
     <service verb="get" noun="ItemInfo">
         <description>
@@ -592,11 +213,11 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="workEffortId"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <if condition="type == 'company'"><set field="companyPartyId" from="relCompany.ownerPartyId"/></if>
             <if condition="type == 'user'">
                 <set field="partyId" from="id"/>
-                <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId"
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId"
                     in-map="[userPartyId: partyId]" out-map="check"/>
                 <if condition="check.ownerPartyId != relCompany.ownerPartyId">
                         <return error="true" message="can only access persons within your own company"/>
@@ -907,7 +528,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="image" type="Boolean" default-value="true"/> </in-parameters>
         <out-parameters><parameter name="accommodationAreas" type="List"><parameter name="accommodationAreaInfo" type="Map"/></parameter></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="growerp.mobile.location.AccommodationArea"  list="areas">
                 <econdition field-name="ownerPartyId"/><date-filter/></entity-find>
             <set field="accommodationAreas" from="[]"/>
@@ -931,7 +552,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="accommodationAreaId"></parameter></in-parameters>
         <out-parameters><parameter name="accommodationArea" type="Map"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.AccommodationArea"  value-field="area">
                 <field-map field-name="ownerPartyId"/><field-map field-name="accommodationAreaId"/></entity-find-one>
             <entity-find-count count-field="nbrOfSpots" entity-name="AccommodationSpot">
@@ -947,7 +568,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="image" type="Boolean" default-value="true"/> </in-parameters>
         <out-parameters><parameter name="preparationAreas" type="List"><parameter name="preparationAreaInfo" type="Map"/></parameter></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="growerp.mobile.location.PreparationArea"  list="preps">
                 <econdition field-name="ownerPartyId"/><date-filter/>
                 <order-by field-name="description"/> </entity-find>
@@ -967,7 +588,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="preparationAreaId"/></in-parameters>
         <out-parameters><parameter name="preparationArea" type="Map"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.PreparationArea"  value-field="area">
                 <field-map field-name="preparationAreaId"/><field-map field-name="ownerPartyId"/></entity-find-one>
          <set field="preparationArea" from="[
@@ -980,7 +601,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="preparationAreaId"/><parameter name="newPreparationAreaId"/>
             <parameter name="productCategoryId"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="category" entity-name="ProductCategory" for-update="true">
                 <field-map field-name="productCategoryId"/><field-map field-name="preparationAreaId"/>
                 <field-map field-name="ownerPartyId"/>
@@ -995,7 +616,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="productId"/></in-parameters>
         <out-parameters><parameter name="product"></parameter></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="ownerPartyId" from="company.partyId"/>
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
                 <econdition field-name="ownerPartyId"/><econdition field-name="productId"/></entity-find>
@@ -1012,7 +633,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="productCategoryId"/></in-parameters>
         <out-parameters><parameter name="products"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="ownerPartyId" from="company.partyId"/>
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
                 <econdition field-name="ownerPartyId"/><econdition field-name="productCategoryId" ignore-if-empty="true"/>
@@ -1037,7 +658,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="preparationAreaId"/> </in-parameters>
         <out-parameters><parameter name="categories"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" list="categoryList">
                 <econdition field-name="ownerPartyId"/>
                 <econdition field-name="preparationAreaId" ignore-if-empty="true"/>
@@ -1068,7 +689,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="productCategoryId"/></in-parameters>
         <out-parameters><parameter name="productCategory"/> </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="ownerPartyId" from="company.partyId"/>
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
                 <econdition field-name="ownerPartyId"/><econdition field-name="productCategoryId"/>
@@ -1097,14 +718,14 @@ along with this software (see the LICENSE.md file). If not, see
         <out-parameters><parameter name="workEfforts"/></out-parameters>
         <actions>
             <if condition="my">
-                <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
                 <entity-find entity-name="growerp.mobile.workeffort.WorkEffortAndPartyAndCompany" list="taskList">
                     <econdition field-name="userPartyId" from="ec.user.userAccount.partyId"/>
                     <econdition field-name="orgPartyId" from="relCompany.ownerPartyId"/>
                     <econdition field-name="statusId" operator="not-in" value="WeCancelled,WeCompleted"/>
                     <order-by field-name="priority"/><order-by field-name="workEffortName"/></entity-find>
             <else><!-- tasks i gave to others -->
-                <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
                     <entity-find entity-name="growerp.mobile.workeffort.WorkEffortAndPartyAndCompany" list="taskList">
                     <econditions combine="and">
                         <econdition field-name="ownerPartyId" from="ec.user.userAccount.partyId"/>
@@ -1136,7 +757,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="workEffortId"/></in-parameters>
         <out-parameters><parameter name="workEffort"/> </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <entity-find entity-name="growerp.mobile.workeffort.WorkEffortAndPartyAndCompany" list="effort">
                 <econdition field-name="workEffortId"/>
                 <econdition field-name="orgPartyId" from="relCompany.ownerPartyId"/></entity-find>
@@ -1157,7 +778,7 @@ along with this software (see the LICENSE.md file). If not, see
                        <parameter name="partyId" default="ec.user.userAccount.partyId"/></in-parameters>
         <out-parameters><parameter name="workEffortId"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <service-call name="create#mantle.work.effort.WorkEffort" out-map="context"
                 in-map="[ownerPartyId: ec.user.userAccount.partyId,
                          workEffortTypeId: 'WepTask',
@@ -1187,7 +808,7 @@ along with this software (see the LICENSE.md file). If not, see
         <out-parameters><parameter name="workEffortId"/></out-parameters>
         <actions>
         <log message="=====we update input id: ${workEffortId}"/>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <entity-find-one value-field="exist" entity-name="growerp.mobile.workeffort.WorkEffortAndPartyAndCompany">
                 <field-map field-name="workEffortId"/>
                 <field-map field-name="orgPartyId" from="relCompany.ownerPartyId"/></entity-find-one>
@@ -1224,7 +845,7 @@ along with this software (see the LICENSE.md file). If not, see
         <description> delete a workeffort</description>
         <in-parameters><parameter name="workEffortId"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="exist" entity-name="growerp.mobile.workeffort.WorkEffortAndPartyAndCompany">
                 <field-map field-name="workEffortId"/>
                 <field-map field-name="orgPartyId" from="ownerPartyId"/>
@@ -1245,7 +866,7 @@ along with this software (see the LICENSE.md file). If not, see
         <out-parameters><parameter name="requests"/></out-parameters>
         <actions>
             <if condition="my">
-                <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
                 <entity-find entity-name="growerp.mobile.request.RequestAndPartyAndCompany" list="requestList">
                     <econdition field-name="userPartyId" from="ec.user.userAccount.partyId"/>
                     <econdition field-name="requestTypeEnumId" value="RqtQUEST"/>
@@ -1321,7 +942,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="requestId"/></in-parameters>
         <out-parameters><parameter name="request"/> </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <entity-find entity-name="growerp.mobile.request.RequestAndPartyAndCompany" list="effort">
                 <econdition field-name="requestId"/>
                 <econdition field-name="orgPartyId" from="relCompany.ownerPartyId"/></entity-find>
@@ -1345,7 +966,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters><parameter name="requestId"/></out-parameters>
         <actions>
-            <!-- service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <!-- service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="productCategory" entity-name="mantle.product.category.Request" for-update="true">
                 <field-map field-name="productCategoryId"/><field-map field-name="ownerPartyId"/></entity-find-one>
             <set field="productCategory.categoryName" from="categoryName"/>
@@ -1356,7 +977,7 @@ along with this software (see the LICENSE.md file). If not, see
         <description> delete a category to group products by drinks , salads, deserts etc</description>
         <in-parameters><parameter name="productCategoryId"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="productCategory" entity-name="mantle.product.category.Request" for-update="true">
                 <field-map field-name="productCategoryId"/><field-map field-name="ownerPartyId"/></entity-find-one>
             <entity-find entity-name="mantle.product.category.RequestMember" list="members">

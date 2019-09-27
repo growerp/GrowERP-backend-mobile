@@ -23,7 +23,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="productCategories" type="List"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
                 <econdition field-name="ownerPartyId"/></entity-find>
@@ -34,8 +34,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <date-filter/>
                 <econdition field-name="ownerPartyId"/>
                 <econdition field-name="parentProductCategoryId"/>
-                <econdition field-name="productCategoryId" ignore-if-empty="true"/>
-                <order-by field-name="categoryName"/></entity-find>
+                <econdition field-name="productCategoryId" ignore-if-empty="true"/></entity-find>
             <set field="productCategories" from="[]"/>
             <iterate entry="group" list="groups">
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
@@ -53,6 +52,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]"/>
                 <script>productCategories.add(groupOut)</script>
             </iterate>
+            <script>productCategories.sort{a, b -> a.categoryName.compareToIgnoreCase(b.categoryName) } </script>
         <log message="=========categories retieved!(${productCategories.size()})"/>
         </actions>
     </service>
@@ -63,7 +63,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="preparationAreaId"/></in-parameters>
         <out-parameters><parameter name="productCategoryId"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
                 <econdition field-name="ownerPartyId"/></entity-find>
@@ -86,7 +86,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters><parameter name="productCategoryId"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="productCategory" entity-name="mantle.product.category.ProductCategory" for-update="true">
                 <field-map field-name="productCategoryId"/>
                 <field-map field-name="ownerPartyId"/></entity-find-one>
@@ -102,7 +102,7 @@ along with this software (see the LICENSE.md file). If not, see
         <description> delete a category to group products by drinks , salads, deserts etc</description>
         <in-parameters><parameter name="productCategoryId"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="productCategory" entity-name="mantle.product.category.ProductCategory">
                 <field-map field-name="productCategoryId"/><field-map field-name="ownerPartyId"/></entity-find-one>
             <entity-find-count count-field="nbrOfProducts" entity-name="mantle.product.category.ProductCategoryMemberProduct">
@@ -134,11 +134,11 @@ along with this software (see the LICENSE.md file). If not, see
         <description> Get all products within a company</description>
         <out-parameters><parameter name="products"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="ownerPartyId" from="company.partyId"/>
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
                 <econdition field-name="ownerPartyId"/><econdition field-name="productCategoryId" ignore-if-empty="true"/>
-                <order-by field-name="productName"/></entity-find>
+                </entity-find>
             <set field="products" from="[]"/>
             <iterate entry="product" list="productList">
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
@@ -152,6 +152,7 @@ along with this software (see the LICENSE.md file). If not, see
                     image: imageFile? imageFile : '~/assets/images/addImage.png']"/>
                 <script>products.add(productOut)</script>
             </iterate>
+            <script>products.sort{a, b -> a.name.compareToIgnoreCase(b.name) } </script>
         </actions>
     </service>
 
@@ -166,7 +167,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="productId"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="priceUomId" value="OTH_ea"/>
             <set field="currencyUomId" from="company.currency"/>
             <set field="ownerPartyId" from="company.partyId"/>
@@ -192,7 +193,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="productCategoryId"></parameter>
         </in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#Company" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="ownerPartyId" from="company.partyId"/>
             <entity-find-one value-field="product" entity-name="mantle.product.Product" for-update="true">
                 <field-map field-name="productId"/><field-map field-name="ownerPartyId"/></entity-find-one>
@@ -226,7 +227,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="productId" required="true"/>
         </in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one value-field="product" entity-name="mantle.product.Product" for-update="true">
                 <field-map field-name="productId"/><field-map field-name="ownerPartyId"/> </entity-find-one>
             <set field="product.salesDiscontinuationDate" from="ec.user.nowTimestamp"/>
@@ -244,7 +245,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="categoriesAndProducts" type="List"><parameter name="productCategoryInfo" type="Map"/></parameter>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
                 <econdition field-name="ownerPartyId"/></entity-find>

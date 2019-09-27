@@ -21,7 +21,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="accommodationAreas" type="List"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="growerp.mobile.location.AccommodationArea" list="areas">
                 <econdition field-name="ownerPartyId"/><date-filter/><order-by field-name="description"/></entity-find>
             <set field="accommodationAreas" from="[]"/>
@@ -39,6 +39,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]"/>
                 <script>accommodationAreas.add(areaOut)</script>
             </iterate>
+            <script>accommodationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
             <log message="=======accomdationareas(${accommodationAreas.size()}) retieved"/>
         </actions>
     </service>
@@ -54,7 +55,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="accommodationSpots"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <set field="fromDate" from="ec.user.nowTimestamp"/>
             <service-call name="create#growerp.mobile.location.AccommodationArea" in-map="context"  out-map="context"/>
             <if condition="!nbrOfSeats"><set field="nbrOfSeats" value="4"/></if>
@@ -87,7 +88,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="description"/></in-parameters>
         <out-parameters><parameter name="accommodationArea" type="Map"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea" for-update="true">
                 <field-map field-name="ownerPartyId"/><field-map field-name="accommodationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
             <set field="accommodationArea.description" from="description"/>
@@ -96,7 +97,7 @@ along with this software (see the LICENSE.md file). If not, see
         <description>delete (inactivate) an area</description>
         <in-parameters><parameter name="accommodationAreaId" required="true"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea" for-update="true">
                 <field-map field-name="ownerPartyId"/><field-map field-name="accommodationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
             <set field="accommodationArea.thruDate" from="ec.user.nowTimestamp"/>
@@ -120,7 +121,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="accommodationSpots" type="List"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="growerp.mobile.location.AccommodationAreasAndSpots"  list="spots">
                 <econdition field-name="ownerPartyId"/>
                 <econdition field-name="accommodationAreaId" ignore-if-empty="true"/>
@@ -151,7 +152,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="accommodationSpotId"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.AccommodationArea" value-field="accommodationArea">
                 <field-map field-name="ownerPartyId"/>
                 <field-map field-name="accommodationAreaId"/></entity-find-one>
@@ -164,6 +165,7 @@ along with this software (see the LICENSE.md file). If not, see
                         fromDate: ec.user.nowTimestamp
                         ]"/>
             </if>
+            <script>accommodationSpots.sort{a, b -> (a.accomodationAreaId + a.spotNumber).compareToIgnoreCase(a.accomodationAreaId + b.spotNumber) } </script>
         </actions>
     </service>
 
@@ -172,7 +174,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters>
             <parameter name="accommodationSpotId" required="true"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <!-- make sure spot is owned by the related company -->
             <entity-find entity-name="growerp.mobile.location.AccommodationAreasAndSpots"  list="spots">
                 <econdition field-name="ownerPartyId"/>
@@ -194,7 +196,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="preparationAreas" type="List"/>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="growerp.mobile.location.PreparationArea"  list="preps">
                 <econdition field-name="ownerPartyId"/><date-filter/>
                 <order-by field-name="description"/> </entity-find>
@@ -211,6 +213,7 @@ along with this software (see the LICENSE.md file). If not, see
                         image: imageFile? imageFile : '~/assets/images/addImage.png',
                         nbrOfCatg: nbrOfCatg]"/>
                 <script>preparationAreas.add(preparationArea)</script></iterate>
+            <script>preparationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
         </actions>
     </service>
 
@@ -219,7 +222,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="description"/></in-parameters>
         <out-parameters><parameter name="preparationAreaId" type="Map"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <set field="fromDate" from="ec.user.nowTimestamp"/>
             <service-call name="create#growerp.mobile.location.PreparationArea" in-map="context"  out-map="context"/>
          </actions>
@@ -230,7 +233,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="preparationAreaId" required="true"/>
             <parameter name="description"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
                 <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
             <set field="preparationArea.description" from="description"/>
@@ -242,7 +245,7 @@ along with this software (see the LICENSE.md file). If not, see
         <description>delete (inactivate) an preparation area</description>
         <in-parameters><parameter name="preparationAreaId" required="true"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
                 <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
             <if condition="!preparationArea"><return error="true" message="Could not find area ${preparationAreaId}"/></if>
@@ -264,7 +267,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="preparationAreaId"></parameter></in-parameters>
         <out-parameters><parameter name="prepAreasAndCategories" type="List"><parameter name="preparationAreaInfo" type="Map"/></parameter></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="growerp.mobile.location.PreparationArea" list="areas">
                 <econdition field-name="preparationAreaId" ignore-if-empty="true"/>
                 <econdition field-name="ownerPartyId"/><date-filter/>
@@ -302,7 +305,7 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="accommodationAreaId"></parameter> </in-parameters>
         <out-parameters><parameter name="accommodationSpots" type="List"><parameter name="accommodationSpotInfo" type="Map"/></parameter></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <!-- entity-find entity-name="growerp.mobile.location.AccommodationAreaAndSpots"  list="spots">
                 <econdition field-name="ownerPartyId"/><econdition field-name="accommodationAreaId"/><date-filter/></entity-find-->
             <entity-find entity-name="growerp.mobile.location.AccommodationSpot"  list="spots">
@@ -324,7 +327,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="areasAndSpots" type="List"><parameter name="areasAndSpotInfo" type="Map"/></parameter>
         </out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobileRestServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="growerp.mobile.location.AccommodationArea" list="areas">
                 <econdition field-name="ownerPartyId"/><date-filter/><order-by field-name="description"/></entity-find>
             <set field="areasAndSpots" from="[]"/>
