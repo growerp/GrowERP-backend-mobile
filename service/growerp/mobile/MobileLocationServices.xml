@@ -136,7 +136,9 @@ along with this software (see the LICENSE.md file). If not, see
                     accommodationAreaId: spot.accommodationAreaId,
                     description: spot.description
                     ]"/>
-                <script>accommodationSpots.add(accommodationSpot)</script></iterate>
+                <script>accommodationSpots.add(accommodationSpot)</script>
+            </iterate>
+            <script>accommodationSpots.sort{a, b -> Integer.parseInt(a.spotNumber) &lt;=&gt; Integer.parseInt(b.spotNumber) } </script>
             <log message="=======accommodationSpots ${accommodationSpots.size()} retieved"/>
         </actions>
     </service>

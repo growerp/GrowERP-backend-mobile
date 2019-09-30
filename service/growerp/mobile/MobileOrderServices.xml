@@ -235,10 +235,13 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="totalQuantity" value="0" type="Integer"/>
             <set field="totalAmount" value="0" type="BigDecimal"/>
             <iterate entry="item" list="ordersPartsItems">
+             <log message="=====current item: ${item}"/>
                 <if condition="(lastOrderId &amp;&amp; lastOrderId != item.orderId) ||
                     (byPart == 'YES' &amp;&amp; lastPartId &amp;&amp; lastPartId != item.orderPartSeqId)">
+              <log message="========orderId: ${lastItem.orderId}"/>
                     <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
                         <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
+              <log message="==========spotparties size: ${spotParty.size()} index 0: ${spotParty[0]}"/>          
                     <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
                     <set field="orderOut" from="[
