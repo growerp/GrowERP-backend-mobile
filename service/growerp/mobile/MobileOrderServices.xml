@@ -62,7 +62,7 @@ along with this software (see the LICENSE.md file). If not, see
                 </if>
                 <if condition="header.newExternalId"><!-- enter new customer -->
                     <set field="externalIds" from="header.newExternalId.trim().split(' ')"/>
-                    <service-call name="growerp.mobile.MobileRestServices.create#User" out-map="newCustomer"
+                    <service-call name="growerp.mobile.MobilePartyServices.create#User" out-map="newCustomer"
                         in-map="[firstName: 'TBA', lastName: externalIds.size() &gt; 1?externalIds[1]:'TBA', emailAddress: 'notYet@provided.com',
                             roleTypeId: 'Customer', externalId: externalIds[0]]"/>
                     <if condition="newCustomer.partyId">
