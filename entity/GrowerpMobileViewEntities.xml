@@ -246,6 +246,8 @@ along with this software (see the LICENSE.md file). If not, see
     <view-entity entity-name="WorkEffortAndPartyAndCompany" package="growerp.mobile.workeffort" >
         <description>get all task from or to a particular person</description>
         <member-entity entity-alias="WEF" entity-name="mantle.work.effort.WorkEffort"/>
+        <member-entity entity-alias="OWNERPERSON" entity-name="mantle.party.Person" join-from-alias="WEF">
+            <key-map field-name="ownerPartyId" related="partyId"/></member-entity>
         <member-entity entity-alias="WEFPARTY" entity-name="mantle.work.effort.WorkEffortParty" join-from-alias="WEF">
             <key-map field-name="workEffortId"/>
             <entity-condition><date-filter/></entity-condition></member-entity>
@@ -267,8 +269,7 @@ along with this software (see the LICENSE.md file). If not, see
             <key-map field-name="toPartyId" related="partyId"/>
             <entity-condition>
                 <econdition field-name="orgDisabled" operator="equals" value="N" or-null="true"/>
-            </entity-condition>
-        </member-entity>
+            </entity-condition></member-entity>
         <alias entity-alias="WEF" name="workEffortId"/>
         <alias entity-alias="WEF" name="workEffortName"/>
         <alias entity-alias="WEF" name="description"/>
@@ -277,6 +278,8 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="WEF" name="statusId"/>
         <alias entity-alias="WEF" name="actualStartDate"/>
         <alias entity-alias="WEF" name="actualCompletionDate"/>
+        <alias entity-alias="OWNERPERSON" name="ownerFirstName" field="firstName"/>
+        <alias entity-alias="OWNERPERSON" name="ownerLastName" field="lastName"/>
         <alias entity-alias="WEFPARTY" name="roleTypeId"/>
         <alias entity-alias="WEFPARTY" name="fromDate"/>
         <alias entity-alias="WEFPARTY" name="thruDate"/>
