@@ -110,8 +110,14 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="value" from="[userGroupId: group.userGroupId, description: group.description]"/>
                 <script>userGroups.add(value)</script>
             </iterate>
-            <log message="===All party services ended, employees : ${employees.size()},  customers: ${customers.size()} usergroups: ${userGroups?userGroups.size():0}, 
-                company: ${company} current employee partyId : ${currentEmployeePartyId}"/>
+            <script>
+                employees.sort{a, b -> (a.lastName + a.firstName).compareToIgnoreCase(b.lastName + b.firstName) }
+                customers.sort{a, b -> (a.lastName + a.firstName).compareToIgnoreCase(b.lastName + b.firstName) }
+            </script>
+            
+            <log message="===All party services ended, employees : ${employees.size()},  customers: ${customers.size()} 
+                usergroups: ${userGroups?userGroups.size():0}, 
+                company: ${company.companyName} current employee partyId : ${currentEmployeePartyId}"/>
         </actions>
     </service>
     
