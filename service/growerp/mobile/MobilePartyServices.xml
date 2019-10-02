@@ -117,7 +117,7 @@ along with this software (see the LICENSE.md file). If not, see
             
             <log message="===All party services ended, employees : ${employees.size()},  customers: ${customers.size()} 
                 usergroups: ${userGroups?userGroups.size():0}, 
-                company: ${company.companyName} current employee partyId : ${currentEmployeePartyId}"/>
+                company: ${company.organizationName} current employee partyId : ${currentEmployeePartyId}"/>
         </actions>
     </service>
     

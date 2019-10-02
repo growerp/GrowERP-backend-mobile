@@ -125,11 +125,10 @@ along with this software (see the LICENSE.md file). If not, see
         <description> Create a task and assign optionally to a party, default is logged partyId</description>
         <in-parameters><parameter name="workEffortName" required="true"/>
                        <parameter name="description"/>
-                       <parameter name="partyId" required="true"/>
-                       <parameter name="priority" default="5"/> </in-parameters>
+                       <parameter name="partyId" default="ec.user.userAccount.partyId" />
+                       <parameter name="priority" default-value="5"/> </in-parameters>
         <out-parameters><parameter name="workEffortId"/></out-parameters>
         <actions>
-        <log message="====incoming partyId: ${partyId}"/>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
             <service-call name="create#mantle.work.effort.WorkEffort" out-map="context"
                 in-map="[ownerPartyId: ec.user.userAccount.partyId,
@@ -211,7 +210,74 @@ along with this software (see the LICENSE.md file). If not, see
         </actions></service>
 
 <!-- =================Requests ========================= -->
-    <service verb="get" noun="RequestList">
+    <service verb="get" noun="Requests">
+        <description> Get all requests of a particular user or faq</description>
+        <in-parameters><parameter name="my" type="Boolean" default="true"/></in-parameters><!-- true for my requests, false for FAQ -->
+        <out-parameters>
+            <parameter name="requests"/>
+            <parameter name="faqs"/>
+            <parameter name="notes"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <entity-find entity-name="growerp.mobile.request.RequestAndPartyAndCompany" list="requestList">
+                <econdition field-name="userPartyId" from="ec.user.userAccount.partyId"/>
+                <econdition field-name="requestTypeEnumId" value="RqtQUEST"/>
+                <econdition field-name="statusId" operator="in" from="['ReqInProgress','ReqCompleted']"/>
+                </entity-find>
+            <entity-find entity-name="mantle.request.Request" list="faqList">
+                <econdition field-name="requestTypeEnumId" value="RqtFAQ"/>
+                <order-by field-name="requestName"/></entity-find>
+            <set field="requests" from="[]"/>
+            <set field="faqs" from="[]"/>
+            <set field="notes" from="[]"/>
+            <iterate entry="currentList" list="[requestList,faqList]">
+                <iterate entry="request" list="currentList">
+                    <set field="noteOut" from="[
+                                requestId: request.requestId,
+                                timeStamp: request.requestDate.toString(),
+                                date: ec.l10n.format(request.requestDate,'dd-MM-yyyy'),
+                                text: request.description,
+                                partyId: ec.user.userAccount.partyId,
+                                fullname: ec.user.userAccount.userFullName
+                                ]"/>
+                    <script>notes.add(noteOut)</script>
+                    <entity-find entity-name="mantle.request.RequestNote" list="notesOut">
+                        <econdition field-name="requestId" from="request.requestId"/>
+                        <order-by field-name="noteDate"/></entity-find>
+                    <iterate entry="note" list="notesOut">
+                        <entity-find list="userAccounts" entity-name="moqui.security.UserAccount">
+                            <econdition field-name="userId" from="note.userId"/></entity-find>
+                        <set field="noteOut" from="[
+                                    requestId: request.requestId,
+                                    date: ec.l10n.format(note.noteDate,'dd-MM-yyyy'),
+                                    text: note.noteText,
+                                    partyId: userAccounts[0].partyId,
+                                    fullname: userAccounts[0].userFullName
+                                    ]"/>
+                         <script>notes.add(noteOut)</script>
+                    </iterate>
+                    <set field="requestOut" from="[
+                        requestId: request.requestId,
+                        requestName: request.requestName,
+                        ]"/>
+                    <if condition="currentList == requestList">
+                        <script>requests.add(requestOut)</script>
+                        <else>
+                            <script>faqs.add(requestOut)</script>
+                        </else>
+                    </if>
+                 </iterate>
+            </iterate>
+            <script>
+                if (requests.size()>1) requests.sort{a, b -> a.requestName.compareToIgnoreCase(b.requestName) }
+                if (faqs.size()>1) faqs.sort{a, b -> a.requestName.compareToIgnoreCase(b.requestName) }
+                if (notes.size()>1) notes.sort{a, b -> a.timeStamp &lt;=&gt; b.timeStamp}
+            </script>
+            <log message="====Get#Requests ended; requests: ${requests.size()} faqs: ${faqs.size()} notes: ${notes.size()}"/>
+        </actions></service>
+
+    <service verb="get" noun="RequestList"><!-- depreciated: replaced with  get#requests-->
         <description> Get all requests of a particular user or faq</description>
         <in-parameters><parameter name="my" type="Boolean" default="true"/></in-parameters><!-- true for my requests, false for FAQ -->
         <out-parameters><parameter name="requests"/></out-parameters>
@@ -272,7 +338,7 @@ along with this software (see the LICENSE.md file). If not, see
                         requestTypeId: 'RqtQUEST',
                         statusId: 'ReqInProgress',
                         requestTypeEnumId: 'RqtQUEST',
-                        partyId: ec.user.userAccount.partyId,
+                        filedByPartyId: ec.user.userAccount.partyId,
                         description: description,
                         fromDate: ec.user.nowTimestamp,
                         roleTypeId: 'Customer',
@@ -326,15 +392,18 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="delete" noun="Request">
         <description> delete a category to group products by drinks , salads, deserts etc</description>
-        <in-parameters><parameter name="productCategoryId"/></in-parameters>
+        <in-parameters><parameter name="requestId"/></in-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
-            <entity-find-one value-field="productCategory" entity-name="mantle.product.category.Request" for-update="true">
-                <field-map field-name="productCategoryId"/><field-map field-name="ownerPartyId"/></entity-find-one>
-            <entity-find entity-name="mantle.product.category.RequestMember" list="members">
-                <econdition field-name="productCategoryId"/><date-filter/></entity-find>
-            <if condition="members.size()">
-                <return error="true" message="Cannot delete category, products still related to it....!"/></if>
-            <entity-delete value-field="productCategory"/>
+            <!-- check if request within company -->
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+            <entity-find entity-name="growerp.mobile.request.RequestAndPartyAndCompany" list="found">
+                <econdition field-name="requestId"/>
+                <econdition field-name="orgPartyId" from="relCompany.ownerPartyId"/></entity-find>
+            <if condition="found">
+                <entity-find-one value-field="request" entity-name="mantle.request.Request" for-update="true">
+                    <field-map field-name="requestId"/></entity-find-one>
+                <set field="request.statusId" value="ReqCancelled"/>
+                <entity-update value-field="request"/>
+            </if>
         </actions></service>
 </services>
