@@ -14,6 +14,98 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
+    <service verb="get" noun="OrdersAndItemsByPrepAreas">
+        <description>
+            Get open orders by preparationAreaId,
+        </description>
+        <out-parameters>
+            <parameter name="ordersAndItemsByPrepAreas" type="List"/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
+            <entity-find entity-name="growerp.mobile.order.OrderHeaderPartPrepAndItems" list="prepOrders" limit="50">
+                <econdition field-name="vendorPartyId" from="ownerPartyId"/>
+                <econdition field-name="partStatusId" operator="in" from="['OrderOpen', 'OrderPlaced']"/>
+                <order-by field-name="prepDescription"/><order-by field-name="orderId"/><order-by field-name="orderItemSeqId"/></entity-find>
+            <set field="ordersAndItemsByPrepAreas" from="[]"/>
+            <set field="lastPrepId" value=""/>
+            <set field="lastOrderId" value=""/>
+            <set field="itemsOut" from="[]"/>
+            <set field="totalQuantity" value="0" type="Integer"/>
+            <set field="totalAmount" value="0" type="BigDecimal"/>
+            <iterate entry="item" list="prepOrders">
+                <if condition="(lastPrepId &amp;&amp; lastPrepId != item.preparationAreaId) ||
+                                (lastOrderId &amp;&amp; lastOrderId != item.orderId)">
+                    <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
+                        <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
+                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
+                    <set field="orderOut" from="[
+                        orderId: lastItem.orderId,
+                        preparationAreaId: lastItem.preparationAreaId,
+                        orderPartSeqId: lastItem.orderPartSeqId,
+                        partStatusId: lastItem.partStatusId,
+                        prepDescription: lastItem.prepDescription,
+                        customerPartyId: lastItem.customerPartyId,
+                        accommodationAreaId: spotParty[0].accommodationAreaId,
+                        description: spotParty[0].description,
+                        accommodationSpotId: spotParty[0].accommodationSpotId,
+                        spotNumber: spotParty[0].spotNumber,
+                        nbrOfGuests: spotParty[0].nbrOfGuests,
+                        totalQuantity: totalQuantity,
+                        totalAmount: totalAmount,
+                        image: imageFile,
+                        nbrOfItems: itemsOut.size(),
+                        items: itemsOut]"/>
+                    <script>ordersAndItemsByPrepAreas.add(orderOut)</script>
+                    <set field="totalQuantity" value="0" type="Integer"/>
+                    <set field="totalAmount" value="0" type="BigDecimal"/>
+                    <set field="itemsOut" from="[]"/>
+                </if>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'product', id: item.productId]" out-map="context"/>
+                <set field="itemOut" from="[
+                            orderItemSeqId: item.orderItemSeqId,
+                            productId: item.productId,
+                            itemDescription: item.itemDescription,
+                            price: item.unitAmount,
+                            quantity: item.quantity,
+                            image: imageFile]"/>
+                <set field="totalQuantity" from="totalQuantity + item.quantity"/>
+                <set field="totalAmount" from="totalAmount + (item.quantity * item.unitAmount)"/>
+                <script>itemsOut.add(itemOut)</script>
+                <set field="lastOrderId" from="item.orderId"/>
+                <set field="lastPrepId" from="item.preparationAreaId"/>
+                <set field="lastItem" from="item"/>
+            </iterate>
+            <if condition="lastOrderId">
+                <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
+                    <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                        in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
+                <set field="orderOut" from="[
+                        orderId: lastItem.orderId,
+                        preparationAreaId: lastItem.preparationAreaId,
+                        orderPartSeqId: lastItem.orderPartSeqId,
+                        partStatusId: lastItem.partStatusId,
+                        prepDescription: lastItem.prepDescription,
+                        customerPartyId: lastItem.customerPartyId,
+                        accommodationAreaId: spotParty[0].accommodationAreaId,
+                        description: spotParty[0].description,
+                        accommodationSpotId: spotParty[0].accommodationSpotId,
+                        spotNumber: spotParty[0].spotNumber,
+                        nbrOfGuests: spotParty[0].nbrOfGuests,
+                        totalQuantity: totalQuantity,
+                        totalAmount: totalAmount,
+                        image: imageFile,
+                        nbrOfItems: itemsOut.size(),
+                        items: itemsOut]"/>
+                <script>ordersAndItemsByPrepAreas.add(orderOut)</script>
+            </if>
+            <log message="===All prepArea orders: ${ordersAndItemsByPrepAreas.size()}"/>
+        </actions>
+    </service>
+
     <service verb="create" noun="SalesOrder">
         <description> Create a sales orders for the users company</description>
         <in-parameters><parameter name="orderHeader" required="true"/><parameter name="orderItems"  required="true" /></in-parameters>
@@ -203,41 +295,27 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters><parameter name="ordersAndItems" type="List"><parameter name="orderItemInfo" type="Map"/></parameter></out-parameters>
         <actions>
-            <!-- if status prep or serv, we need order items by part, otherwise all items together in the order -->
-            <set field="byPart" value="NO"/>
-            <if condition="statusId == 'prep' || statusId == 'serv'"><set field="byPart" value="YES"/></if>
-
-            <if condition="statusId == &quot;prep&quot;"><set field="statusId" value="OrderOpen"/></if>
-            <if condition="statusId == &quot;serv&quot;"><set field="statusId" value="OrderPlaced"/></if>
             <if condition="statusId == &quot;bill&quot;"><set field="statusId" value="OrderApproved"/></if>
             <if condition="statusId == &quot;completed&quot;"><set field="statusId" value="OrderCompleted"/></if>
             <if condition="statusId == &quot;cancelled&quot;"><set field="statusId" value="OrderCancelled"/></if>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
 
-            <if condition="byPart == 'YES'">
-                <set field="partStatusId" from="statusId"/>
-            <else>
-                <set field="orderStatusId" from="statusId"/></else></if>
-
+            <set field="orderStatusId" from="statusId"/>
             <entity-find entity-name="growerp.mobile.order.OrderHeaderPartPrepAndItems" list="ordersPartsItems" limit="50">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                 <econdition field-name="orderId" ignore-if-empty="true"/>
-                <econdition field-name="partStatusId" from="partStatusId" ignore-if-empty="true"/>
-                <econdition field-name="orderStatusId"  from="orderStatusId" ignore-if-empty="true"/>
-                <econdition field-name="preparationAreaId" ignore-if-empty="true"/>
+                <econdition field-name="orderStatusId"  from="orderStatusId"/>
                 <order-by field-name="placedDate"/><order-by field-name="orderId"/>
-                <order-by field-name="preparationAreaId"/><order-by field-name="orderItemSeqId"/></entity-find>
+                <order-by field-name="orderId"/><order-by field-name="orderItemSeqId"/></entity-find>
             <set field="ordersAndItems" from="[]"/>
             <set field="lastOrderId" value=""/>
-            <set field="lastPartId" value=""/>
             <set field="lastItem" value=""/>
             <set field="itemsOut" from="[]"/>
             <set field="totalQuantity" value="0" type="Integer"/>
             <set field="totalAmount" value="0" type="BigDecimal"/>
             <iterate entry="item" list="ordersPartsItems">
              <log message="=====current item: ${item}"/>
-                <if condition="(lastOrderId &amp;&amp; lastOrderId != item.orderId) ||
-                    (byPart == 'YES' &amp;&amp; lastPartId &amp;&amp; lastPartId != item.orderPartSeqId)">
+                <if condition="(lastOrderId &amp;&amp; lastOrderId != item.orderId)">
               <log message="========orderId: ${lastItem.orderId}"/>
                     <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
                         <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
@@ -248,6 +326,7 @@ along with this software (see the LICENSE.md file). If not, see
                         orderId: lastItem.orderId,
                         preparationAreaId: lastItem.preparationAreaId,
                         orderPartSeqId: lastItem.orderPartSeqId,
+                        statusId: lastItem.statusId,
                         prepDescription: lastItem.prepDescription,
                         customerPartyId: lastItem.customerPartyId,
                         accommodationAreaId: spotParty[0].accommodationAreaId,
@@ -277,7 +356,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="totalAmount" from="totalAmount + (item.quantity * item.unitAmount)"/>
                 <script>itemsOut.add(itemOut)</script>
                 <set field="lastOrderId" from="item.orderId"/>
-                <set field="lastPartId" from="item.orderPartSeqId"/>
                 <set field="lastItem" from="item"/>
             </iterate>
             <if condition="lastOrderId">
@@ -289,6 +367,7 @@ along with this software (see the LICENSE.md file). If not, see
                         orderId: lastItem.orderId,
                         preparationAreaId: lastItem.preparationAreaId,
                         orderPartSeqId: lastItem.orderPartSeqId,
+                        statusId: lastItem.statusId,
                         prepDescription: lastItem.prepDescription,
                         customerPartyId: lastItem.customerPartyId,
                         accommodationAreaId: spotParty[0].accommodationAreaId,
