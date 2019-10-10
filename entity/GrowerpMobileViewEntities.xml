@@ -136,6 +136,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="ORHD" name="statusId"/>
         <alias entity-alias="ORPART" name="vendorPartyId"/>
         <alias entity-alias="ORIT" name="orderItemSeqId"/>
+        <alias entity-alias="ORIT" name="productId"/>
         <alias entity-alias="ORIT" name="itemDescription"/>
         <alias entity-alias="ORIT" name="quantity"/>
         <alias entity-alias="ORIT" name="unitAmount"/>
