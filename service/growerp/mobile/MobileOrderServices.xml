@@ -14,6 +14,99 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
+    <service verb="get" noun="Orders">
+        <description>
+            Get order information by order, item, spot and party
+        </description>
+        <in-parameters>
+            <parameter name="open" type="Boolean"><description>True for only open orders</description></parameter>
+            <parameter name="startDate"><description>Format should be YYYY-MM-DD</description></parameter>
+            <parameter name="accommodationAreaId"/>
+            <parameter name="spotNumber"/>
+        </in-parameters>
+        <out-parameters><parameter name="ordersAndItems" type="List"><parameter name="orderItemInfo" type="Map"/></parameter></out-parameters>
+        <actions>
+            <set field="statusList" from="['OrderOpen','OrderPlaced','OrderApproved']"/>
+            <if condition="open">
+                <set field="status" from="statusList"/>
+            </if>
+            <if condition="startDate">
+                <set field="tsDate" from="ec.l10n.parseTimestamp(ec.l10n.format(startDate, 'yyyy-MM-dd') + ' 23:59:59.999', 'yyyy-MM-dd HH:mm:ss.SSS')"/>
+            </if>
+            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
+            <entity-find entity-name="OrderHeaderItemAccommodationParty" list="items">
+                <econdition field-name="vendorPartyId" from="ownerPartyId"/>
+                <econdition field-name="statusId" operator="in" from="status" ignore-if-empty="true"/>
+                <econdition field-name="placedDate" operator="less-equals" from="tsDate" ignore-if-empty="true"/>
+                <econdition field-name="accomodationAreaId" ignore-if-empty="true"/>
+                <econdition field-name="spotNumber" ignore-if-empty="true"/>
+                <order-by field-name="-placedDate"/>
+                <order-by field-name="orderId"/>
+                <order-by field-name="orderItemSeqId"/>
+                </entity-find>
+            <set field="lastItem" from="null"/>
+            <set field="ordersAndItems" from="[]"/>
+            <set field="orderItems" from="[]"/>
+            <iterate entry="item" list="items">
+                <if condition="lastItem &amp;&amp; lastItem.orderId != item.orderId">
+                    <set field="order" from="[
+                    orderId: lastItem.orderId,
+                    orderStatusId: lastItem.statusId,
+                    placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
+                    placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
+                    partyId: lastItem.partyId,
+                    firstName: lastItem.firstName,
+                    lastName: lastItem.lastName,
+                    statusId: lastItem.statusId in statusList?'Open':'Closed',
+                    nbrOfGuests: lastItem.nbrOfGuests,
+                    grandTotal: lastItem.grandTotal,
+                    table: lastItem.description + '-' + lastItem.spotNumber,
+                    accommodationAreaId: lastItem.accommodationAreaId,
+                    accommodationSpotId: lastItem.accommodationSpotId,
+                    spotNumber: lastItem.spotNumber,
+                    nbrOfItems: orderItems.size(),
+                    items: orderItems
+                    ]"/>
+                    <script>ordersAndItems.add(order)</script>
+                    <set field="orderItems" from="[]"/>
+                </if>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                    in-map="[size: 'small', type: 'prod', id: item.productId]" out-map="context"/>
+                <set field="orderItem" from="[
+                    image: imageFile,
+                    orderItemSeqId: item.orderItemSeqId,
+                    productId: item.productId,
+                    description: item.itemDescription,
+                    quantity: item.quantity,
+                    price: item.unitAmount,
+                    totalAmount: item.unitAmount * item.quantity,
+                    ]"/>
+                <script>orderItems.add(orderItem)</script>
+                <set field="lastItem" from="item"/>
+            </iterate>
+            <if condition="lastItem">
+                <set field="order" from="[
+                    orderId: lastItem.orderId,
+                    orderStatusId: lastItem.statusId,
+                    placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
+                    placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
+                    partyId: lastItem.partyId,
+                    firstName: lastItem.firstName,
+                    lastName: lastItem.lastName,
+                    statusId: lastItem.statusId in statusList?'Open':'Closed',
+                    nbrOfGuests: lastItem.nbrOfGuests,
+                    grandTotal: lastItem.grandTotal,
+                    table: lastItem.description + '-' + lastItem.spotNumber,
+                    accommodationAreaId: lastItem.accommodationAreaId,
+                    accommodationSpotId: lastItem.accommodationSpotId,
+                    spotNumber: lastItem.spotNumber,
+                    nbrOfItems: orderItems.size(),
+                    items: orderItems
+                    ]"/>
+                <script>ordersAndItems.add(order)</script></if>
+            <log message="==== open orders send: ${ordersAndItems.size()}"/>
+        </actions></service>
+
     <service verb="get" noun="OrdersAndItemsByPrepAreas">
         <description>
             Get open orders by preparationAreaId,
@@ -111,98 +204,6 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
-    <service verb="get" noun="OrdersItemsPartySpot">
-        <description>
-            Get order information by order, item, spot and party
-        </description>
-        <in-parameters>
-            <parameter name="open" type="Boolean"><description>True for only open orders</description></parameter>
-            <parameter name="startDate"><description>Format should be YYYY-MM-DD</description></parameter>
-            <parameter name="accommodationAreaId"/>
-            <parameter name="spotNumber"/>
-        </in-parameters>
-        <out-parameters><parameter name="ordersAndItems" type="List"><parameter name="orderItemInfo" type="Map"/></parameter></out-parameters>
-        <actions>
-            <set field="statusList" from="['OrderOpen','OrderPlaced','OrderApproved']"/>
-            <if condition="open">
-                <set field="status" from="statusList"/>
-            </if>
-            <if condition="startDate">
-                <set field="tsDate" from="ec.l10n.parseTimestamp(ec.l10n.format(startDate, 'yyyy-MM-dd') + ' 23:59:59.999', 'yyyy-MM-dd HH:mm:ss.SSS')"/>
-            </if>
-            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
-            <entity-find entity-name="OrderHeaderItemAccommodationParty" list="items">
-                <econdition field-name="vendorPartyId" from="ownerPartyId"/>
-                <econdition field-name="statusId" operator="in" from="status" ignore-if-empty="true"/>
-                <econdition field-name="placedDate" operator="less-equals" from="tsDate" ignore-if-empty="true"/>
-                <econdition field-name="accomodationAreaId" ignore-if-empty="true"/>
-                <econdition field-name="spotNumber" ignore-if-empty="true"/>
-                <order-by field-name="-placedDate"/>
-                <order-by field-name="orderId"/>
-                <order-by field-name="orderItemSeqId"/>
-                </entity-find>
-            <set field="lastItem" from="null"/>
-            <set field="ordersAndItems" from="[]"/>
-            <set field="orderItems" from="[]"/>
-            <iterate entry="item" list="items">
-                <if condition="lastItem &amp;&amp; lastItem.orderId != item.orderId">
-                    <set field="order" from="[
-                    orderId: lastItem.orderId,
-                    orderStatusId: lastItem.statusId,
-                    placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
-                    placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
-                    partyId: lastItem.partyId,
-                    firstName: lastItem.firstName,
-                    lastName: lastItem.lastName,
-                    statusId: lastItem.statusId in statusList?'Open':'Closed',
-                    nbrOfGuests: lastItem.nbrOfGuests,
-                    grandTotal: lastItem.grandTotal,
-                    table: lastItem.description + '-' + lastItem.spotNumber,
-                    accommodationAreaId: lastItem.accommodationAreaId,
-                    accommodationSpotId: lastItem.accommodationSpotId,
-                    spotNumber: lastItem.spotNumber,
-                    nbrOfItems: orderItems.size(),
-                    items: orderItems
-                    ]"/>
-                    <script>ordersAndItems.add(order)</script>
-                    <set field="orderItems" from="[]"/>
-                </if>
-                <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                    in-map="[size: 'small', type: 'prod', id: item.productId]" out-map="context"/>
-                <set field="orderItem" from="[
-                    image: imageFile,
-                    orderItemSeqId: item.orderItemSeqId,
-                    productId: item.productId,
-                    description: item.itemDescription,
-                    quantity: item.quantity,
-                    price: item.unitAmount,
-                    totalAmount: item.unitAmount * item.quantity,
-                    ]"/>
-                <script>orderItems.add(orderItem)</script>
-                <set field="lastItem" from="item"/>
-            </iterate>
-            <if condition="lastItem">
-                <set field="order" from="[
-                    orderId: lastItem.orderId,
-                    orderStatusId: lastItem.statusId,
-                    placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
-                    placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
-                    partyId: lastItem.partyId,
-                    firstName: lastItem.firstName,
-                    lastName: lastItem.lastName,
-                    statusId: lastItem.statusId in statusList?'Open':'Closed',
-                    nbrOfGuests: lastItem.nbrOfGuests,
-                    grandTotal: lastItem.grandTotal,
-                    table: lastItem.description + '-' + lastItem.spotNumber,
-                    accommodationAreaId: lastItem.accommodationAreaId,
-                    accommodationSpotId: lastItem.accommodationSpotId,
-                    spotNumber: lastItem.spotNumber,
-                    nbrOfItems: orderItems.size(),
-                    items: orderItems
-                    ]"/>
-                <script>ordersAndItems.add(order)</script></if>
-            <log message="==== open orders send: ${ordersAndItems.size()}"/>
-        </actions></service>
 
     <service verb="create" noun="SalesOrder">
         <description> Create a sales orders for the users company</description>
@@ -360,9 +361,17 @@ along with this software (see the LICENSE.md file). If not, see
                 <entity-update value-field="orderPart"/>
                 <service-call name="mantle.party.PartyServices.ensure#PartyRole"
                     in-map="[context + [partyId: ec.user.userAccount.partyId]]"/>
-                <service-call name="create#mantle.order.OrderPartParty"
-                    in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
-                        partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/>
+                <entity-find-one value-field="partParty" entity-name="mantle.order.OrderPartParty">
+                    <field-map field-name="orderId"/>
+                    <field-map field-name="orderPartSeqId" from="orderPart.orderPartSeqId"/>
+                    <field-map field-name="partyId" from="ec.user.userAccount.partyId"/>
+                    <field-map field-name="roleTypeId"/></entity-find-one>
+                <if condition="!partParty">
+                    <service-call name="create#mantle.order.OrderPartParty"
+                        in-map="[orderId: orderId, orderPartSeqId: orderPart.orderPartSeqId,
+                            partyId: ec.user.userAccount.partyId, roleTypeId: roleTypeId]"/>
+                <else><log message="Party role already exist at OrderPart party, roleTypeId: ${roleTypeId}"/>
+                    </else></if>
             <else>
                 <return error="true" message="cannot find orderpart order/prepId: ${orderId}/${orderPartSeqId} "/></else></if>
             <!-- check if all parts have new status, update statusId at orderheader level -->

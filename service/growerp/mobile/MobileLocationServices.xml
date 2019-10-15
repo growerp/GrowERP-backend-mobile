@@ -39,7 +39,9 @@ along with this software (see the LICENSE.md file). If not, see
                     ]"/>
                 <script>accommodationAreas.add(areaOut)</script>
             </iterate>
-            <script>accommodationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
+            <if condition="accommodationAreas.length.size > 1">
+                <script>accommodationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
+            </if>
             <log message="=======accomdationareas(${accommodationAreas.size()}) retieved"/>
         </actions>
     </service>
@@ -213,8 +215,12 @@ along with this software (see the LICENSE.md file). If not, see
                         description: prep.description,
                         image: imageFile? imageFile : '~/assets/images/addImage.png',
                         nbrOfCatg: nbrOfCatg]"/>
-                <script>preparationAreas.add(preparationArea)</script></iterate>
-            <script>preparationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
+                <script>preparationAreas.add(preparationArea)</script>
+            </iterate>
+            <if condition="preparationAreas.size() > 1">
+                <script>preparationAreas.sort{a, b -> a.description.compareToIgnoreCase(b.description) } </script>
+            </if>
+             <log message="=======prepreas ${preparationAreas.size()}  xxxretieved"/>
         </actions>
     </service>
 
