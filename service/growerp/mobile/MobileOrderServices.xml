@@ -235,7 +235,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="lastPartId" from="orderParts[0].orderPartSeqId"/>
                 <set field="orderId" from="header.orderId"/>
                 <!-- move status back -->
-                <service-call name="growerp.mobile.MobileRestServices.change#OrderPartStatus"
+                <service-call name="growerp.mobile.MobileOrderServices.change#OrderPartStatus"
                     in-map="[orderId: orderId, statusId: 'prep']"/>
             <else><!--  new order -->
                 <set field="customerPartyId" value="_NA_"/>
