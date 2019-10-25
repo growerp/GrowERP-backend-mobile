@@ -193,6 +193,118 @@ along with this software (see the LICENSE.md file). If not, see
         <actions><set field="ok" value="ok"/></actions>
     </service>
 
+    <service verb="load" noun="DefaultData">
+        <in-parameters>
+            <parameter name="environment"/>
+            <parameter name="transData" type="List"/><!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
+        </in-parameters>
+        <actions>
+            <!-- kitchen -->
+            <service-call name="growerp.mobile.MobileLocationServices.create#PreparationArea" 
+                in-map="[description: transData[0]]" out-map="context"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/kitchenSmall.png']"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/kitchenMedium.png']"/>
+            <service-call name="growerp.mobile.MobileCatgProdServices.create#ProductCategory"
+                in-map="[
+                    categoryName: transData[1], preparationAreaId: preparationAreaId]" out-map="context"/><!-- food -->
+            <service-call name="create#ProductCategoryContent"
+                in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/foodSmall.png']"/>
+            <service-call name="create#ProductCategoryContent"
+                in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/foodMedium.png']"/>
+            <service-call name="growerp.mobile.MobileCatgProdServices.create#Product"
+                in-map="[
+                    productName: transData[2], productCategoryId: productCategoryId, price: '10.00']" out-map="context"/><!-- macaroni-->
+            <service-call name="create#ProductContent"
+                in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageSmall',
+                    contentLocation: 'dbresource://GrowERP/images/macaroniSmall.png']"/>
+            <service-call name="create#ProductContent"
+                in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/macaroniMedium.png']"/>
+            <!-- bar -->
+            <service-call name="growerp.mobile.MobileLocationServices.create#PreparationArea"
+                in-map="[description: transData[3]]" out-map="context"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/barSmall.png']"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/barMedium.png']"/>
+            <service-call name="growerp.mobile.MobileCatgProdServices.create#ProductCategory"
+                in-map="[
+                    categoryName: transData[6], preparationAreaId: preparationAreaId]" out-map="context"/><!-- drinks -->
+            <service-call name="create#ProductCategoryContent"
+                in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/drinksSmall.png']"/>
+            <service-call name="create#ProductCategoryContent"
+                in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/drinksMedium.png']"/>
+            <service-call name="growerp.mobile.MobileCatgProdServices.create#Product"
+                in-map="[
+                    productName: transData[7], productCategoryId: productCategoryId, price: '15.00']" out-map="context"/><!-- macaroni-->
+            <service-call name="create#ProductContent"
+                in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageSmall',
+                    contentLocation: 'dbresource://GrowERP/images/colaSmall.png']"/>
+            <service-call name="create#ProductContent"
+                in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/colaMedium.png']"/>
+
+            <service-call name="growerp.mobile.MobileLocationServices.create#AccommodationArea"
+                in-map="[description: transData[4], nbrOfSpots: 10]" out-map="context"/>
+            <service-call name="create#AccommodationAreaContent"
+                in-map="[
+                    accommodationAreaId: accommodationAreaId, accommodationAreaContentTypeEnumId: 'AactImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/insideSmall.png']"/>
+            <service-call name="create#AccommodationAreaContent"
+                in-map="[
+                    accommodationAreaId: accommodationAreaId, accommodationAreaContentTypeEnumId: 'AactImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/insideMedium.png']"/>
+
+            <service-call name="growerp.mobile.MobileLocationServices.create#AccommodationArea"
+                 in-map="[description: transData[5], nbrOfSpots: 15]" out-map="context"/>
+            <service-call name="create#AccommodationAreaContent"
+                in-map="[
+                    accommodationAreaId: accommodationAreaId, accommodationAreaContentTypeEnumId: 'AactImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/gardenSmall.png']"/>
+            <service-call name="create#AccommodationAreaContent"
+                in-map="[
+                    accommodationAreaId: accommodationAreaId, accommodationAreaContentTypeEnumId: 'AactImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/gardenMedium.png']"/>
+
+            <if condition="environment != 'production'">
+                <set field="random" value="${org.moqui.util.StringUtilities.getRandomString(8)}"/>
+                <service-call name="growerp.mobile.MobilePartyServices.create#User" in-map="[
+                        firstName: 'Peter', lastName: 'Coster',
+                        emailAddress: random.toLowerCase() + '@example.com',
+                        roleTypeId: 'Employee', groupDescription: 'Employee']"
+                        out-map="context"/>
+                <service-call name="growerp.mobile.MobileTaskRequestServices.create#WorkEffort" 
+                    in-map="[workEffortName:'This a first task for Peter',
+                        partyId: partyId, priority: '5']"/>
+                <service-call name="growerp.mobile.MobileTaskRequestServices.create#WorkEffort"
+                    in-map="[workEffortName:'This a first task for me',
+                        priority: '5']"/>
+            </if>
+        </actions>
+    </service>
+
 
     <service verb="get" noun="ItemInfo">
         <description>
@@ -350,7 +462,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="create#growerp.mobile.location.PreparationAreaContent" in-map="context" out-map="context"/>
             </if>
             <!-- update content location -->
-            <set field="contentRoot" value="file:runtime/mobile/${ownerPartyId}"/>
+            <set field="contentRoot" value="dbresource://growerp/${ownerPartyId}/content"/>
             <if condition="partyId">
                 <set field="contentLocation" value="${contentRoot}/party/${partyId}/content_${partyContentId}/${filename}"/>
                 <service-call name="update#mantle.party.PartyContent"
