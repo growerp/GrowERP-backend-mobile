@@ -40,21 +40,23 @@ along with this software (see the LICENSE.md file). If not, see
         </out-parameters>
         <actions>
             <!--  company and party -->
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="currentEmployeePartyId" from="ec.user.userAccount.partyId"/>
             <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
                 <date-filter/>
                 <econdition field-name="fromPartyId" from="ec.user.userAccount.partyId"/>
                 <econdition field-name="fromRoleTypeId" value="Employee"/>
-                <econdition field-name="toRoleTypeId" value="OrgInternal"/></entity-find>
-            <set field="companyPartyId" from="relList[0].toPartyId"/>
+                <econdition field-name="toRoleTypeId" value="OrgInternal"/>
+                <econdition field-name="toPartyId" from="company.partyId"/>
+                </entity-find>
             <entity-find-one entity-name="mantle.party.Organization" value-field="org">
-                <field-map field-name="partyId" from="companyPartyId"/></entity-find-one>
+                <field-map field-name="partyId" from="company.partyId"/></entity-find-one>
             <entity-find-one entity-name="mantle.ledger.config.PartyAcctgPreference" value-field="pref">
-                <field-map field-name="organizationPartyId" from="companyPartyId"/></entity-find-one>
+                <field-map field-name="organizationPartyId" from="company.partyId"/></entity-find-one>
             <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
-                in-map="[partyId: companyPartyId]" out-map="context"/>
+                in-map="[partyId: company.partyId]" out-map="context"/>
             <set field="company" from="[
-                partyId: companyPartyId,
+                partyId: company.partyId,
                 organizationName: org.organizationName,
                 emailAddress: emailAddress,
                 currencyId: pref.baseCurrencyUomId
@@ -63,7 +65,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="employees" from="[]"/>
             <set field="customers" from="[]"/>
             <entity-find entity-name="CompanyPersonAndLogin"  list="userInfos">
-                <econdition field-name="toPartyId" from="companyPartyId"/>
+                <econdition field-name="toPartyId" from="company.partyId"/>
                 <econdition field-name="toRoleTypeId" value="OrgInternal"/>
                 <order-by field-name="lastName"/><order-by field-name="firstName"/>
             </entity-find>
@@ -327,7 +329,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <!-- attach the user as an employee to the organization. -->
                 <service-call name="mantle.party.PartyServices.ensure#PartyRole" in-map="[context+ [roleTypeId: 'Customer']]"/>
                 <service-call name="create#mantle.party.PartyRelationship"
-                    in-map="[fromPartyId: partyId, fromRoleTypeId: 'Customer',
+                    in-map="[fromPartyId: partyId, fromRoleTypeId: 'Customer', relationshipTypeEnumId: 'PrtEmployee',
                         fromDate: ec.user.nowTimestamp, toPartyId: compOut.company.partyId, toRoleTypeId: 'OrgInternal']"/>
                 <service-call name="mantle.party.ContactServices.create#EmailAddress"
                     in-map="[partyId: partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: emailAddress]"/>

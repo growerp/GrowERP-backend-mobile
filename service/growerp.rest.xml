@@ -23,6 +23,9 @@
     <resource name="LoadDefaultData">
         <method type="post"><service name="growerp.mobile.MobileRestServices.load#DefaultData"/></method></resource>
 
+    <!-- export/import -->
+    <resource name="exportOrders">
+        <method type="get"><service name="growerp.mobile.MobileXportServices.export#Orders"/></method></resource>
     <!-- up/download images -->
     <resource name="UploadImage">
         <method type="post"><service name="growerp.mobile.MobileRestServices.upload#Image"/></method></resource>

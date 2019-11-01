@@ -100,7 +100,7 @@ along with this software (see the LICENSE.md file). If not, see
                     in-map="[userGroupId: userGroupId, userId: userAccount.userId]"/>
                 <!-- attach the user as an employee to the organization. -->
                 <service-call name="create#mantle.party.PartyRelationship"
-                    in-map="[fromPartyId: userAccount.partyId, fromRoleTypeId: 'Employee',
+                    in-map="[fromPartyId: userAccount.partyId, fromRoleTypeId: 'Employee', relationshipTypeEnumId: 'PrtEmployee',
                         fromDate: fromDate, toPartyId: companyPartyId, toRoleTypeId: 'OrgInternal']"/>
                 <!-- set company in as ACTIVE_ORGANIZATION UserPreference to be sure only this company can be looked at-->
                 <service-call name="create#moqui.security.UserPreference"
@@ -289,9 +289,10 @@ along with this software (see the LICENSE.md file). If not, see
                     contentLocation: 'dbresource://GrowERP/images/gardenMedium.png']"/>
 
             <if condition="environment != 'production'">
+                <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
                 <set field="random" value="${org.moqui.util.StringUtilities.getRandomString(8)}"/>
                 <service-call name="growerp.mobile.MobilePartyServices.create#User" in-map="[
-                        firstName: 'Peter', lastName: 'Coster',
+                        firstName: 'Peter', lastName: 'Coster', companyPartyId: company.partyId,
                         emailAddress: random.toLowerCase() + '@example.com',
                         roleTypeId: 'Employee', groupDescription: 'Employee']"
                         out-map="context"/>
