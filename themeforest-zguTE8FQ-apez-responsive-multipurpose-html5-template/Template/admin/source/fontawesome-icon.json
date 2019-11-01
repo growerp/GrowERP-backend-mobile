@@ -1,0 +1,3966 @@
+[
+  {
+    "className": "far fa-address-book",
+    "label": "address book"
+  },
+  {
+    "className": "far fa-address-card",
+    "label": "address card"
+  },
+  {
+    "className": "far fa-arrow-alt-circle-down",
+    "label": "arrow alt circle down"
+  },
+  {
+    "className": "far fa-arrow-alt-circle-left",
+    "label": "arrow alt circle left"
+  },
+  {
+    "className": "far fa-arrow-alt-circle-right",
+    "label": "arrow alt circle right"
+  },
+  {
+    "className": "far fa-arrow-alt-circle-up",
+    "label": "arrow alt circle up"
+  },
+  {
+    "className": "far fa-bell",
+    "label": "bell"
+  },
+  {
+    "className": "far fa-bell-slash",
+    "label": "bell slash"
+  },
+  {
+    "className": "far fa-bookmark",
+    "label": "bookmark"
+  },
+  {
+    "className": "far fa-building",
+    "label": "building"
+  },
+  {
+    "className": "far fa-calendar",
+    "label": "calendar"
+  },
+  {
+    "className": "far fa-calendar-alt",
+    "label": "calendar alt"
+  },
+  {
+    "className": "far fa-calendar-check",
+    "label": "calendar check"
+  },
+  {
+    "className": "far fa-calendar-minus",
+    "label": "calendar minus"
+  },
+  {
+    "className": "far fa-calendar-plus",
+    "label": "calendar plus"
+  },
+  {
+    "className": "far fa-calendar-times",
+    "label": "calendar times"
+  },
+  {
+    "className": "far fa-caret-square-down",
+    "label": "caret square down"
+  },
+  {
+    "className": "far fa-caret-square-left",
+    "label": "caret square left"
+  },
+  {
+    "className": "far fa-caret-square-right",
+    "label": "caret square right"
+  },
+  {
+    "className": "far fa-caret-square-up",
+    "label": "caret square up"
+  },
+  {
+    "className": "far fa-chart-bar",
+    "label": "chart bar"
+  },
+  {
+    "className": "far fa-check-circle",
+    "label": "check circle"
+  },
+  {
+    "className": "far fa-check-square",
+    "label": "check square"
+  },
+  {
+    "className": "far fa-circle",
+    "label": "circle"
+  },
+  {
+    "className": "far fa-clipboard",
+    "label": "clipboard"
+  },
+  {
+    "className": "far fa-clock",
+    "label": "clock"
+  },
+  {
+    "className": "far fa-clone",
+    "label": "clone"
+  },
+  {
+    "className": "far fa-closed-captioning",
+    "label": "closed captioning"
+  },
+  {
+    "className": "far fa-comment",
+    "label": "comment"
+  },
+  {
+    "className": "far fa-comment-alt",
+    "label": "comment alt"
+  },
+  {
+    "className": "far fa-comments",
+    "label": "comments"
+  },
+  {
+    "className": "far fa-compass",
+    "label": "compass"
+  },
+  {
+    "className": "far fa-copy",
+    "label": "copy"
+  },
+  {
+    "className": "far fa-copyright",
+    "label": "copyright"
+  },
+  {
+    "className": "far fa-credit-card",
+    "label": "credit card"
+  },
+  {
+    "className": "far fa-dot-circle",
+    "label": "dot circle"
+  },
+  {
+    "className": "far fa-edit",
+    "label": "edit"
+  },
+  {
+    "className": "far fa-envelope",
+    "label": "envelope"
+  },
+  {
+    "className": "far fa-envelope-open",
+    "label": "envelope open"
+  },
+  {
+    "className": "far fa-eye-slash",
+    "label": "eye slash"
+  },
+  {
+    "className": "far fa-file",
+    "label": "file"
+  },
+  {
+    "className": "far fa-file-alt",
+    "label": "file alt"
+  },
+  {
+    "className": "far fa-file-archive",
+    "label": "file archive"
+  },
+  {
+    "className": "far fa-file-audio",
+    "label": "file audio"
+  },
+  {
+    "className": "far fa-file-code",
+    "label": "file code"
+  },
+  {
+    "className": "far fa-file-excel",
+    "label": "file excel"
+  },
+  {
+    "className": "far fa-file-image",
+    "label": "file image"
+  },
+  {
+    "className": "far fa-file-pdf",
+    "label": "file pdf"
+  },
+  {
+    "className": "far fa-file-powerpoint",
+    "label": "file powerpoint"
+  },
+  {
+    "className": "far fa-file-video",
+    "label": "file video"
+  },
+  {
+    "className": "far fa-file-word",
+    "label": "file word"
+  },
+  {
+    "className": "far fa-flag",
+    "label": "flag"
+  },
+  {
+    "className": "far fa-folder",
+    "label": "folder"
+  },
+  {
+    "className": "far fa-folder-open",
+    "label": "folder open"
+  },
+  {
+    "className": "far fa-frown",
+    "label": "frown"
+  },
+  {
+    "className": "far fa-futbol",
+    "label": "futbol"
+  },
+  {
+    "className": "far fa-gem",
+    "label": "gem"
+  },
+  {
+    "className": "far fa-hand-lizard",
+    "label": "hand lizard"
+  },
+  {
+    "className": "far fa-hand-paper",
+    "label": "hand paper"
+  },
+  {
+    "className": "far fa-hand-peace",
+    "label": "hand peace"
+  },
+  {
+    "className": "far fa-hand-point-down",
+    "label": "hand point down"
+  },
+  {
+    "className": "far fa-hand-point-left",
+    "label": "hand point left"
+  },
+  {
+    "className": "far fa-hand-point-right",
+    "label": "hand point right"
+  },
+  {
+    "className": "far fa-hand-point-up",
+    "label": "hand point up"
+  },
+  {
+    "className": "far fa-hand-pointer",
+    "label": "hand pointer"
+  },
+  {
+    "className": "far fa-hand-rock",
+    "label": "hand rock"
+  },
+  {
+    "className": "far fa-hand-scissors",
+    "label": "hand scissors"
+  },
+  {
+    "className": "far fa-hand-spock",
+    "label": "hand spock"
+  },
+  {
+    "className": "far fa-handshake",
+    "label": "handshake"
+  },
+  {
+    "className": "far fa-hdd",
+    "label": "hdd"
+  },
+  {
+    "className": "far fa-heart",
+    "label": "heart"
+  },
+  {
+    "className": "far fa-hospital",
+    "label": "hospital"
+  },
+  {
+    "className": "far fa-hourglass",
+    "label": "hourglass"
+  },
+  {
+    "className": "far fa-id-badge",
+    "label": "id badge"
+  },
+  {
+    "className": "far fa-id-card",
+    "label": "id card"
+  },
+  {
+    "className": "far fa-image",
+    "label": "image"
+  },
+  {
+    "className": "far fa-images",
+    "label": "images"
+  },
+  {
+    "className": "far fa-keyboard",
+    "label": "keyboard"
+  },
+  {
+    "className": "far fa-lemon",
+    "label": "lemon"
+  },
+  {
+    "className": "far fa-life-ring",
+    "label": "life ring"
+  },
+  {
+    "className": "far fa-lightbulb",
+    "label": "lightbulb"
+  },
+  {
+    "className": "far fa-list-alt",
+    "label": "list alt"
+  },
+  {
+    "className": "far fa-map",
+    "label": "map"
+  },
+  {
+    "className": "far fa-meh",
+    "label": "meh"
+  },
+  {
+    "className": "far fa-minus-square",
+    "label": "minus square"
+  },
+  {
+    "className": "far fa-money-bill-alt",
+    "label": "money bill alt"
+  },
+  {
+    "className": "far fa-moon",
+    "label": "moon"
+  },
+  {
+    "className": "far fa-newspaper",
+    "label": "newspaper"
+  },
+  {
+    "className": "far fa-object-group",
+    "label": "object group"
+  },
+  {
+    "className": "far fa-object-ungroup",
+    "label": "object ungroup"
+  },
+  {
+    "className": "far fa-paper-plane",
+    "label": "paper plane"
+  },
+  {
+    "className": "far fa-pause-circle",
+    "label": "pause circle"
+  },
+  {
+    "className": "far fa-play-circle",
+    "label": "play circle"
+  },
+  {
+    "className": "far fa-plus-square",
+    "label": "plus square"
+  },
+  {
+    "className": "far fa-question-circle",
+    "label": "question circle"
+  },
+  {
+    "className": "far fa-registered",
+    "label": "registered"
+  },
+  {
+    "className": "far fa-save",
+    "label": "save"
+  },
+  {
+    "className": "far fa-share-square",
+    "label": "share square"
+  },
+  {
+    "className": "far fa-smile",
+    "label": "smile"
+  },
+  {
+    "className": "far fa-snowflake",
+    "label": "snowflake"
+  },
+  {
+    "className": "far fa-square",
+    "label": "square"
+  },
+  {
+    "className": "far fa-star",
+    "label": "star"
+  },
+  {
+    "className": "far fa-star-half",
+    "label": "star half"
+  },
+  {
+    "className": "far fa-sticky-note",
+    "label": "sticky note"
+  },
+  {
+    "className": "far fa-stop-circle",
+    "label": "stop circle"
+  },
+  {
+    "className": "far fa-sun",
+    "label": "sun"
+  },
+  {
+    "className": "far fa-thumbs-down",
+    "label": "thumbs down"
+  },
+  {
+    "className": "far fa-thumbs-up",
+    "label": "thumbs up"
+  },
+  {
+    "className": "far fa-times-circle",
+    "label": "times circle"
+  },
+  {
+    "className": "far fa-trash-alt",
+    "label": "trash alt"
+  },
+  {
+    "className": "far fa-user",
+    "label": "user"
+  },
+  {
+    "className": "far fa-user-circle",
+    "label": "user circle"
+  },
+  {
+    "className": "far fa-window-close",
+    "label": "window close"
+  },
+  {
+    "className": "far fa-window-maximize",
+    "label": "window maximize"
+  },
+  {
+    "className": "far fa-window-minimize",
+    "label": "window minimize"
+  },
+  {
+    "className": "far fa-window-restore",
+    "label": "window restore"
+  },
+  {
+    "className": "fa fa-address-book",
+    "label": "address book"
+  },
+  {
+    "className": "fa fa-address-card",
+    "label": "address card"
+  },
+  {
+    "className": "fa fa-adjust",
+    "label": "adjust"
+  },
+  {
+    "className": "fa fa-align-center",
+    "label": "align center"
+  },
+  {
+    "className": "fa fa-align-justify",
+    "label": "align justify"
+  },
+  {
+    "className": "fa fa-align-left",
+    "label": "align left"
+  },
+  {
+    "className": "fa fa-align-right",
+    "label": "align right"
+  },
+  {
+    "className": "fa fa-allergies",
+    "label": "allergies"
+  },
+  {
+    "className": "fa fa-ambulance",
+    "label": "ambulance"
+  },
+  {
+    "className": "fa fa-american-sign-language-interpreting",
+    "label": "american sign language interpreting"
+  },
+  {
+    "className": "fa fa-anchor",
+    "label": "anchor"
+  },
+  {
+    "className": "fa fa-angle-double-down",
+    "label": "angle double down"
+  },
+  {
+    "className": "fa fa-angle-double-left",
+    "label": "angle double left"
+  },
+  {
+    "className": "fa fa-angle-double-right",
+    "label": "angle double right"
+  },
+  {
+    "className": "fa fa-angle-double-up",
+    "label": "angle double up"
+  },
+  {
+    "className": "fa fa-angle-down",
+    "label": "angle down"
+  },
+  {
+    "className": "fa fa-angle-left",
+    "label": "angle left"
+  },
+  {
+    "className": "fa fa-angle-right",
+    "label": "angle right"
+  },
+  {
+    "className": "fa fa-angle-up",
+    "label": "angle up"
+  },
+  {
+    "className": "fa fa-archive",
+    "label": "archive"
+  },
+  {
+    "className": "fa fa-arrow-alt-circle-down",
+    "label": "arrow alt circle down"
+  },
+  {
+    "className": "fa fa-arrow-alt-circle-left",
+    "label": "arrow alt circle left"
+  },
+  {
+    "className": "fa fa-arrow-alt-circle-right",
+    "label": "arrow alt circle right"
+  },
+  {
+    "className": "fa fa-arrow-alt-circle-up",
+    "label": "arrow alt circle up"
+  },
+  {
+    "className": "fa fa-arrow-circle-down",
+    "label": "arrow circle down"
+  },
+  {
+    "className": "fa fa-arrow-circle-left",
+    "label": "arrow circle left"
+  },
+  {
+    "className": "fa fa-arrow-circle-right",
+    "label": "arrow circle right"
+  },
+  {
+    "className": "fa fa-arrow-circle-up",
+    "label": "arrow circle up"
+  },
+  {
+    "className": "fa fa-arrow-down",
+    "label": "arrow down"
+  },
+  {
+    "className": "fa fa-arrow-left",
+    "label": "arrow left"
+  },
+  {
+    "className": "fa fa-arrow-right",
+    "label": "arrow right"
+  },
+  {
+    "className": "fa fa-arrow-up",
+    "label": "arrow up"
+  },
+  {
+    "className": "fa fa-arrows-alt",
+    "label": "arrows alt"
+  },
+  {
+    "className": "fa fa-arrows-alt-h",
+    "label": "arrows alt h"
+  },
+  {
+    "className": "fa fa-arrows-alt-v",
+    "label": "arrows alt v"
+  },
+  {
+    "className": "fa fa-assistive-listening-systems",
+    "label": "assistive listening systems"
+  },
+  {
+    "className": "fa fa-asterisk",
+    "label": "asterisk"
+  },
+  {
+    "className": "fa fa-at",
+    "label": "at"
+  },
+  {
+    "className": "fa fa-audio-description",
+    "label": "audio description"
+  },
+  {
+    "className": "fa fa-backward",
+    "label": "backward"
+  },
+  {
+    "className": "fa fa-balance-scale",
+    "label": "balance scale"
+  },
+  {
+    "className": "fa fa-ban",
+    "label": "ban"
+  },
+  {
+    "className": "fa fa-band-aid",
+    "label": "band aid"
+  },
+  {
+    "className": "fa fa-barcode",
+    "label": "barcode"
+  },
+  {
+    "className": "fa fa-bars",
+    "label": "bars"
+  },
+  {
+    "className": "fa fa-baseball-ball",
+    "label": "baseball ball"
+  },
+  {
+    "className": "fa fa-basketball-ball",
+    "label": "basketball ball"
+  },
+  {
+    "className": "fa fa-bath",
+    "label": "bath"
+  },
+  {
+    "className": "fa fa-battery-empty",
+    "label": "battery empty"
+  },
+  {
+    "className": "fa fa-battery-full",
+    "label": "battery full"
+  },
+  {
+    "className": "fa fa-battery-half",
+    "label": "battery half"
+  },
+  {
+    "className": "fa fa-battery-quarter",
+    "label": "battery quarter"
+  },
+  {
+    "className": "fa fa-battery-three-quarters",
+    "label": "battery three quarters"
+  },
+  {
+    "className": "fa fa-bed",
+    "label": "bed"
+  },
+  {
+    "className": "fa fa-beer",
+    "label": "beer"
+  },
+  {
+    "className": "fa fa-bell",
+    "label": "bell"
+  },
+  {
+    "className": "fa fa-bell-slash",
+    "label": "bell slash"
+  },
+  {
+    "className": "fa fa-bicycle",
+    "label": "bicycle"
+  },
+  {
+    "className": "fa fa-binoculars",
+    "label": "binoculars"
+  },
+  {
+    "className": "fa fa-birthday-cake",
+    "label": "birthday cake"
+  },
+  {
+    "className": "fa fa-blind",
+    "label": "blind"
+  },
+  {
+    "className": "fa fa-bold",
+    "label": "bold"
+  },
+  {
+    "className": "fa fa-bolt",
+    "label": "bolt"
+  },
+  {
+    "className": "fa fa-bomb",
+    "label": "bomb"
+  },
+  {
+    "className": "fa fa-book",
+    "label": "book"
+  },
+  {
+    "className": "fa fa-bookmark",
+    "label": "bookmark"
+  },
+  {
+    "className": "fa fa-bowling-ball",
+    "label": "bowling ball"
+  },
+  {
+    "className": "fa fa-box",
+    "label": "box"
+  },
+  {
+    "className": "fa fa-box-open",
+    "label": "box open"
+  },
+  {
+    "className": "fa fa-boxes",
+    "label": "boxes"
+  },
+  {
+    "className": "fa fa-braille",
+    "label": "braille"
+  },
+  {
+    "className": "fa fa-briefcase",
+    "label": "briefcase"
+  },
+  {
+    "className": "fa fa-briefcase-medical",
+    "label": "briefcase medical"
+  },
+  {
+    "className": "fa fa-bug",
+    "label": "bug"
+  },
+  {
+    "className": "fa fa-building",
+    "label": "building"
+  },
+  {
+    "className": "fa fa-bullhorn",
+    "label": "bullhorn"
+  },
+  {
+    "className": "fa fa-bullseye",
+    "label": "bullseye"
+  },
+  {
+    "className": "fa fa-burn",
+    "label": "burn"
+  },
+  {
+    "className": "fa fa-bus",
+    "label": "bus"
+  },
+  {
+    "className": "fa fa-calculator",
+    "label": "calculator"
+  },
+  {
+    "className": "fa fa-calendar",
+    "label": "calendar"
+  },
+  {
+    "className": "fa fa-calendar-alt",
+    "label": "calendar alt"
+  },
+  {
+    "className": "fa fa-calendar-check",
+    "label": "calendar check"
+  },
+  {
+    "className": "fa fa-calendar-minus",
+    "label": "calendar minus"
+  },
+  {
+    "className": "fa fa-calendar-plus",
+    "label": "calendar plus"
+  },
+  {
+    "className": "fa fa-calendar-times",
+    "label": "calendar times"
+  },
+  {
+    "className": "fa fa-camera",
+    "label": "camera"
+  },
+  {
+    "className": "fa fa-camera-retro",
+    "label": "camera retro"
+  },
+  {
+    "className": "fa fa-capsules",
+    "label": "capsules"
+  },
+  {
+    "className": "fa fa-car",
+    "label": "car"
+  },
+  {
+    "className": "fa fa-caret-down",
+    "label": "caret down"
+  },
+  {
+    "className": "fa fa-caret-left",
+    "label": "caret left"
+  },
+  {
+    "className": "fa fa-caret-right",
+    "label": "caret right"
+  },
+  {
+    "className": "fa fa-caret-square-down",
+    "label": "caret square down"
+  },
+  {
+    "className": "fa fa-caret-square-left",
+    "label": "caret square left"
+  },
+  {
+    "className": "fa fa-caret-square-right",
+    "label": "caret square right"
+  },
+  {
+    "className": "fa fa-caret-square-up",
+    "label": "caret square up"
+  },
+  {
+    "className": "fa fa-caret-up",
+    "label": "caret up"
+  },
+  {
+    "className": "fa fa-cart-arrow-down",
+    "label": "cart arrow down"
+  },
+  {
+    "className": "fa fa-cart-plus",
+    "label": "cart plus"
+  },
+  {
+    "className": "fa fa-certificate",
+    "label": "certificate"
+  },
+  {
+    "className": "fa fa-chart-area",
+    "label": "chart area"
+  },
+  {
+    "className": "fa fa-chart-bar",
+    "label": "chart bar"
+  },
+  {
+    "className": "fa fa-chart-line",
+    "label": "chart line"
+  },
+  {
+    "className": "fa fa-chart-pie",
+    "label": "chart pie"
+  },
+  {
+    "className": "fa fa-check",
+    "label": "check"
+  },
+  {
+    "className": "fa fa-check-circle",
+    "label": "check circle"
+  },
+  {
+    "className": "fa fa-check-square",
+    "label": "check square"
+  },
+  {
+    "className": "fa fa-chess",
+    "label": "chess"
+  },
+  {
+    "className": "fa fa-chess-bishop",
+    "label": "chess bishop"
+  },
+  {
+    "className": "fa fa-chess-board",
+    "label": "chess board"
+  },
+  {
+    "className": "fa fa-chess-king",
+    "label": "chess king"
+  },
+  {
+    "className": "fa fa-chess-knight",
+    "label": "chess knight"
+  },
+  {
+    "className": "fa fa-chess-pawn",
+    "label": "chess pawn"
+  },
+  {
+    "className": "fa fa-chess-queen",
+    "label": "chess queen"
+  },
+  {
+    "className": "fa fa-chess-rook",
+    "label": "chess rook"
+  },
+  {
+    "className": "fa fa-chevron-circle-down",
+    "label": "chevron circle down"
+  },
+  {
+    "className": "fa fa-chevron-circle-left",
+    "label": "chevron circle left"
+  },
+  {
+    "className": "fa fa-chevron-circle-right",
+    "label": "chevron circle right"
+  },
+  {
+    "className": "fa fa-chevron-circle-up",
+    "label": "chevron circle up"
+  },
+  {
+    "className": "fa fa-chevron-down",
+    "label": "chevron down"
+  },
+  {
+    "className": "fa fa-chevron-left",
+    "label": "chevron left"
+  },
+  {
+    "className": "fa fa-chevron-right",
+    "label": "chevron right"
+  },
+  {
+    "className": "fa fa-chevron-up",
+    "label": "chevron up"
+  },
+  {
+    "className": "fa fa-child",
+    "label": "child"
+  },
+  {
+    "className": "fa fa-circle",
+    "label": "circle"
+  },
+  {
+    "className": "fa fa-circle-notch",
+    "label": "circle notch"
+  },
+  {
+    "className": "fa fa-clipboard",
+    "label": "clipboard"
+  },
+  {
+    "className": "fa fa-clipboard-check",
+    "label": "clipboard check"
+  },
+  {
+    "className": "fa fa-clipboard-list",
+    "label": "clipboard list"
+  },
+  {
+    "className": "fa fa-clock",
+    "label": "clock"
+  },
+  {
+    "className": "fa fa-clone",
+    "label": "clone"
+  },
+  {
+    "className": "fa fa-closed-captioning",
+    "label": "closed captioning"
+  },
+  {
+    "className": "fa fa-cloud",
+    "label": "cloud"
+  },
+  {
+    "className": "fa fa-cloud-download-alt",
+    "label": "cloud download alt"
+  },
+  {
+    "className": "fa fa-cloud-upload-alt",
+    "label": "cloud upload alt"
+  },
+  {
+    "className": "fa fa-code",
+    "label": "code"
+  },
+  {
+    "className": "fa fa-code-branch",
+    "label": "code branch"
+  },
+  {
+    "className": "fa fa-coffee",
+    "label": "coffee"
+  },
+  {
+    "className": "fa fa-cog",
+    "label": "cog"
+  },
+  {
+    "className": "fa fa-cogs",
+    "label": "cogs"
+  },
+  {
+    "className": "fa fa-columns",
+    "label": "columns"
+  },
+  {
+    "className": "fa fa-comment",
+    "label": "comment"
+  },
+  {
+    "className": "fa fa-comment-alt",
+    "label": "comment alt"
+  },
+  {
+    "className": "fa fa-comment-dots",
+    "label": "comment dots"
+  },
+  {
+    "className": "fa fa-comment-slash",
+    "label": "comment slash"
+  },
+  {
+    "className": "fa fa-comments",
+    "label": "comments"
+  },
+  {
+    "className": "fa fa-compass",
+    "label": "compass"
+  },
+  {
+    "className": "fa fa-compress",
+    "label": "compress"
+  },
+  {
+    "className": "fa fa-copy",
+    "label": "copy"
+  },
+  {
+    "className": "fa fa-copyright",
+    "label": "copyright"
+  },
+  {
+    "className": "fa fa-couch",
+    "label": "couch"
+  },
+  {
+    "className": "fa fa-credit-card",
+    "label": "credit card"
+  },
+  {
+    "className": "fa fa-crop",
+    "label": "crop"
+  },
+  {
+    "className": "fa fa-crosshairs",
+    "label": "crosshairs"
+  },
+  {
+    "className": "fa fa-cube",
+    "label": "cube"
+  },
+  {
+    "className": "fa fa-cubes",
+    "label": "cubes"
+  },
+  {
+    "className": "fa fa-cut",
+    "label": "cut"
+  },
+  {
+    "className": "fa fa-database",
+    "label": "database"
+  },
+  {
+    "className": "fa fa-deaf",
+    "label": "deaf"
+  },
+  {
+    "className": "fa fa-desktop",
+    "label": "desktop"
+  },
+  {
+    "className": "fa fa-diagnoses",
+    "label": "diagnoses"
+  },
+  {
+    "className": "fa fa-dna",
+    "label": "dna"
+  },
+  {
+    "className": "fa fa-dollar-sign",
+    "label": "dollar sign"
+  },
+  {
+    "className": "fa fa-dolly",
+    "label": "dolly"
+  },
+  {
+    "className": "fa fa-dolly-flatbed",
+    "label": "dolly flatbed"
+  },
+  {
+    "className": "fa fa-donate",
+    "label": "donate"
+  },
+  {
+    "className": "fa fa-dot-circle",
+    "label": "dot circle"
+  },
+  {
+    "className": "fa fa-dove",
+    "label": "dove"
+  },
+  {
+    "className": "fa fa-download",
+    "label": "download"
+  },
+  {
+    "className": "fa fa-edit",
+    "label": "edit"
+  },
+  {
+    "className": "fa fa-eject",
+    "label": "eject"
+  },
+  {
+    "className": "fa fa-ellipsis-h",
+    "label": "ellipsis h"
+  },
+  {
+    "className": "fa fa-ellipsis-v",
+    "label": "ellipsis v"
+  },
+  {
+    "className": "fa fa-envelope",
+    "label": "envelope"
+  },
+  {
+    "className": "fa fa-envelope-open",
+    "label": "envelope open"
+  },
+  {
+    "className": "fa fa-envelope-square",
+    "label": "envelope square"
+  },
+  {
+    "className": "fa fa-eraser",
+    "label": "eraser"
+  },
+  {
+    "className": "fa fa-euro-sign",
+    "label": "euro sign"
+  },
+  {
+    "className": "fa fa-exchange-alt",
+    "label": "exchange alt"
+  },
+  {
+    "className": "fa fa-exclamation",
+    "label": "exclamation"
+  },
+  {
+    "className": "fa fa-exclamation-circle",
+    "label": "exclamation circle"
+  },
+  {
+    "className": "fa fa-exclamation-triangle",
+    "label": "exclamation triangle"
+  },
+  {
+    "className": "fa fa-expand",
+    "label": "expand"
+  },
+  {
+    "className": "fa fa-expand-arrows-alt",
+    "label": "expand arrows alt"
+  },
+  {
+    "className": "fa fa-external-link-alt",
+    "label": "external link alt"
+  },
+  {
+    "className": "fa fa-external-link-square-alt",
+    "label": "external link square alt"
+  },
+  {
+    "className": "fa fa-eye",
+    "label": "eye"
+  },
+  {
+    "className": "fa fa-eye-dropper",
+    "label": "eye dropper"
+  },
+  {
+    "className": "fa fa-eye-slash",
+    "label": "eye slash"
+  },
+  {
+    "className": "fa fa-fast-backward",
+    "label": "fast backward"
+  },
+  {
+    "className": "fa fa-fast-forward",
+    "label": "fast forward"
+  },
+  {
+    "className": "fa fa-fax",
+    "label": "fax"
+  },
+  {
+    "className": "fa fa-female",
+    "label": "female"
+  },
+  {
+    "className": "fa fa-fighter-jet",
+    "label": "fighter jet"
+  },
+  {
+    "className": "fa fa-file",
+    "label": "file"
+  },
+  {
+    "className": "fa fa-file-alt",
+    "label": "file alt"
+  },
+  {
+    "className": "fa fa-file-archive",
+    "label": "file archive"
+  },
+  {
+    "className": "fa fa-file-audio",
+    "label": "file audio"
+  },
+  {
+    "className": "fa fa-file-code",
+    "label": "file code"
+  },
+  {
+    "className": "fa fa-file-excel",
+    "label": "file excel"
+  },
+  {
+    "className": "fa fa-file-image",
+    "label": "file image"
+  },
+  {
+    "className": "fa fa-file-medical",
+    "label": "file medical"
+  },
+  {
+    "className": "fa fa-file-medical-alt",
+    "label": "file medical alt"
+  },
+  {
+    "className": "fa fa-file-pdf",
+    "label": "file pdf"
+  },
+  {
+    "className": "fa fa-file-powerpoint",
+    "label": "file powerpoint"
+  },
+  {
+    "className": "fa fa-file-video",
+    "label": "file video"
+  },
+  {
+    "className": "fa fa-file-word",
+    "label": "file word"
+  },
+  {
+    "className": "fa fa-film",
+    "label": "film"
+  },
+  {
+    "className": "fa fa-filter",
+    "label": "filter"
+  },
+  {
+    "className": "fa fa-fire",
+    "label": "fire"
+  },
+  {
+    "className": "fa fa-fire-extinguisher",
+    "label": "fire extinguisher"
+  },
+  {
+    "className": "fa fa-first-aid",
+    "label": "first aid"
+  },
+  {
+    "className": "fa fa-flag",
+    "label": "flag"
+  },
+  {
+    "className": "fa fa-flag-checkered",
+    "label": "flag checkered"
+  },
+  {
+    "className": "fa fa-flask",
+    "label": "flask"
+  },
+  {
+    "className": "fa fa-folder",
+    "label": "folder"
+  },
+  {
+    "className": "fa fa-folder-open",
+    "label": "folder open"
+  },
+  {
+    "className": "fa fa-font",
+    "label": "font"
+  },
+  {
+    "className": "fa fa-football-ball",
+    "label": "football ball"
+  },
+  {
+    "className": "fa fa-forward",
+    "label": "forward"
+  },
+  {
+    "className": "fa fa-frown",
+    "label": "frown"
+  },
+  {
+    "className": "fa fa-futbol",
+    "label": "futbol"
+  },
+  {
+    "className": "fa fa-gamepad",
+    "label": "gamepad"
+  },
+  {
+    "className": "fa fa-gavel",
+    "label": "gavel"
+  },
+  {
+    "className": "fa fa-gem",
+    "label": "gem"
+  },
+  {
+    "className": "fa fa-genderless",
+    "label": "genderless"
+  },
+  {
+    "className": "fa fa-gift",
+    "label": "gift"
+  },
+  {
+    "className": "fa fa-glass-martini",
+    "label": "glass martini"
+  },
+  {
+    "className": "fa fa-globe",
+    "label": "globe"
+  },
+  {
+    "className": "fa fa-golf-ball",
+    "label": "golf ball"
+  },
+  {
+    "className": "fa fa-graduation-cap",
+    "label": "graduation cap"
+  },
+  {
+    "className": "fa fa-h-square",
+    "label": "h square"
+  },
+  {
+    "className": "fa fa-hand-holding",
+    "label": "hand holding"
+  },
+  {
+    "className": "fa fa-hand-holding-heart",
+    "label": "hand holding heart"
+  },
+  {
+    "className": "fa fa-hand-holding-usd",
+    "label": "hand holding usd"
+  },
+  {
+    "className": "fa fa-hand-lizard",
+    "label": "hand lizard"
+  },
+  {
+    "className": "fa fa-hand-paper",
+    "label": "hand paper"
+  },
+  {
+    "className": "fa fa-hand-peace",
+    "label": "hand peace"
+  },
+  {
+    "className": "fa fa-hand-point-down",
+    "label": "hand point down"
+  },
+  {
+    "className": "fa fa-hand-point-left",
+    "label": "hand point left"
+  },
+  {
+    "className": "fa fa-hand-point-right",
+    "label": "hand point right"
+  },
+  {
+    "className": "fa fa-hand-point-up",
+    "label": "hand point up"
+  },
+  {
+    "className": "fa fa-hand-pointer",
+    "label": "hand pointer"
+  },
+  {
+    "className": "fa fa-hand-rock",
+    "label": "hand rock"
+  },
+  {
+    "className": "fa fa-hand-scissors",
+    "label": "hand scissors"
+  },
+  {
+    "className": "fa fa-hand-spock",
+    "label": "hand spock"
+  },
+  {
+    "className": "fa fa-hands",
+    "label": "hands"
+  },
+  {
+    "className": "fa fa-hands-helping",
+    "label": "hands helping"
+  },
+  {
+    "className": "fa fa-handshake",
+    "label": "handshake"
+  },
+  {
+    "className": "fa fa-hashtag",
+    "label": "hashtag"
+  },
+  {
+    "className": "fa fa-hdd",
+    "label": "hdd"
+  },
+  {
+    "className": "fa fa-heading",
+    "label": "heading"
+  },
+  {
+    "className": "fa fa-headphones",
+    "label": "headphones"
+  },
+  {
+    "className": "fa fa-heart",
+    "label": "heart"
+  },
+  {
+    "className": "fa fa-heartbeat",
+    "label": "heartbeat"
+  },
+  {
+    "className": "fa fa-history",
+    "label": "history"
+  },
+  {
+    "className": "fa fa-hockey-puck",
+    "label": "hockey puck"
+  },
+  {
+    "className": "fa fa-home",
+    "label": "home"
+  },
+  {
+    "className": "fa fa-hospital",
+    "label": "hospital"
+  },
+  {
+    "className": "fa fa-hospital-alt",
+    "label": "hospital alt"
+  },
+  {
+    "className": "fa fa-hospital-symbol",
+    "label": "hospital symbol"
+  },
+  {
+    "className": "fa fa-hourglass",
+    "label": "hourglass"
+  },
+  {
+    "className": "fa fa-hourglass-end",
+    "label": "hourglass end"
+  },
+  {
+    "className": "fa fa-hourglass-half",
+    "label": "hourglass half"
+  },
+  {
+    "className": "fa fa-hourglass-start",
+    "label": "hourglass start"
+  },
+  {
+    "className": "fa fa-i-cursor",
+    "label": "i cursor"
+  },
+  {
+    "className": "fa fa-id-badge",
+    "label": "id badge"
+  },
+  {
+    "className": "fa fa-id-card",
+    "label": "id card"
+  },
+  {
+    "className": "fa fa-id-card-alt",
+    "label": "id card alt"
+  },
+  {
+    "className": "fa fa-image",
+    "label": "image"
+  },
+  {
+    "className": "fa fa-images",
+    "label": "images"
+  },
+  {
+    "className": "fa fa-inbox",
+    "label": "inbox"
+  },
+  {
+    "className": "fa fa-indent",
+    "label": "indent"
+  },
+  {
+    "className": "fa fa-industry",
+    "label": "industry"
+  },
+  {
+    "className": "fa fa-info",
+    "label": "info"
+  },
+  {
+    "className": "fa fa-info-circle",
+    "label": "info circle"
+  },
+  {
+    "className": "fa fa-italic",
+    "label": "italic"
+  },
+  {
+    "className": "fa fa-key",
+    "label": "key"
+  },
+  {
+    "className": "fa fa-keyboard",
+    "label": "keyboard"
+  },
+  {
+    "className": "fa fa-language",
+    "label": "language"
+  },
+  {
+    "className": "fa fa-laptop",
+    "label": "laptop"
+  },
+  {
+    "className": "fa fa-leaf",
+    "label": "leaf"
+  },
+  {
+    "className": "fa fa-lemon",
+    "label": "lemon"
+  },
+  {
+    "className": "fa fa-level-down-alt",
+    "label": "level down alt"
+  },
+  {
+    "className": "fa fa-level-up-alt",
+    "label": "level up alt"
+  },
+  {
+    "className": "fa fa-life-ring",
+    "label": "life ring"
+  },
+  {
+    "className": "fa fa-lightbulb",
+    "label": "lightbulb"
+  },
+  {
+    "className": "fa fa-link",
+    "label": "link"
+  },
+  {
+    "className": "fa fa-lira-sign",
+    "label": "lira sign"
+  },
+  {
+    "className": "fa fa-list",
+    "label": "list"
+  },
+  {
+    "className": "fa fa-list-alt",
+    "label": "list alt"
+  },
+  {
+    "className": "fa fa-list-ol",
+    "label": "list ol"
+  },
+  {
+    "className": "fa fa-list-ul",
+    "label": "list ul"
+  },
+  {
+    "className": "fa fa-location-arrow",
+    "label": "location arrow"
+  },
+  {
+    "className": "fa fa-lock",
+    "label": "lock"
+  },
+  {
+    "className": "fa fa-lock-open",
+    "label": "lock open"
+  },
+  {
+    "className": "fa fa-long-arrow-alt-down",
+    "label": "long arrow alt down"
+  },
+  {
+    "className": "fa fa-long-arrow-alt-left",
+    "label": "long arrow alt left"
+  },
+  {
+    "className": "fa fa-long-arrow-alt-right",
+    "label": "long arrow alt right"
+  },
+  {
+    "className": "fa fa-long-arrow-alt-up",
+    "label": "long arrow alt up"
+  },
+  {
+    "className": "fa fa-low-vision",
+    "label": "low vision"
+  },
+  {
+    "className": "fa fa-magic",
+    "label": "magic"
+  },
+  {
+    "className": "fa fa-magnet",
+    "label": "magnet"
+  },
+  {
+    "className": "fa fa-male",
+    "label": "male"
+  },
+  {
+    "className": "fa fa-map",
+    "label": "map"
+  },
+  {
+    "className": "fa fa-map-marker",
+    "label": "map marker"
+  },
+  {
+    "className": "fa fa-map-marker-alt",
+    "label": "map marker alt"
+  },
+  {
+    "className": "fa fa-map-pin",
+    "label": "map pin"
+  },
+  {
+    "className": "fa fa-map-signs",
+    "label": "map signs"
+  },
+  {
+    "className": "fa fa-mars",
+    "label": "mars"
+  },
+  {
+    "className": "fa fa-mars-double",
+    "label": "mars double"
+  },
+  {
+    "className": "fa fa-mars-stroke",
+    "label": "mars stroke"
+  },
+  {
+    "className": "fa fa-mars-stroke-h",
+    "label": "mars stroke h"
+  },
+  {
+    "className": "fa fa-mars-stroke-v",
+    "label": "mars stroke v"
+  },
+  {
+    "className": "fa fa-medkit",
+    "label": "medkit"
+  },
+  {
+    "className": "fa fa-meh",
+    "label": "meh"
+  },
+  {
+    "className": "fa fa-mercury",
+    "label": "mercury"
+  },
+  {
+    "className": "fa fa-microchip",
+    "label": "microchip"
+  },
+  {
+    "className": "fa fa-microphone",
+    "label": "microphone"
+  },
+  {
+    "className": "fa fa-microphone-slash",
+    "label": "microphone slash"
+  },
+  {
+    "className": "fa fa-minus",
+    "label": "minus"
+  },
+  {
+    "className": "fa fa-minus-circle",
+    "label": "minus circle"
+  },
+  {
+    "className": "fa fa-minus-square",
+    "label": "minus square"
+  },
+  {
+    "className": "fa fa-mobile",
+    "label": "mobile"
+  },
+  {
+    "className": "fa fa-mobile-alt",
+    "label": "mobile alt"
+  },
+  {
+    "className": "fa fa-money-bill-alt",
+    "label": "money bill alt"
+  },
+  {
+    "className": "fa fa-moon",
+    "label": "moon"
+  },
+  {
+    "className": "fa fa-motorcycle",
+    "label": "motorcycle"
+  },
+  {
+    "className": "fa fa-mouse-pointer",
+    "label": "mouse pointer"
+  },
+  {
+    "className": "fa fa-music",
+    "label": "music"
+  },
+  {
+    "className": "fa fa-neuter",
+    "label": "neuter"
+  },
+  {
+    "className": "fa fa-newspaper",
+    "label": "newspaper"
+  },
+  {
+    "className": "fa fa-notes-medical",
+    "label": "notes medical"
+  },
+  {
+    "className": "fa fa-object-group",
+    "label": "object group"
+  },
+  {
+    "className": "fa fa-object-ungroup",
+    "label": "object ungroup"
+  },
+  {
+    "className": "fa fa-outdent",
+    "label": "outdent"
+  },
+  {
+    "className": "fa fa-paint-brush",
+    "label": "paint brush"
+  },
+  {
+    "className": "fa fa-pallet",
+    "label": "pallet"
+  },
+  {
+    "className": "fa fa-paper-plane",
+    "label": "paper plane"
+  },
+  {
+    "className": "fa fa-paperclip",
+    "label": "paperclip"
+  },
+  {
+    "className": "fa fa-parachute-box",
+    "label": "parachute box"
+  },
+  {
+    "className": "fa fa-paragraph",
+    "label": "paragraph"
+  },
+  {
+    "className": "fa fa-paste",
+    "label": "paste"
+  },
+  {
+    "className": "fa fa-pause",
+    "label": "pause"
+  },
+  {
+    "className": "fa fa-pause-circle",
+    "label": "pause circle"
+  },
+  {
+    "className": "fa fa-paw",
+    "label": "paw"
+  },
+  {
+    "className": "fa fa-pen-square",
+    "label": "pen square"
+  },
+  {
+    "className": "fa fa-pencil-alt",
+    "label": "pencil alt"
+  },
+  {
+    "className": "fa fa-people-carry",
+    "label": "people carry"
+  },
+  {
+    "className": "fa fa-percent",
+    "label": "percent"
+  },
+  {
+    "className": "fa fa-phone",
+    "label": "phone"
+  },
+  {
+    "className": "fa fa-phone-slash",
+    "label": "phone slash"
+  },
+  {
+    "className": "fa fa-phone-square",
+    "label": "phone square"
+  },
+  {
+    "className": "fa fa-phone-volume",
+    "label": "phone volume"
+  },
+  {
+    "className": "fa fa-piggy-bank",
+    "label": "piggy bank"
+  },
+  {
+    "className": "fa fa-pills",
+    "label": "pills"
+  },
+  {
+    "className": "fa fa-plane",
+    "label": "plane"
+  },
+  {
+    "className": "fa fa-play",
+    "label": "play"
+  },
+  {
+    "className": "fa fa-play-circle",
+    "label": "play circle"
+  },
+  {
+    "className": "fa fa-plug",
+    "label": "plug"
+  },
+  {
+    "className": "fa fa-plus",
+    "label": "plus"
+  },
+  {
+    "className": "fa fa-plus-circle",
+    "label": "plus circle"
+  },
+  {
+    "className": "fa fa-plus-square",
+    "label": "plus square"
+  },
+  {
+    "className": "fa fa-podcast",
+    "label": "podcast"
+  },
+  {
+    "className": "fa fa-poo",
+    "label": "poo"
+  },
+  {
+    "className": "fa fa-pound-sign",
+    "label": "pound sign"
+  },
+  {
+    "className": "fa fa-power-off",
+    "label": "power off"
+  },
+  {
+    "className": "fa fa-prescription-bottle",
+    "label": "prescription bottle"
+  },
+  {
+    "className": "fa fa-prescription-bottle-alt",
+    "label": "prescription bottle alt"
+  },
+  {
+    "className": "fa fa-print",
+    "label": "print"
+  },
+  {
+    "className": "fa fa-procedures",
+    "label": "procedures"
+  },
+  {
+    "className": "fa fa-puzzle-piece",
+    "label": "puzzle piece"
+  },
+  {
+    "className": "fa fa-qrcode",
+    "label": "qrcode"
+  },
+  {
+    "className": "fa fa-question",
+    "label": "question"
+  },
+  {
+    "className": "fa fa-question-circle",
+    "label": "question circle"
+  },
+  {
+    "className": "fa fa-quidditch",
+    "label": "quidditch"
+  },
+  {
+    "className": "fa fa-quote-left",
+    "label": "quote left"
+  },
+  {
+    "className": "fa fa-quote-right",
+    "label": "quote right"
+  },
+  {
+    "className": "fa fa-random",
+    "label": "random"
+  },
+  {
+    "className": "fa fa-recycle",
+    "label": "recycle"
+  },
+  {
+    "className": "fa fa-redo",
+    "label": "redo"
+  },
+  {
+    "className": "fa fa-redo-alt",
+    "label": "redo alt"
+  },
+  {
+    "className": "fa fa-registered",
+    "label": "registered"
+  },
+  {
+    "className": "fa fa-reply",
+    "label": "reply"
+  },
+  {
+    "className": "fa fa-reply-all",
+    "label": "reply all"
+  },
+  {
+    "className": "fa fa-retweet",
+    "label": "retweet"
+  },
+  {
+    "className": "fa fa-ribbon",
+    "label": "ribbon"
+  },
+  {
+    "className": "fa fa-road",
+    "label": "road"
+  },
+  {
+    "className": "fa fa-rocket",
+    "label": "rocket"
+  },
+  {
+    "className": "fa fa-rss",
+    "label": "rss"
+  },
+  {
+    "className": "fa fa-rss-square",
+    "label": "rss square"
+  },
+  {
+    "className": "fa fa-ruble-sign",
+    "label": "ruble sign"
+  },
+  {
+    "className": "fa fa-rupee-sign",
+    "label": "rupee sign"
+  },
+  {
+    "className": "fa fa-save",
+    "label": "save"
+  },
+  {
+    "className": "fa fa-search",
+    "label": "search"
+  },
+  {
+    "className": "fa fa-search-minus",
+    "label": "search minus"
+  },
+  {
+    "className": "fa fa-search-plus",
+    "label": "search plus"
+  },
+  {
+    "className": "fa fa-seedling",
+    "label": "seedling"
+  },
+  {
+    "className": "fa fa-server",
+    "label": "server"
+  },
+  {
+    "className": "fa fa-share",
+    "label": "share"
+  },
+  {
+    "className": "fa fa-share-alt",
+    "label": "share alt"
+  },
+  {
+    "className": "fa fa-share-alt-square",
+    "label": "share alt square"
+  },
+  {
+    "className": "fa fa-share-square",
+    "label": "share square"
+  },
+  {
+    "className": "fa fa-shekel-sign",
+    "label": "shekel sign"
+  },
+  {
+    "className": "fa fa-shield-alt",
+    "label": "shield alt"
+  },
+  {
+    "className": "fa fa-ship",
+    "label": "ship"
+  },
+  {
+    "className": "fa fa-shipping-fast",
+    "label": "shipping fast"
+  },
+  {
+    "className": "fa fa-shopping-bag",
+    "label": "shopping bag"
+  },
+  {
+    "className": "fa fa-shopping-basket",
+    "label": "shopping basket"
+  },
+  {
+    "className": "fa fa-shopping-cart",
+    "label": "shopping cart"
+  },
+  {
+    "className": "fa fa-shower",
+    "label": "shower"
+  },
+  {
+    "className": "fa fa-sign",
+    "label": "sign"
+  },
+  {
+    "className": "fa fa-sign-in-alt",
+    "label": "sign in alt"
+  },
+  {
+    "className": "fa fa-sign-language",
+    "label": "sign language"
+  },
+  {
+    "className": "fa fa-sign-out-alt",
+    "label": "sign out alt"
+  },
+  {
+    "className": "fa fa-signal",
+    "label": "signal"
+  },
+  {
+    "className": "fa fa-sitemap",
+    "label": "sitemap"
+  },
+  {
+    "className": "fa fa-sliders-h",
+    "label": "sliders h"
+  },
+  {
+    "className": "fa fa-smile",
+    "label": "smile"
+  },
+  {
+    "className": "fa fa-smoking",
+    "label": "smoking"
+  },
+  {
+    "className": "fa fa-snowflake",
+    "label": "snowflake"
+  },
+  {
+    "className": "fa fa-sort",
+    "label": "sort"
+  },
+  {
+    "className": "fa fa-sort-alpha-down",
+    "label": "sort alpha down"
+  },
+  {
+    "className": "fa fa-sort-alpha-up",
+    "label": "sort alpha up"
+  },
+  {
+    "className": "fa fa-sort-amount-down",
+    "label": "sort amount down"
+  },
+  {
+    "className": "fa fa-sort-amount-up",
+    "label": "sort amount up"
+  },
+  {
+    "className": "fa fa-sort-down",
+    "label": "sort down"
+  },
+  {
+    "className": "fa fa-sort-numeric-down",
+    "label": "sort numeric down"
+  },
+  {
+    "className": "fa fa-sort-numeric-up",
+    "label": "sort numeric up"
+  },
+  {
+    "className": "fa fa-sort-up",
+    "label": "sort up"
+  },
+  {
+    "className": "fa fa-space-shuttle",
+    "label": "space shuttle"
+  },
+  {
+    "className": "fa fa-spinner",
+    "label": "spinner"
+  },
+  {
+    "className": "fa fa-square",
+    "label": "square"
+  },
+  {
+    "className": "fa fa-square-full",
+    "label": "square full"
+  },
+  {
+    "className": "fa fa-star",
+    "label": "star"
+  },
+  {
+    "className": "fa fa-star-half",
+    "label": "star half"
+  },
+  {
+    "className": "fa fa-step-backward",
+    "label": "step backward"
+  },
+  {
+    "className": "fa fa-step-forward",
+    "label": "step forward"
+  },
+  {
+    "className": "fa fa-stethoscope",
+    "label": "stethoscope"
+  },
+  {
+    "className": "fa fa-sticky-note",
+    "label": "sticky note"
+  },
+  {
+    "className": "fa fa-stop",
+    "label": "stop"
+  },
+  {
+    "className": "fa fa-stop-circle",
+    "label": "stop circle"
+  },
+  {
+    "className": "fa fa-stopwatch",
+    "label": "stopwatch"
+  },
+  {
+    "className": "fa fa-street-view",
+    "label": "street view"
+  },
+  {
+    "className": "fa fa-strikethrough",
+    "label": "strikethrough"
+  },
+  {
+    "className": "fa fa-subscript",
+    "label": "subscript"
+  },
+  {
+    "className": "fa fa-subway",
+    "label": "subway"
+  },
+  {
+    "className": "fa fa-suitcase",
+    "label": "suitcase"
+  },
+  {
+    "className": "fa fa-sun",
+    "label": "sun"
+  },
+  {
+    "className": "fa fa-superscript",
+    "label": "superscript"
+  },
+  {
+    "className": "fa fa-sync",
+    "label": "sync"
+  },
+  {
+    "className": "fa fa-sync-alt",
+    "label": "sync alt"
+  },
+  {
+    "className": "fa fa-syringe",
+    "label": "syringe"
+  },
+  {
+    "className": "fa fa-table",
+    "label": "table"
+  },
+  {
+    "className": "fa fa-table-tennis",
+    "label": "table tennis"
+  },
+  {
+    "className": "fa fa-tablet",
+    "label": "tablet"
+  },
+  {
+    "className": "fa fa-tablet-alt",
+    "label": "tablet alt"
+  },
+  {
+    "className": "fa fa-tablets",
+    "label": "tablets"
+  },
+  {
+    "className": "fa fa-tachometer-alt",
+    "label": "tachometer alt"
+  },
+  {
+    "className": "fa fa-tag",
+    "label": "tag"
+  },
+  {
+    "className": "fa fa-tags",
+    "label": "tags"
+  },
+  {
+    "className": "fa fa-tape",
+    "label": "tape"
+  },
+  {
+    "className": "fa fa-tasks",
+    "label": "tasks"
+  },
+  {
+    "className": "fa fa-taxi",
+    "label": "taxi"
+  },
+  {
+    "className": "fa fa-terminal",
+    "label": "terminal"
+  },
+  {
+    "className": "fa fa-text-height",
+    "label": "text height"
+  },
+  {
+    "className": "fa fa-text-width",
+    "label": "text width"
+  },
+  {
+    "className": "fa fa-th",
+    "label": "th"
+  },
+  {
+    "className": "fa fa-th-large",
+    "label": "th large"
+  },
+  {
+    "className": "fa fa-th-list",
+    "label": "th list"
+  },
+  {
+    "className": "fa fa-thermometer",
+    "label": "thermometer"
+  },
+  {
+    "className": "fa fa-thermometer-empty",
+    "label": "thermometer empty"
+  },
+  {
+    "className": "fa fa-thermometer-full",
+    "label": "thermometer full"
+  },
+  {
+    "className": "fa fa-thermometer-half",
+    "label": "thermometer half"
+  },
+  {
+    "className": "fa fa-thermometer-quarter",
+    "label": "thermometer quarter"
+  },
+  {
+    "className": "fa fa-thermometer-three-quarters",
+    "label": "thermometer three quarters"
+  },
+  {
+    "className": "fa fa-thumbs-down",
+    "label": "thumbs down"
+  },
+  {
+    "className": "fa fa-thumbs-up",
+    "label": "thumbs up"
+  },
+  {
+    "className": "fa fa-thumbtack",
+    "label": "thumbtack"
+  },
+  {
+    "className": "fa fa-ticket-alt",
+    "label": "ticket alt"
+  },
+  {
+    "className": "fa fa-times",
+    "label": "times"
+  },
+  {
+    "className": "fa fa-times-circle",
+    "label": "times circle"
+  },
+  {
+    "className": "fa fa-tint",
+    "label": "tint"
+  },
+  {
+    "className": "fa fa-toggle-off",
+    "label": "toggle off"
+  },
+  {
+    "className": "fa fa-toggle-on",
+    "label": "toggle on"
+  },
+  {
+    "className": "fa fa-trademark",
+    "label": "trademark"
+  },
+  {
+    "className": "fa fa-train",
+    "label": "train"
+  },
+  {
+    "className": "fa fa-transgender",
+    "label": "transgender"
+  },
+  {
+    "className": "fa fa-transgender-alt",
+    "label": "transgender alt"
+  },
+  {
+    "className": "fa fa-trash",
+    "label": "trash"
+  },
+  {
+    "className": "fa fa-trash-alt",
+    "label": "trash alt"
+  },
+  {
+    "className": "fa fa-tree",
+    "label": "tree"
+  },
+  {
+    "className": "fa fa-trophy",
+    "label": "trophy"
+  },
+  {
+    "className": "fa fa-truck",
+    "label": "truck"
+  },
+  {
+    "className": "fa fa-truck-loading",
+    "label": "truck loading"
+  },
+  {
+    "className": "fa fa-truck-moving",
+    "label": "truck moving"
+  },
+  {
+    "className": "fa fa-tty",
+    "label": "tty"
+  },
+  {
+    "className": "fa fa-tv",
+    "label": "tv"
+  },
+  {
+    "className": "fa fa-umbrella",
+    "label": "umbrella"
+  },
+  {
+    "className": "fa fa-underline",
+    "label": "underline"
+  },
+  {
+    "className": "fa fa-undo",
+    "label": "undo"
+  },
+  {
+    "className": "fa fa-undo-alt",
+    "label": "undo alt"
+  },
+  {
+    "className": "fa fa-universal-access",
+    "label": "universal access"
+  },
+  {
+    "className": "fa fa-university",
+    "label": "university"
+  },
+  {
+    "className": "fa fa-unlink",
+    "label": "unlink"
+  },
+  {
+    "className": "fa fa-unlock",
+    "label": "unlock"
+  },
+  {
+    "className": "fa fa-unlock-alt",
+    "label": "unlock alt"
+  },
+  {
+    "className": "fa fa-upload",
+    "label": "upload"
+  },
+  {
+    "className": "fa fa-user",
+    "label": "user"
+  },
+  {
+    "className": "fa fa-user-circle",
+    "label": "user circle"
+  },
+  {
+    "className": "fa fa-user-md",
+    "label": "user md"
+  },
+  {
+    "className": "fa fa-user-plus",
+    "label": "user plus"
+  },
+  {
+    "className": "fa fa-user-secret",
+    "label": "user secret"
+  },
+  {
+    "className": "fa fa-user-times",
+    "label": "user times"
+  },
+  {
+    "className": "fa fa-users",
+    "label": "users"
+  },
+  {
+    "className": "fa fa-utensil-spoon",
+    "label": "utensil spoon"
+  },
+  {
+    "className": "fa fa-utensils",
+    "label": "utensils"
+  },
+  {
+    "className": "fa fa-venus",
+    "label": "venus"
+  },
+  {
+    "className": "fa fa-venus-double",
+    "label": "venus double"
+  },
+  {
+    "className": "fa fa-venus-mars",
+    "label": "venus mars"
+  },
+  {
+    "className": "fa fa-vial",
+    "label": "vial"
+  },
+  {
+    "className": "fa fa-vials",
+    "label": "vials"
+  },
+  {
+    "className": "fa fa-video",
+    "label": "video"
+  },
+  {
+    "className": "fa fa-video-slash",
+    "label": "video slash"
+  },
+  {
+    "className": "fa fa-volleyball-ball",
+    "label": "volleyball ball"
+  },
+  {
+    "className": "fa fa-volume-down",
+    "label": "volume down"
+  },
+  {
+    "className": "fa fa-volume-off",
+    "label": "volume off"
+  },
+  {
+    "className": "fa fa-volume-up",
+    "label": "volume up"
+  },
+  {
+    "className": "fa fa-warehouse",
+    "label": "warehouse"
+  },
+  {
+    "className": "fa fa-weight",
+    "label": "weight"
+  },
+  {
+    "className": "fa fa-wheelchair",
+    "label": "wheelchair"
+  },
+  {
+    "className": "fa fa-wifi",
+    "label": "wifi"
+  },
+  {
+    "className": "fa fa-window-close",
+    "label": "window close"
+  },
+  {
+    "className": "fa fa-window-maximize",
+    "label": "window maximize"
+  },
+  {
+    "className": "fa fa-window-minimize",
+    "label": "window minimize"
+  },
+  {
+    "className": "fa fa-window-restore",
+    "label": "window restore"
+  },
+  {
+    "className": "fa fa-wine-glass",
+    "label": "wine glass"
+  },
+  {
+    "className": "fa fa-won-sign",
+    "label": "won sign"
+  },
+  {
+    "className": "fa fa-wrench",
+    "label": "wrench"
+  },
+  {
+    "className": "fa fa-x-ray",
+    "label": "x ray"
+  },
+  {
+    "className": "fa fa-yen-sign",
+    "label": "yen sign"
+  },
+  {
+    "className": "fab fa-500px",
+    "label": "500px"
+  },
+  {
+    "className": "fab fa-accessible-icon",
+    "label": "accessible icon"
+  },
+  {
+    "className": "fab fa-accusoft",
+    "label": "accusoft"
+  },
+  {
+    "className": "fab fa-adn",
+    "label": "adn"
+  },
+  {
+    "className": "fab fa-adversal",
+    "label": "adversal"
+  },
+  {
+    "className": "fab fa-affiliatetheme",
+    "label": "affiliatetheme"
+  },
+  {
+    "className": "fab fa-algolia",
+    "label": "algolia"
+  },
+  {
+    "className": "fab fa-amazon",
+    "label": "amazon"
+  },
+  {
+    "className": "fab fa-amazon-pay",
+    "label": "amazon pay"
+  },
+  {
+    "className": "fab fa-amilia",
+    "label": "amilia"
+  },
+  {
+    "className": "fab fa-android",
+    "label": "android"
+  },
+  {
+    "className": "fab fa-angellist",
+    "label": "angellist"
+  },
+  {
+    "className": "fab fa-angrycreative",
+    "label": "angrycreative"
+  },
+  {
+    "className": "fab fa-angular",
+    "label": "angular"
+  },
+  {
+    "className": "fab fa-app-store",
+    "label": "app store"
+  },
+  {
+    "className": "fab fa-app-store-ios",
+    "label": "app store ios"
+  },
+  {
+    "className": "fab fa-apper",
+    "label": "apper"
+  },
+  {
+    "className": "fab fa-apple",
+    "label": "apple"
+  },
+  {
+    "className": "fab fa-apple-pay",
+    "label": "apple pay"
+  },
+  {
+    "className": "fab fa-asymmetrik",
+    "label": "asymmetrik"
+  },
+  {
+    "className": "fab fa-audible",
+    "label": "audible"
+  },
+  {
+    "className": "fab fa-autoprefixer",
+    "label": "autoprefixer"
+  },
+  {
+    "className": "fab fa-avianex",
+    "label": "avianex"
+  },
+  {
+    "className": "fab fa-aviato",
+    "label": "aviato"
+  },
+  {
+    "className": "fab fa-aws",
+    "label": "aws"
+  },
+  {
+    "className": "fab fa-bandcamp",
+    "label": "bandcamp"
+  },
+  {
+    "className": "fab fa-behance",
+    "label": "behance"
+  },
+  {
+    "className": "fab fa-behance-square",
+    "label": "behance square"
+  },
+  {
+    "className": "fab fa-bimobject",
+    "label": "bimobject"
+  },
+  {
+    "className": "fab fa-bitbucket",
+    "label": "bitbucket"
+  },
+  {
+    "className": "fab fa-bitcoin",
+    "label": "bitcoin"
+  },
+  {
+    "className": "fab fa-bity",
+    "label": "bity"
+  },
+  {
+    "className": "fab fa-black-tie",
+    "label": "black tie"
+  },
+  {
+    "className": "fab fa-blackberry",
+    "label": "blackberry"
+  },
+  {
+    "className": "fab fa-blogger",
+    "label": "blogger"
+  },
+  {
+    "className": "fab fa-blogger-b",
+    "label": "blogger b"
+  },
+  {
+    "className": "fab fa-bluetooth",
+    "label": "bluetooth"
+  },
+  {
+    "className": "fab fa-bluetooth-b",
+    "label": "bluetooth b"
+  },
+  {
+    "className": "fab fa-btc",
+    "label": "btc"
+  },
+  {
+    "className": "fab fa-buromobelexperte",
+    "label": "buromobelexperte"
+  },
+  {
+    "className": "fab fa-buysellads",
+    "label": "buysellads"
+  },
+  {
+    "className": "fab fa-cc-amazon-pay",
+    "label": "cc amazon pay"
+  },
+  {
+    "className": "fab fa-cc-amex",
+    "label": "cc amex"
+  },
+  {
+    "className": "fab fa-cc-apple-pay",
+    "label": "cc apple pay"
+  },
+  {
+    "className": "fab fa-cc-diners-club",
+    "label": "cc diners club"
+  },
+  {
+    "className": "fab fa-cc-discover",
+    "label": "cc discover"
+  },
+  {
+    "className": "fab fa-cc-jcb",
+    "label": "cc jcb"
+  },
+  {
+    "className": "fab fa-cc-mastercard",
+    "label": "cc mastercard"
+  },
+  {
+    "className": "fab fa-cc-paypal",
+    "label": "cc paypal"
+  },
+  {
+    "className": "fab fa-cc-stripe",
+    "label": "cc stripe"
+  },
+  {
+    "className": "fab fa-cc-visa",
+    "label": "cc visa"
+  },
+  {
+    "className": "fab fa-centercode",
+    "label": "centercode"
+  },
+  {
+    "className": "fab fa-chrome",
+    "label": "chrome"
+  },
+  {
+    "className": "fab fa-cloudscale",
+    "label": "cloudscale"
+  },
+  {
+    "className": "fab fa-cloudsmith",
+    "label": "cloudsmith"
+  },
+  {
+    "className": "fab fa-cloudversify",
+    "label": "cloudversify"
+  },
+  {
+    "className": "fab fa-codepen",
+    "label": "codepen"
+  },
+  {
+    "className": "fab fa-codiepie",
+    "label": "codiepie"
+  },
+  {
+    "className": "fab fa-connectdevelop",
+    "label": "connectdevelop"
+  },
+  {
+    "className": "fab fa-contao",
+    "label": "contao"
+  },
+  {
+    "className": "fab fa-cpanel",
+    "label": "cpanel"
+  },
+  {
+    "className": "fab fa-creative-commons",
+    "label": "creative commons"
+  },
+  {
+    "className": "fab fa-css3",
+    "label": "css3"
+  },
+  {
+    "className": "fab fa-css3-alt",
+    "label": "css3 alt"
+  },
+  {
+    "className": "fab fa-cuttlefish",
+    "label": "cuttlefish"
+  },
+  {
+    "className": "fab fa-d-and-d",
+    "label": "d and d"
+  },
+  {
+    "className": "fab fa-dashcube",
+    "label": "dashcube"
+  },
+  {
+    "className": "fab fa-delicious",
+    "label": "delicious"
+  },
+  {
+    "className": "fab fa-deploydog",
+    "label": "deploydog"
+  },
+  {
+    "className": "fab fa-deskpro",
+    "label": "deskpro"
+  },
+  {
+    "className": "fab fa-deviantart",
+    "label": "deviantart"
+  },
+  {
+    "className": "fab fa-digg",
+    "label": "digg"
+  },
+  {
+    "className": "fab fa-digital-ocean",
+    "label": "digital ocean"
+  },
+  {
+    "className": "fab fa-discord",
+    "label": "discord"
+  },
+  {
+    "className": "fab fa-discourse",
+    "label": "discourse"
+  },
+  {
+    "className": "fab fa-dochub",
+    "label": "dochub"
+  },
+  {
+    "className": "fab fa-docker",
+    "label": "docker"
+  },
+  {
+    "className": "fab fa-draft2digital",
+    "label": "draft2digital"
+  },
+  {
+    "className": "fab fa-dribbble",
+    "label": "dribbble"
+  },
+  {
+    "className": "fab fa-dribbble-square",
+    "label": "dribbble square"
+  },
+  {
+    "className": "fab fa-dropbox",
+    "label": "dropbox"
+  },
+  {
+    "className": "fab fa-drupal",
+    "label": "drupal"
+  },
+  {
+    "className": "fab fa-dyalog",
+    "label": "dyalog"
+  },
+  {
+    "className": "fab fa-earlybirds",
+    "label": "earlybirds"
+  },
+  {
+    "className": "fab fa-edge",
+    "label": "edge"
+  },
+  {
+    "className": "fab fa-elementor",
+    "label": "elementor"
+  },
+  {
+    "className": "fab fa-ember",
+    "label": "ember"
+  },
+  {
+    "className": "fab fa-empire",
+    "label": "empire"
+  },
+  {
+    "className": "fab fa-envira",
+    "label": "envira"
+  },
+  {
+    "className": "fab fa-erlang",
+    "label": "erlang"
+  },
+  {
+    "className": "fab fa-ethereum",
+    "label": "ethereum"
+  },
+  {
+    "className": "fab fa-etsy",
+    "label": "etsy"
+  },
+  {
+    "className": "fab fa-expeditedssl",
+    "label": "expeditedssl"
+  },
+  {
+    "className": "fab fa-facebook",
+    "label": "facebook"
+  },
+  {
+    "className": "fab fa-facebook-f",
+    "label": "facebook f"
+  },
+  {
+    "className": "fab fa-facebook-messenger",
+    "label": "facebook messenger"
+  },
+  {
+    "className": "fab fa-facebook-square",
+    "label": "facebook square"
+  },
+  {
+    "className": "fab fa-firefox",
+    "label": "firefox"
+  },
+  {
+    "className": "fab fa-first-order",
+    "label": "first order"
+  },
+  {
+    "className": "fab fa-firstdraft",
+    "label": "firstdraft"
+  },
+  {
+    "className": "fab fa-flickr",
+    "label": "flickr"
+  },
+  {
+    "className": "fab fa-flipboard",
+    "label": "flipboard"
+  },
+  {
+    "className": "fab fa-fly",
+    "label": "fly"
+  },
+  {
+    "className": "fab fa-font-awesome",
+    "label": "font awesome"
+  },
+  {
+    "className": "fab fa-font-awesome-alt",
+    "label": "font awesome alt"
+  },
+  {
+    "className": "fab fa-font-awesome-flag",
+    "label": "font awesome flag"
+  },
+  {
+    "className": "fab fa-fonticons",
+    "label": "fonticons"
+  },
+  {
+    "className": "fab fa-fonticons-fi",
+    "label": "fonticons fi"
+  },
+  {
+    "className": "fab fa-fort-awesome",
+    "label": "fort awesome"
+  },
+  {
+    "className": "fab fa-fort-awesome-alt",
+    "label": "fort awesome alt"
+  },
+  {
+    "className": "fab fa-forumbee",
+    "label": "forumbee"
+  },
+  {
+    "className": "fab fa-foursquare",
+    "label": "foursquare"
+  },
+  {
+    "className": "fab fa-free-code-camp",
+    "label": "free code camp"
+  },
+  {
+    "className": "fab fa-freebsd",
+    "label": "freebsd"
+  },
+  {
+    "className": "fab fa-get-pocket",
+    "label": "get pocket"
+  },
+  {
+    "className": "fab fa-gg",
+    "label": "gg"
+  },
+  {
+    "className": "fab fa-gg-circle",
+    "label": "gg circle"
+  },
+  {
+    "className": "fab fa-git",
+    "label": "git"
+  },
+  {
+    "className": "fab fa-git-square",
+    "label": "git square"
+  },
+  {
+    "className": "fab fa-github",
+    "label": "github"
+  },
+  {
+    "className": "fab fa-github-alt",
+    "label": "github alt"
+  },
+  {
+    "className": "fab fa-github-square",
+    "label": "github square"
+  },
+  {
+    "className": "fab fa-gitkraken",
+    "label": "gitkraken"
+  },
+  {
+    "className": "fab fa-gitlab",
+    "label": "gitlab"
+  },
+  {
+    "className": "fab fa-gitter",
+    "label": "gitter"
+  },
+  {
+    "className": "fab fa-glide",
+    "label": "glide"
+  },
+  {
+    "className": "fab fa-glide-g",
+    "label": "glide g"
+  },
+  {
+    "className": "fab fa-gofore",
+    "label": "gofore"
+  },
+  {
+    "className": "fab fa-goodreads",
+    "label": "goodreads"
+  },
+  {
+    "className": "fab fa-goodreads-g",
+    "label": "goodreads g"
+  },
+  {
+    "className": "fab fa-google",
+    "label": "google"
+  },
+  {
+    "className": "fab fa-google-drive",
+    "label": "google drive"
+  },
+  {
+    "className": "fab fa-google-play",
+    "label": "google play"
+  },
+  {
+    "className": "fab fa-google-plus",
+    "label": "google plus"
+  },
+  {
+    "className": "fab fa-google-plus-g",
+    "label": "google plus g"
+  },
+  {
+    "className": "fab fa-google-plus-square",
+    "label": "google plus square"
+  },
+  {
+    "className": "fab fa-google-wallet",
+    "label": "google wallet"
+  },
+  {
+    "className": "fab fa-gratipay",
+    "label": "gratipay"
+  },
+  {
+    "className": "fab fa-grav",
+    "label": "grav"
+  },
+  {
+    "className": "fab fa-gripfire",
+    "label": "gripfire"
+  },
+  {
+    "className": "fab fa-grunt",
+    "label": "grunt"
+  },
+  {
+    "className": "fab fa-gulp",
+    "label": "gulp"
+  },
+  {
+    "className": "fab fa-hacker-news",
+    "label": "hacker news"
+  },
+  {
+    "className": "fab fa-hacker-news-square",
+    "label": "hacker news square"
+  },
+  {
+    "className": "fab fa-hips",
+    "label": "hips"
+  },
+  {
+    "className": "fab fa-hire-a-helper",
+    "label": "hire a helper"
+  },
+  {
+    "className": "fab fa-hooli",
+    "label": "hooli"
+  },
+  {
+    "className": "fab fa-hotjar",
+    "label": "hotjar"
+  },
+  {
+    "className": "fab fa-houzz",
+    "label": "houzz"
+  },
+  {
+    "className": "fab fa-html5",
+    "label": "html5"
+  },
+  {
+    "className": "fab fa-hubspot",
+    "label": "hubspot"
+  },
+  {
+    "className": "fab fa-imdb",
+    "label": "imdb"
+  },
+  {
+    "className": "fab fa-instagram",
+    "label": "instagram"
+  },
+  {
+    "className": "fab fa-internet-explorer",
+    "label": "internet explorer"
+  },
+  {
+    "className": "fab fa-ioxhost",
+    "label": "ioxhost"
+  },
+  {
+    "className": "fab fa-itunes",
+    "label": "itunes"
+  },
+  {
+    "className": "fab fa-itunes-note",
+    "label": "itunes note"
+  },
+  {
+    "className": "fab fa-java",
+    "label": "java"
+  },
+  {
+    "className": "fab fa-jenkins",
+    "label": "jenkins"
+  },
+  {
+    "className": "fab fa-joget",
+    "label": "joget"
+  },
+  {
+    "className": "fab fa-joomla",
+    "label": "joomla"
+  },
+  {
+    "className": "fab fa-js",
+    "label": "js"
+  },
+  {
+    "className": "fab fa-js-square",
+    "label": "js square"
+  },
+  {
+    "className": "fab fa-jsfiddle",
+    "label": "jsfiddle"
+  },
+  {
+    "className": "fab fa-keycdn",
+    "label": "keycdn"
+  },
+  {
+    "className": "fab fa-kickstarter",
+    "label": "kickstarter"
+  },
+  {
+    "className": "fab fa-kickstarter-k",
+    "label": "kickstarter k"
+  },
+  {
+    "className": "fab fa-korvue",
+    "label": "korvue"
+  },
+  {
+    "className": "fab fa-laravel",
+    "label": "laravel"
+  },
+  {
+    "className": "fab fa-lastfm",
+    "label": "lastfm"
+  },
+  {
+    "className": "fab fa-lastfm-square",
+    "label": "lastfm square"
+  },
+  {
+    "className": "fab fa-leanpub",
+    "label": "leanpub"
+  },
+  {
+    "className": "fab fa-less",
+    "label": "less"
+  },
+  {
+    "className": "fab fa-line",
+    "label": "line"
+  },
+  {
+    "className": "fab fa-linkedin",
+    "label": "linkedin"
+  },
+  {
+    "className": "fab fa-linkedin-in",
+    "label": "linkedin in"
+  },
+  {
+    "className": "fab fa-linode",
+    "label": "linode"
+  },
+  {
+    "className": "fab fa-linux",
+    "label": "linux"
+  },
+  {
+    "className": "fab fa-lyft",
+    "label": "lyft"
+  },
+  {
+    "className": "fab fa-magento",
+    "label": "magento"
+  },
+  {
+    "className": "fab fa-maxcdn",
+    "label": "maxcdn"
+  },
+  {
+    "className": "fab fa-medapps",
+    "label": "medapps"
+  },
+  {
+    "className": "fab fa-medium",
+    "label": "medium"
+  },
+  {
+    "className": "fab fa-medium-m",
+    "label": "medium m"
+  },
+  {
+    "className": "fab fa-medrt",
+    "label": "medrt"
+  },
+  {
+    "className": "fab fa-meetup",
+    "label": "meetup"
+  },
+  {
+    "className": "fab fa-microsoft",
+    "label": "microsoft"
+  },
+  {
+    "className": "fab fa-mix",
+    "label": "mix"
+  },
+  {
+    "className": "fab fa-mixcloud",
+    "label": "mixcloud"
+  },
+  {
+    "className": "fab fa-mizuni",
+    "label": "mizuni"
+  },
+  {
+    "className": "fab fa-modx",
+    "label": "modx"
+  },
+  {
+    "className": "fab fa-monero",
+    "label": "monero"
+  },
+  {
+    "className": "fab fa-napster",
+    "label": "napster"
+  },
+  {
+    "className": "fab fa-nintendo-switch",
+    "label": "nintendo switch"
+  },
+  {
+    "className": "fab fa-node",
+    "label": "node"
+  },
+  {
+    "className": "fab fa-node-js",
+    "label": "node js"
+  },
+  {
+    "className": "fab fa-npm",
+    "label": "npm"
+  },
+  {
+    "className": "fab fa-ns8",
+    "label": "ns8"
+  },
+  {
+    "className": "fab fa-nutritionix",
+    "label": "nutritionix"
+  },
+  {
+    "className": "fab fa-odnoklassniki",
+    "label": "odnoklassniki"
+  },
+  {
+    "className": "fab fa-odnoklassniki-square",
+    "label": "odnoklassniki square"
+  },
+  {
+    "className": "fab fa-opencart",
+    "label": "opencart"
+  },
+  {
+    "className": "fab fa-openid",
+    "label": "openid"
+  },
+  {
+    "className": "fab fa-opera",
+    "label": "opera"
+  },
+  {
+    "className": "fab fa-optin-monster",
+    "label": "optin monster"
+  },
+  {
+    "className": "fab fa-osi",
+    "label": "osi"
+  },
+  {
+    "className": "fab fa-page4",
+    "label": "page4"
+  },
+  {
+    "className": "fab fa-pagelines",
+    "label": "pagelines"
+  },
+  {
+    "className": "fab fa-palfed",
+    "label": "palfed"
+  },
+  {
+    "className": "fab fa-patreon",
+    "label": "patreon"
+  },
+  {
+    "className": "fab fa-paypal",
+    "label": "paypal"
+  },
+  {
+    "className": "fab fa-periscope",
+    "label": "periscope"
+  },
+  {
+    "className": "fab fa-phabricator",
+    "label": "phabricator"
+  },
+  {
+    "className": "fab fa-phoenix-framework",
+    "label": "phoenix framework"
+  },
+  {
+    "className": "fab fa-php",
+    "label": "php"
+  },
+  {
+    "className": "fab fa-pied-piper",
+    "label": "pied piper"
+  },
+  {
+    "className": "fab fa-pied-piper-alt",
+    "label": "pied piper alt"
+  },
+  {
+    "className": "fab fa-pied-piper-hat",
+    "label": "pied piper hat"
+  },
+  {
+    "className": "fab fa-pied-piper-pp",
+    "label": "pied piper pp"
+  },
+  {
+    "className": "fab fa-pinterest",
+    "label": "pinterest"
+  },
+  {
+    "className": "fab fa-pinterest-p",
+    "label": "pinterest p"
+  },
+  {
+    "className": "fab fa-pinterest-square",
+    "label": "pinterest square"
+  },
+  {
+    "className": "fab fa-playstation",
+    "label": "playstation"
+  },
+  {
+    "className": "fab fa-product-hunt",
+    "label": "product hunt"
+  },
+  {
+    "className": "fab fa-pushed",
+    "label": "pushed"
+  },
+  {
+    "className": "fab fa-python",
+    "label": "python"
+  },
+  {
+    "className": "fab fa-qq",
+    "label": "qq"
+  },
+  {
+    "className": "fab fa-quinscape",
+    "label": "quinscape"
+  },
+  {
+    "className": "fab fa-quora",
+    "label": "quora"
+  },
+  {
+    "className": "fab fa-ravelry",
+    "label": "ravelry"
+  },
+  {
+    "className": "fab fa-react",
+    "label": "react"
+  },
+  {
+    "className": "fab fa-readme",
+    "label": "readme"
+  },
+  {
+    "className": "fab fa-rebel",
+    "label": "rebel"
+  },
+  {
+    "className": "fab fa-red-river",
+    "label": "red river"
+  },
+  {
+    "className": "fab fa-reddit",
+    "label": "reddit"
+  },
+  {
+    "className": "fab fa-reddit-alien",
+    "label": "reddit alien"
+  },
+  {
+    "className": "fab fa-reddit-square",
+    "label": "reddit square"
+  },
+  {
+    "className": "fab fa-rendact",
+    "label": "rendact"
+  },
+  {
+    "className": "fab fa-renren",
+    "label": "renren"
+  },
+  {
+    "className": "fab fa-replyd",
+    "label": "replyd"
+  },
+  {
+    "className": "fab fa-resolving",
+    "label": "resolving"
+  },
+  {
+    "className": "fab fa-rocketchat",
+    "label": "rocketchat"
+  },
+  {
+    "className": "fab fa-rockrms",
+    "label": "rockrms"
+  },
+  {
+    "className": "fab fa-safari",
+    "label": "safari"
+  },
+  {
+    "className": "fab fa-sass",
+    "label": "sass"
+  },
+  {
+    "className": "fab fa-schlix",
+    "label": "schlix"
+  },
+  {
+    "className": "fab fa-scribd",
+    "label": "scribd"
+  },
+  {
+    "className": "fab fa-searchengin",
+    "label": "searchengin"
+  },
+  {
+    "className": "fab fa-sellcast",
+    "label": "sellcast"
+  },
+  {
+    "className": "fab fa-sellsy",
+    "label": "sellsy"
+  },
+  {
+    "className": "fab fa-servicestack",
+    "label": "servicestack"
+  },
+  {
+    "className": "fab fa-shirtsinbulk",
+    "label": "shirtsinbulk"
+  },
+  {
+    "className": "fab fa-simplybuilt",
+    "label": "simplybuilt"
+  },
+  {
+    "className": "fab fa-sistrix",
+    "label": "sistrix"
+  },
+  {
+    "className": "fab fa-skyatlas",
+    "label": "skyatlas"
+  },
+  {
+    "className": "fab fa-skype",
+    "label": "skype"
+  },
+  {
+    "className": "fab fa-slack",
+    "label": "slack"
+  },
+  {
+    "className": "fab fa-slack-hash",
+    "label": "slack hash"
+  },
+  {
+    "className": "fab fa-slideshare",
+    "label": "slideshare"
+  },
+  {
+    "className": "fab fa-snapchat",
+    "label": "snapchat"
+  },
+  {
+    "className": "fab fa-snapchat-ghost",
+    "label": "snapchat ghost"
+  },
+  {
+    "className": "fab fa-snapchat-square",
+    "label": "snapchat square"
+  },
+  {
+    "className": "fab fa-soundcloud",
+    "label": "soundcloud"
+  },
+  {
+    "className": "fab fa-speakap",
+    "label": "speakap"
+  },
+  {
+    "className": "fab fa-spotify",
+    "label": "spotify"
+  },
+  {
+    "className": "fab fa-stack-exchange",
+    "label": "stack exchange"
+  },
+  {
+    "className": "fab fa-stack-overflow",
+    "label": "stack overflow"
+  },
+  {
+    "className": "fab fa-staylinked",
+    "label": "staylinked"
+  },
+  {
+    "className": "fab fa-steam",
+    "label": "steam"
+  },
+  {
+    "className": "fab fa-steam-square",
+    "label": "steam square"
+  },
+  {
+    "className": "fab fa-steam-symbol",
+    "label": "steam symbol"
+  },
+  {
+    "className": "fab fa-sticker-mule",
+    "label": "sticker mule"
+  },
+  {
+    "className": "fab fa-strava",
+    "label": "strava"
+  },
+  {
+    "className": "fab fa-stripe",
+    "label": "stripe"
+  },
+  {
+    "className": "fab fa-stripe-s",
+    "label": "stripe s"
+  },
+  {
+    "className": "fab fa-studiovinari",
+    "label": "studiovinari"
+  },
+  {
+    "className": "fab fa-stumbleupon",
+    "label": "stumbleupon"
+  },
+  {
+    "className": "fab fa-stumbleupon-circle",
+    "label": "stumbleupon circle"
+  },
+  {
+    "className": "fab fa-superpowers",
+    "label": "superpowers"
+  },
+  {
+    "className": "fab fa-supple",
+    "label": "supple"
+  },
+  {
+    "className": "fab fa-telegram",
+    "label": "telegram"
+  },
+  {
+    "className": "fab fa-telegram-plane",
+    "label": "telegram plane"
+  },
+  {
+    "className": "fab fa-tencent-weibo",
+    "label": "tencent weibo"
+  },
+  {
+    "className": "fab fa-themeisle",
+    "label": "themeisle"
+  },
+  {
+    "className": "fab fa-trello",
+    "label": "trello"
+  },
+  {
+    "className": "fab fa-tripadvisor",
+    "label": "tripadvisor"
+  },
+  {
+    "className": "fab fa-tumblr",
+    "label": "tumblr"
+  },
+  {
+    "className": "fab fa-tumblr-square",
+    "label": "tumblr square"
+  },
+  {
+    "className": "fab fa-twitch",
+    "label": "twitch"
+  },
+  {
+    "className": "fab fa-twitter",
+    "label": "twitter"
+  },
+  {
+    "className": "fab fa-twitter-square",
+    "label": "twitter square"
+  },
+  {
+    "className": "fab fa-typo3",
+    "label": "typo3"
+  },
+  {
+    "className": "fab fa-uber",
+    "label": "uber"
+  },
+  {
+    "className": "fab fa-uikit",
+    "label": "uikit"
+  },
+  {
+    "className": "fab fa-uniregistry",
+    "label": "uniregistry"
+  },
+  {
+    "className": "fab fa-untappd",
+    "label": "untappd"
+  },
+  {
+    "className": "fab fa-usb",
+    "label": "usb"
+  },
+  {
+    "className": "fab fa-ussunnah",
+    "label": "ussunnah"
+  },
+  {
+    "className": "fab fa-vaadin",
+    "label": "vaadin"
+  },
+  {
+    "className": "fab fa-viacoin",
+    "label": "viacoin"
+  },
+  {
+    "className": "fab fa-viadeo",
+    "label": "viadeo"
+  },
+  {
+    "className": "fab fa-viadeo-square",
+    "label": "viadeo square"
+  },
+  {
+    "className": "fab fa-viber",
+    "label": "viber"
+  },
+  {
+    "className": "fab fa-vimeo",
+    "label": "vimeo"
+  },
+  {
+    "className": "fab fa-vimeo-square",
+    "label": "vimeo square"
+  },
+  {
+    "className": "fab fa-vimeo-v",
+    "label": "vimeo v"
+  },
+  {
+    "className": "fab fa-vine",
+    "label": "vine"
+  },
+  {
+    "className": "fab fa-vk",
+    "label": "vk"
+  },
+  {
+    "className": "fab fa-vnv",
+    "label": "vnv"
+  },
+  {
+    "className": "fab fa-vuejs",
+    "label": "vuejs"
+  },
+  {
+    "className": "fab fa-weibo",
+    "label": "weibo"
+  },
+  {
+    "className": "fab fa-weixin",
+    "label": "weixin"
+  },
+  {
+    "className": "fab fa-whatsapp",
+    "label": "whatsapp"
+  },
+  {
+    "className": "fab fa-whatsapp-square",
+    "label": "whatsapp square"
+  },
+  {
+    "className": "fab fa-whmcs",
+    "label": "whmcs"
+  },
+  {
+    "className": "fab fa-wikipedia-w",
+    "label": "wikipedia w"
+  },
+  {
+    "className": "fab fa-windows",
+    "label": "windows"
+  },
+  {
+    "className": "fab fa-wordpress",
+    "label": "wordpress"
+  },
+  {
+    "className": "fab fa-wordpress-simple",
+    "label": "wordpress simple"
+  },
+  {
+    "className": "fab fa-wpbeginner",
+    "label": "wpbeginner"
+  },
+  {
+    "className": "fab fa-wpexplorer",
+    "label": "wpexplorer"
+  },
+  {
+    "className": "fab fa-wpforms",
+    "label": "wpforms"
+  },
+  {
+    "className": "fab fa-xbox",
+    "label": "xbox"
+  },
+  {
+    "className": "fab fa-xing",
+    "label": "xing"
+  },
+  {
+    "className": "fab fa-xing-square",
+    "label": "xing square"
+  },
+  {
+    "className": "fab fa-y-combinator",
+    "label": "y combinator"
+  },
+  {
+    "className": "fab fa-yahoo",
+    "label": "yahoo"
+  },
+  {
+    "className": "fab fa-yandex",
+    "label": "yandex"
+  },
+  {
+    "className": "fab fa-yandex-international",
+    "label": "yandex international"
+  },
+  {
+    "className": "fab fa-yelp",
+    "label": "yelp"
+  },
+  {
+    "className": "fab fa-yoast",
+    "label": "yoast"
+  },
+  {
+    "className": "fab fa-youtube",
+    "label": "youtube"
+  },
+  {
+    "className": "fab fa-youtube-square",
+    "label": "youtube square"
+  }
+]
