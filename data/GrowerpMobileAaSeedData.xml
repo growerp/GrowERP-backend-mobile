@@ -65,4 +65,33 @@ along with this software (see the LICENSE.md file). If not, see
     <mantle.party.RoleType description="Served part of the order" roleTypeId="OrderServe"/>
     <!-- Cashier used for billing -->
 
+    <!-- email templates -->
+    <moqui.basic.email.EmailTemplate emailTemplateId="GrowerpExportOrders" description="GrowERP orders export Order"
+            emailServerId="SYSTEM" webappName="webroot"
+            fromAddress="noreply@growerp.com" fromName="Support GrowERP" sendPartial="Y"
+            subject="Export Orders CSV file"
+            bodyScreenLocation="component://GrowERP-backend-mobile/screen/email/OrdersExportBody.xml">
+        <attachments fileName="order.csv"
+                attachmentLocation="component://GrowERP-backend-mobile/screen/email/OrdersExport.xml"
+                screenRenderMode="text"/>
+    </moqui.basic.email.EmailTemplate>
+    <moqui.basic.email.EmailTemplate emailTemplateId="GrowerpExportCustomers" description="GrowERP export Customers"
+            emailServerId="SYSTEM" webappName="webroot"
+            fromAddress="noreply@growerp.com" fromName="Support GrowERP" sendPartial="Y"
+            subject="Export Customers CSV file"
+            bodyScreenLocation="component://GrowERP-backend-mobile/screen/email/CustomersExportBody.xml">
+        <attachments fileName="customer.csv"
+                attachmentLocation="component://GrowERP-backend-mobile/screen/email/CustomersExport.xml"
+                screenRenderMode="text"/>
+    </moqui.basic.email.EmailTemplate>
+    <moqui.basic.email.EmailTemplate emailTemplateId="GrowerpExportCatgsProducts" description="GrowERP export Categories and Products"
+            emailServerId="SYSTEM" webappName="webroot"
+            fromAddress="noreply@growerp.com" fromName="Support GrowERP" sendPartial="Y"
+            subject="Export Categories and products file"
+            bodyScreenLocation="component://GrowERP-backend-mobile/screen/email/CatgsProductsExportBody.xml">
+        <attachments fileName="CatgsProducts.csv"
+                attachmentLocation="component://GrowERP-backend-mobile/screen/email/CatgsProductsExport.xml"
+                screenRenderMode="text"/>
+    </moqui.basic.email.EmailTemplate>
+
 </entity-facade-xml>

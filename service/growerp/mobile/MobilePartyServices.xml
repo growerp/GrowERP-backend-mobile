@@ -61,7 +61,7 @@ along with this software (see the LICENSE.md file). If not, see
                 emailAddress: emailAddress,
                 currencyId: pref.baseCurrencyUomId
                 ]"/>
-            <!-- employees -->
+            <!-- employees & customers-->
             <set field="employees" from="[]"/>
             <set field="customers" from="[]"/>
             <entity-find entity-name="CompanyPersonAndLogin"  list="userInfos">

@@ -116,8 +116,6 @@
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#PreparationAreaList"/></method></resource>
     <resource name="GetPreparationArea">
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#PreparationArea"/></method></resource>
-    <resource name="MovePreparationAreaCategory">
-        <method type="post"><service name="growerp.mobile.MobileLocationServices.move#PreparationAreaCategory"/></method></resource>
 
     <!-- Category/Product and Product store-->
     <resource name="GetProductCategories">
@@ -165,7 +163,7 @@
     <resource name="GetMyTasks">
         <method type="get"><service name="growerp.mobile.MobileTaskRequestServices.get#MyWorkEfforts"/></method></resource>
     <resource name="GetTaskList">
-        <method type="post"><service name="growerp.mobile.MobileTaskrequestServices.get#WorkEffortList"/></method></resource>
+        <method type="post"><service name="growerp.mobile.MobileTaskRequestServices.get#WorkEffortList"/></method></resource>
     <resource name="GetTask">
         <method type="post"><service name="growerp.mobile.MobileTaskRequestServices.get#WorkEffort"/></method></resource>
     <resource name="CreateTask">
@@ -196,4 +194,12 @@
         <method type="post"><service name="growerp.mobile.MobileSubscriptions.create#Subscription"/></method></resource>
     <resource name="GetActiveSubscriptions">
         <method type="get"><service name="growerp.mobile.MobileSubscriptions.get#ActiveSubscriptions"/></method></resource>
+
+    <!-- export via email -->
+    <resource name="ExportOrders">
+        <method type="post"><service name="growerp.mobile.MobileXportServices.export#Orders"/></method></resource>
+    <resource name="ExportCustomers">
+        <method type="get"><service name="growerp.mobile.MobileXportServices.export#Customers"/></method></resource>
+    <resource name="ExportCatgsProducts">
+        <method type="get"><service name="growerp.mobile.MobileXportServices.export#CatgsProducts"/></method></resource>   
 </resource>
