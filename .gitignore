@@ -26,7 +26,6 @@ local.properties
 nbproject/private/
 nbbuild/
 .nb-gradle/
-dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
