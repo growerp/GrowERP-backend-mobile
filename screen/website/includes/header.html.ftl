@@ -42,12 +42,11 @@
                         <div class="tbl-cell hdr-menu">
                             <!-- Start Menu Section -->
                             <ul class="menu">
-                                <li><a href="index.html">Home <i class="fa"></i></a></li>
-                                <li><a href="whyGrowERP.html">Why GrowERP?<i class="fa"></i></a></li>
-                                <li><a href="howToStart.html">How to start? <i class="fa"></i></a></li>
-                                <li><a href="features.html">Features <i class="fa"></i></a></li>
-                                <li><a href="demo.html">Demo/DownLoad <i class="fa"></i></a></li>
-                                <li><a href="mobile.html">Mobile <i class="fa"></i></a></li>
+                                <li><a href="index.html" class="nav-link <#if menu_active! == 'home'>active</#if>">Home <i class="fa"></i></a></li>
+                                <li><a href="whyGrowERP.html" class="nav-link <#if menu_active! == 'whyGrowERP'>active</#if>">Why GrowERP?<i class="fa"></i></a></li>
+                                <li><a href="howToStart.html" class="nav-link <#if menu_active! == 'howToStart'>active</#if>">How to start? <i class="fa"></i></a></li>
+                                <li><a href="about.html" class="nav-link <#if menu_active! == 'about'>active</#if>">About Moqui &amp; Ofbiz<i class="fa"></i></a></li>
+                                <li><a href="mobile.html" class="nav-link <#if menu_active! == 'mobile'>active</#if>">Mobile <i class="fa"></i></a></li>
                                 <li class="mobile-menu-close"><i class="fa fa-times"></i></li>
                             </ul><!-- End Menu Section -->
                             <div id="menu-bar"><a><i class="fa fa-bars"></i></a></div>
