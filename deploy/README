@@ -1,0 +1,6 @@
+
+
+CreateMoquiImage.sh will create a dockImage if your git repository master branch or any other and will upload it to docker-hub
+
+
+to start with docker-compose, use the docker-compose file.

@@ -27,6 +27,18 @@
     <link rel="stylesheet" href="assets/plugin/flexslider/flexslider.min.css" />
     <!-- Custom Main Stylesheet CSS -->
     <link rel="stylesheet" href="dist/css/style.css">
+    <script language="JavaScript" type="text/javascript">
+    var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37702784-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
 </head>
 <body>
     <div class="wrapper">
@@ -47,6 +59,7 @@
                                 <li><a href="howToStart.html" class="nav-link <#if menu_active! == 'howToStart'>active</#if>">How to start? <i class="fa"></i></a></li>
                                 <li><a href="about.html" class="nav-link <#if menu_active! == 'about'>active</#if>">About Moqui &amp; Ofbiz<i class="fa"></i></a></li>
                                 <li><a href="mobile.html" class="nav-link <#if menu_active! == 'mobile'>active</#if>">Mobile <i class="fa"></i></a></li>
+                                <li><a href="lp.html" class="nav-link <#if menu_active! == 'mobile'>active</#if>">lp<i class="fa"></i></a></li>
                                 <li class="mobile-menu-close"><i class="fa fa-times"></i></li>
                             </ul><!-- End Menu Section -->
                             <div id="menu-bar"><a><i class="fa fa-bars"></i></a></div>
