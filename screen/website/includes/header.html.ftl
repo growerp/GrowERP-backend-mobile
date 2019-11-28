@@ -53,6 +53,7 @@
                         </div><!-- End Header Logo Section -->
                         <div class="tbl-cell hdr-menu">
                             <!-- Start Menu Section -->
+                            <#if menu_active! != 'lp'><#-- only show menu when not a landing page -->
                             <ul class="menu">
                                 <li><a href="index.html" class="nav-link <#if menu_active! == 'home'>active</#if>">Home <i class="fa"></i></a></li>
                                 <li><a href="whyGrowERP.html" class="nav-link <#if menu_active! == 'whyGrowERP'>active</#if>">Why GrowERP?<i class="fa"></i></a></li>
@@ -62,6 +63,7 @@
                                 <li class="mobile-menu-close"><i class="fa fa-times"></i></li>
                             </ul><!-- End Menu Section -->
                             <div id="menu-bar"><a><i class="fa fa-bars"></i></a></div>
+                            </#if>
                         </div>
                     </div>
                 </div>
