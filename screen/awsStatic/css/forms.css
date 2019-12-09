@@ -1,0 +1,312 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+/***********************************************
+Forms
+***********************************************/
+form {margin:0; padding:0}
+
+form p.desc {margin:.5em 0; padding:.75em 0;}
+
+fieldset {margin: 0 0 2em 0;}
+fieldset.col {clear:none; float:left; display:inline; margin:0 2em 2em 0}
+
+legend {padding: 0 0 1.286em; font-size: 1.167em; font-weight: 700;}
+fieldset fieldset legend {padding: 0 0 1.5em; font-size: 1em;}
+* html legend {margin-left: -7px;}
+*+html legend {margin-left: -7px;}
+
+form div, .buttons {/*clear: both; margin: 0 0 0.8em;*/}
+form div label {display: block; padding-bottom:.08em}
+form ul li {list-style-type: none; margin: 0;}
+form .inline li, form .inline label {display: inline;}
+form .inline li {padding: 0 .75em 0 0;}
+
+form .form-row input, form .form-row select, form textarea, form table input, form table select,select, form input{ 
+border-style:solid; 
+border-width:1px; 
+background-color:#fbfbfb; 
+border-color: #7a7a7a #B4B4B4 #DADADA #B4B4B4;
+font:12px Arial, Helvetica, sans-serif;
+padding:4px; 
+}
+
+form table thead th {padding:0 .5em;}
+form td {padding: 0.3em;}
+
+input[type=text],input[type=password]{vertical-align:middle}
+input.radio {vertical-align: top;}
+input.checkbox {vertical-align: middle;}
+label, button, input.submit, input.image {cursor: pointer;}
+* html input.radio, * html input.checkbox {vertical-align: middle;}
+*+html input.radio, *+html input.checkbox {vertical-align: middle;}
+
+textarea {overflow: auto;}
+
+* html button {margin: 0 .34em 0 0;}
+*+html button {margin: 0 .34em 0 0;}
+
+form.horizontal div label {display: inline; text-align:right; padding-right:.34em}
+
+form div span {
+display:block;
+float:left;
+line-height:20px;
+margin:0;
+padding:0 0.4em 0 0;
+}
+form div span label {
+color:#404040;
+display:block;
+font-size:85%;
+font-weight:normal;
+margin:0.3em 0 0;
+}
+
+form div, .proddetailfield { margin-left:10px\9;}
+
+/***********************************************
+Buttons
+***********************************************/
+.buttons { font-size:100%; padding:5px 0px 5px 0px;}
+a.button, button.button, input[type=submit].button, input[type=button].button, input[type=reset].button{
+display:inline;
+margin:0 3px 0 0;
+background-color:#f5f5f5;
+border:1px solid #dedede;
+border-top:1px solid #eee;
+border-left:1px solid #eee;
+font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+font-size:100%;
+line-height:200%;
+text-decoration:none;
+font-weight:bold;
+color:#565656;
+cursor:pointer;
+padding:5px 10px 6px 7px; /* Links */
+}
+button{
+width:auto;
+overflow:visible;
+padding:0px 0px 0px 0px; /* IE6 */
+}
+button[type]{
+padding:0px 0px 0px 0px; /* Firefox */
+line-height:5px; /* Safari */
+}
+*:first-child+html button[type]{
+padding:4px 10px 3px 7px; /* IE7 */
+}
+button:hover, a.button:hover{
+background-color:#dff4ff;
+border:1px solid #c2e1ef;
+color:#336699;
+}
+a.button:active{
+background-color:#6299c5;
+border:1px solid #6299c5;
+color:#fff;
+}
+
+input[type=submit].button:hover,
+input[type=button].button:hover {
+background-color:#dff4ff;
+border:1px solid #c2e1ef;
+color:#336699;
+}
+a.submit:active{
+background-color:#529214;
+border:1px solid #529214;
+color:#fff;
+}
+a.reset, button.reset{color:#d12f19;}
+a.reset:hover, button.reset:hover{
+background:#fbe3e4;
+border:1px solid #fbc2c4;
+color:#d12f19;
+}
+input[type=reset].button:hover, button[type=reset].button:hover {
+background:#fbe3e4;
+border:1px solid #fbc2c4;
+color:#d12f19;
+}
+a.reset:active{
+background-color:#d12f19;
+border:1px solid #d12f19;
+color:#fff;
+}
+tr td.label {display: inline; float: right; text-align:right; padding-right:.34em; width: 90px;}
+
+/* register form */
+#newUserForm fieldset
+	width:100%;
+}
+#newUserForm fieldset label {
+	float:left;
+	text-align:right;
+	padding-right: 10px;
+	padding-top:5px;
+}
+
+#form1 {
+    position:relative;
+    vertical-align:top;
+    z-index:1;
+    font-family:Arial, Helvetica, sans-serif;
+    padding-top:31px;
+}
+
+/*Contact Form*/
+#form1 fieldset {
+border:none;
+padding:0;
+}
+
+#form1 label {
+    display: block;
+    min-height: 46px;
+    position: relative;
+    width: 347px;
+}
+
+#form1 label.message {
+    height: 301px;
+    width: 620px;
+}
+
+#form1 input {
+    outline: none;
+    border:1px solid #e5e5e5;
+    background:#fff;
+    color: #8f8f8f;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    height:36px;
+    margin: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    padding: 9px 13px;
+    width: 347px;
+    display:inline-block;
+}
+#form1 .area .error { float:none;}
+#form1 textarea {   
+    height:271px;
+    margin:0;
+    width:620px;    
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    resize:none;
+    background:#fff;
+    outline: none;
+    border:1px solid #e5e5e5;
+    padding: 6px 13px;
+    overflow:auto;
+    color:#8f8f8f;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+    display:block;
+}
+#form1 a {cursor:pointer;}
+#form1 .success {
+    -moz-box-sizing: border-box;
+    background: none repeat scroll 0 0 #F6F6F5;
+    border: 1px solid #333333;
+    display: none;
+    height: 128px;
+    position: absolute;
+    width: 347px;
+    z-index: 1;
+}
+
+.p27 {
+    margin-right:15px;
+}
+
+#form1 .success .success_txt {
+    color: #000;
+    position: relative;
+    text-align: center;
+    top: 34%;
+}
+#form1 .error,
+#form1 .empty {
+    color:#f00;
+    font-size:10px;
+    line-height:1.25em;
+    display:none;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow:hidden;
+    position:absolute;
+    right:3px;
+    top:2px;
+}
+#form1 .message .error,
+#form1 .message .empty  {
+    left: 4px;
+    right:auto;
+    top: 257px;
+}
+
+.link-form {
+    float: right;
+}
+
+
+@media only screen and (max-width: 995px) {
+    #form1 input, #form1 textarea{width:100%;}
+    #form1 label.message {
+    width: 100%;
+    height:301px;
+}
+#form1 label {
+    width: 100%;
+}
+
+#form1 .success {
+    width: 100%;    
+}
+}
+
+ @media only screen and (max-width: 767px) {
+     #form1 input, #form1 textarea{width:100%;}
+    
+#form1 label {
+    width: 100%;
+}
+
+#form1 .success {
+    width: 100%;    
+}
+     }
+ 
+
+
+
+@media only screen and (max-width: 479px){
+
+    
+
+}

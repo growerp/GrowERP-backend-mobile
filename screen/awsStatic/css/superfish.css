@@ -1,0 +1,177 @@
+/*** MENU ***/
+.sf-menu, .sf-menu * {
+    margin:            0;
+    padding:        0;
+    list-style:        none;
+}
+
+nav {
+    float:right;
+    padding-top:75px;
+}
+.sf-menu {
+    line-height:    1.0;
+}
+.sf-menu li {
+    float:            left;
+    margin-right:10px;
+    position:        relative;
+    background:url(../images/bg-15.png) repeat 0 0;
+    border-radius:10px;
+}
+
+.sf-menu li:hover,
+.sf-menu li.current,
+.sf-menu li.sfHover {
+     /* background:#eb5e4b;  */
+    background:#000793;
+    box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.1);
+}
+
+/**No Background and Box on Menu at picture Login with Likedin**/
+.sf-menu li.menunonbg{
+    background:none;
+    box-shadow: none;
+    margin-right: -10px;
+}
+
+.sf-menu li:hover a,
+.sf-menu li.current a,
+.sf-menu li.sfHover > a {
+    color:#fff;
+    text-shadow:none;
+    text-decoration:none;
+}
+
+.sf-menu a {
+    display:        block;
+    color:#2f2b2a;
+    font-family: 'Domine', serif;
+    font-size:12px;
+    padding:12px 12px 12px 12px;
+    line-height:17px;
+    text-shadow:1px 1px 2px #dcd9d7;
+    position:        relative;
+}
+.child{
+    top: -12px;
+}
+.sf-menu li.sub-menu > a {
+    padding-right:30px;
+}
+
+.sf-menu ul {
+    position:        absolute;
+    top:            -999em;
+    width:            121px; /* left offset of submenus need to match (see below) */
+}
+.sf-menu ul li {
+    width:            100%;
+    margin-bottom:1px;
+    /* background:#eb5e4b; */
+    background:#000793;
+    box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.1);
+}
+.sf-menu ul a {
+    padding-right:0;
+    color:#fff;
+    text-shadow:0 1px 1px #df5846;
+}
+
+.sf-menu ul li:hover,
+.sf-menu ul li.current,
+.sf-menu ul li.sfHover {
+    background:#2f2b2a;
+}
+
+.sf-menu li:hover {
+    visibility:        inherit; /* fixes IE7 'sticky bug' */
+}
+
+.sf-menu li:hover ul,
+.sf-menu li.sfHover ul {
+    left:            0;
+    top:            54px; /* match top ul list item height */
+    z-index:        99;
+}
+ul.sf-menu li:hover li ul,
+ul.sf-menu li.sfHover li ul {
+    top:            -999em;
+}
+ul.sf-menu li li:hover ul,
+ul.sf-menu li li.sfHover ul {
+    left:            122px; /* match ul width */
+    top:            0;
+}
+ul.sf-menu li li:hover li ul,
+ul.sf-menu li li.sfHover li ul {
+    top:            -999em;
+}
+ul.sf-menu li li li:hover ul,
+ul.sf-menu li li li.sfHover ul {
+    left:            10em; /* match ul width */
+    top:            0;
+}
+
+.sf-menu li.sub-menu:after {
+    background: url("../images/indicator.png") no-repeat scroll 0 0 transparent;
+    content: "";
+    display: block;
+    height: 6px;
+    right: 10%;
+    margin-top: -1px;
+    position: absolute;
+    top: 48%;
+    width: 5px;
+}
+
+
+/* Design for a width of 768px */
+@media only screen and (max-width: 995px) {
+    .child{
+    top: 0px;
+}
+    
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+
+
+nav select {
+    display: block !important;
+    height: 24px;
+    border:1px solid #bbbbbb;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    line-height: 23px;
+    outline: medium none;
+    padding: 0;
+    width: 100%;
+}
+
+
+nav {
+    width:100%;
+    padding-top:16px;
+    float:none;
+}
+
+nav span,
+.sf-menu{display:none;}
+
+}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+nav span,
+.sf-menu{display:none}
+
+ nav select {
+    width: 100%;
+}
+}
+

@@ -9,5 +9,17 @@
             <subscreens-item name="MobileAdmin" menu-index="10"
                  location="component://GrowERP-backend-mobile/screen/MobileAdmin.xml"/>
         </screen>
+        <screen location="component://webroot/screen/webroot.xml" default-subscreen="aws">
+            <subscreens-item name="aws" menu-title="Antwebsystems website" menu-include="false"
+                    location="component://GrowERP-backend-mobile/screen/awsStatic.xml"/>
+            <!-- antwebsystems static images -->
+            <subscreens-item name="awsStatic" menu-include="false"
+                    location="component://GrowERP-backend-mobile/screen/awsStatic.xml"/>
+            <subscreens-item name="Login" menu-include="false" location="component://GrowERP-backend-mobile/screen/Login.xml"/>
+        </screen>
+        <screen location="component://webroot/screen/webroot/apps.xml">
+            <subscreens-item name="BRAdmin" menu-title="BR Real Estate" menu-index="1"
+                    location="component://GrowERP-backend-mobile/screen/BRAdmin.xml"/>
+        </screen>
     </screen-facade>
 </moqui-conf>

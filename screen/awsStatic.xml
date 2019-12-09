@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        standalone="true" require-authentication="anonymous-view" allow-extra-path="true">
+
+    <always-actions>
+        <!-- TODO: make this configurable, perhaps through a productStoreGroupId constant instead of productStoreId constant -->
+        <!-- TODO: better yet add some to lookup based on hostname or other info that distinguishes multiple stores in the same system -->
+        <set field="productStoreId" value="aws"/>
+
+        <service-call name="popstore.StoreServices.get#StoreInfo" in-map="[productStoreId:productStoreId]" out-map="storeInfo"/>
+        <set field="productStore" from="storeInfo.productStore"/>
+        <set field="wikiSpaceId" from="productStore?.wikiSpaceId"/>
+
+        <!-- TODO: evaluate all use of this, most likely eliminate all... found use showing name from UserAccount instead of PartyDetail (Person/Organization) -->
+        <set field="user" from="ec.user.userAccount"/>
+    </always-actions>
+
+    <transition name="config.js" read-only="true">
+        <actions>
+            <script><![CDATA[
+                // NOTE: storeInfo prepared in always-actions above
+                // set productStoreId in the session
+                ec.web.sessionAttributes.productStoreId = productStoreId
+                // add apiKey and moquiSessionToken for current user and session
+                if (ec.user.username) { try { storeInfo.apiKey = ec.user.getLoginKey() } catch (Exception e) { } }
+                else storeInfo.apiKey = null
+                storeInfo.moquiSessionToken = ec.web.sessionToken
+                String partyId = (ec.user.username ? ec.user.userAccount?.partyId : null) ?: ec.web.sessionAttributes.customerPartyId
+                if (partyId) { storeInfo.customerInfo = ec.service.sync().name("popstore.CustomerServices.get#CustomerInfo").call() }
+                // generate and send the JS response
+                String storeInfoJson = groovy.json.JsonOutput.toJson(storeInfo)
+                String jsText = """
+var storeInfo = ${storeInfoJson};
+\$.extend(storeConfig, storeInfo.productStore, storeInfo.settings);
+"""
+                ec.web.sendTextResponse(jsText, "application/javascript", null)
+            ]]></script>
+        </actions>
+        <default-response type="none"/>
+    </transition>
+
+    <transition name="logOut">
+        <actions>
+            <service-call name="popstore.CustomerServices.logout#Customer"/>
+        </actions>
+        <default-response url="."/>
+        <error-response url="."/>
+    </transition>
+
+    <transition name="signUpForContactList">
+        <service-call name="create#moqui.entity.document.DataDocumentCondition"/>
+        <default-response url=".."/></transition>
+
+    <subscreens default-item="home" always-use-full-path="true"/>
+
+    <pre-actions>
+        <!-- lookup configured browse root category from storeInfo -->
+
+        <!-- get settings used in subscreens -->
+        <set field="template_server_root" from="storeInfo.settings.template_server_root" default-value="component://antwebsystems2/template/frontend/root.html.ftl"/>
+        <set field="template_server_massages" from="storeInfo.settings.template_server_massages" default-value="component://antwebsystems2/template/frontend/messages.ftl"/>
+        <set field="template_server_header" from="storeInfo.settings.template_server_header" default-value="component://antwebsystems2/template/frontend/navbar.html.ftl"/>
+        <set field="template_server_footer" from="storeInfo.settings.template_server_footer" default-value="component://antwebsystems2/template/frontend/footer.html.ftl"/>
+    </pre-actions>
+
+    <widgets>
+        <render-mode><text type="html" location="${template_server_root}"/></render-mode>
+    </widgets>
+</screen>

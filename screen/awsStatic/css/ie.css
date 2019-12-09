@@ -1,0 +1,16 @@
+*+html{overflow:auto;}
+.button1,
+.sf-menu li,
+.button2 {behavior:url(js/PIE.htc);}
+
+.button1,
+
+.sf-menu li:hover, .sf-menu li.current, .sf-menu li.sfHover,
+.sf-menu ul li:hover, .sf-menu ul li.sfHover,
+.sf-menu ul li {box-shadow:none !important;}
+
+.page2-box2 {
+	min-height:inherit;
+}
+
+

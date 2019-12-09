@@ -1,0 +1,109 @@
+.carousel1 li {
+    text-align:center;
+    color: #1de862;
+    font-size:50px;
+    padding:113px;
+    display:inline-block;
+    text-shadow:0 1px 1px #616e78;
+    line-height:80px;
+    font-family: 'Domine', serif;
+}
+
+.carousel2 li {
+    float:left;
+}
+
+.carousel-div {
+    height:458px;
+    z-index:9;
+    overflow:hidden;
+}
+
+.slider-bg {
+    background:url(../images/antwebbuilding.gif) no-repeat;
+    width:1041px;
+    padding:0 0 130px;
+    position:initial;
+    z-index:9;
+    margin:0 auto;
+    height: 220px;
+}
+
+.carousel-div1 {
+    position: inherit;
+    z-index:9;
+    height:252px;
+}
+
+.carousel1 {
+    cursor: auto !important;
+}
+
+.carousel2 {
+    cursor: auto !important;
+    overflow:hidden;
+}
+
+
+.carousel1 li p {
+    letter-spacing: -2px;
+    padding-bottom: 25px;
+}
+
+.prev {
+    background: url(../images/prev.png) 0 0 no-repeat;
+    display: block;
+    width: 12px;
+    height: 23px;
+    position:absolute;
+    top:200px;
+    left:42px;
+    z-index:99;
+}
+
+.caroufredsel_wrapper {
+    z-index:9;
+}
+
+.next {
+    background: url(../images/next.png) 0 0 no-repeat;
+    display: block;
+    width: 12px;
+    height: 23px;
+    z-index:99;
+    position:absolute;
+    top:200px;
+    right:42px;
+}
+
+.next:hover,
+.prev:hover {
+    background-position: 0 bottom;
+}
+
+.prev1 {
+    background: url(../images/prev1.png) 0 0 no-repeat;
+    display: block;
+    width: 5px;
+    height: 9px;
+    position:absolute;
+    right: 27px;
+    top: -41px;
+    z-index:99;
+}
+
+.next1 {
+    background: url(../images/next1.png) 0 0 no-repeat;
+    display: block;
+    width: 5px;
+    height: 9px;
+    z-index:99;
+    position:absolute;
+    right: 1px;
+    top: -41px;
+}
+
+.next1:hover,
+.prev1:hover {
+    background-position: 0 bottom;
+}

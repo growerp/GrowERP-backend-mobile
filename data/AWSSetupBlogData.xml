@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<entity-facade-xml type="seed-initial">
+    <!-- Template for Blog -->
+    <moqui.resource.DbResource filename="blog.html" isFile="Y" resourceId="aws_clt_blog" parentResourceId="aws_client_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <div class="container">
+                <p class="text-center">AntWebsystems Blog part.</p>
+            </div>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_blog" wikiSpaceId="AWS_TMP" pagePath="client/blog" publishedVersionName="01"/>
+
+    <!-- WikiPageCategory  -->
+    <moqui.resource.wiki.WikiPageCategory wikiPageCategoryId="BLOG_CONTENT" categoryName="Blog Content"/>
+
+    <!-- Blog 1  -->
+    <moqui.resource.DbResource filename="WKB-10001.html" isFile="Y" resourceId="WKB-10001" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<p>Probably you have read my<a href="https://www.linkedin.com/today/post/article/20140703080548-1227556-why-large-companies-use-open-source-erp" target="_blank"> post about why large companies choose open source ERP</a> <br>Although
+                    many people think the implementation of open source ERP is similar to a
+                    commercial ERP implementation, we found a remarkable number of
+                    differences.<br><br>These
+                    differences are caused by the different nature of the ERP system: Open
+                    source ERP has the program sources supplied, is free of commercial
+                    licenses and free to download from the Internet: so complete freedom for
+                    the end user. This will impact the implementation significantly.<br>Freedom
+                    is the key word, you can organize the implementation as you want it, no
+                    limitations can be imposed on to you by the implementation support
+                    company or the owner of the software (some license limitations may
+                    apply, be careful which ERP you select)<br><br>The implementation differences between open source ERP and a commercial system:</p><ol><li><strong>Project implementation organization freedom.<br></strong>If
+                    you really wanted, you can do it all yourself, with no help from
+                    anybody. However, implementing ERP is a specialist job, for which you
+                    better hire a company for whom implementing ERP systems is their core
+                    business. Try working together with this company so you also get a
+                    technology transfer to your employees.</li><li><strong>Implementation support company selection.</strong><br>Finding
+                    a qualified implementation company can be a challenge, however look at
+                    the ERP system website, there is a section of companies providing
+                    support services. You can also check the ERP system forum or mailing
+                    lists for participants or check which companies contribute a lot to the
+                    system. They are often also the best providers.</li><li><strong>No cost limitation on modules or functions</strong><br>A lot
+                    of companies, start with accounting and then find out that additional
+                    components are expensive, actually very expensive, so the purchase of
+                    these additional components are at least delayed. Open source is free so
+                    this limitation does not exist and you can aim to use the system in all
+                    departments of your company.</li><li><strong>Order sequence of implementation.</strong><br>Commercial ERP
+                    implementation often starts with the accounting module. Open source ERP
+                    systems often start from the e-commerce- or marketing and sales module
+                    and accounting last. Open source accounting still can be tricky because
+                    accountant want to see well known accounting software and are often the
+                    most conservative employees in the company.</li><li><strong>Is a contract required for implementation?</strong><br>This
+                    is dependent on the implementation support company which supports the
+                    open source product. We can only say, we do not do implementation
+                    contracts, in the spirit of the product, the implementation has just as
+                    much freedom as the product has. Just start implementing with frequent
+                    invoices and the implementation can be stopped at any time. To make this
+                    possible, implementation starts with a small team and is later extended
+                    when is proven the open source ERP implementation is going well.</li><li><strong>Customizing easy so why not create a new menu shell?</strong><br>Open
+                    source ERP system customizing is easy, so do not hesitate to create
+                    menus specifically designed for the employee functions in your company.
+                    He/she sees just the functions required which eases the acceptance.</li><li><strong>Is upgrading, when customizing, a problem?</strong><br>In
+                    general it should not, but it is depending on the open source system
+                    selected and if the vendor follows the implementation guidelines. Ask
+                    what it would cost if you would like to upgrade the base system monthly,
+                    then you know from the start if the customization will be done
+                    properly.</li><li><strong>Implementation methodology.</strong><br>In general open
+                    source implementation companies follow the latest developments, not only
+                    in technology, but also in implementation methods. They are often using
+                    the newer project management methodologies like Scrum for
+                    implementation, although combined with Prince2 for the management
+                    organization and reporting. <a href="http://www.borselaer.org/index.php/2010/03/whitebook-prince2-combined-with-scrum" rel="nofollow" target="_blank">(check here for more info)</a>
+                    The advantage is that during the implementation the end user can change
+                    his mind for the parts which are not yet implemented but part of the
+                    project.</li></ol>Please enter your opinions or comments here or sent them to support@antwebsystems.com.]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10001" wikiSpaceId="AWS_SPACE" pagePath="WKB-10001" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10001" wikiPageId="WKB-10001"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10001" wikiPageId="WKB-10001" title="Why companies should use open source ERP." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/Bird.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10001"/>
+
+    <moqui.resource.DbResource filename="WKB-10002.html" isFile="Y" resourceId="WKB-10002" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<p>Probably you have read my<a href="https://www.linkedin.com/today/post/article/20140703080548-1227556-why-large-companies-use-open-source-erp" target="_blank"> post about why large companies choose open source ERP</a> <br>Although
+                    many people think the implementation of open source ERP is similar to a
+                    commercial ERP implementation, we found a remarkable number of
+                    differences.<br><br>These
+                    differences are caused by the different nature of the ERP system: Open
+                    source ERP has the program sources supplied, is free of commercial
+                    licenses and free to download from the Internet: so complete freedom for
+                    the end user. This will impact the implementation significantly.<br>Freedom
+                    is the key word, you can organize the implementation as you want it, no
+                    limitations can be imposed on to you by the implementation support
+                    company or the owner of the software (some license limitations may
+                    apply, be careful which ERP you select)<br><br>The implementation differences between open source ERP and a commercial system:</p><ol><li><strong>Project implementation organization freedom.<br></strong>If
+                    you really wanted, you can do it all yourself, with no help from
+                    anybody. However, implementing ERP is a specialist job, for which you
+                    better hire a company for whom implementing ERP systems is their core
+                    business. Try working together with this company so you also get a
+                    technology transfer to your employees.</li><li><strong>Implementation support company selection.</strong><br>Finding
+                    a qualified implementation company can be a challenge, however look at
+                    the ERP system website, there is a section of companies providing
+                    support services. You can also check the ERP system forum or mailing
+                    lists for participants or check which companies contribute a lot to the
+                    system. They are often also the best providers.</li><li><strong>No cost limitation on modules or functions</strong><br>A lot
+                    of companies, start with accounting and then find out that additional
+                    components are expensive, actually very expensive, so the purchase of
+                    these additional components are at least delayed. Open source is free so
+                    this limitation does not exist and you can aim to use the system in all
+                    departments of your company.</li><li><strong>Order sequence of implementation.</strong><br>Commercial ERP
+                    implementation often starts with the accounting module. Open source ERP
+                    systems often start from the e-commerce- or marketing and sales module
+                    and accounting last. Open source accounting still can be tricky because
+                    accountant want to see well known accounting software and are often the
+                    most conservative employees in the company.</li><li><strong>Is a contract required for implementation?</strong><br>This
+                    is dependent on the implementation support company which supports the
+                    open source product. We can only say, we do not do implementation
+                    contracts, in the spirit of the product, the implementation has just as
+                    much freedom as the product has. Just start implementing with frequent
+                    invoices and the implementation can be stopped at any time. To make this
+                    possible, implementation starts with a small team and is later extended
+                    when is proven the open source ERP implementation is going well.</li><li><strong>Customizing easy so why not create a new menu shell?</strong><br>Open
+                    source ERP system customizing is easy, so do not hesitate to create
+                    menus specifically designed for the employee functions in your company.
+                    He/she sees just the functions required which eases the acceptance.</li><li><strong>Is upgrading, when customizing, a problem?</strong><br>In
+                    general it should not, but it is depending on the open source system
+                    selected and if the vendor follows the implementation guidelines. Ask
+                    what it would cost if you would like to upgrade the base system monthly,
+                    then you know from the start if the customization will be done
+                    properly.</li><li><strong>Implementation methodology.</strong><br>In general open
+                    source implementation companies follow the latest developments, not only
+                    in technology, but also in implementation methods. They are often using
+                    the newer project management methodologies like Scrum for
+                    implementation, although combined with Prince2 for the management
+                    organization and reporting. <a href="http://www.borselaer.org/index.php/2010/03/whitebook-prince2-combined-with-scrum" rel="nofollow" target="_blank">(check here for more info)</a>
+                    The advantage is that during the implementation the end user can change
+                    his mind for the parts which are not yet implemented but part of the
+                    project.</li></ol>Please enter your opinions or comments here or sent them to support@antwebsystems.com.]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10002" wikiSpaceId="AWS_SPACE" pagePath="WKB-10002" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10002" wikiPageId="WKB-10002"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10002" wikiPageId="WKB-10002" title="Demonstration of OFBiz information integration." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizintegration.png" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10002"/>
+
+    <moqui.resource.DbResource filename="WKB-10003.html" isFile="Y" resourceId="WKB-10003" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[It depends on which open source ERP system you select for your
+                    enterprise. Sure there are a number of systems suitable for large
+                    organizations. To help you select the best system for you, we have
+                    listed below a number of criteria which are important in your selection.<br><br><strong>1. Functionality</strong><br>
+                    Does the system have roughly the functionality your company or
+                    enterprise requires? It will never fit completely, but this is no
+                    problem, since open source can be easily adapted. Is it multi- company
+                    and currency? Has it at least the functions you intend to use? In
+                    general you need accounting, product catalog/warehouse, sales/purchase
+                    order, manufacturing, marketing/sales, CRM , data warehouse(BI) and
+                    e-commerce. <br><br><strong>2. Adaptability</strong><br> Can the system
+                    be customized and still can it be easily upgraded to newer versions?
+                    Customizations should always be kept outside the core ERP system so the
+                    core system can be upgraded pretty frequently. <br><br><strong>3. Scalability and technology.</strong><br>
+                    In order that you system can be accessed via the Internet it is
+                    required that the system is web based and that it can be used from
+                    within a browser. Does it require additional commercial software such as
+                    operating systems and/or databases? Can the system be scaled to a large
+                    number of users? <br>In general it can be said that if the Java
+                    technology is used it can scale using multiple Java applications
+                    servers, behind a load balancer and accessing the same database server.
+                    Other technologies are either commercial or are not so suitable for
+                    large installations.<br><br><strong>4. Is the system really open source?</strong><br>
+                    Many companies promote their system using the term 'open source' for
+                    marketing purposes only. Sure there can be made available a 'community
+                    version' with limited functionality where it is always required to
+                    purchase extra components to make it usable in large organizations. A
+                    further trick is to make an open source version of the system available
+                    but with a pretty restricted open source license on it. You can then buy
+                    a less restricted license to use and replicate it in large
+                    organizations<br> Also be careful if the system is owned by a commercial
+                    company and not a foundation. It is understandable that it is mandatory
+                    for this company that profit has to be made. Even be more careful when
+                    investors are involved, then making profit is even more important. If
+                    the software is owned by a foundation this situation does not exist. <br><br><strong>4. Future of the system.</strong><br>
+                    Make sure there is a lively community which keeps the system up to date
+                    with modern technology and newer business requirements. Check if there
+                    are plenty of providers and users worldwide. Did you know that additions
+                    to the system are often contributed by providers and financed by
+                    end-users?<br><br><strong>5. Available support/provider companies.</strong><br>
+                    Check if a suitable provider is available which has experience
+                    implementing open source ERP in large organizations, that they have a
+                    proper implementation methodology and can also support you when the
+                    system is in production. References to existing implementations
+                    certainly can help. If you want to do work yourself, does this company
+                    provide you with knowledge transfer?<br><br>As usual leave comments or mail us at support@antwebsystems.com]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10003" wikiSpaceId="AWS_SPACE" pagePath="WKB-10003" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10003" wikiPageId="WKB-10003"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10003" wikiPageId="WKB-10003" title="Is Open Source ERP ready for large organizations?" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/run.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10003"/>
+
+    <moqui.resource.DbResource filename="WKB-10004.html" isFile="Y" resourceId="WKB-10004" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[As announced here in LinkedIn and in twitter, we will publish our
+                    experiences implementing open source ERP in large organizations which we
+                    are doing now for over two years. The target audience for these
+                    articles is management level executives and later in this series the
+                    high level technically oriented functions because there is where the
+                    strength of the ERP system is we are using.<br><br>Questions related to reliability, maturity, support, cost savings,
+                    locking-in and comparison with commercial software will be answered. To
+                    be sure your questions will be answered let us know your question via a
+                    comment or email. <br><br>Although initially applicable for all open source ERP systems, later
+                    we will focus more at the Apache OFBiz product which is the system we
+                    use and which is, in our opinion, best for larger organizations because
+                    of the Java technology, the included development framework, its generous
+                    license and its ownership of the Apache foundation.<br><br>The subjects we will cover in the upcoming articles are:<ul><li>Why open source ERP and not a commercial system?</li><li>Is open source ERP ready for large organizations?</li><li>About freedom of lock-in, 'open' and implementation transparency.</li><li>Save large amounts of money using open source ERP in multiple locations</li><li>Implementing open source ERP different from commercial systems?</li><li>Our open source ERP implementation method explained.</li><li>Implement open source ERP yourself or get help?</li><li>Replacing your commercial accounting ERP with an open source system.</li></ul><br>if you have a suggestions for additional subjects let us
+                    know at support@antwebsystems.com, Follow me at Linkedin or twitter:
+                    @hansbak]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10004" wikiSpaceId="AWS_SPACE" pagePath="WKB-10004" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10004" wikiPageId="WKB-10004"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10004" wikiPageId="WKB-10004" title="Open Source ERP in large organizations, intro." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ERP.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10004"/>
+
+    <moqui.resource.DbResource filename="WKB-10005.html" isFile="Y" resourceId="WKB-10005" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<p>You want to free yourself from commercial software which is often
+                    locking you in? In our software development company with 20+ employees
+                    we do not use commercial software.</p> What do we use? We use Ubuntu on our laptops and work stations,
+                    Eclipse for software development, SVN and Git (yes we are just
+                    migrating) for our repositories. For administration we use Libre Office
+                    and Gimp for image handling. On our production systems we use Ubuntu
+                    server, PostgreSQL and yes, our core business, which is the only product
+                    we support: Apache OFBiz open source ERP.<p>I just read a nice
+                    article about the city of Munich where they just finished their
+                    migration project which showed how organizations get locked in and need
+                    10 years to get out of it.</p><p>We were lucky starting straight away
+                    with open source 7 years ago and did not have that problem. Are there
+                    exceptions? sure, we have 2 old laptops to be able to check if our
+                    software works with IE.</p><p>So if you are in the process upgrading
+                    your commercial software in your company consider the option to use open
+                    source software instead.</p><p>check for the Munich experiences at :
+                    http://www.techrepublic.com/article/how-munich-rejected-steve-ballmer-and-kicked-microsoft-out-of-the-city</p>]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10005" wikiSpaceId="AWS_SPACE" pagePath="WKB-10005" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10005" wikiPageId="WKB-10005"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10005" wikiPageId="WKB-10005" title="ONLY use open source software?" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/SoftwareOpenSource.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10005"/>
+
+    <moqui.resource.DbResource filename="WKB-10006.html" isFile="Y" resourceId="WKB-10006" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<p><span style="font-weight:bold">Introduction</span></p><p>Currently we have the function in the system to be able to rent hotel rooms which obviously stay in house and do not need to be shipped. If however you would like to rent video's or cars or motorcycles the system should support its delivery with a shipment and return process what the system currently not provides.
+            </p><br><p>These rent-able items are owned by the company and are normally stored as assets which can be depreciated by the accounting process. Their value is also determined there. We need however to store them somewhere so a link to an inventory item related to the rent-able product needs to be created which is currently missing in OFBiz. We added a field in the inventory item entity to achieve that.
+            </p><br><p>So when a shippable rental product is ordered, an inventory item related to the rent-able product will be reserved by the order which relates in turn to the the actual asset. When the order is completed a return of type of 'rental' with the reason 'normal return' will be created so the warehouse knows and recognizes the item when it comes back in. </p><br><p>The order and shipment slip will list the product and the asset number, so the warehouse knows where to find the item.
+            This shipment and return process however should not affect accounting what it currently does, also no refund should be given when the rental item is returned.&nbsp;</p><p><span style="font-weight:bold">Implementation in OFBiz. </span><br></p><p>In revision 1167015 we have added the changes for this function. It uses most of the functions of the product-type 'Asset Usage'. In order however to store the item and link is created from the fixedAsset to the inventory item entity in the warehouse location where the rental product can be stored. When an order is received for renting the item, it is taken from inventory, handed or shipped to the customer. When it is shipped a return is created automatically with a RA# (Return Authorization #) which will be used when the rental item is returned. <br>Make sure the SECA of accounting is not activated when shipping or returning.</p><p>As usual let us know if we can help at support@antwebsystems.com</p><p><br></p> ]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10006" wikiSpaceId="AWS_SPACE" pagePath="WKB-10006" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10006" wikiPageId="WKB-10006"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10006" wikiPageId="WKB-10006" title="New product type: Product Rental." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/rental.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10006"/>
+
+    <moqui.resource.DbResource filename="WKB-10007.html" isFile="Y" resourceId="WKB-10007" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[&lt;p style=&quot;font-weight:bold&quot;&gt;Introduction.&lt;/p&gt;&lt;p&gt;This new product type represents the service to a particular product which is brought in by the customer. Examples are equipment and computer repair, cleaning of clothes etc. Currently the OFBiz system has a product type of service but it does not support the logistics of the brought in- and returned (shipped) item.&lt;/p&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;The business process.&lt;/p&gt;&lt;p&gt;A customer sends or hands in the product item(s). An order is created selecting the related generic productId's (Catalog product examples are&amp;nbsp; “Desktop computer repair' , 'T-shirt cleaning'&amp;nbsp; etc) to be serviced, and entering an inventory location or let the system assign it. The products are brought to that warehouse location waiting for the service to be applied.&lt;/p&gt;&lt;p&gt;When the service is finished the shipment and packing process will be started for the products to be delivered or picked up. At the same time an invoice is created with the (updated) price information from the order. When a payment is received it can be entered in the system and the transaction booked to the ledger. &lt;/p&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;Implementation in OFBiz,&lt;/p&gt;&lt;p&gt;The main commit is in rev 1166543 and is relatively simple. When an order item is added with a product of type 'Product service' a warehouse receive product process is started which results in a warehouse location where the item can be temporary stored. The inventory item is then reserved for the same order so the correct item is shipped after service. &lt;/p&gt;&lt;p&gt;This service process could be supported by the manufacturing component but that depends on the complexity.&lt;br&gt;&lt;/p&gt;&lt;p&gt;Need support for the implementation or any other help? Please let us know at support@antwebsystems.com&lt;/p&gt; ]]>
+                </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10007" wikiSpaceId="AWS_SPACE" pagePath="WKB-10007" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10007" wikiPageId="WKB-10007"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10007" wikiPageId="WKB-10007" title="New product type in OFBiz: Product Service" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/serviceitems.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10007"/>
+
+    <moqui.resource.DbResource filename="WKB-10008.html" isFile="Y" resourceId="WKB-10008" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>Ofbiz security can be accessed in the party component under 'security' There the security groups are listed which are the equivalent of a employee function in a company. Example are “order entry' or 'catalog admin' or 'accounting' etc.&nbsp;</p><p>The <span style="font-weight:bold">security groups</span> are created as examples only because they represent a function in your company. You may need to create new groups where combinations from several different components can be combined. <br></p><p><span style="font-weight:bold">The permissions are typically organized like this:
+                </span><br>Component_Function_ROLE_Action <br></p><ol><li>Component: the name of the component where the permission is implemented.
+                </li><li>Function: is optional. If not present it will represent all functions of the component.
+                </li><li>ROLE: is optional. If the 'ROLE' is added the permission is dependent on the entry in the EntityNameRole entity, like ProductRole, CommunicationEventRole etc.
+                </li><li>Action can be anything but the following are are mostly used:<br><ol><li>CREATE: create a new record.
+                </li><li>UPDATE: update an existing record
+                </li><li>VIEW:    view all records
+                </li><li>DELETE: delete existing records
+                </li><li>ADMIN: any action allowed.</li></ol></li></ol><p>You can also access the security rules from the party → profile → userLogIn -&gt;security screen.
+                UserLogin's can have more than a single group with even overlapping permissions.
+                </p><p>Only applications will appear on the main menu where the user has at least the VIEW permission.</p><br><p>A technical description can be found at <a href="https://cwiki.apache.org/confluence/display/OFBTECH/OFBiz+security"> the OFBiz wiki</a> <br></p><p>If you need help developing a security scheme for your installations let us know at support@antwebsystems.com.</p> ]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10008" wikiSpaceId="AWS_SPACE" pagePath="WKB-10008" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10008" wikiPageId="WKB-10008"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10008" wikiPageId="WKB-10008" title="OFBiz Security from an enduser point of view" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/security.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10008"/>
+
+    <moqui.resource.DbResource filename="WKB-10009.html" isFile="Y" resourceId="WKB-10009" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p><a href="http://en.wikipedia.org/wiki/Google">Google </a>introduced <a href="http://en.wikipedia.org/wiki/Google_Sitemaps">Google
+                Sitemaps</a> so web developers can publish lists of links from across
+                their sites. The basic premise is that some sites have a large number
+                of dynamic pages that are only available through the use of forms and
+                user entries. The Sitemap files contains URLs to these pages so that
+                <a href="http://en.wikipedia.org/wiki/Web_crawlers">web crawlers</a>
+                can find them<a href="http://en.wikipedia.org/wiki/Site_map#cite_note-Google_XML_Sitemaps-1">[2]</a>.
+                <a href="http://en.wikipedia.org/wiki/Bing.com">Bing</a>, <a href="http://en.wikipedia.org/wiki/Google">Google</a>,
+                <a href="http://en.wikipedia.org/wiki/Yahoo">Yahoo</a> and <a href="http://en.wikipedia.org/wiki/Ask.com">Ask</a>
+                now jointly support the Sitemaps protocol.</p><p>In OFBiz we also need this kind of file because jquery trees are
+                used where a crawler cannot find all the pages under it.This component supports multiple websites on the same system and
+                can generate a sitemap xml for each.<br></p><br><p>There are three methods to get url's in this file:
+                </p><ol>
+                <li>Having products in categories under a catalog in a product store on the website.</li>
+                <li>Having content related to the website via a product category</li>
+                <li>registering static pages in content -&gt; website -&gt; content</li>
+                </ol><br><p>
+                A site demonstrating this
+                generated file can be found on <a href="http://www.ofbiz.info/">http://www.ofbiz.info</a>
+                where the file can be found at: <a href="http://www.ofbiz.info/sitemap.xml">http://www.ofbiz.info/sitemap.xml</a>
+                </p><p>
+                The sitemap component is available in <a href="http://www.antwebsystems.com/products/aws/p_10260">our company shop</a>
+                It is implemented as a separate component and is easy to install. Installation instructions are included in the component root directory.
+                </p>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10009" wikiSpaceId="AWS_SPACE" pagePath="WKB-10009" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10009" wikiPageId="WKB-10009"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10009" wikiPageId="WKB-10009" title="OFBiz add-on component: Sitemap creator" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/seo.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10009"/>
+
+    <moqui.resource.DbResource filename="WKB-10010.html" isFile="Y" resourceId="WKB-10010" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>This blog is a follow up <a target="_blank" title="The first OFBiz scrum blog" href="http://www.antwebsystems.com/control/ViewBlogArticle?contentId=16718&amp;blogContentId=AWS_BLOG">of the earlier blog</a> I wrote introducing
+                  the OFBiz scrum component we use in our Scrum projects we do for
+                  customers all over the world. This blog assumes you have the
+                  knowledge explained there.</p><p>We are now using the Scrum methodology (framework) for almost one
+                  year and it improved our development process considerable. We did
+                  however add a number of extra function to the Scrum framework like QA an unplanned backlog items.</p><p><strong>What did improve?</strong></p><ol>
+                  <li>The development process is now completely transparent to the
+                  customer/product owner.</li>
+                  <li>All software updates are recorded in svn and are visible in
+                  the scrum component for team members and QA (Quality Assurance).</li>
+                  <li>Much more formal and documented way of implementation with
+                  allows top level specifications to be estimated.</li>
+                  <li>We use Chat for the scrum meetings in the morning which show
+                  to the customer what is happening on a daily basis.</li>
+                  <li>We can invoice on a backlog item level to which a customer
+                  can relate.</li>
+                  </ol><p>We think that using scrum in a outsourcing environment needs
+                  a supporting system. We used it for a number of customers and the OFBiz
+                  scrum component works very well here. </p><p><strong>However we made a number of extensions to the Scrum framework:</strong></p><ol>
+                  <li>Next to the planned backlog we now also allow for unplanned,
+                  urgent backlog items which can be added to a 'unplanned' sprint
+                  which is running continuously. These unplanned items always take
+                  priority above the planned items.</li>
+                  <li>We introduced a QA function where backlog items are tested by
+                  a separate QA group who are able to add 'error' tasks and can
+                  approve the completion of a backlogitem. A function has been added
+                  which enables the listing of completed backlogitems which are not
+                  tested yet.</li>
+                  <li>In order to track the time spend in meetings, for every
+                  sprint, backlogitems for this purpose are automatically added.</li>
+                  <li>We now achieved a full integration with SVN where SVN updates
+                  are listed on a task, backlog, product, system and committer level
+                  with the possibility to show the actual changes made on a source
+                  line level.</li>
+                  <li>We now also have a link to the HR component for people to
+                  register the vacation/sick days in the scrum time sheet.</li>
+                  <li>It is now also possible to send and receive email on a
+                  product and backlog level to enable the communication between the
+                  product owner and scrum team.</li>
+                  <li>We added the role of stakeholder who has read access to the
+                  products of his company.</li>
+                  </ol><p><strong>What is planned for the future?</strong></p><ol>
+                  <li>create an internal chat system to have daily scrum meetings
+                  directly integrated with a sprint</li>
+                  <li>Allow a customer to enter error reports against existing
+                  backlog items./li&gt;
+                  </li></ol><br><p>So in general this is an excellent experience using this Scrum
+                  framework, it will need some extensions like QA and urgent unplanned
+                  backlog items but is a sound basis for software development.</p><br><br><p>We have a demo of our current system available at
+                  <a href="http://scrum.antwebsystems.com/">http://scrum.antwebsystems.com</a></p><p>
+                  Let us know you are interested at support@antwebsystems.com</p>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10010" wikiSpaceId="AWS_SPACE" pagePath="WKB-10010" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10010" wikiPageId="WKB-10010"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10010" wikiPageId="WKB-10010" title="OFBiz Scrum, one year experience" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizscrum.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10010"/>
+
+    <moqui.resource.DbResource filename="WKB-10011.html" isFile="Y" resourceId="WKB-10011" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>We have now completed the implementation of optionally SEO
+                  friendly url's on categories and products. The implementation is
+                  fully compatible with the existing url definition and can be added to
+                  exiting sites using the old url's. We have added alternative url's to all the demo categories and
+                  products in the e-commerce component for demonstration.<br></p><p>Have a look in the demo system at product
+                  <a href="http://demo-trunk.ofbiz.apache.org/ecommerce/giant-widget-with-variant-explosion-WG-9943-p">WG-9943</a> You see here that the url is build from the description, the
+                  productId and a 'p' to indicate it is a product url. A 'c' is used
+                  for the categories.This url is completely configurable and it is even possible to
+                  have more than a single url for the same product or have url's in
+                  different languages dependent on the current locale! If you are switching to ofbiz you can even import your old url's<br>
+                  </p><p>You can create and modify this url in the catalog component. As an
+                  example select&nbsp; <a href="https://demo-trunk.ofbiz.apache.org/catalog/control/EditProduct?productId=WG-9943&amp;USERNAME=admin&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y">WG-9943</a> in the back-end and click on the content tab. There you see the already generated url and click on it. In the textbox lower on the screen, you see the existing url. Replace the text with: this is a test <br></p><p>Now the product can be requested under the url:<br><a href="http://demo-trunk.ofbiz.apache.org/ecommerce/this-is-a-test-WG-9943-p">http://demo-trunk.ofbiz.apache.org/ecommerce/this-is-a-test-WG-9943-p</a><br><br>Although these url's can be set manually we have also provided an
+                  automatic way using the names of the categories or products. Go to
+                  the catalog component, select catalogs from the top menu, select the
+                  catalog from the list and press the 'create seo categories/products'
+                  button, the system will report the number of url's added. It will not
+                  replace already existing alternative url's.</p><p>
+                  <strong>Using this in your existing E-Commerce.</strong>
+                  <br>-Use the @ofbizCatalogAltUrl macros instead of the @ofbizUrl macro.<br>-Install the CatalogUrlFilter in your web.xml
+                  <br><br>Check the special purpose e-commerce component how it is done.<br><br>You need help? Let us know at
+                  <span style="font-weight:bold">support@antwebsystems.com</span><br><br> </p> ]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10011" wikiSpaceId="AWS_SPACE" pagePath="WKB-10011" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10011" wikiPageId="WKB-10011"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10011" wikiPageId="WKB-10011" title="OFBiz seo friendly url's" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizscrum.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10011"/>
+
+    <moqui.resource.DbResource filename="WKB-10012.html" isFile="Y" resourceId="WKB-10012" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[&lt;p&gt;The best way to demonstrate this integration of data is to send out a demo order in the standard demo information which can be loaded in the system. When the order is 'quick shipped' and 'paid' you can see a nice demonstration of the automatically posted accounting information together with the demo order, products, inventory and the customer information all accessible from the order overview screen.&lt;/p&gt;&lt;p&gt;You can see this order in the OFBiz &lt;a href=&quot;https://demo-trunk.ofbiz.apache.org/ordermgr/control/orderview?orderId=DEMO10090&amp;amp;USERNAME=admin&amp;amp;PASSWORD=ofbiz&amp;amp;JavaScriptEnabled=Y&quot; target=&quot;_blank&quot;&gt;demo system&lt;/a&gt;. The initial status is 'approved'. You can get the status to completed by the following actions so it will show up in the accounting ledger. (if not already done by other users)&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:bold&quot;&gt;'Complete' the order.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;1.Under action press the 'Quickship entire order' button.&lt;/p&gt;&lt;p&gt;2.Under payment information click on the payments '10001' button and on the next screen click on the button 'status to confirmed' to indicate the order was paid.&lt;/p&gt;&lt;br&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;Now you can check the created data on the &lt;a href=&quot;https://demo-trunk.ofbiz.apache.org/ordermgr/control/orderview?orderId=DEMO10090&amp;amp;USERNAME=admin&amp;amp;PASSWORD=ofbiz&amp;amp;JavaScriptEnabled=Y&quot; target=&quot;_blank&quot;&gt;order overview screen&lt;/a&gt;&lt;/p&gt;&lt;p&gt;1.Accounting information: (In the order payment section): Invoice, payment, Trial balance (Accounting/ org setting/accounting/trial balance) and ledger detail at the bottom of the Invoice and payment screens.&lt;br&gt;As you can see accounting was completely automatic: the ledger is updated.&lt;br&gt;&lt;/p&gt;&lt;p&gt;2.Product information. (order items): Pricing, Inventory&lt;/p&gt;&lt;p&gt;3. Customer information: All orders from this customer, Visit information: the the user logged on to the system, Contact information like postal address, email telephone etc, any communication with this customer either per email. Telephone or letters....and more.....&lt;/p&gt;&lt;p&gt;As usual let us know via support@antwebsystems.com if you need more help.....&lt;br&gt;&lt;/p&gt; ]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10012" wikiSpaceId="AWS_SPACE" pagePath="WKB-10012" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10012" wikiPageId="WKB-10012"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10012" wikiPageId="WKB-10012" title="Demonstration of OFBiz information integration." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizintegration.png" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10012"/>
+
+    <moqui.resource.DbResource filename="WKB-10013.html" isFile="Y" resourceId="WKB-10013" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[&lt;p&gt;Programming for the open source OFBiz ERP system, but use the system itself for development too? This is your chance using the open source OFBiz Scrum component because it is now part of the general distribution. Not only for new developments but also for maintenance, issue system, time registration and invoicing!&lt;/p&gt;&lt;br&gt;&lt;p&gt;If you are not familiar with the Scrum development framework, read the following short documents:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://www.scrum.org/scrumguides&quot;&gt;Scrum guide in various languages&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://www.scrumalliance.org/pages/what_is_scrum&quot;&gt; Scrum in 30 seconds &lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://www.softhouse.se/Uploades/Scrum_eng_webb.pdf&quot;&gt;Scrum in 5 minutes &lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;Feature list of the scrum component:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Management of products, projects, sprints and tasks&lt;/li&gt;&lt;li&gt;Management of the product backlog by the product owner.&lt;/li&gt;&lt;li&gt;Management of product error reports in Scrum terms: unplanned backlog items.&lt;/li&gt;&lt;li&gt;Time reporting on a task level.&lt;/li&gt;&lt;li&gt;Invoicing on a backlog item level.&lt;/li&gt;&lt;li&gt;Security for product scrum admin, product owner, shareholder, scrum master and team member&lt;/li&gt;&lt;li&gt;Graphical reports as sprint burn down chart and status of backlog.&lt;/li&gt;&lt;li&gt;Storage of documents and notes and emails on a product, sprint and backlog item.&lt;/li&gt;&lt;li&gt;Categorization of backlog items.&lt;/li&gt;&lt;li&gt;Interface with SVN showing the changes on a task, backlog, product and system level.&lt;/li&gt;&lt;li&gt;Integrated QA function by a separate testing group.&lt;/li&gt;&lt;li&gt;Vacation and sick leave interface from the time-sheet to the HR component&lt;/li&gt;&lt;/ol&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;Demo data has been included in the system however if you want to start from scratch:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;make sure every person involved is entered in the party manager, have a login id and have the related company is assigned.&lt;/li&gt;&lt;li&gt;Go to scrum administration and add the parties to the scrum component with their scrum function and, when a time registration is required, rate percentage. Yes, people can have more than one function.&lt;/li&gt;&lt;li&gt;Create a product and assign product owner and scrum master.&lt;/li&gt;&lt;li&gt;Let the product owner (or scrum master or admin) add backlog items and order them by priority.&lt;/li&gt;&lt;li&gt;Create a project and a sprint identifying how many backlog items in the sprint (they are taken from the top)&lt;/li&gt;&lt;li&gt;Add team members to the sprint.&lt;/li&gt;&lt;li&gt;Add tasks to the backlog items and let the team members decide who is doing which tasks.&lt;/li&gt;&lt;li&gt;Now members can see on the tasks screen what needs to be done and can enter daily the hours&amp;nbsp; (planned/actual) on their time sheet.&lt;/li&gt;&lt;li&gt;You can follow the sprint on the burn down chart.&lt;/li&gt;&lt;li&gt;At any time you can generate the invoice for the product owner company in his currency if you entered the company rates properly in the accounting component.&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;If you need support introducing this way of working in your company, let us know, we as a company have an experience with this component for about one year with about 10 projects.&lt;/p&gt;&lt;br&gt;&lt;p&gt;Related blogs:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://www.antwebsystems.com/control/ViewBlogArticle?articleContentId=20273&amp;amp;blogContentId=AWS_BLOG&quot;&gt;OFBiz Scrum, one year experience&lt;/a&gt; [20273]&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://www.antwebsystems.com/control/ViewBlogArticle?articleContentId=17643&amp;amp;blogContentId=AWS_BLOG&quot;&gt;The Scrum Product Owner&lt;/a&gt; [17643]&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;http://www.antwebsystems.com/control/ViewBlogArticle?articleContentId=16718&amp;amp;blogContentId=AWS_BLOG&quot;&gt;OFBiz Scrum introduction&lt;/a&gt; [16718]&lt;/li&gt;&lt;/ul&gt; ]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10013" wikiSpaceId="AWS_SPACE" pagePath="WKB-10013" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10013" wikiPageId="WKB-10013"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10013" wikiPageId="WKB-10013" title="AntWebsystems donates a Scrum support component to the Apache OFBiz ERP." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizscrum.png" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10013"/>
+
+    <moqui.resource.DbResource filename="WKB-10014.html" isFile="Y" resourceId="WKB-10014" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[&lt;p&gt;In another attempt to re-organize and improve the OFBiz documentation and promotion we have created this new initiative.&amp;nbsp;&lt;/p&gt;&lt;p&gt;First we wondered why the documentation and promotion is in the current state?&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Writing documents is hated by technical people the most and because most of our contributors are technical....&lt;/li&gt;&lt;li&gt;Technical people are in general not good writers of end user documents.&lt;/li&gt;&lt;li&gt;If documentation cannot be owned, nobody is responsible for it.&lt;/li&gt;&lt;li&gt;The quality of many documents is questionable or outdated.&lt;/li&gt;&lt;li&gt;Writing documents and adding it to the OFBiz wiki isn't very rewarding.&lt;/li&gt;&lt;li&gt;Some say: no one is reading the documents anyway and better ask a question in a forum or mailing list?&lt;/li&gt;&lt;li&gt;Documents and blog are already spread over many sites and no specific search is available on these sites.&lt;/li&gt;&lt;li&gt;Commercial activities are not allowed on the official OFBiz website, limiting promotion severely.&lt;/li&gt;&lt;/ol&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;That is why we created an OFBiz document and promotion site: &lt;a target=&quot;_blank&quot; href=&quot;http://ofbiz.info&quot;&gt;http://ofbiz.info.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;First of all this site does not provide documentation itself, it just links to good moderated OFBiz information from any source and reward the document owner by the visitors going to his site. Anybody, when registered,&amp;nbsp; can add links in the available categories and yes sure, the site is implemented using OFBiz.&lt;/p&gt;&lt;p style=&quot;font-weight:bold&quot;&gt;Does it solve the above points?&lt;/p&gt;&lt;p&gt;Point 1,2 is not solved with this site, however the other points are certainly improved:&lt;/p&gt;&lt;ol&gt;&lt;li&gt;We now have a central index pointing to documents on any site.&lt;/li&gt;&lt;li&gt;Because documents are shown on the original site, it is shown who owns it and is rewarded by high focussed visitors.&lt;/li&gt;&lt;li&gt;A category tree, search and keyword cloud is provided to easily find documents.&lt;/li&gt;&lt;li&gt;A twitter and google +1 buttons are provided for promotion. &lt;/li&gt;&lt;li&gt;Possibility to advertise to highly motivated visitors.&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;So please have a look to the site, register and add&amp;nbsp;links to your website and receive more visitors: &lt;a target=&quot;_blank&quot; href=&quot;http://ofbiz.info/&quot;&gt;http://ofbiz.info.&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Our plans for the future? World map of providers, end-users. You have a suggestion? Let us know at info@ofbiz.info !&lt;br&gt;&lt;a target=&quot;_blank&quot; href=&quot;http://ofbiz.info/&quot;&gt;&lt;/a&gt;&lt;/p&gt; ]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10014" wikiSpaceId="AWS_SPACE" pagePath="WKB-10014" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10014" wikiPageId="WKB-10014"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10014" wikiPageId="WKB-10014" title="Improving OFBiz documentation and promotion at ofbiz.info" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizinfo.gif" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10014"/>
+
+    <moqui.resource.DbResource filename="WKB-10015.html" isFile="Y" resourceId="WKB-10015" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>A rather old function in OFBiz which we just discovered and extended&nbsp;is the usage of more than one domain name as the root
+                e-commerce application or multiple domains on a single web
+                application.</p><br><p>There are three main reasons why you want this:</p><br><br><ol>
+                <p>
+                </p><li>you have different domain names for the different languages
+                of the same website.</li>
+                <li>You have a number of different websites/shops you want to
+                mount as the root application.
+                </li><li>You want more security for your back-end applications like
+                catalog and accounting.
+                </li></ol><p>
+                </p><p></p><p>
+                </p><br><p><strong>Domain is only used for that Specific web Application.</strong><br>As we said this functionality is in OFBiz but it has a limitation,
+                which is also a feature:<br>if you specify a virtual host on a web
+                application like e-commerce, that virtual host name can only be used
+                for that specific web application and not on other web applications
+                where the virtual host is not specified. If you still do that, you
+                get a page not found error.&nbsp;So you have to use a different domain name for the applications
+                where the the virtual hosts are not specified and which points to the
+                same OFBiz installation.</p><br><p><strong>Added security.</strong><br>However this is also a feature as mentioned in point 3: on this
+                separate domain name you can put more security restrictions like only
+                allowing certain IP numbers as the one of the company gateway router.
+                Then employees can only login to the back-end when they are at work.&nbsp;At the same time this prevents e-commerce public users using the
+                back-end through the ecommerce component. So specifying a virtual
+                host on your even single domain e-commerce website provides more
+                security.</p><p><br></p><p>
+                <strong>How do you use it?</strong> <br>Add a virtual-host line to your &lt;webapp in ofbiz-component.xml.
+                Example:&nbsp;<br><br>&lt;webapp name="abc"
+                <br>&nbsp;&nbsp;title="Abc"
+                <br>&nbsp;&nbsp;server="default-server"
+                <br>&nbsp;&nbsp;location="webapp/abc"
+                <br>&nbsp;&nbsp;mount-point="/"
+                <br>&nbsp;&nbsp;app-bar-display="false"&gt;
+                <br>&nbsp;&nbsp;&lt;virtual-host host-name="abc.com"/&gt;&nbsp;<br>&lt;/webapp&gt;&nbsp;<br><br>If you would like to use multiple different applications, create&nbsp;&lt;webapp tags with the same mount point and different host names and different location parameters.&nbsp;</p><p>As usual if you have any questions or need help, let us know at support@antwebsystems.com</p>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10015" wikiSpaceId="AWS_SPACE" pagePath="WKB-10015" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10015" wikiPageId="WKB-10015"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10015" wikiPageId="WKB-10015" title="Virtual Hosting in Apache OFBiz" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/virtualhost.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10015"/>
+
+    <moqui.resource.DbResource filename="WKB-10016.html" isFile="Y" resourceId="WKB-10016" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>We here at AntWebsystems are pretty
+                good with Apache OFBiz and all related software. We do however hate
+                hardware&nbsp;which needs to be ordered,&nbsp;wait until you finally get it, has
+                start-up fees, rack space fees etc, etc. On top of that we also do
+                not like license fees!
+                </p><br><p>Guess what, that is all history now. We
+                have switched our physical servers and the servers of our clients to
+                the Amazon EC2 cloud. We can start new- and stop exiting servers at
+                any time, use load balancers, disks and more and use it instantly, so
+                no waiting time.</p><p><br></p><p style="font-size:large"><strong><span style="text-decoration:underline">So how is that done?</span></strong></p><p><strong><br></strong></p><p><strong>Signup.</strong></p><p>Go to <a href="http://aws.amazon.com/ec2/">http://aws.amazon.com/ec2/</a>
+                and sign-up to the EC2 services using your credit card. On Amazon you
+                pay what you have used and there are no start-up fees. Running a
+                server for a an hour will cost you 34 dollar cents. See the (<a href="http://aws.amazon.com/ec2/#pricing">http://aws.amazon.com/ec2/#pricing</a>)
+                for more info.
+                </p><p><br></p><p><strong>Create the server instance.</strong></p><p>Create your server instance and use the community OFBiz&nbsp;instance we created. You can search
+                on the word OFBiz) This can take some time because the number of
+                available instances is already pretty high.&nbsp;Then select or create a key pair and download the key pair when it
+                is new. After that configure the firewall in a separate security
+                group. Open the ports 22 (ssh) 80 (http) and 443 (https). After that&nbsp;review the setup&nbsp;and confirm the creation: the server will be
+                started up! This will take a couple of minutes.</p><br><p><strong>Login with SSH.</strong></p><p>When it is started you are able the access it by using the public
+                domain name shown in the instance description. Use the ssh -i
+                parameter to point to the private key you have downloaded. You can
+                login as the user 'root'.
+                </p><br><p><strong>OFBiz in the Webbrowser.</strong></p><p>Also OFBiz will work directly using the public dns you used for
+                the SSH and adding /ecommerce will show the demo ecommerce site and
+                /catalog will show the login page. You can login using the username
+                'admin' and password 'ofbiz'</p><br><p><strong>What system do you have?</strong></p><p>You have now a fully functional OFBiz system with a recent version
+                of the OFBiz trunk installed in the user 'ofbiz' using Apache
+                webserver as the front-end proxy server and PostgreSQl as the
+                database, all under Ubuntu Linux as the operating system without any
+                license fees!</p><br><p><strong>Run it under your domain name.</strong></p><p>The next step would be to assign an elastic ip address to it in
+                EC2 and use it with your domain name in your local DNS or use the
+                Amazon DNS Route 53 system.</p><p><br></p><p><strong>AWS problem: a single instance can only have a single IP.</strong></p><p>If you would like to run several https
+                sites on the same instance, you need several ip's for that instance
+                and that is not possible. There is however a workaround. You can
+                create a load balancer for every https site and allocate these load
+                balancers to the same instance. This is not possible with the menus,
+                but is possible with the command line interface which you can
+                download in the developer tools section. With the command line you
+                can allocate more than one load balancer to the same instance. The
+                load balancer can also take care of the SSL certificate and all
+                outputs (http and converted https) of all balancers can be routed to
+                the same '80' port of the instance. We already changed OFBiz so OFBiz
+                can see if the original request was a http or a https request.</p><p><br></p><p><strong>Need help?</strong></p><p>If you need help getting this implemented, let us know, we can can
+                provide any support you like. As usual let us know at
+                support@antwebsystems.com.</p><br><p><br><br>
+                </p>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10016" wikiSpaceId="AWS_SPACE" pagePath="WKB-10016" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10016" wikiPageId="WKB-10016"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10016" wikiPageId="WKB-10016" title="Setup an OFBiz server including hardware in 15 minutes" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/aws.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10016"/>
+
+    <moqui.resource.DbResource filename="WKB-10017.html" isFile="Y" resourceId="WKB-10017" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<p>AntWebsystems now completed the email mailing list function in
+                Apache OFBiz and integrated the function with the rest of the system.
+                It allows users on your site to subscribe to a mailing list and you
+                to send out messages to your subscribers. It will also allow you to
+                create other specific mailing lists on a selection of the people
+                and/or companies in the party component. An example is to select all
+                customers from a specific country and write them an email for their
+                specific needs. Also functions are provided to unsubscribe. A contact
+                list is related to a website/productstore where all templates reside.
+                The contactlist can also be used for calling lists and normal paper
+                mailings.</p><br><p><strong>System setup.<br></strong>We assume you have a working OFBiz
+                e-commerce system where the website and product store are defined.
+                Then you have to specify email templates in the product store (in
+                catalog) to enable the system to send a subscribe confirmation, an
+                unsubscribe notification, an unsubscribe verification and an email
+                template which can be used to send email to your subscribers which
+                also contains a unsubscribe link.</p><br><p>The next thing you have to do is to
+                create a 'contactlist' in the marketing component which relates to
+                the website/productstore you have used before. This contact list id
+                you have to use on your e-commerce site. In the standard OFBiz trunk
+                download there is demo data which shows an example how to set up a
+                contact list.</p><br><p><strong>Creating contact list from existing
+                parties.<br></strong>If you would like to send an email to
+                certain parties in the party component you can generate a contact
+                list with specific parties you specify ion the selection which can be
+                on role and postal address.</p><br><p><strong>Send an email to the contact
+                list.</strong><br>You have now set up the system to be able to use it. You
+                can create an email to be send to subscribers of a contact list by
+                selecting an existing contactlist in the marketing component and
+                press the “CommEvents' tab. Click then on 'new communication' and
+                enter your message to be send.</p><br><p>The system will now start sending the
+                communication email to all subscribers of the contact list. When an
+                email does not exist and is bounced, the related email address will
+                be automatically be unsubscribed.<br>
+                </p><br><p><strong>Subscribe.<br></strong>A user can subscribe on the e-commerce
+                front-end by entering an email address. The system will send a
+                confirmation email and when the user replied to it will try add this
+                user to the contact list. The system will also look if the email
+                already exists with a party and link the subscription to it.</p><br><p><strong>Unsubscribe.<br></strong>If a user wants to unsubscribe he can use the email link in the
+                last message which was sent to him or go to the e-commerce site and
+                enter the related email address and press the unsubscribe button, he
+                will be sent a confirmation message to which he can reply to
+                unsubscribe. To unsubscribe is also possible in the online profile
+                where all subscribed contact lists are listed.</p><br><p>As usual if you need help in this area let us know at
+                <a href="mailto:support@antwebsystems.com">support@antwebsystems.com</a>.</p>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10017" wikiSpaceId="AWS_SPACE" pagePath="WKB-10017" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10017" wikiPageId="WKB-10017"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10017" wikiPageId="WKB-10017" title="OFBiz malinglist function." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/mailinglist.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10017"/>
+
+    <moqui.resource.DbResource filename="WKB-10018.html" isFile="Y" resourceId="WKB-10018" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[You are starting with OFBiz? Make sure your programmers do not make the errors listed here.
+In the number of years we have supported OFBiz users, we have taken over a number of existing OFBiz systems which had the problems below and made the upgrade and customization rather difficult.]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10018" wikiSpaceId="AWS_SPACE" pagePath="WKB-10018" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10018" wikiPageId="WKB-10018"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10018" wikiPageId="WKB-10018" title="OFBiz mistakes." author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizmistakes.jpg" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10018"/>
+
+    <moqui.resource.DbResource filename="WKB-10019.html" isFile="Y" resourceId="WKB-10019" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+              <fileData>
+                <![CDATA[<div>Now most of our customers use the scrum system, there was a need to have a short overview, how to use the scrum component within our AntWebsystems ERP system.</div>
+                <div><br>
+                </div>
+                <div>We also have now upgraded the demo system which is available at&nbsp;http://growerpbackend.growerpdemo.com/scrumdemo/control/main The text below uses this demo system and shows the related screens which are explained in the text.&nbsp;</div>
+                <div>On the first screen of this demo system we have defined a number of demo logins which provide you an easy start in the system. The first screen also lists some Scrum explanation documents which you should read before reading the text below.</div>
+                <div><br>
+                </div>
+                <div>First of all why do we want to use this methodology?</div>
+                <div><br>
+                </div>
+                <div>
+                <strong>Scrum has number of advantages:</strong>
+                </div>
+                <div>
+                <ol>
+                <li>Development requirements are often not known in detail, this method can cope with that.</li>
+                <li>With every delivery (=sprint) you get a usable system or function which you can use in a production environment.</li>
+                <li>Every sprint in the total project can be seen as a fixed price phase in the project if a fixed price project is required.</li>
+                <li>The development process is completely transparent to all participants in the project including the project owner and stakeholders. All worked and planned hours, tasks, in/outgoing email, all actual program changes, everything can be seen at any time.</li>
+                <li>Fixed time frames for deliveries, so a delivery is never late, however can contain less or more, so the content can be adjusted to be agreed with the product owner, not the date of delivery.</li>
+                </ol>
+                </div>
+                <div><br>
+                </div>
+                <div>
+                <strong>What are the tasks of the product owner?</strong>
+                </div>
+                <div>
+                <ol>
+                <li>Maintain the product backlog: a current to-do list where all the requirements for a product function are listed according to how profitable they are. At the top the most profitable ones.</li>
+                <li>Answer any questions the implementation (Scrum) team will have.</li>
+                <li>Although we do perform QA within the development company, the product owner is responsible to organize the acceptance tests.</li>
+                </ol>
+                </div>
+                <div>The product owner is a single point of contact in the customer organization. Any other person in the organization can be registered as a stakeholder who can login but only has read access. The stakeholder can only change the backlog through the product owner.</div>
+                <div><br>
+                </div>
+                <div>
+                <strong>The most important part: the product backlog</strong>.</div>
+                <div>We have two versions within our OFBiz Scrum system:&nbsp;</div>
+                <div>
+                <ol>
+                <li>A mostly read only version which initially list all 'open' backlog items but can list any backlog item (implemented or not) and has a search facility. The scrum team however can update the estimates here.<a href="http://growerpbackend.growerpdemo.com/scrum/control/ViewTotalBacklog?productId=DEMO-PRODUCT-1&amp;USERNAME=productowner&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y" target="_blank">(demo system screen here)</a>
+                </li>
+                <li>A product owner version which lists only list the open, not yet started items and where new backlog items can be added, updated, deleted, categorized and ordered.<a href="https://ofbizdemo.antwebsystems.com/scrum/control/AddProdBacklog?productId=DEMO-PRODUCT-1&amp;USERNAME=productowner&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y%20" target="_blank">(demo system screen)</a>
+                </li>
+                </ol>
+                </div>
+                <div>
+                <strong>Reading the sprint overview.</strong>
+                </div>
+                <div>As a product owner (or stakeholder) you have full read access to the scrum sprint. There you can see general information, on a daily basis, where the hours worked are being used and who the members are.<a href="https://ofbizdemo.antwebsystems.com/scrum/control/ViewSprint?sprintId=DEMO-SPRINT-1&amp;projectId=DEMO-PROJECT-1&amp;USERNAME=productowner&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y" target="_blank">(demo system screen)</a>
+                </div>
+                <div><br>
+                </div>
+                <div>
+                <strong>The burn down chart.</strong>
+                </div>
+                <div>At the "burn down chart” on the sprint overview, you see quickly if the sprint is on track, by comparing the 'ideal' remaining hours to the 'actual' remaining hours.&nbsp;</div>
+                <div>If the actual hours are lower, the sprint has time left, so is ahead. If this is the case and the amount is substantial, then it could be considered to add another backlog item.</div>
+                <div>If the actual hours are higher, the sprint has not time enough, so is behind. If this is the case and the amount is substantial, then it could be considered to remove another backlog item.</div>
+                <div>Remember, the end date cannot be changed.</div>
+                <div><br>
+                </div>
+                <div>Adding or removing backlog items of a sprint is always done in agreement with the product owner.</div>
+                <div><br>
+                </div>
+                <div>Again, if you have any questions or comments, let us know at support@antwebsystems.com.</div>
+                <div><br>
+                </div>]]>
+            </fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="WKB-10019" wikiSpaceId="AWS_SPACE" pagePath="WKB-10019" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="WKB-10019" wikiPageId="WKB-10019"/>
+    <moqui.resource.wiki.WikiBlog wikiBlogId="WKB-10019" wikiPageId="WKB-10019" title="The Scrum Product Owner" author="Hans Bakker" smallImageLocation="/src/assets/images/blog/ofbizscrum.png" publishDate="1485028800000"/>
+    <moqui.resource.wiki.WikiBlogCategory wikiPageCategoryId="BLOG_CONTENT" wikiBlogId="WKB-10019"/>
+
+</entity-facade-xml>
