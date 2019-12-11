@@ -1,0 +1,1778 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domain Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<entity-facade-xml type="seed-initial">
+    <moqui.basic.EnumerationType enumTypeId="ProductStoreContentType" description="Product Store Content Type"/>
+
+    <moqui.basic.Enumeration enumCode="template_client_content" description="Content Template - Client" enumId="PsctContentTemplate" enumTypeId="ProductStoreContentType"/>
+    <moqui.basic.Enumeration enumCode="template_client_blog" description="Blog Template - Client" enumId="PsctBlogTemplate" enumTypeId="ProductStoreContentType"/>
+
+    <!-- AntWebsystems Wiki/Content -->
+    <moqui.resource.DbResource filename="AntWebsystems" isFile="N" resourceId="AntWebsystems" parentResourceId=""/>
+    <moqui.resource.DbResource filename="web" isFile="N" resourceId="aws_web" parentResourceId="AntWebsystems"/>
+    <moqui.resource.DbResource filename="content.html" isFile="Y" resourceId="aws_content" parentResourceId="aws_web">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>Welcome to AntWebsystems</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <!-- this is the directory to put all site content under -->
+    <moqui.resource.DbResource filename="content" isFile="N" resourceId="aws_content_dir" parentResourceId="aws_web"/>
+    <moqui.resource.DbResource filename="content_th" isFile="N" resourceId="aws_content_th_dir" parentResourceId="aws_web"/>
+    <!-- WikiSpace and root page -->
+
+    <!-- WikiSpace and root page -->
+    <moqui.resource.wiki.WikiSpace wikiSpaceId="AWS_SPACE" description="Content for AntWebsystems Website" restrictView="N" allowAnyHtml="Y"
+            rootPageLocation="dbresource://AntWebsystems/web/content.html" decoratorScreenLocation=""
+            publicPageUrl="/aws/content/${pagePath}?ver=${versionName}" publicAttachmentUrl="/aws/content/attachment/${wikiPageId}/${filename}"/>
+    <moqui.resource.wiki.WikiSpace wikiSpaceId="AWS_SPACE_TH" description="Content in Thai for AntWebsystems Website" restrictView="N" allowAnyHtml="Y"
+            rootPageLocation="dbresource://AntWebsystems/web/content_th.html" decoratorScreenLocation=""
+            publicPageUrl="/aws/content_th/${pagePath}?ver=${versionName}" publicAttachmentUrl=""/>
+
+    <moqui.resource.DbResource filename="content_th.html" isFile="Y" resourceId="aws_content_th" parentResourceId="aws_web">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>Antwebsystems TH in TH</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+
+    <!-- AntWebsystems Template Wiki Space -->
+    <moqui.resource.DbResource filename="templates.html" isFile="Y" resourceId="aws_templates" parentResourceId="aws_web">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>AntWebsystems WebSite Templates</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.DbResource filename="templates-th.html" isFile="Y" resourceId="aws_templates_th" parentResourceId="aws_web">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>AntWebsystems WebSite Templates in TH</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <!-- this is the directory to put all site templates under -->
+    <moqui.resource.DbResource filename="templates" isFile="N" resourceId="aws_templates_dir" parentResourceId="aws_web"/>
+    <moqui.resource.DbResource filename="templates-th" isFile="N" resourceId="aws_templates-th_dir" parentResourceId="aws_web"/>
+    <!-- WikiSpace and root page -->
+    <moqui.resource.wiki.WikiSpace wikiSpaceId="AWS_TMP" description="Templates for AntWebsystems WebSite" restrictView="N" allowAnyHtml="Y"
+            rootPageLocation="dbresource://AntWebsystems/web/templates.html" decoratorScreenLocation=""/>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_templates" wikiSpaceId="AWS_TMP" pagePath="">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+
+    <moqui.resource.wiki.WikiSpace wikiSpaceId="AWS_TMP_TH" description="Templates for AntWebsystems WebSite in Thai" restrictView="N" allowAnyHtml="Y"
+            rootPageLocation="dbresource://AntWebsystems/web/templates-th.html" decoratorScreenLocation=""/>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_templates_th" wikiSpaceId="AWS_TMP_TH" pagePath="">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+
+    <!-- About us -->
+    <moqui.resource.DbResource filename="aws_about.html" isFile="Y" resourceId="aws_about" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+                    $(function(){
+                        $('header').removeClass('p13');
+                        $('#main').removeClass('current');
+                        $('title').text("AntWebsystems About Us");
+                    });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top : -20px;">
+                    <div class="wrapper">
+                        <div class="jobs"><h2></h2><h3>About Us.</h3></div>
+                        <div class="grid_4">
+                            <div class="inner-block">
+                                <h6 id="whoweare"><a name="whoweare">Who we Are</a></h6><br/>
+                                <p>We love to develop and extend business applications using Apache OFBiz due to its extensive framework, data model and the ERP/CRM application.<br/>
+                                We are one of the top Apache OFBiz committers and are a PMC member to help determine the future of OFBiz.
+                                AntWebsystems Co., Ltd is an officially registered software development company in Thailand under European management and growing fast.<br/>
+                                We are currently supporting OFBiz installations in North America, Europe and Asia.<br/>
+                                We are also co-operating with partner companies worldwide to provide local support and
+                                are always looking for new partners to help you make the Apache OFBiz open source ERP system successful in your area.</p>
+                                <h6 class="p14">What is Apache OFBiz ?</h6>
+                                <br/>
+                                <ul class="list1">
+                                    <li><a target="_blank" href="main?contentId=AWS_OFBIZ">OFBiz Introduction</a></li>
+                                    <li><a target="_blank" href="http://cwiki.apache.org/confluence/display/OFBIZ/Is+OFBiz+for+Me">Is OFBiz for You?</a></li>
+                                    <li><a target="_blank" href="http://cwiki.apache.org/confluence/display/OFBIZ/Feature+summary">Feature List</a></li>
+                                    <li><a target="_blank" href="http://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">Features Recently added</a></li>
+                                    <li><a target="_blank" href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+User+List">Who is using OFBiz</a></li>
+                                </ul>
+                                <h6 class="p14">Demo Site</h6>
+                                <br/>
+                                <ul class="list1">
+                                    <li><a target="_blank" href="http://www.growerpdemo.com">eCommerce Demo</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="grid_8">
+                            <div class="inner-block">
+                                <h6 id="howwecanhelp"><a name="howwecanhelp">Let us know how we can help you.</a></h6><br/>
+                                <p> If you are looking for quality support around the open source ERP product Apache OFBiz with competitive rates, you have found what you are looking for.
+                                    We are one of the largest contributors/committers of the Apache OFBiz system and are ready to help you now.
+                                    Let us know what kind of support you need by sending an email to: <a href="mailto:support@antwebsystems.com">support@antwebsystems.com</a>
+                                    and we will let you know within 24 hrs how we can help you.<br/>
+                                    If you like to know more about the product Apache OFBiz see the links in the column below &quot;What is Apache OFBiz&quot;
+                                    </p>
+                                <h6 id="howwework"><a name="howwework">How do we work?</a></h6><br/>
+                                <p> We work according our internal described development process which is based on the “Scrum” agile software development methodology.
+                                    Scrum gives the customer the advantage of seeing the progress being made every day within our system and is based on agreed time periods (1-4 weeks)
+                                    when usable system functions will be delivered.<br/>
+                                    It is not mandatory that Requirements  have to be very detailed and the customer can change the requirements between these time periods without having a large impact on the implementation.<br/>
+                                    We developed and use an OFBiz Scrum component to support the development process. You as a customer or partner can log in to this system and can see the complete process on a daily basis.
+                                    </p>
+                                <h6 id="whatwecando"><a name="whatwecando">How we can help you?</a></h6><br/>
+                                <p> Anything related to Apache OFBiz, be it requirements gathering, implementation / interfacing, customization and managing your production system.</p>
+                                <p> For more detailed information of these services go to the <a href="main?contentId=AWS_SERVICES">'services' page for a more detailed description</a></p>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_about" wikiSpaceId="AWS_SPACE" pagePath="aws_about" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" wikiPageId="aws_about" aliasPath="aboutus"/>
+
+    <!-- services -->
+    <moqui.resource.DbResource filename="aws_services.html" isFile="Y" resourceId="aws_services" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+            $(function(){
+                $('header').removeClass('p13');
+                $('#main').removeClass('current');
+                $('title').text("AntWebsystems services");
+            });
+        </script>
+        <section id="content">
+           <div class="container_12" style="top : -20px;">
+                <div class="wrapper">
+                    <div class="service"><h2/><h3>Our Services.</h3></div>
+                    <div class="grid_4">
+                        <div class="inner-block">
+                            <h6 id="introduction"><a name="introduction">Introduction</a></h6><br/>
+                            <p> The vision of our company is to make available, services of the professional ERP system Apache OFBiz/GrowERP to small and mid-size
+                                companies for a cost effective investment using just open source software. Not only do we help you with the implementation, but also with how to maintain and customize the
+                                system.
+                                </p>
+                            <p> AntWebsystems provides a number of services in order to help you to use the OFBIZ/GrowERP ERP product effectively. These services
+                                cover the full lifecycle of the product within your company. It starts with the documentation of your business processes, requirements gathering, and goes on to the implementation and customization,
+                                the introduction and end-user training and the monitoring and support of the implemented production system.
+                                </p>
+                            <p> We can also train your IT department in how to maintain the system
+                                from a software development point of view using the newest technologies like Scrum, peer review, continuous testing and release management.
+                                </p>
+                            <p> Furthermore we have a number of support contracts to make sure your system is running perfectly and we can act as a second level helpdesk either
+                                on an end-user- and/or technical level.
+                                </p>
+                        </div>
+                    </div>
+                    <div class="grid_8">
+                        <div class="inner-block">
+                            <div class="page1-img1"><h6 id="consulting"><a name="consulting"><img src="/src/assets/images/page1-img1s.png" align="left"/>
+                            Business Systems Consulting.</a></h6></div><br/>
+                            <p> When you have decided to opt for Apache OFBiz in your company, we advise you, to document your business processes with the
+                                BPMN (Business Process Modelling Notation) method. After this initial documentation step, this business proces workflow will be improved to obtain
+                                cost savings as early as possible, even before starting the ERP implementation. </p>
+
+                            <p> Next, we will design a new menu shell, using as much as possible from the standard system,
+                                around the OFBiz ERP system supporting the documented business processes and only show the functions you really want to use to make the system as
+                                simple and userfriendly as possible.
+                                This menu shell is implemented outside from the core system so future upgrades are still possible.
+                                These screens and related functional requirements will be documented using the Scrum methodology in our OFBiz based Scrum system.
+                                Then an implementation plan will be created including any integrations with existing systems.
+                                </p>
+                            <p> Because software development with the OFBiz framework is our core business we have developed a complete productlife cycle
+                                specifically for OFBiz using open source support systems only. We can help you introduce this to your local IT software development department.
+                                All the development tools we use are linked together using the Eclipse software development environment which completes
+                                the Application Performance Lifecycle management (APLM) control.
+                                </p>
+                            <p>Last but not least, we provide training services related of the OFBiz product for both the application development and the end-user training, mostly
+                                at the "train the trainer" level.
+                                </p>
+
+                            <div class="page1-img1"><h6 id="implementation"><a name="implementation"><img src="/src/assets/images/page1-img2s.png" align="left"/>
+                            Browser based GrowERP on Apache OFBiz ERP implementation.</a></h6></div><br/>
+                            <p> When the implementation plan has been created and the overall requirements are defined according the Scrum framework in the form of "stories",
+                                we can provide project management and an implementation team to implement the system in your organization.
+                                We convert your existing data, create a new user interface to your requirements and do any further customizations as defined in the requirements.
+                                </p>
+                            <p> If a usable part of the system is ready we will setup the production environment
+                                and help you train your end-users and members of the IT department.
+                                We will also provide the infrastructure for staging/test and version management. We can even work together with your local IT department and
+                                show our structured way of working.
+                                </p>
+
+                            <div class="page1-img1"><h6 id="customization"><a name="customization"><img src="/src/assets/images/page1-img3s.png" align="left"/>
+                            Browser based GrowERP on Moqui Ecosystem implementation.</a></h6></div><br/>
+                            <p> We have employees who are highly skilled in working with Moqui Ecosystem and interfaces to other systems. We also use the HiveMind
+                                for development where we deliver part of the complete system.
+                                Our development environment starts with the HiveMind Project Management, and accounting which is
+                                linked to the Gerrit/Git combination to have a proper distributed version control system with branch level security and peer review.
+                                We use Jenkins for automated testing and we provide a demo system which is updated daily and shows the work of our customization team on an ongoing basis.
+                            </p>
+
+                            <div class="page1-img1"><h6 id="mobileapp"><a name="mobileapp"><img src="/src/assets/images/mobileapp.png" align="left"/>
+                            Android/IOS GrowERP using Moqui backend implementation.</a></h6></div><br/>
+                            <p>
+                                We do Android mobile application development using Moqui backend to your needs, either when implementing a new system or changing an existing system,
+                                , let us help you using our transparent development way of working.
+                            </p>
+
+                            <div class="page1-img1"><h6 id="support"><a name="support"><img src="/src/assets/images/page1-img4s.png" align="left"/>
+                            24/7 support & system management.</a></h6></div><br/>
+                            <p> We can provide system support services worldwide provided your system is connected to the internet,
+                                install the production system on Linux based systems including database setup on small to medium sized systems from a single server
+                                to using a load balancer, multiple application and database servers. We can setup backup procedures,
+                                upgrade services and ensure your system is available uninterrupted by 24/7 monitoring.
+                                </p>
+                            <p> We can send you our standard contracts upon request which can be modified to your specific situation.
+                                </p>
+                            <p> Also a &quot;second level&quot; help desk is available for you to support technical and end-users in your organization either via chat or email.
+                                </p>
+                            <p> If you are looking to get started quickly, we provide a knowledge transfer service for business organizations starting with Apache OFBiz
+                                by an on-site training course or off-site via chat and e-mail.
+                                </p>
+                            <p><b>
+                                if you need more information about our services please sent an e-mail to
+                                <a href="mailto:support@antwebsystems.com?Subject=Please%20provide%20me%20more%20information%20about%20your%20services%20at%20AntWebsystems.com">support@antwebsystems.com</a>.
+                                </b></p>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_services" wikiSpaceId="AWS_SPACE" pagePath="aws_services" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="services" wikiPageId="aws_services"/>
+
+    <!-- Product  -->
+    <moqui.resource.DbResource filename="aws_product.html" isFile="Y" resourceId="aws_product" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+            $(function(){
+                $('header').removeClass('p13');
+                $('#main').removeClass('current');
+                $('title').text("AntWebsystems products");
+            });
+        </script>
+        <section id="content">
+           <div class="container_12" style="top : -20px;">
+               <div class="wrapper">
+                   <div class="service"><h2/><h3>Supported Open Source Products.</h3></div>
+                   <div class="grid_4">
+                        <div class="inner-block">
+                            <h6 id="introduction"><a name="introduction">Introduction.</a></h6><br/>
+                            <p> AntWebsystems is primarily a services company helping you to use the open-source system Apache OFBiz as efficiently as possible.
+                                Alongside to providing these services for the base OFBiz product we have a number of products which we either use ourselves (Scrum)
+                                or are the result of customizations we created
+                                for several customers and which we use over an over again improving the product on the way.
+                                </p>
+                            <p> As mentioned, OFBiz is the base product. GrowErp contains some enhancements which we think are usefull but we did not (yet) commit back to the
+                                core system with the apache foundation. Examples are the extension of the tenant function where new tenants can be added on a running system.
+                                We also completed further development on the Scrum component. All these products are open source with the same license as the Apache OFBiz core system
+                                and can be freely downloaded from <a href="http://gerrit.antwebsystems.com/#/admin/projects/">our Gerrit/GIT repository,</a> using a GIT client.
+                                </p>
+
+                            <p> All products have a README file in the root showing how to install the product. All products are based on a recent version of OFBiz and work with the trunk
+                                version which can be downloaded here.
+                                </p>
+                        </div>
+                   </div>
+                   <div class="grid_8">
+                        <div class="inner-block">
+                            <h6 id="ofbiz"><a name="ofbiz"><img src="/src/assets/images/ofbizlogo.jpeg" align="right"/>
+                            Apache OFBiz Open source ERP.(from the official website at http://ofbiz.apache.org)</a></h6><br/>
+                            <p> Apache OFBiz (The Apache Open For Business Project) is an open source enterprise automation software project
+                                licensed under the Apache License Version 2.0. By open source enterprise automation we mean: Open Source ERP
+                                (Enterprise Resource Planning), Open Source CRM (Customer RelationShip Management), Open Source E-Business / E-Commerce,
+                                Open Source SCM (Supply Chain Management), Open Source MRP (Manufacturing Resources Planning),
+                                Open Source CMMS/EAM (Maintenance Management System/Enterprise Asset Management), Open Source POS (Point Of Sale), and so on.
+                                </p>
+                            <p> Apache OFBiz is a foundation and starting point for reliable, secure and scalable enterprise solutions. Use it out-of-the-box (OOTB)
+                                or customize to suit even your most challenging business needs. With OFBiz in place, you can get started right away and
+                                then grow your operations as your business grows, without the huge deployment and maintenance costs of traditional enterprise automation systems.
+                                </p>
+                            <p> Being open source under the Apache 2.0 license and driven by a community Apache OFBiz offers both flexibility by design
+                                and access to code, and a solution where you're not alone but rather can work with many others to get things done.
+                                It's hard to say who and how many organizations are using Apache OFBiz because they don't have to tell us when they use it.
+                                In the documentation page you'll find link to a Wiki page with the list of known sites and products based on OFBiz we know about ("Users of Apache OFBiz").
+                                </p>
+
+                            <h6 id="growerp"><a name="growerp"><img src="/src/assets/images/growerp-ofbiz.png" align="right"/>
+                            GrowERP OFBiz component, the open source ERP system which grows with your business.</a></h6><br/>
+                            <p> When we implement OFBiz with our customers we usually scale down from the full version of OFBiz, however for the smaller customers
+                                that is a lot of work which needs to be repeated every time. GrowERP allows you to start small and add the functions according to specific customer needs.
+                                Further we found that these smaller customers can be better served in a multi-tenant environment. We normally add a component on top of GrowERP to
+                                add customer specific functions which can operate also in a multi-tenant environment.
+                                </p>
+                            <p> More information can be found at the related website at <a href="http://www.growerp.com">http://www.growerp.com</a>
+
+                            <h6 id="scrum"><a name="scrum"><img src="/src/assets/images/ofbizscrum.png" align="right"/>
+                            Scrum OFBiz component.</a></h6><br/>
+                            <p> This is a component we also use ourselves and which administers all the major data in a Scrum environment like Scrum products, scrum projects and backlogs.
+                                It can also accept time registration of its members and can generate invoices from it. It currently has an interface to SVN but we are switching to a GIT
+                                environment.
+                                </p>
+
+                            <h6 id="importexport"><a name="importexport">Import / Export OFBiz component.</a></h6><br/>
+                            <p> This component makes data conversion easier from other ERP systems or older OFBiz systems.
+                                </p>
+
+                            <h6 id="sitemap"><a name="sitemap">Sitemap OFBiz component.</a></h6><br/>
+                            <p> Will create a sitemap of all the pages in the website to make sure all pages are registered in the search engine.
+                                </p>
+
+                            <h6 id="twitter"><a name="twitter">Twitter OFBiz component.</a></h6><br/>
+                            <p> A twitter interface where you can tweet calling a OFBiz service.
+                                </p>
+
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_product" wikiSpaceId="AWS_SPACE" pagePath="aws_product" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="products" wikiPageId="aws_product"/>
+
+    <!-- Job  -->
+    <moqui.resource.DbResource filename="aws_jobs.html" isFile="Y" resourceId="aws_jobs" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+            $(function(){
+                $('header').removeClass('p13');
+                $('#main').removeClass('current');
+                $('title').text("Working with AntWebsystems: Available jobs");
+            });
+        </script>
+        <section id="content">
+           <div class="container_12" style="top : -20px;">
+                <div class="wrapper">
+                    <div class="jobs"><h2/><h3>Available Job Positions</h3></div>
+                    <div class="grid_4">
+                        <div class="inner-block">
+                            <h6 id="introduction"><a name="introduction">Introduction.</a></h6><br/>
+                            <p> We are always interested in hiring people with a passion for open source software and having a great attitude.
+                                If you feel you can contribute to the success of our company either in the positions listed here or
+                                in a position we did not yet think of, let us know so we can arrange a meeting.
+                                </p>
+                            <p> What do we have to offer? We have a great environment in a new building just outside Chiangmai specially built for us. We
+                                create business software solutions for customers all over the world. Especially the ERP jobs we have, are not easy
+                                and we expect that you need about 2 years to understand the area we cover, programming sure, but also the business
+                                disciplines such as product- and order management, warehouse and accoutning.
+                                </p>
+                            <p> You can start as a junior tester or programmer and can either evolve into a technical specialist, project manager or
+                                business system consultant. In the marketing and sales section we also look for a person who can find new customers for
+                                us and, as account managers, maintain the relationship with our current customers.
+                                </p>
+                            <p> But what is actually most important is that we can offer you a job you like, because you have fun and we have a good performing employee.
+                                </p>
+                            <p> Last but not least, we are 'open source' people sharing what we know and working together to provide the customer license free software.
+                                Yes we only use and provide open source software. We support a product called Apache OFBiz and related services and subproducts.
+                                Mostly we require a bachelor degree or a equivalent working experience. Fast learning is very much appreciated.
+                                </p>
+                        </div>
+                    </div>
+                    <div class="grid_8">
+                        <div class="inner-block">
+                            <h6 id="tester"><a name="tester">Apache OFBiz application tester.</a></h6><br/>
+                            <p> The task of an application tester is to create automated and manual tests using the tools JUnit and Selenium which we run
+                                automatically every day to ensure the software is as error free as possible. Knowledge in business practices and applications is an advantage.
+                                Basic Java knowledge is required.
+                                </p>
+
+                            <h6 id="developer"><a name="developer">Apache OFBiz software developer.</a></h6><br/>
+                            <p>For a developer you minimally need to know the basics of a structure programming languange like Java and understand the working of relational databases.
+                                Linux nad business knowledge helps but is not required.
+                                Because of the quick changing of technology it is required you can learn fast and be able to solve the problems you encouter in your job if
+                                required by using the information on the internet.
+                                </p>
+
+                            <h6 id="sysadmin"><a name="sysadmin">System administrator.</a></h6><br/>
+                            <p> Often we operate the production servers (Linux) of our customers where a 24/7 availability is required. Further you need to maintain the development PC's
+                                and network inside our company which all use Ubuntu Linux. Knowledge of development and testing tools like Eclipse, GIT/SVN, Jenkins is an advantage.
+                                </p>
+
+                            <h6 id="project"><a name="project">Project Leader.</a></h6><br/>
+                            <p> For this position we formost need reponsibility and be able to work with people and customers. We are using the Scrum framework for implementation
+                                and techinical basic knowledge of software development and production environments is required.
+                                </p>
+
+                            <h6 id="consultant"><a name="consultant">Business systems consultant.</a></h6><br/>
+                            <p> This is an advanced position where general knowledge of software development, open source ERP systems and business knowledge is required.
+                                You will be meeting leaders in the industrie as well as operational people at the shopfloor and should be able to discuss business at any level.
+                                </p>
+
+                            <h6 id="marketing"><a name="marketing">Marketing manager.</a></h6><br/>
+                            <p> We need a marketing manager who can develop a repeatable sales plan to help sales people show potentional customers how an open source ERP system
+                                can help them running their business. General knowledge of business, ERPsystems and sure, most important Marketing is required.
+                                </p>
+
+                            <h6 id="sales"><a name="sales">Sales people.</a></h6><br/>
+                            <p> Via the internet you will be contacting potentional customers using the sales plans already developed. You will come back with suggestions how to improve them
+                                and will do presentations showing our open source ERP system.
+                                </p>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_jobs" wikiSpaceId="AWS_SPACE" pagePath="aws_jobs" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="jobs" wikiPageId="aws_jobs"/>
+
+    <!-- Partner  -->
+    <moqui.resource.DbResource filename="aws_partner.html" isFile="Y" resourceId="aws_partner" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <section id="content">
+                <div class="container_12" style="top:-20px">
+                    <div class="wrapper">
+                        <div class=""><h2/><h3>Become a Partner and get more customers!</h3></div>
+                        <div class="grid_12">
+                            <div class="inner-block">
+                                <h6></h6><br/>
+                                Selling an ERP
+                                system, even services around an open source product is not easy,
+                                actually, going out, talk to people directly either by mail or phone
+                                or whatever channel you use, will not work.<br>
+                                <br>
+                                Then the
+                                recent developments where potential buyers will first on their own
+                                scan the internet for information before they will contact a ERP
+                                vendor will change the way how to promote the product you want to
+                                sell. Further problems are the the many competitors in the ERP market
+                                will also make it difficult.<br>
+                                <br>
+                                So how you solve this
+                                problem?<br>
+                                First of all make a marketing plan which purpose it is,
+                                to define the product or service you want to sell, then define the
+                                ‘ideal’ customer, how to find them and how to approach them. Set
+                                up marketing campaigns with actions and enter prospects. Then have
+                                sales people  executing this plan. <br>
+                                <br>
+                                Although all this can
+                                be done manually using spreadsheets in our experience this will only
+                                work if you have a software system to support these activities. So we
+                                developed a software function within GrowERP to support this
+                                activity. The system is offered as a SAAS version or can be
+                                downloaded from the GrowERP website at http://growerp.com<br>
+                                <br>
+                                This
+                                plan is based on the principle to connect over Linkedin to prospects
+                                and when connected send then regular personalized and automatic
+                                messages to keep in contact until they are ready to make the jump to
+                                open source ERP.<br>
+                                <br>
+                                Further we think that just selling ERP is
+                                not enough anymore, the system needs functions not found in the
+                                system of your competitors. So we added these extended CRM functions
+                                to be the first function new users use to increase their sales first
+                                before using other ERP functions. <br>
+                                <br>
+                                Here at AntWebsystems
+                                we have developed such a marketing plan using this GrowERP function
+                                and are looking for partners who we can help to increase their sales
+                                and want to work  together on their local OFBiz/GrowERP projects. The
+                                partnership fee is very low initially. Later when the plans, support
+                                and system mature, we will increase the fee, it can however be
+                                reduced when we work together on joined projects in your area.<br>
+                                <br>
+                                Let
+                                us know at <a href="mailto:partner@antwebsystems.com">partner@antwebsystems.com</a>
+                                if you are interested so we can work together making Apache OFBiz and
+                                GrowERP a success worldwide.</p>  <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="thumb1">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_partner" wikiSpaceId="AWS_SPACE" pagePath="aws_partner" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="partner" wikiPageId="aws_partner"/>
+
+    <!-- Contact us  -->
+    <moqui.resource.DbResource filename="aws_contact.html" isFile="Y" resourceId="aws_contact" parentResourceId="aws_content_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+                $(function(){
+                    $('header').removeClass('p13');
+                    $('#contact').addClass('current');
+                    $('title').text("Contact us at AntWebsystems");
+                });
+            </script>
+            <section id="content">
+               <div class="container_12" style="top : -20px;">
+                    <div class="wrapper">
+                        <div class="grid_8">
+                            <div class="inner-block">
+                                <div class="contact">
+                                    <h2></h2>
+                                    <h3>Contact us</h3>
+                                </div>
+                                <h6 style="margin-top: 30px;">Our physical location.</h6>
+                                <figure class="map img-bot">
+<div style="max-width:100%;overflow:hidden;height:350px;color:red;"><div id="canvas-for-google-map" style="height:100%; width:100%;max-width:100%;"><iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=antwebsystems&key=AIzaSyAuJ2-xPWHviPXY5IhDXyWp0Z6JLDaSdN0"></iframe></div>
+                                </figure>
+                                 <ol>
+                                    <li><br /><b>Headquarters:</b><br/>
+                                        AntWebsystems Co., Ltd<br />
+                                        73/1  M.8, Soi AntWebsystems<br />
+                                        Tambon Sanklang, Amphur Sanpatong<br />
+                                        Chiang Mai 50120<br />
+                                        Thailand.<br />
+                                        (From Changmai going south over the Hangdong road(108) pass Hangdong, take a left just BEFORE the ESSO petrol station, then after public telephone left<br />
+                                    </li>
+                                </ol>
+                                <br /><br />
+                            </div>
+                        </div>
+                        <div class="grid_4" style="top: 80px;">
+                            <div class="inner-block">
+                                <h6>Get in touch.</h6>
+                                 <div  style="margin-left: 30px; position:relative;">
+                                  <ul>
+                                    <li><br /><b>E-mail:</b><br/>
+                                        <span class="head">Support questions:</span><br />&nbsp;<a href="mailto:support@antwebsystems.com" title="Send email to support@antwebsystems.com">support@antwebsystems.com</a><br/>
+                                        <span class="head">(Fin)Administration:</span><br />&nbsp;<a href="mailto:admin@antwebsystems.com" title="Send email to admin@antwebsystems.com">admin@antwebsystems.com</a><br/>
+                                        <span class="head">General information:</span><br />&nbsp;<a href="mailto:info@antwebsystems.com" title="Send email to info@antwebsystems.com">info@antwebsystems.com</a>
+                                    </li>
+                                    <li><br /><b>By Skype:</b><br/>
+                                        <ul>
+                                            <li><span class="head">Skype chat:</span> ofbizsupport</li>
+                                        </ul>
+                                    </li>
+                                    <li><br /><b>Telephone:</b><br/>
+                                        <dl>
+                                            <dd><span class="head">LandLine:</span> +66-(0)53-355753</dd>
+                                            <dd><span class="head">Mobile:</span> +66-(0)98-7964553</dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                                <h6>Payment Information.</h6>
+                                  <ul>
+                                    <li><b>Bank:</b><br/>
+                                        <span class="head">Bangkok Bank Public Co., Ltd</span><br/>
+                                        <span class="head">Bank SWIFT Code:</span> BKKBTHBK<br/>
+                                        <span class="head">Accountnumber:</span> 4593018114 Antwebsystems Co.,Ltd.<br/>
+                                        <span class="head">Bank Postal Address:</span><br/>
+                                        19/1 M.3 T.Hangdong A.Hangdong<br/>
+                                        Chiangmai 50230<br/>
+                                        Thailand<br/>
+                                    </li>
+                                    <li><b>Internet Payment Systems:</b><br/>
+                                        <span class="head">Paypal:</span> admin@antwebsystems.com<br/>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <!--form id="form1">
+                                    <div class="success">
+                                        <div class="success_txt">Contact form submitted!<br />
+                                            <strong> We will be in touch soon.</strong>
+                                        </div>
+                                    </div>
+                                    <fieldset>
+                                            <label class="name">
+                                                <input type="text" value="Name:">
+                                                <span class="error">*This is not a valid name.</span> <span class="empty">*This field is required.</span>
+                                            </label>
+                                            <label class="email">
+                                                <input type="text" value="E-mail:">
+                                                <span class="error">*This is not a valid email address.</span> <span class="empty">*This field is required.</span>
+                                            </label>
+                                            <label class="phone">
+                                                <input type="tel" value="Phone:">
+                                                <span class="error">*This is not a valid phone number.</span> <span class="empty">*This field is required.</span>
+                                            </label>
+                                            <label class="message">
+                                                <textarea>Message:</textarea>
+                                                <span class="error">*The message is too short.</span> <span class="empty">*This field is required.</span>
+                                            </label>
+                                            <div class="clear"></div>
+                                            <div class="link-form">
+                                                <a class="button2 p27" href="#" data-type="reset">Clear</a>
+                                                <a class="button2" href="submitAnonContact" data-type="submit">Submit</a>
+                                            </div>
+                                    </fieldset>
+                                </form-->
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_contact" wikiSpaceId="AWS_SPACE" pagePath="aws_contact" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE" aliasPath="contact" wikiPageId="aws_contact"/>
+
+    <!-- client pages -->
+    <moqui.resource.DbResource filename="client" isFile="N" resourceId="aws_client_dir" parentResourceId="aws_templates_dir"/>
+    <moqui.resource.DbResource filename="client.html" isFile="Y" resourceId="aws_client" parentResourceId="aws_templates_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>AntWebsystems Templates - Client</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_client" wikiSpaceId="AWS_TMP" pagePath="client">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+    <!-- demo override client footer pages -->
+    <moqui.resource.DbResource filename="footer.html" isFile="Y" resourceId="aws_clt_footer" parentResourceId="aws_client_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <footer>
+              <div class="foot-line"></div>
+              <div class="container_12">
+                <article class="grid_12">
+                  <div class="inner-block">
+                  <div class="foot-page1">
+                    Copyright © 2005 - 2019 AntWebsystems Co.,Ltd | <a href="#">AntWebsystems Co.,Ltd</a>
+                    <div class="clear"></div>
+                  </div>
+                  </div>
+                </article>
+              </div>
+            </footer>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_footer" wikiSpaceId="AWS_TMP" pagePath="client/footer" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+    <!-- client header pages -->
+    <moqui.resource.DbResource filename="header.html" isFile="Y" resourceId="aws_clt_header" parentResourceId="aws_client_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <header>
+              <div class="container_12">
+                <div class="head-box1">
+                  <h1><a href="/"><img src="./static/images/AntLogoNoBG.png"/>AntWebsytems</a></h1>
+                </div>
+                <nav>
+                  <div class="flag">
+                    <a href="?lang=en" title="English"><img src="./static/images/flags/gb.png"></a>
+                    <a href="?lang=th" title="Thai"><img src="./static/images/flags/th.png"></a>
+                  </div>
+                  <div class="sf-menu" id="myTopnav">
+                    <a href="/" class="sf-with-ul" id="home">&nbsp;</a>
+                    <a href="products" class="sf-with-ul" id="products">Products</a>
+                    <a href="services" class="sf-with-ul" id="services">Services</a>
+                    <a href="aboutus" class="sf-with-ul" id="aboutus">About us</a>
+                    <a href="blog" class="sf-with-ul" id="blog">Blog</a>
+                    <a href="jobs" class="sf-with-ul" id="jobs">Jobs</a>
+                    <a href="partner" class="sf-with-ul" id="partner">Partner</a>
+                    <a href="contact" class="sf-with-ul" id="contact">Contact</a>
+                    <!-- a href="https://demo.antwebsystems.com/vapps" class="sf-with-ul" id="login">Login</a -->
+                    <a href="javascript:void(0);" class="icon" onclick="openMenu()">
+                      Menu
+                      <i class="fa fa-bars"></i>
+                    </a>
+                 </div>
+                </nav>
+              </div>
+            </header>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_header" wikiSpaceId="AWS_TMP" pagePath="client/header" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+    <!-- client body pages -->
+    <moqui.resource.DbResource filename="body.html" isFile="Y" resourceId="aws_clt_body" parentResourceId="aws_client_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+            $(document).ready(function() {
+                $('#menu a').click(function(e){
+                    hideContentDivs();
+                    var tmp_div = $(this).parent().index();
+                    $('.main div').eq(tmp_div).show();
+                });
+                function hideContentDivs(){
+                    $('.main div').each(function(){
+                    $(this).hide();});
+                }
+                hideContentDivs();
+            });
+            $(window).load (function(){
+                $('.page1').show();
+            });
+            $(function(){
+                $('header').removeClass('p13');
+                $('#main').removeClass('current');
+                $('title').text("AntWebsystems Co.,Ltd, full service OFBiz provider to help you to use OFBiz efficiently.");
+            });
+            </script>
+            <section id="content">
+              <div class="container_12 p6">
+                  <div class="wrapper p9">
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#consulting"><img src="/src/assets/images/page1-img1s.png" alt="Business systems consulting"/></a></div>
+                              <h2 class="p12" style="text-align:center;">Business Syst. Consulting</h2>
+                              <p class="p7">We can provide support to document and optimize your current business processes with BPMN,
+                              help you creating requirements and help you integrate the ERP system in your current environment.</p>
+                              <a class="button2 buttonCenter" href="services#consulting">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#implementation"><img src="/src/assets/images/page1-img2s.png" alt="GrowERP/OFBiz Implementation"/></a></div>
+                              <h2 class="p12" style="text-align:center;">Browser based GrowERP on Apache OFBiz ERP implementation.</h2>
+                              <p class="p7">Customizing OFBiz/GrowERP system to your needs, either when implementing a new system or changing an
+                                existing system, let us help you using our transparent development way of working.</p>
+                              <a class="button2 buttonCenter" href="services#implementation">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                             <div class="page1-img1"><a href="services#mobileapp</@rl>"><img src="/src/assets/images/page1-img3s.png" alt="Android/IOS GrowERP Implementation"/></a></div>
+                             <h2 class="p12" style="text-align:center;">Android/IOS GrowERP using Moqui backend implementation.</h2>
+                             <p class="p7">We do Android mobile application development using Moqui backend to your needs, either when implementing a new system or changing an
+                             existing system.</p>
+                            <a class="button2 buttonCenter" href="services#mobileapp">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#support"><img src="/src/assets/images/page1-img4s.png" alt="24/7 Support &amp; System Mngmt."/></a></div>
+                              <h2 class="p12" style="text-align:center;">24/7 Support &amp; System Mngmt.</h2>
+                              <p class="p7">We have several support contracts and system host facilities available provided by a team of system administrators where we can help you in keeping your
+                              OFBiz/GrowERP system running 24/7.</p>
+                              <a class="button2 buttonCenter" href="services#support">More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="wrapper p9">
+                        <div class="grid_6">
+                            <h2 class="p11 p12">Our transparent way of working</h2>
+                            <div class="inner-block">
+                                <h7>Document your business process first.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;We advise you to first document and optimize your business processes with BPMN before
+                                    the actuual ERP implementation starts. You will see operational improvement early in the project.
+                                    These BPMN diagrams will be viewable in the implemented ERP system.</p>
+                                <h7>We use the Scrum framework.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;We use the Scrum framework for all our projects. Groups of functions
+                                    are implemented in short 1-4 weeks time periods.This allows you, the customer
+                                    to change your mind for functions for which implementation has not yet been started.</p>
+                                <h7>Our demo system, updated daily.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;We have a multitenant demonstration system which is updated daily
+                                    with the changes which were made by the Scrum team. You can see the system
+                                    grow with the changes you requested.</p>
+                                <h7>Access to our Scrum system.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;We have developed a Scrum support system based on Apache OFBiz in which you
+                                    are able to maintain the backlog requirement list, where the sprint and time
+                                    administration takes place. This system also allows for detailed invoicing.</p>
+                                <h7>Weekly overview by email.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;In order to keep the customer informed as much as possible, a weekly e-mail
+                                    is sent to the product owner reporting on the backlog items which are implemented,
+                                    the number of hours used and the number of hours not yet billed.</p>
+                                <h7>Daily Skype Scrum meetings.</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;We even have a daily scrum meeting in a Skype group meeting which you can join.
+                                    Even if you are not present at the time the meeting is held, the text is kept
+                                    for you to read at a later time.</p>
+                            </div>
+                        </div>
+                        <div class="twitterGrid">
+                            <div class="inner-block">
+                                <h2 class="p11 p12">Our News</h2>
+                                <div class="carousel-div1">
+                                    <a class="twitter-timeline"  href="https://twitter.com/antwebsystems"  data-widget-id="407764443158695936">Our News</a>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="twitterGrid">
+                            <div class="inner-block">
+                                <h2 class="p11 p12">OFBiz/GrowERP</br> News</h2>
+                                <div class="carousel-div1-twitter">
+                                    <a class="twitter-timeline"  href="https://twitter.com/grow_erp"  data-widget-id="407765558629642241">GrowERP news</a>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_body" wikiSpaceId="AWS_TMP" pagePath="client/body" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+
+    <!-- Client pages in TH -->
+    <moqui.resource.DbResource filename="client-th" isFile="N" resourceId="aws_client-th_dir" parentResourceId="aws_templates-th_dir"/>
+    <moqui.resource.DbResource filename="client-th.html" isFile="Y" resourceId="aws_client-th" parentResourceId="aws_templates-th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[<h3>Antwebsystems Templates in TH</h3>]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_client-th" wikiSpaceId="AWS_TMP_TH" pagePath="client-th">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+
+<!--     <moqui.resource.DbResource filename="client-th" isFile="N" resourceId="aws_client-th_dir" parentResourceId="aws_templates_dir"/> -->
+<!--     <moqui.resource.wiki.WikiPage wikiPageId="aws_client_th" wikiSpaceId="AWS_TMP_TH" pagePath="client-th"> -->
+<!--         <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage> -->
+    <!-- demo override client footer pages -->
+    <moqui.resource.DbResource filename="footer.html" isFile="Y" resourceId="aws_clt_footer_th" parentResourceId="aws_client-th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <footer>
+              <div class="foot-line"></div>
+              <div class="container_12">
+                <article class="grid_12">
+                  <div class="inner-block">
+                  <div class="foot-page1">
+                    สงวนลิขสิทธิ์ © 2005 - 2019 บริษัท แอนท์ เว็บซิสเต็มส์ จำกัด | <a href="#">AntWebsystems Co.,Ltd</a>
+                    <div class="clear"></div>
+                  </div>
+                  </div>
+                </article>
+              </div>
+            </footer>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_footer_th" wikiSpaceId="AWS_TMP_TH" pagePath="client-th/footer" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+    <!-- client header pages -->
+    <moqui.resource.DbResource filename="header.html" isFile="Y" resourceId="aws_clt_header_th" parentResourceId="aws_client-th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <header>
+              <div class="container_12">
+                <div class="head-box1">
+                  <h1><a href="/"><img src="./static/images/AntLogoNoBG.png"/>AntWebsytems</a></h1>
+                </div>
+                <nav>
+                  <div class="flag">
+                    <a href="?lang=en" title="อังกฤษ"><img src="./static/images/flags/gb.png"></a>
+                    <a href="?lang=th" title="ไทย"><img src="./static/images/flags/th.png"></a>
+                  </div>
+                  <div class="sf-menu" id="myTopnav">
+                    <a href="/" class="sf-with-ul" id="home">&nbsp;</a>
+                    <a href="products" class="sf-with-ul" id="products">ผลิตภัณฑ์</a>
+                    <a href="services" class="sf-with-ul" id="services">บริการ</a>
+                    <a href="aboutus" class="sf-with-ul" id="aboutus">เกี่ยวกับเรา</a>
+                    <a href="blog" class="sf-with-ul" id="blog">บล็อค</a>
+                    <a href="jobs" class="sf-with-ul" id="jobs">ตำแหน่งงาน</a>
+                    <a href="partner" class="sf-with-ul" id="partner">ผู้ร่วมหุ้น</a>
+                    <a href="contact" class="sf-with-ul" id="contact">ติดต่อเรา</a>
+                    <a href="https://demo.antwebsystems.com/vapps" class="sf-with-ul" id="login">เข้าสู่ระบบ</a>
+                    <a href="javascript:void(0);" class="icon" onclick="openMenu()">
+                      เมนู
+                      <i class="fa fa-bars"></i>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+            </header>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_header_th" wikiSpaceId="AWS_TMP_TH" pagePath="client-th/header" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+    <!-- client body pages -->
+    <moqui.resource.DbResource filename="body.html" isFile="Y" resourceId="aws_clt_body_th" parentResourceId="aws_client-th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script  type="text/javascript">
+            $(document).ready(function() {
+                $('#menu a').click(function(e){
+                    hideContentDivs();
+                    var tmp_div = $(this).parent().index();
+                    $('.main div').eq(tmp_div).show();
+                });
+                function hideContentDivs(){
+                    $('.main div').each(function(){
+                    $(this).hide();});
+                }
+                hideContentDivs();
+            });
+            $(window).load (function(){
+                $('.page1').show();
+            });
+            $(function(){
+                $('header').removeClass('p13');
+                $('#main').removeClass('current');
+                $('title').text("AntWebsystems Co.,Ltd, ผู้ให้บริการ OFBiz อย่างเต็มรูปแบบ เพื่อช่วยให้คุณใช้งานได้อย่างมีประสิทธิภาพ");
+            });
+            </script>
+            <section id="content">
+              <div class="container_12 p6">
+                  <div class="wrapper p9">
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#consulting"><img src="/src/assets/images/page1-img1s.png" alt="Business systems consulting"/></a></div>
+                              <h2 class="p12" style="text-align:center;">ให้คำปรึกษาระบบธุรกิจ</h2>
+                              <p class="p7">สนับสนุนด้านเอกสารและการเพิ่มประสิทธิภาพให้กระบวนการทางธุรกิจของคุณด้วย BPMN เพื่อช่วยสร้างความต้องการและบูรณาการระบบ ERP ให้เหมาะสมกับสภาพแวดล้อมในปัจจุบัน</p>
+                              <a class="button2 buttonCenter" href="services#consulting">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#implementation"><img src="/src/assets/images/page1-img2s.png" alt="GrowERP/OFBiz Implementation"/></a></div>
+                              <h2 class="p12" style="text-align:center;">พัฒนาระบบโดยใช้ GrowERP ที่พัฒนามาจาก Apache OFBiz ERP</h2>
+                              <p class="p7">เราสามารถพัฒนาและปรับแต่งระบบโดยใช้ GrowERP ที่พัฒนามาจาก Apache OFBiz ERP เพียงแค่คุณบอกความต้องการของคุณ ไม่ว่าจะทำระบบใหม่ หรือพัฒนาให้เข้ากับระบบที่มีอยู่ เราพร้อมที่จะช่วยคุณ</p>
+                              <a class="button2 buttonCenter" href="services#implementation">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                             <div class="page1-img1"><a href="services#mobileapp</@ofbiz Url>"><img src="/src/assets/images/page1-img3s.png" alt="OFBiz/GrowERP Customization"/></a></div>
+                             <h2 class="p12" style="text-align:center;">แอปพลิเคชันมือถือ(Android/IOS) โดยใช้ GrowERP ที่พัฒนามาจาก Moqui Ecosystem</h2>
+                             <p class="p7">เราทำ แอปพลิเคชันมือถือ(Android/IOS) ตามความต้องการของลูกค้า โดยใช้ GrowERP ที่พัฒนามาจาก Moqui Ecosystem เพียงแค่คุณบอกความต้องการของคุณ ไม่ว่าจะทำระบบใหม่ หรือพัฒนาให้เข้ากับระบบที่มีอยู่ เราพร้อมที่จะช่วยคุณ</p>
+                            <a class="button2 buttonCenter" href="services#customization">More</a>
+                          </div>
+                      </div>
+                      <div class="grid_3">
+                          <div class="inner-block">
+                              <div class="page1-img1"><a href="services#support"><img src="/src/assets/images/page1-img4s.png" alt="24/7 Support &amp; System Mngmt."/></a></div>
+                              <h2 class="p12" style="text-align:center;">ระบบจัดการข้อมูลตลอด 24 ชั่วโมง</h2>
+                              <p class="p7">เรามีการสนับสนุนที่หลากหลายและมีระบบโฮสต์อำนวยความสะดวก โดยทีมผู้ดูแลระบบที่สามารถช่วยดูแลระบบ OFBiz/GrowERP ของคุณตลอด 24 ชั่วโมง</p>
+                              <a class="button2 buttonCenter" href="services#support">More</a>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="wrapper p9">
+                        <div class="grid_6">
+                            <h2 class="p11 p12">กระบวนการทำงานของเรา</h2>
+                            <div class="inner-block">
+                                <h7>บันทึกกระบวนการทางธุรกิจของคุณก่อน</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เราจะแนะนำข้อมูลและพิจารณากระบวนการทำงานของธุรกิจคุณด้วย BPMN
+                                    ก่อนที่ ERP จะเริ่มดำเนินการจริง เพราะ BPMN จะสามารถดูขั้นตอนต่างๆในการดำเนินงานของระบบ ERP ได้
+                                    เพื่อให้คุณได้ปรับปรุงแก้ไขได้ตั้งแต่เนิ่นๆ</p>
+                                <h7>เราใช้รูปแบบ Scrum</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เราใช้รูปแบบ Scrum ในทุกโปรเจค ฟังก์ชั่นต่างๆจะดำเนินการ
+                                    ภายในระยะเวลา 1-4 สัปดาห์ เพื่ออนุญาตให้คุณเปลี่ยนแปลงความต้องการในฟังก์ชันนั้นๆที่ยังไม่ได้เริ่มได้</p>
+                                <h7>ปรับปรุงระบบตัวอย่างทุกวัน</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เรามีระบบตัวอย่างที่หลากหลายและปรับปรุงการเปลี่ยนแปลงโดยทีม Scrum ทุกวัน
+                                    คุณจะสามารถเห็นพัฒนาการของระบบที่เป็นไปตามการเปลี่ยนแปลงที่คุณต้องการ</p>
+                                <h7>เข้าสู่ระบบ Scrum</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เราพัฒนาระบบ Scrum โดย Apache OFBiz เพื่อให้คุณสามารถบันทึก Sprint
+                                    และเวลาที่ใช้ ในการทำงานแต่ละความต้องการของคุณ ทั้งนี้ ระบบยังสามารถออกรายละเอียดใบแจ้งหนี้ให้คุณได้อีกด้วย</p>
+                                <h7>อีเมลภาพรวมของแต่ละสัปดาห์</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เพื่อที่จะให้ลูกค้าได้รับแจ้งความคืบหน้า อีเมลรายละเอียดจะถูกส่งไปให้ลูกค้าทุกสัปดาห์
+                                    โดยจะรายงานเกี่ยวกับรายละเอียดงานที่ยังค้างอยู่ จำนวนชั่วโมงที่ใช้ในแต่ละงาน
+                                    และจำนวนชั่วโมงที่ยังไม่ได้เรียกเก็บเงิน</p>
+                                <h7>การประชุม Scrum ประจำวัน โดย Skype</h7>
+                                    <p>&nbsp;&nbsp;&nbsp;เรามีการประชุมทางกลุ่ม Skype ในแต่ละวันที่คุณสามารถเข้าร่วมได้
+                                    ถึงแม้ว่าคุณไม่ได้อยู่ในเวลาที่การประชุมเกิดขึ้น ข้อความการสนทนาจะถูกเก็บไว้ให้คุณอ่านในภายหลัง</p>
+                            </div>
+                        </div>
+                        <div class="twitterGrid">
+                            <div class="inner-block">
+                                <h2 class="p11 p12">Our News</h2>
+                                <div class="carousel-div1">
+                                    <a class="twitter-timeline"  href="https://twitter.com/antwebsystems"  data-widget-id="407764443158695936">ข่าวสารเกี่ยวกับเรา</a>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="twitterGrid">
+                            <div class="inner-block">
+                                <h2 class="p11 p12">OFBiz/GrowERP</br> News</h2>
+                                <div class="carousel-div1-twitter">
+                                    <a class="twitter-timeline"  href="https://twitter.com/grow_erp"  data-widget-id="407765558629642241">ข่าวสารของ GrowERP</a>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_clt_body_th" wikiSpaceId="AWS_TMP_TH" pagePath="client-th/body" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/></moqui.resource.wiki.WikiPage>
+
+    <!-- About us -->
+    <moqui.resource.DbResource filename="aws_about_th.html" isFile="Y" resourceId="aws_about_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script type="text/javascript">
+                $(function() {
+                    $('header').removeClass('p13');
+                    $('#main').removeClass('current');
+                    $('title').text("เกี่ยวกับ AntWebsystems");
+                });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top: -20px;">
+                    <div class="wrapper">
+                        <div class="jobs">
+                            <h2></h2>
+                            <h3>เกี่ยวกับเรา</h3>
+                        </div>
+                        <article class="grid_4">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="whoweare">เราคือใคร</a>
+                                </h6>
+                                <br />
+                                <p>
+                                    เราพัฒนาและขยายการใช้งานทางธุรกิจโดยใช้ Apache OFBiz
+                                    อันเนื่องมาจากเค้าโครง รูปแบบข้อมูล ที่ครอบคลุมการใช้งานของ
+                                    ERP/CRM<br /> เราเป็นหนึ่งในผู้ได้รับมอบหมายระดับต้นๆ ของ Apache
+                                    OFBiz และเป็นสมาชิกของ PMC เพื่อช่วยผลักดันความก้าวหน้าของ OFBiz
+                                    บริษัท AntWebsystems
+                                    เป็นบริษัทพัฒนาซอฟต์แวร์ที่จดทะเบียนอย่างเป็นทางการในประเทศไทยภายใต้การบริหารงานของยุโรป
+                                    และมีการเติบโตอย่างรวดเร็ว<br /> ขณะนี้เรากำลังสนับสนุนการติดตั้ง
+                                    OFBiz ในอเมริกาเหนือ ยุโรป และเอเชีย<br />
+                                    เรายังได้ร่วมงานกับบริษัทคู่ค้าทั่วโลกเพื่อให้การสนับสนุนในท้องถิ่นและมองหาคู่ค้าใหม่เพื่อช่วยให้คุณใช้
+                                    Apache OFBiz ในระบบ ERP ให้ประสบความสำเร็จ
+                                </p>
+                                <h6 class="p14">Apache OFBiz คืออะไร?</h6>
+                                <br />
+                                <ul class="list1">
+                                    <li><a target="_blank"
+                                        href="main?contentId=AWS_OFBIZ">ข้อมูลเกี่ยวกับ
+                                            OFBiz</a></li>
+                                    <li><a target="_blank"
+                                        href="http://cwiki.apache.org/confluence/display/OFBIZ/Is+OFBiz+for+Me">OFBiz
+                                            สำหรับคุณ?</a></li>
+                                    <li><a target="_blank"
+                                        href="http://cwiki.apache.org/confluence/display/OFBIZ/Feature+summary">ฟีเจอร์ต่างๆ</a></li>
+                                    <li><a target="_blank"
+                                        href="http://cwiki.apache.org/confluence/display/OFBIZ/Main+New+Features">ฟีเจอร์ที่เพิ่มใหม่</a></li>
+                                    <li><a target="_blank"
+                                        href="https://cwiki.apache.org/confluence/display/OFBIZ/Apache+OFBiz+User+List">ใครใช้
+                                            OFBiz</a></li>
+                                </ul>
+                                <h6 class="p14">เว็บไซต์ตัวอย่าง</h6>
+                                <br />
+                                <ul class="list1">
+                                    <li><a target="_blank" href="http://www.growerpdemo.com">ตัวอย่าง
+                                            eCommerce</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        <article class="grid_8">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="howwecanhelp">บอกให้เราทราบว่าเราจะช่วยคุณได้อย่างไร</a>
+                                </h6>
+                                <br />
+                                <p>
+                                    หากคุณกำลังมองหาระบบ ERP ที่มีคุณภาพ โดยใช้ Apache OFBiz
+                                    เพื่อใช้ในการแข่งขัน คุณมาถูกทางแล้ว
+                                    เพราะเราเป็นหนึ่งในผู้สนับสนุนที่ใหญ่ที่สุดของระบบ Apache OFBiz
+                                    และพร้อมที่จะช่วยเหลือคุณในขณะนี้
+                                    คุณสามารถแจ้งให้เราทราบความต้องการของคุณ โดยส่งอีเมล์ไปที่: <a
+                                        href="mailto:support@antwebsystems.com">support@antwebsystems.com</a>
+                                    เราจะตอบกลับภายใน 24 ชั่วโมง<br /> หรือคลิกลิงก์ "Apache OFBiz
+                                    คืออะไร?" ด้านล่าง หากคุณต้องการทราบข้อมูลเพิ่มเติมเกี่ยวกับ
+                                    Apache OFBiz;
+                                </p>
+                                <h6>
+                                    <a name="howwework">เราทำงานอย่างไร?</a>
+                                </h6>
+                                <br />
+                                <p>
+                                    เราทำงานตามกระบวนการพัฒนาซอฟต์แวร์แบบ agile ที่ขึ้นอยู่กับ "Scrum"
+                                    โดยที่ Scrum
+                                    จะช่วยให้ลูกค้าได้รับประโยชน์จากการได้เห็นความคืบหน้าของงานในระยะเวลาที่ตกลงกันไว้
+                                    (1-4 สัปดาห์)<br />
+                                    และลูกค้าสามารถเปลี่ยนแปลงความต้องการระหว่างช่วงเวลานั้นๆ
+                                    โดยไม่มีผลกระทบในการทำงานมากนัก<br /> เราจะพัฒนาและใช้ OFBiz Scrum
+                                    เพื่อการพัฒนา ไม่ว่าคุณจะเป็นลูกค้าหรือคู่ค้า
+                                    คุณสามารถเข้าสู่ระบบเพื่อดูความคืบหน้าของงานในแต่ละวันได้
+                                </p>
+                                <h6>
+                                    <a name="whatwecando">เราจะช่วยคุณอย่างไร?</a>
+                                </h6>
+                                <br />
+                                <p>อะไรก็ตามที่เกี่ยวข้องกับ Apache OFBiz
+                                    จะถูกรวบรวมและจัดการให้ระบบของคุณ</p>
+                                <p>
+                                    หากต้องการข้อมูลเพิ่มเติม คุณสามารถไปที่หน้า <a
+                                        href="main?contentId=AWS_SERVICES">"บริการ"
+                                        เพื่อดูรายละเอียดต่างๆ</a>
+                                </p>
+                                <div class="clear"></div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_about_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_about_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" wikiPageId="aws_about_th" aliasPath="aboutus"/>
+
+    <!-- services -->
+    <moqui.resource.DbResource filename="aws_services_th.html" isFile="Y" resourceId="aws_services_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script type="text/javascript">
+                $(function() {
+                    $('header').removeClass('p13');
+                    $('#main').removeClass('current');
+                    $('title').text("บริการของ AntWebsystems");
+                });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top: -20px;">
+                    <div class="wrapper">
+                        <div class="service">
+                            <h2 />
+                            <h3>บริการของเรา</h3>
+                        </div>
+                        <article class="grid_4">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="introduction">แนะนำ</a>
+                                </h6>
+                                <br />
+                                <p>วิสัยทัศน์ของบริษัทเราคือ ให้บริการระบบ ERP แบบมืออาชีพ
+                                    โดยใช้ Apache OFBiz/GrowERP ของบริษัทขนาดเล็กและขนาดกลาง
+                                    สำหรับค่าใช้จ่ายในการลงทุนโดยใช้ open source software
+                                    ทั้งนี้เรายังสามารถช่วยเหลือเกี่ยวกับการบำรุงรักษาและการปรับแต่งระบบของคุณอีกด้วย
+                                </p>
+                                <p>บริษัท AntWebsystems
+                                    ให้บริการที่หลากหลายเพื่อช่วยให้คุณใช้งาน OFBIZ/GrowERP
+                                    ได้อย่างมีประสิทธิภาพ บริการเหล่านี้ครอบคลุมทุกอย่างในระบบของคุณ
+                                    เริ่มจากเอกสารเกี่ยวกับกระบวนการทางธุรกิจของคุณและรวบรวมความต้องการต่างๆ
+                                    เพื่อเริ่มดำเนินงาน ปรับแต่ง แนะนำ ฝึกอบรมผู้ใช้ ตรวจสอบ
+                                    และสนับสนุนระบบการดำเนินงานของระบบ</p>
+                                <p>เรายังสามารถแนะนำให้แผนก IT
+                                    ของคุณให้เรียนรู้เกี่ยวกับวิธีการบำรุงรักษาระบบในมุมมองของการพัฒนาซอฟต์แวร์
+                                    โดยใช้เทคโนโลยีใหม่ เช่น Scrum, peer review, continuous testing
+                                    และ release management</p>
+                                <p>
+                                    นอกจากนี้เรายังให้สัญญาว่าระบบของท่านจะทำงานได้อย่างสมบูรณ์แบบที่สุด
+                                    พร้อมทั้งยินดีให้คำปรึกษาระดับเริ่มต้นเพื่อผู้ใช้งานทั่วไป
+                                    จนถึงบริการให้ข้อมูลในทางเทคนิคเชิงลึก</p>
+                            </div>
+                        </article>
+                        <article class="grid_8">
+                            <div class="inner-block">
+                                <figure class="page1-img1">
+                                    <h6>
+                                        <a name="consulting"><img
+                                            src="/src/assets/images/page1-img1s.png"
+                                            align="left" /> ให้คำปรึกษาระบบธุรกิจ</a>
+                                    </h6>
+                                </figure>
+                                <br />
+                                <p>เมื่อคุณตัดสินใจเลือกใช้ Apache OFBiz ในบริษัทของคุณ
+                                    เราสามารถให้คำปรึกษาเกี่ยวกับการทำเอกสารในกระบวนการทางธุรกิจของคุณด้วย
+                                    BPMN (Business Process Modelling Notation) หลังจากนั้น
+                                    ขั้นตอนการทำงานจะได้รับการปรับปรุงเพื่อประหยัดค่าใช้จ่ายตั้งแต่เนิ่นๆ
+                                    แม้กระทั่งก่อนการดำเนินงาน ERP จะเริ่มขึ้น</p>
+                                <p>หลังจากนั้น
+                                    เราจะออกแบบเมนูให้สามารถใช้งานได้มากที่สุดเท่าที่จะเป็นไปได้จากระบบมาตรฐานของ
+                                    OFBiz ERP
+                                    โดยสนับสนุนด้านการทำข้อมูลเพื่อแสดงฟังก์ชันที่คุณต้องการใช้งาน
+                                    เมนูนี้จะดำเนินการนอกระบบหลักเพื่อการอัพเกรดในอนาคต
+                                    โดยข้อมูลต่างๆที่เกี่ยวข้องจะถูกนำมาทำการบันทึกลงในเอกสาร โดยใช้
+                                    Scrum ในระบบ OFBiz และแผนการดำเนินงานจะถูกสร้างขึ้น
+                                    รวมถึงการรวบรวมข้อมูลต่างๆกับระบบที่มีอยู่</p>
+                                <p>เพราะการพัฒนาซอฟต์แวร์ในรูปแบบของ OFBiz เป็นธุรกิจหลักของเรา
+                                    เราได้พัฒนารูปแบบของระบบให้สมบูรณ์ โดยเฉพาะสำหรับ OFBiz ที่ใช้ระบบ
+                                    open source และเราสามารถช่วยคุณแนะนำเกี่ยวกับ OFBiz
+                                    ให้แผนกพัฒนาซอฟต์แวร์ของคุณ
+                                    ซึ่งเครื่องมือสำหรับการพัฒนาซอฟต์แวร์ทั้งหมดที่เราใช้มีความเชื่องโยงกัน
+                                    โดยมี Eclipse ควบคุมให้ Application Performance Lifecycle
+                                    management (APLM) เสร็จสิ้น</p>
+                                <p>สุดท้าย เรายังมีการฝึกอบรมต่างๆ ที่เกี่ยวข้องกับ OFBiz
+                                    ทั้งการฝึกอบรมเพื่อพัฒนาโปรแกรม และการฝึกอบรมสำหรับผู้ใช้งานทั่วไป
+                                </p>
+                                <figure class="page1-img1">
+                                    <h6>
+                                        <a name="implementation"><img
+                                            src="/src/assets/images/page1-img2s.png"
+                                            align="left" /> พัฒนาระบบโดยใช้ GrowERP ที่พัฒนามาจาก Apache OFBiz ERP</a>
+                                    </h6>
+                                </figure>
+                                <br />
+                                <p>เมื่อการวางแผนงานได้ถูกสร้างขึ้น
+                                    ความต้องการโดยรวมจะมีการกำหนดให้เป็นไปตามรูปแบบของ Scrum
+                                    ซึ่งจะเป็นรูปแบบของเรื่องราวที่เราสามารถให้ผู้ดูแลและทีมดำเนินการโดยแปลงข้อมูลที่มีอยู่
+                                    สร้างรูปแบบเว็บไซต์ใหม่และปรับแต่งให้เป็นไปตามรูปแบบที่ตกลงกันไว้
+                                </p>
+                                <p>ถ้ามีส่วนที่สามารถใช้งานได้แล้ว เราจะติดตั้งเข้าสู่ระบบจริง
+                                    ทั้งยังช่วยฝึกอบรมผู้ใช้งานและสมาชิกแผนก IT
+                                    ทั้งยังจะช่วยเกี่ยวกับโครงสร้างพื้นฐานสำหรับการทดสอบและการจัดการในเวอร์ชั่นต่างๆ
+                                    ให้สามารถดำเนินการในแผนกของคุณได้</p>
+                                <figure class="page1-img1">
+                                    <h6>
+                                        <a name="customization"><img
+                                            src="/src/assets/images/page1-img3s.png"
+                                            align="left" />พัฒนาระบบโดยใช้ GrowERP ที่พัฒนามาจาก Moqui Ecosystem</a>
+                                    </h6>
+                                </figure>
+                                <br />
+                                <p>เรามีพนักงานที่มีความทักษะในการทำงานเกี่ยวกับ Moqui Ecosystem และการเชื่อมต่อกับระบบอื่นๆ และยังใช้ HiveMind
+                                    เพื่อพัฒนางานส่วนที่เสร็จสมบูรณ์ของระบบในแต่ละวัน
+                                    ของแต่ละบุคคลตลอด 4 สัปดาห์ การพัฒนาของเราเริ่มจาก HiveMind
+                                    ที่ใช้สำหรับบริหารงานในโปรเจ็ค และบัญชี ซึ่งเชื่อมต่อกับ  Gerrit/Git เพื่อให้มีความปลอดภัยในการทำงานมากขึ้น
+                                    นอกจากนี้เราใช้ Jenkins สำหรับการทดสอบระบบอัตโนมัติ
+                                    และให้มีระบบตัวอย่างที่มีการปรับปรุงในทุกๆวัน
+                                    เพื่อแสดงถึงความพัฒนาการที่ดีขึ้นอย่างต่อเนื่อง</p>
+                                <figure class="page1-img1"><h6 id="mobileapp"><a name="mobileapp"><img src="/src/assets/images/mobileapp.png" align="left"/>
+                                แอปพลิเคชันมือถือ(Android/IOS) โดยใช้ GrowERP ที่พัฒนามาจาก Moqui Ecosystem</a></h6></div><br/>
+                                <p>
+                                    เราทำ แอปพลิเคชันมือถือ(Android/IOS) ตามความต้องการของลูกค้า โดยใช้ GrowERP ที่พัฒนามาจาก Moqui Ecosystem เพียงแค่คุณบอกความต้องการของคุณ 
+                                    ไม่ว่าจะทำระบบใหม่ หรือพัฒนาให้เข้ากับระบบที่มีอยู่ เราพร้อมที่จะช่วยคุณ
+                                </p>
+                                <figure class="page1-img1">
+                                    <h6>
+                                        <a name="support"><img
+                                            src="/src/assets/images/page1-img4s.png"
+                                            align="left" /> ระบบจัดการข้อมูลตลอด 24 ชั่วโมง</a>
+                                    </h6>
+                                </figure>
+                                <br />
+                                <p>เราให้บริการการสนับสนุนระบบทั่วโลก
+                                    เพื่อให้ระบบของคุณเชื่อมต่อกับอินเตอร์เน็ตและติดตั้งระบบที่ใช้
+                                    Linux รวมทั้งติดตั้งฐานข้อมูลขนาดเล็กเพื่อนำไปใช้กับระบบขนาดกลาง
+                                    จากเซิร์ฟเวอร์ที่ใช้โหลดบาลานซ์เพื่อประสิทธิภาพในการเข้าถึงระบบ
+                                    และใช้เซิร์ฟเวอร์สำหรับแอพพลิเคชั่นและฐานข้อมูลหลายตัว
+                                    อีกทั้งเราสามารถติดตั้งระบบสำรองข้อมูลและอัพเกรดบริการเพื่อให้แน่ใจว่าระบบของคุณสามารถทำงานได้ตลอด
+                                    24 ชั่วโมง</p>
+                                <p>
+                                    เราสามารถส่งสัญญาที่เป็นมาตรฐานเพื่อให้ปรับปรุงแก้ไขให้เหมาะสมตามลักษณะงานนั้นๆ
+                                </p>
+                                <p>
+                                    นอกจากนี้ยังมีบริการให้คำปรึกษาระดับเริ่มต้นเพื่อผู้ใช้งานทั่วไป
+                                    รวมถึงบริการให้ข้อมูลในทางเทคนิคเชิงลึกผ่านทางแชทหรืออีเมล</p>
+                                <p>หากคุณต้องการเริ่มต้น
+                                    เราสามารถถ่ายทอดความรู้สำหรับบริษัทที่อยากเริ่มต้นธุรกิจด้วย
+                                    Apache OFBiz
+                                    โดยหลักสูตรการฝึกอบรมในสถานที่หรือนอกสถานที่ผ่านการแชทและอีเมล</p>
+                                <p>
+                                    <b> หากคุณต้องการทราบข้อมูลเพิ่มเติมเกี่ยวกับบริการของเรา
+                                        กรุณาส่งอีเมลมาที่ <a
+                                        href="mailto:support@antwebsystems.com?Subject=Please%20provide%20me%20more%20information%20about%20your%20services%20at%20AntWebsystems.com">support@antwebsystems.com</a>.
+                                    </b>
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_services_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_services_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" aliasPath="services" wikiPageId="aws_services_th"/>
+
+    <!-- Product  -->
+    <moqui.resource.DbResource filename="aws_product_th.html" isFile="Y" resourceId="aws_product_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script type="text/javascript">
+                $(function() {
+                    $('header').removeClass('p13');
+                    $('#main').removeClass('current');
+                    $('title').text("ผลิตภัณฑ์ของ AntWebsystems");
+                });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top: -20px;">
+                    <div class="wrapper">
+                        <div class="service">
+                            <h2 />
+                            <h3>สนับสนุนผลิตภัณฑ์ที่เกี่ยวกับ Open Source</h3>
+                        </div>
+                        <article class="grid_4">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="introduction">แนะนำ</a>
+                                </h6>
+                                <br />
+                                <p>บริษัท AntWebsystems
+                                    เป็นบริษัทที่เริ่มให้บริการเพื่อช่วยเหลือระบบ open-source ใน
+                                    Apache OFBiz ได้อย่างมีประสิทธิภาพ
+                                    ควบคู่ไปกับการให้บริการเกี่ยวกับผลิตภัณฑ์ของ OFBiz ที่เราใช้เอง
+                                    (Scrum)
+                                    หรือที่มาจากการปรับแต่งเพื่อลูกค้าและที่เราใช้สำหรับปรับปรุงสินค้า
+                                </p>
+                                <p>
+                                    จากข้างต้น จะเห็นได้ว่า OFBiz เป็นหลักสำคัญของระบบต่างๆ ซึ่ง
+                                    GrowErp จะมีการปรับปรุงแก้ไขให้มีประสิทธิภาพมากยิ่งขึ้น
+                                    แต่ยังไม่ได้ส่งไปยังระบบหลักที่ใช้ Apache เป็นโครงสร้างพื้นฐาน
+                                    ยกตัวอย่างเช่น การขยายการทำงานของ tenant ที่สามารถเพิ่ม tenant
+                                    ใหม่ขณะที่ระบบกำลังทำงานได้ นอกจากนี้เรายังพัฒนา Scrum
+                                    ให้สมบูรณ์มากยิ่งขึ้น โดยโปรแกรมทั้งหมดเป็น open source
+                                    ที่มีใบอนุญาตเช่นเดียวกับระบบหลักของ Apache OFBiz
+                                    และสามารถดาวน์โหลดได้ฟรีจาก <a
+                                        href="http://gerrit.antwebsystems.com/#/admin/projects/">Gerrit/GIT
+                                        ของเรา</a>
+                                </p>
+                                <p>ระบบทั้งหมดจะมีไฟล์ README ใน root
+                                    เพื่ออธิบายวิธีการติดตั้งระบบต่างๆ
+                                    ซึ่งขึ้นอยู่กับเวอร์ชั่นล่าสุดของ OFBiz และจะทำงานกับ trunk
+                                    เวอร์ชั่นที่สามารถดาวน์โหลดได้ที่นี่</p>
+                            </div>
+                        </article>
+                        <article class="grid_8">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="ofbiz"><img
+                                        src="/src/assets/images/ofbizlogo.jpeg"
+                                        align="right" /> Apache OFBiz Open source ERP. (จากเว็ปไซต์
+                                        http://ofbiz.apache.org)</a>
+                                </h6>
+                                <br />
+                                <p>Apache OFBiz (เปิดให้ใช้งานสำหรับธุรกิจ) เป็นองค์กรที่เป็น
+                                    open source อัตโนมัติภายใต้ใบอนุญาต Apache เวอร์ชั่น 2.0 จาก Open
+                                    Source ERP (Enterprise Resource Planning), Open Source CRM
+                                    (Customer RelationShip Management), Open Source E-Business /
+                                    E-Commerce, Open Source SCM (Supply Chain Management), Open Source
+                                    MRP (Manufacturing Resources Planning), Open Source CMMS/EAM
+                                    (Maintenance Management System/Enterprise Asset Management), Open
+                                    Source POS (Point Of Sale) และอื่นๆ</p>
+                                <p>Apache OFBiz เป็นรากฐานและจุดเริ่มต้นสำหรับความน่าเชื่อถือ
+                                    ความปลอดภัย และเข้ากับองค์กรต่างๆ โดยใช้ความคิดนอกกรอบ
+                                    (out-of-the-box)
+                                    หรือปรับแต่งให้มีความเหมาะสมสำหรับธุรกิจของคุณซึ่งมีความท้าทายสูงด้วย
+                                    OFBiz คุณสามารถเริ่มต้นได้ทันที
+                                    เพื่อพัฒนาการทำงานของคุณไปพร้อมๆกับธุรกิจ
+                                    โดยไม่ต้องมีการใช้งานและค่าใช้จ่ายในการบำรุงรักษามากนัก</p>
+                                <p>เป็น open source ภายใต้ใบอนุญาตของ Apache เวอร์ชั่น 2.0
+                                    และใช้ Apache OFBiz เพื่อความยืดหยุ่นในการออกแบบรวมถึง
+                                    การเข้าถึงรหัสและวิธีการแก้ปัญหาที่สามารถทำร่วมกับผู้อื่นได้
+                                    มันอาจจะยากที่จะบอกว่าใครหรือองค์กรไหนที่ใช้ Apache OFBiz บ้าง
+                                    เพราะว่าพวกเขาไม่ได้บอกพวกเราเมื่อพวกเขาใช้ แต่หากคุณค้นหา
+                                    คุณจะเจอลิงค์ไปยังวิกิพีเดียที่มีรายชื่อของเว็ปไซต์ที่เป็นที่รู้จักและ
+                                    เป็นผลิตภัณฑ์ของ OFBiz ที่เรารู้จักกัน</p>
+                                <h6>
+                                    <a name="growerp"><img
+                                        src="/src/assets/images/growerp-ofbiz.png"
+                                        align="right" /> GrowERP OFBiz และระบบ open source ERP
+                                        ที่เติบโตไปพร้อมกับธุรกิจของคุณ</a>
+                                </h6>
+                                <br />
+                                <p>เมื่อเราใช้ OFBiz กับลูกค้า
+                                    เรามักจะลดระดับจากเวอร์ชั่นเต็มของ OFBiz
+                                    แต่สำหรับลูกค้าขนาดเล็กที่มีงานจำนวนมากที่ต้องทำซ้ำๆ GrowERP
+                                    จะช่วยให้คุณสามารถเริ่มจากจุดเล็กๆและเพิ่มฟังก์ชั่นให้สอดคล้องตามความต้องการ
+                                    นอกจากนี้เรายังพบลูกค้าที่เล็กกว่าและทำงานได้หลาย tenant
+                                    ซึ่งโดยปกติแล้วเราจะเพิ่มองค์ประกอบของ GrowERP
+                                    เพื่อเพิ่มฟังก์ชันเฉพาะที่สามารถทำงานได้หลาย tenant อยู่แล้ว</p>
+                                <p>
+                                    หากคุณต้องการข้อมูลเพิ่มเติมสามารถดูได้ที่ <a
+                                        href="http://www.growerp.com">http://www.growerp.com</a>
+                                <h6>
+                                    <a name="scrum"><img
+                                        src="/src/assets/images/ofbizscrum.png"
+                                        align="right" /> องค์ประกอบของ Scrum OFBiz</a>
+                                </h6>
+                                <br />
+                                <p>เราและผู้ดูแลระบบทั้งหมดใช้ระบบ scrum เช่น Scrum products,
+                                    scrum projects และ backlogs
+                                    นอกจากนี้เรายังลงเวลาที่สมาชิกใช้ในการทำงาน เพื่อสร้างใบแจ้งหนี้
+                                    ซึ่งปัจจุบันนี้มีอินเตอร์เฟซที่ใช้ SVN แต่เราใช้ GIT แทน</p>
+                                <h6>
+                                    <a name="importexport">นำเข้า/ส่งออก OFBiz</a>
+                                </h6>
+                                <br />
+                                <p>ส่วนนี้ทำให้การเปลี่ยนแปลงข้อมูลง่ายขึ้นถ้าเทียบกับระบบ ERP
+                                    หรือระบบ OFBiz แบบเดิม</p>
+                                <h6>
+                                    <a name="sitemap">แผนผังของ OFbiz</a>
+                                </h6>
+                                <br />
+                                <p>
+                                    เราจะสร้างแผนผังทุกหน้าในเว็บไซต์เพื่อทำให้แน่ใจว่าทุกๆหน้ามีการลงทะเบียนในการค้นหาแล้ว
+                                </p>
+                                <h6>
+                                    <a name="twitter">ทวิตเตอร์ของ OFBiz</a>
+                                </h6>
+                                <br />
+                                <p>มีทวิตเตอร์เพื่อให้คุณสามารถติดตามบริการของ OFBiz ได้</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_product_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_product_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" aliasPath="products" wikiPageId="aws_product_th"/>
+
+    <!-- Job  -->
+    <moqui.resource.DbResource filename="aws_job_th.html" isFile="Y" resourceId="aws_job_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script type="text/javascript">
+                $(function() {
+                    $('header').removeClass('p13');
+                    $('#main').removeClass('current');
+                    $('title').text("ร่วมงานกับ AntWebsystems: ตำแหน่งงานที่ว่างอยู่");
+                });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top: -20px;">
+                    <div class="wrapper">
+                        <div class="jobs">
+                            <h2 />
+                            <h3>ตำแหน่งงานที่มีอยู่</h3>
+                        </div>
+                        <article class="grid_4">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="introduction">แนะนำ</a>
+                                </h6>
+                                <br />
+                                <p>เรามักจะสนใจที่จะจ้างคนที่มีความสนใจในด้าน open source
+                                    ซอฟต์แวร์ และเป็นคนที่มีทัศนคติที่ดี
+                                    ถ้าคนรู้สึกว่าคุณสามารถเป็นส่วนหนึ่งในความสำเร็จของบริษัท
+                                    ในตำแหน่งใดตำแหน่งหนึ่งที่ระบบไว้หรือ ตำแหน่งที่เรายังไม่มี
+                                    คุณสามารถแจ้งให้เราทราบ เราจะได้นัดหมายเพื่อพบปะกับคุณ</p>
+                                <p>เรามีข้อเสนออะไรบ้าง? เรามีสภาพแวดล้อมที่ดี
+                                    อาคารใหม่ที่สร้างขึ้นนอกตัวเมืองเชียงใหม่
+                                    เราสร้างซอฟต์แวร์ทางธุรกิจสำหรับลูกค้าทั่วทุกมุมโลก โดยเฉพาะ ERP
+                                    ที่เรามีอยู่ไม่ได้ง่าย และเราคาดหวังว้่คุณจำเป็นต้องใช้เวลาประมาณ
+                                    2 ปี เพื่อเข้าใจและเขียนโปรแกรม แต่ก็ยังมีกฏระเบียบ ทางธุรกิจ เช่น
+                                    ผลิตภัณฑ์ต่างๆ การจัดการคลังสินค้า การสั่งชื้อ และการบัญชี
+                                    ที่คุณต้องเข้าใจอีกด้วย</p>
+                                <p>คุณสามารถเริ่มต้นเป็นเทสเตอร์หรือโปรแกรมเมอร์
+                                    และสามารถพัฒนาเพื่อเป็นผู้เชี่ยวชาญทางเทคนิค ผู้ดูแลโปรเจคต่างๆ
+                                    หรือผู้ให้คำปรึกษาระบบธุรกิจต่างๆ ในส่วนของการตลาดและการขาย
+                                    เรามองหาบุคคล
+                                    ที่สามารถหาลูกค้าเป็นผู้ดูแลบัญชีและดูแลรักษาความสัมพันธ์กับลูกค้าปัจจุบันให้กับเราด้วย
+                                </p>
+                                <p>แต่สิ่งที่สำคัญที่สุดคือการที่เราสามารถเสนองานที่คุณชอบ
+                                    เพราะคุณจะได้สนุกไปกับงานและเราจะได้มีพนักงานที่ดีอีกด้วย</p>
+                                <p>เรายังเป็น open source
+                                    ที่แบ่งเป็นสิ่งที่เรารู้และทำงานร่วมกับผู้อื่นเพื่อ
+                                    ให้ลูกค้ารับใบอนุญาต ซอฟต์แวร์ฟรี เราใช้และให้บริการ open source
+                                    ซอฟต์แวร์ ทั้งยังสนับสนุนผลิตภัณฑ์ที่เรียกว่า Apache OFBiz
+                                    และบริการที่เกี่ยวข้อง
+                                    ส่วนใหญ่เราจำเป็นต้องใช้วุฒิการศึกษาระดับปริญญาตรีหรือเทียบเท่า
+                                    เพื่อให้การเรียนรู้ในการทำงานเป็นไปได้ดียิ่งขึ้น</p>
+                            </div>
+                        </article>
+                        <article class="grid_8">
+                            <div class="inner-block">
+                                <h6>
+                                    <a name="tester">เทสเตอร์</a>
+                                </h6>
+                                <br />
+                                <p>งานของเทสเตอร์ คือสร้างการทดสอบแบบอัตโนมัติและทดสอบโดยใช้
+                                    JUnit และ Selenium ที่สามารถทำงานอัตโนมัติในทุกๆวัน
+                                    เพื่อทดสอบแน่ใจว่าซอฟต์แวร์มีข้อผิดพลาดที่สามารถเกิดขึ้นตรงไหนได้บ้าง
+                                    ทั้งนี้ยังต้องมีความความรู้ความสามารถทางด้านธุรกิจ
+                                    ด้านแอพลิเคชั่นต่างๆ และความรู้พื้นฐานทางด้าน Java อีกด้วย</p>
+                                <h6>
+                                    <a name="developer">นักพัฒนาซอฟต์แวร์</a>
+                                </h6>
+                                <br />
+                                <p>สำหรับนักพัฒนาซอฟต์แวร์
+                                    อย่างน้อยต้องมีความรู้พื้นฐานเกี่ยวกับโครงสร้างทางด้านการเขียนโปรแกรมด้วย
+                                    Java และเข้าใจเกี่ยวกับ ความสัมพันธ์ที่ใช้ทำงานร่วมกับฐานข้อมูล
+                                    จะดียิ่งขึ้นหากคุณมีความรู้ทางด้าน Linux และความรู้ทางด้านธุรกิจ
+                                    เพราะว่าเทคโนโลยีมีการ เปลี่ยนแปลงอย่างรวดเร็ว
+                                    เราจึงต้องการบุคคลที่สามารถเรียนรู้ได้ไวและสามารถแก้ไขปัญหาที่พบในการทำงานำได้ดี
+                                </p>
+                                <h6>
+                                    <a name="sysadmin">ผู้ดูแลระบบ</a>
+                                </h6>
+                                <br />
+                                <p>บ่อยครั้งที่เราทำงานบนระบบเซิร์ฟเวอร์ของผลิตภัณฑ์ (Linux)
+                                    และจำเป็นที่จะต้องบริการลูกค้าตลอด 24 ชั่วโมง นอกจากนี้ ตำแหน่งนี้
+                                    ยังจำเป็นที่จะต้องดูแลเครื่องคอมพิวเตอร์และระบบเครือข่ายภายในบริษัทที่ใช้
+                                    Ubantu Linux ทั้งยังต้องมีความรู้ความสามารถเกี่ยวกับ
+                                    การพัฒนาและการทดสอบเครื่องมือต่างๆ เช่น Eclipse, GIT/SVN, Jenkins
+                                    อีกด้วย</p>
+                                <h6>
+                                    <a name="project">ผู้ดูแลโปรเจค</a>
+                                </h6>
+                                <br />
+                           aws_content_th     <p>สำหรับตำแหน่งนี้
+                                    ความรับผิดชอบและการทำงานร่วมกับผู้อื่นเป็นสิ่งสำคัญที่สุด
+                                    เราใช้รูปแบบของ Scrum เพื่อดำเนินงานและ
+                                    ควรจะมีความรู้ด้านเทคนิคพื้นฐานเกี่ยวกับการพัฒนาซอฟต์แวร์</p>
+                                <h6>
+                                    <a name="consultant">ที่ปรึกษาระบบธุรกิจ</a>
+                                </h6>
+                                <br />
+                                <p>ตำแหน่งนี้เป็นตำแหน่งที่สูง
+                                    และต้องการคนที่มีความรู้ทั่วไปเกี่ยวกับการพัฒนาซอฟต์แวร์ระบบ open
+                                    source ERP และความรู้ทางด้านธุรกิจ
+                                    คุณจะต้องประชุมกับผู้นำในอุตสาหกรรมเช่นเดียวกับผู้ดำเนินงานในร้านค้า
+                                    และต้องสามารถ สนทนาชี้แนะให้ความคิดเห็นในทุกๆระดับของธุรกิจได้</p>
+                                <h6>
+                                    <a name="marketing">ผู้จัดการฝ่ายการตลาด</a>
+                                </h6>
+                                <br />
+                                <p>
+                                    เราจำเป็นต้องมีผู้จัดการฝ่ายการตลาดที่สามารถพัฒนาแผนการขายซ้ำๆ
+                                    เพื่อช่วยให้ผู้ขายได้แสดงถึงศักยภาพ
+                                    เกี่ยวกับการดำเนินธุรกิจโดยใช้ระบบ open source ERP
+                                    ให้ลูกค้าได้เห็น ดังนั้นจึงควรมีความรู้ทางด้านธุรกิจ ระบบ ERP
+                                    และที่สำคัญที่สุดคือความรู้ทางด้านการตลาดที่จำเป็นต้องใช้ในตำแหน่งนี้
+                                </p>
+                                <h6>
+                                    <a name="sales">พนักงานขาย</a>
+                                </h6>
+                                <br />
+                                <p>ตำแหน่งนี้ต้องติดต่อกับลูกค้าผ่านทางอินเตอร์เน็ต
+                                    โดยใช้แผนการขายที่ได้รับการพัฒนาแล้ว คุณจะต้องกลับมาพร้อมกับ
+                                    ข้อเสนอแนะและวิธีการปรับปรุง เพื่อนำเสนอเกี่ยวกับระบบ open source
+                                    ERP ของเรา</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_job_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_job_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" aliasPath="jobs" wikiPageId="aws_job_th"/>
+
+    <!-- Partner  -->
+    <moqui.resource.DbResource filename="aws_partner_th.html" isFile="Y" resourceId="aws_partner_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <section id="content">
+                <div class="container_12" style="top:-20px">
+                    <div class="wrapper">
+                        <article class="grid_12">
+                            <div class=""><h2></h2><h3>ต้อนรับลูกค้าและพันธมิตรเพิ่มมากขึ้น!</h3></div>
+                            <div class="inner-block">
+                                <h6></h6><br>การขายระบบ ERP, หรือการให้บริการเกี่ยวกับ ผลิตภัณฑ์ของระบบ Open source ไม่ได้เป็นเรื่องที่ง่าย ไม่ว่าจะทางโทรศัพท์ หรือ ช่องทางใดก็ตามที่คุณใช้จะไม่ประสบผลสำเร็จ
+                                <br>
+                                <br>
+                                ดังนั้นการการพัฒนาการขายให้ผู้ซื้อสามารถรับรู้ข่าวสารบนอินเทอร์เน็ต ก่อนที่จะติดต่อกับผู้ขายระบบ ERP นี้จะเปลียนแปลงวิธีการโปรโมตผลิตภัณฑ์ที่คุณต้องการจะนำเสนอ และปัญหาที่สำคัญต่อมาคือคู่แข่งจำนวนมากในตลาด ERP จะทำให้มันยากต่อการขายผลิตภัณฑ์<br>
+                                <br>
+                                คุณจะแก้ปัญหานั้นได้อย่างไร ?<br>
+                                อันดับแรก ทำแผนการตลาดที่มีจุดประสงค์เพื่อกำหนดผลิตภัณฑ์ หรือ บริการที่คุณต้องการขายจากนั้นเริ่มกำหนดลูกค้าสมมุติ เพื่อวางแผนการโฆษาณาและการนำเสนอผลิตภัณฑ์ ให้เข้าถึงพวกเขา ตั้งค่าแคมเปญการตลาดขึ้นมาเพื่อเป็นแนวนางการดำเนินแผนการขายตามนี้<br>
+                                <br>
+                                แม้ว่าทั้งหมดที่กล่าวมานี้ สามารถทำขึ้นได้ด้วยตัวเอง โดยอาศัยประสบการณ์การทำงานที่ผ่านมา ซึ่งถ้าคุณมีระบบซอฟต์แวร์ที่สนับสนุนการทำงานเหล่านี้จะเพิ่มประสิทธิภาพมากขึ้น ดังนั้นเราจึงพัฒนาฟังก์ชั่นภายใน GrowERP เพื่อสนับสนุนกิจกรรมเหล่านี้ สามารถเข้าดาวน์โหลดจาก GrowERP website ที่ <ahref="http://www.growerp.com">http://www.growerp.com</a> <br>
+                                <br>
+                                This
+                                แผนการดำเนินงานนี้จะอยู่บนการเชื่อมต่อผ่าน Linkedin ไปยังกลุ่มเป้าหมาย และ เมื่อเชื่อมต่อแล้วข้อความส่วนตัว และ ข้อความอัตโนมัติจะติดต่อกับลูกค้าเพื่อให้ลูกค้าพร้อมที่จะเข้ามาสู่ระบบ ERP<br>
+                                <br>
+                                นอกจากนี้เราคิดว่าการขาย ERP นั้นไม่เพียงพออีกต่อไปแล้วระบบต้องการฟังก์ชั่นที่ที่เพิ่มขึ้้น ดังนั้นเราจึงเพิ่มฟังก์ชั่น CRM เข้าไปเป็นฟังก์ชั่นที่ให้ผู้ใช้ใหม่เพื่อเพิ่มยอดขายก่อนที่จะใช้กับฟังก์ชั่นอื่นๆใน ERP<br>
+                                <br>
+                                ที่ AntWebsytems เราได้พัฒนาแผนการตลาดโดยใช้ฟังก์ชั่น GrowERP และกำลังมองหาพันธมิตรที่เราสามารถช่วยเพิ่มยอดขายของพวกเขา และ เราต้องการทำงานร่วมกันในโครงการ OFBiz/ GrowERP ในพื้นที่ของพวกเขา ค่าธรรมเนียมการเป็นพันธมิตรต่ำมาก ต่อมาเมื่อแผนสนับสนุนและระบบงานครบกำหนด เราจะเพิ่มค่าธรรมเนียม อย่างไรก็ตามจะลดลงเมื่อเราได้ทำงานร่วมกันในโครงการของพวกเขา<br>
+                                <br>
+                                กรุณาแจ้งให้เราทราบ ที่ <a href="mailto:partner@antwebsystems.com">partner@antwebsystems.com</a>
+                                หากคุณสนใจที่จะทำงานร่วมกับเรา ทำให้ Apache OFBiz และ GrowERP ประสบความสำเร็จทั่วโลก</p>  <br>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="wrapper">
+                        <div class="thumb1">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_partner_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_partner_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" aliasPath="partner" wikiPageId="aws_partner_th"/>
+
+    <!-- Contact us  -->
+    <moqui.resource.DbResource filename="aws_contact_th.html" isFile="Y" resourceId="aws_contact_th" parentResourceId="aws_content_th_dir">
+        <file mimeType="text/html" versionName="01" rootVersionName="01">
+            <fileData><![CDATA[
+            <script type="text/javascript">
+                $(function() {
+                    $('header').removeClass('p13');
+                    $('#contact').addClass('current');
+                    $('title').text("ติดต่อ AntWebsystems");
+                });
+            </script>
+            <section id="content">
+                <div class="container_12" style="top: -20px;">
+                    <div class="wrapper">
+                        <div class="grid_8">
+                            <div class="inner-block">
+                                <div class="contact">
+                                    <h2></h2>
+                                    <h3>ติดต่อเรา</h3>
+                                </div>
+                                <h6 style="margin-top: 30px;">แผนที่ตั้ง</h6>
+                                <figure class="map img-bot">
+                                    <div
+                                        style="max-width: 100%; overflow: hidden; height: 350px; color: red;">
+                                        <div id="canvas-for-google-map"
+                                            style="height: 100%; width: 100%; max-width: 100%;">
+                                            <iframe style="height: 100%; width: 100%; border: 0;"
+                                                frameborder="0"
+                                                src="https://www.google.com/maps/embed/v1/place?q=antwebsystems&key=AIzaSyAuJ2-xPWHviPXY5IhDXyWp0Z6JLDaSdN0"></iframe>
+                                        </div>
+                                </figure>
+                                <ol>
+                                    <li><br />
+                                    <b>สำนักงานใหญ่:</b><br /> AntWebsystems Co., Ltd<br /> 73/1 หมู
+                                        8 ซอย AntWebsystems<br /> ตำบล สันกลาง อำเภอ สันป่าตอง<br />
+                                        จังหวัด เชียงใหม่ 50120<br />
+                                        (จากในเมืองเชียงใหม่มุ่งหน้ามาทางใต้ผ่านทางหางดง
+                                        เลี้ยงซ้ายก่อนถึงปั้ม ESSO และเลี้ยวซ้ายอีกทีหลังเจอตู้โทรศัพท์)<br />
+                                    </li>
+                                </ol>
+                                <br />
+                                <br />
+                            </div>
+                        </div>
+                        <div class="grid_4" style="top: 80px;">
+                            <div class="inner-block">
+                                <h6>ติดต่อเรา</h6>
+                                <div style="margin-left: 30px; position: relative;">
+                                    <ul>
+                                        <li><br />
+                                        <b>อีเมล์:</b><br /> <span class="head">คำถามเกี่ยวกับระบบ:</span><br />&nbsp;<a
+                                            href="mailto:support@antwebsystems.com"
+                                            title="Send email to support@antwebsystems.com">support@antwebsystems.com</a><br />
+                                            <span class="head">ผู้ดูแลระบบ:</span><br />&nbsp;<a
+                                            href="mailto:admin@antwebsystems.com"
+                                            title="Send email to admin@antwebsystems.com">admin@antwebsystems.com</a><br />
+                                            <span class="head">ข้อมูลทั่วไป:</span><br />&nbsp;<a
+                                            href="mailto:info@antwebsystems.com"
+                                            title="Send email to info@antwebsystems.com">info@antwebsystems.com</a>
+                                        </li>
+                                        <li><br />
+                                        <b>Skype:</b><br />
+                                            <ul>
+                                                <li><span class="head">Skype:</span> ofbizsupport</li>
+                                            </ul></li>
+                                        <li><br />
+                                        <b>โทรศัพท์:</b><br />
+                                            <dl>
+                                                <dd>
+                                                    <span class="head">โทรศัพท์:</span> +66-(0)53-355753
+                                                </dd>
+                                                <dd>
+                                                    <span class="head">มือถือ:</span> +66-(0)98-7964553
+                                                </dd>
+                                            </dl></li>
+                                    </ul>
+                                    <h6>ข้อมูลการชำระเงิน</h6>
+                                    <ul>
+                                        <li><b>Bank:</b><br /> <span class="head">ธนาคารกรุงเทพ</span><br />
+                                            <span class="head">รหัส SWIFT ของธนาคาร:</span> BKKBTHBK<br /> <span
+                                            class="head">เลขที่บัญชี:</span> 4593018114 Antwebsystems
+                                            Co.,Ltd.<br /> <span class="head">ที่อยู่ธนาคาร:</span><br />
+                                            19/1 หมู่ 3 ตำบล หางดง อำเภอ หางดง<br /> จังหวัด เชียงใหม่ 50230<br />
+                                        </li>
+                                        <li><b>ระบบชำระเงินทางอินเตอร์เน็ต:</b><br /> <span
+                                            class="head">Paypal:</span> admin@antwebsystems.com<br /></li>
+                                    </ul>
+                                </div>
+                                <!--form id="form1"> <div class="success"> <div class="success_txt">ส่งเรียบร้อยแล้ว!<br /> <strong> เราจะติดต่อกลับไปเร็วๆนี้</strong> </div> </div> <fieldset> <label class="name"> <input type="text" value="ชื่อ:"> <span class="error">*ชื่อไม่ถูกต้อง</span> <span class="empty">*กรุณากรอกข้อมูลให้ครบถ้วน</span> </label> <label class="email"> <input type="text" value="อีเมล์:"> <span class="error">*อีเมล์ไม่ถูกต้อง</span> <span class="empty">*กรุณากรอกข้อมูลให้ครบถ้วน</span> </label> <label class="phone"> <input type="tel" value="โทรศัพท์:"> <span class="error">*หมายเลขโทรศัพท์ไม่ถูกต้อง/span> <span class="empty">*กรุณากรอกข้อมูลให้ครบถ้วน</span> </label> <label class="message"> <textarea>ข้อความ:</textarea> <span class="error">*ข้อตวามสั้นเกินไป</span> <span class="empty">*กรุณากรอกข้อมูลให้ครบถ้วน</span> </label> <div class="clear"></div> <div class="link-form"> <a class="button2 p27" href="#" data-type="reset">รีเซ็ท</a> <a class="button2" href="submitAnonContact" data-type="submit">ตกลง</a> </div> </fieldset> </form-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            ]]></fileData>
+            <histories versionName="01" versionDate="1485028800000" isDiff="N"/>
+        </file>
+    </moqui.resource.DbResource>
+    <moqui.resource.wiki.WikiPage wikiPageId="aws_contact_th" wikiSpaceId="AWS_SPACE_TH" pagePath="aws_contact_th" publishedVersionName="01">
+        <histories historySeqId="01" versionName="01" changeDateTime="1485028800000"/>
+    </moqui.resource.wiki.WikiPage>
+    <moqui.resource.wiki.WikiPageAlias wikiSpaceId="AWS_SPACE_TH" aliasPath="contact" wikiPageId="aws_contact_th"/>
+    <!-- End of TH content of WebSite -->
+
+    <!-- Wiki and ProductStore -->
+    <mantle.product.store.ProductStore productStoreId="aws"/>
+    <moqui.basic.EnumerationType enumTypeId="ProductStoreWikiSpaceType" description="Product Store Wiki Space Type"/>
+    <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstTmpSrv" description="Template - Information (home, product, etc)"/>
+    <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstFull" description="Content - Full Page"/>
+    <!-- Multi-language Website -->
+    <mantle.product.store.ProductStoreWikiSpace storeWikiSpaceId="AWS_TMP_CLT" productStoreId="aws"
+            spaceTypeEnumId="PstTmpSrv" locale="en_US" fromDate="1265184000000" thruDate="" wikiSpaceId="AWS_TMP"/>
+    <mantle.product.store.ProductStoreWikiSpace storeWikiSpaceId="AWS_FULL_CNT" productStoreId="aws"
+            spaceTypeEnumId="PstFull" locale="en_US" fromDate="1265184000000" thruDate="" wikiSpaceId="AWS_SPACE"/>
+    <!-- TH -->
+    <mantle.product.store.ProductStoreWikiSpace storeWikiSpaceId="AWS_TMPTH_CLT" productStoreId="aws"
+            spaceTypeEnumId="PstTmpSrv" locale="th_TH" fromDate="1265184000000" thruDate="" wikiSpaceId="AWS_TMP_TH"/>
+    <mantle.product.store.ProductStoreWikiSpace storeWikiSpaceId="AWS_FULLTH_CNT" productStoreId="aws"
+            spaceTypeEnumId="PstFull" locale="th_TH" fromDate="1265184000000" thruDate="" wikiSpaceId="AWS_SPACE_TH"/>
+
+    <moqui.basic.Enumeration enumTypeId="ProductStoreContentType" enumId="PsctFooterTemplate"/>
+    <moqui.basic.Enumeration enumTypeId="ProductStoreContentType" enumId="PsctHeaderTemplate"/>
+    <moqui.basic.Enumeration enumTypeId="ProductStoreContentType" enumId="PsctContentTemplate"/>
+    <moqui.basic.Enumeration enumTypeId="ProductStoreContentType" enumId="PsctBlogTemplate"/>
+    <!-- EN -->
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_FOOTER" productStoreId="aws"
+            contentTypeEnumId="PsctFooterTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client/footer"/>
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_HEADER" productStoreId="aws"
+            contentTypeEnumId="PsctHeaderTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client/header"/>
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_BODY" productStoreId="aws"
+            contentTypeEnumId="PsctContentTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client/body"/>
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_BLOG" productStoreId="aws"
+            contentTypeEnumId="PsctBlogTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client/blog"/>
+    <!-- TH -->
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_FOOTER_TH" productStoreId="aws"
+            contentTypeEnumId="PsctFooterTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client-th/footer"/>
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_HEADER_TH" productStoreId="aws"
+            contentTypeEnumId="PsctHeaderTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client-th/header"/>
+    <mantle.product.store.ProductStoreWikiContent storeWikiContentId="AWS_CLT_BODY_TH" productStoreId="aws"
+            contentTypeEnumId="PsctContentTemplate" fromDate="1265184000000" thruDate="" spaceTypeEnumId="PstTmpSrv" pagePath="client-th/body"/>
+</entity-facade-xml>
