@@ -1,37 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>GrowERP frontend component</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-
-    <#-- Style Sheets -->
-    <#list sri.getThemeValues("STRT_STYLESHEET") as styleSheetLocation>
-        <link rel="stylesheet" href="${sri.buildUrl(styleSheetLocation).url}" type="text/css">
-    </#list>
-    <#list html_stylesheets?if_exists as styleSheetLocation>
-        <link rel="stylesheet" href="${sri.buildUrl(styleSheetLocation).url}" type="text/css">
-    </#list>
-    <#-- JavaScript -->
-    <#list html_scripts?if_exists as scriptLocation>
-        <script src="${sri.buildUrl(scriptLocation).url}" type="text/javascript"></script>
-    </#list>
-    <#list sri.getThemeValues("STRT_SCRIPT") as scriptLocation>
-        <script src="${sri.buildUrl(scriptLocation).url}" type="text/javascript"></script>
-    </#list>
-    <#-- Icon -->
-    <#list sri.getThemeValues("STRT_SHORTCUT_ICON") as iconLocation>
-        <link rel="shortcut icon" href="${sri.buildUrl(iconLocation).url}">
-    </#list>
-    <script type="text/javascript">
-        $(window).load (
-        function(){$('.carousel1').carouFredSel({auto: true,prev: '.prev',next: '.next', width: '100%', items: {
-        visible : {min: 1,max: 5},height: 'auto',width: 1140,}, responsive: true,scroll: 1,swipe:
-        {onMouse: true, onTouch: true }});});
-        $(window).load (
-        function(){$('.carousel2').carouFredSel({auto: false,prev: '.prev1',next: '.next1', width: '100%', items: {
-        visible : {min: 1,max: 1},height: 'auto',width: 220,}, responsive: true,scroll: 1,swipe:
-        {onMouse: true, onTouch: true }});});
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Site Title -->
+	<title>${head_title!"GrowERP ERP System"}</title>
+    <!-- Meta Description Tag -->
+    <meta name="description" content="${head_description!""}">
+    <meta name="keywords" content="${head_keywords!""}">
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+    <!-- Material Design Lite Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/material/material.min.css" />
+    <!-- Material Design Select Field Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/material/mdl-selectfield.min.css">
+    <!-- Animteheading Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/animateheading/animateheading.min.css" />
+    <!-- Owl Carousel Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/owl_carousel/owl.carousel.min.css" />
+    <!-- Animate Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/animate/animate.min.css" />
+    <!-- Magnific Popup Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/magnific_popup/magnific-popup.min.css" />
+    <!-- Flex Slider Stylesheet CSS -->
+    <link rel="stylesheet" href="assets/plugin/flexslider/flexslider.min.css" />
+    <!-- Custom Main Stylesheet CSS -->
+    <link rel="stylesheet" href="dist/css/style.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1E3FSC7FFD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1E3FSC7FFD');
     </script>
 </head>
+<body>
+    <div class="wrapper">
+        <!-- Start Header Section -->
+        <header id="header" class="header-light">
+            <div class="layer-stretch hdr">
+                <div class="tbl animated fadeInDown">
+                    <div class="tbl-row">
+                        <!-- Start Header Logo Section -->
+                        <div class="tbl-cell hdr-logo">
+                            <a href="index.html"><img src="images/growerp.png" alt=""></a>
+                        </div><!-- End Header Logo Section -->
+                        <div class="tbl-cell hdr-menu">
+                            <!-- Start Menu Section -->
+                            <#if menu_active! != 'lp'><#-- only show menu when not a landing page -->
+                            <ul class="menu">
+                                <li><a href="index.html" class="nav-link <#if menu_active! == 'home'>active</#if>">Home <i class="fa"></i></a></li>
+                                <li><a href="whyGrowERP.html" class="nav-link <#if menu_active! == 'whyGrowERP'>active</#if>">Why GrowERP?<i class="fa"></i></a></li>
+                                <li><a href="howToStart.html" class="nav-link <#if menu_active! == 'howToStart'>active</#if>">How to start? <i class="fa"></i></a></li>
+                                <li><a href="about.html" class="nav-link <#if menu_active! == 'about'>active</#if>">About Moqui &amp; Ofbiz<i class="fa"></i></a></li>
+                                <li><a href="mobile.html" class="nav-link <#if menu_active! == 'mobile'>active</#if>">Mobile <i class="fa"></i></a></li>
+                                <li class="mobile-menu-close"><i class="fa fa-times"></i></li>
+                            </ul><!-- End Menu Section -->
+                            <div id="menu-bar"><a><i class="fa fa-bars"></i></a></div>
+                            </#if>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-bar animated zoomIn">
+                    <div class="search-content">
+                        <div class="search-input">
+                            <input type="text" placeholder="Enter your text ....">
+                            <button class="search-btn"><i class="icon-magnifier"></i></button>
+                        </div>
+                    </div>
+                    <div class="search-close"><i class="icon-close"></i></div>
+                </div>
+            </div>
+        </header><!-- End Header Section -->
