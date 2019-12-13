@@ -13,6 +13,17 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <entity-facade-xml type="seed-initial">
+
+    <mantle.party.Party partyId="aws" disabled="N" partyTypeEnumId="PtyOrganization">
+        <mantle.party.PartyRole roleTypeId="OrgInternal"/>
+        <organization organizationName="AntWebsystems Co.,Ltd."/>
+        <mantle.party.contact.ContactMech contactMechId="Ant_PWS" contactMechTypeEnumId="CmtWebAddress"
+                infoString="https://www.antwebsystems.com">
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="WebUrlPayment" fromDate="1265184000000"/>
+            <mantle.party.contact.PartyContactMech contactMechPurposeId="WebUrlPrimary" fromDate="1265184000000"/>
+        </mantle.party.contact.ContactMech>
+    </mantle.party.Party>
+
     <moqui.basic.EnumerationType enumTypeId="ProductStoreContentType" description="Product Store Content Type"/>
 
     <moqui.basic.Enumeration enumCode="template_client_content" description="Content Template - Client" enumId="PsctContentTemplate" enumTypeId="ProductStoreContentType"/>
@@ -1740,7 +1751,7 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- End of TH content of WebSite -->
 
     <!-- Wiki and ProductStore -->
-    <mantle.product.store.ProductStore productStoreId="aws"/>
+    <mantle.product.store.ProductStore productStoreId="aws" organizationPartyId="aws" defaultLocale="th_TH" defaultCurrencyUomId="THB"/>
     <moqui.basic.EnumerationType enumTypeId="ProductStoreWikiSpaceType" description="Product Store Wiki Space Type"/>
     <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstTmpSrv" description="Template - Information (home, product, etc)"/>
     <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstFull" description="Content - Full Page"/>
