@@ -592,11 +592,6 @@ along with this software (see the LICENSE.md file). If not, see
                                         <span class="head">(Fin)Administration:</span><br />&nbsp;<a href="mailto:admin@antwebsystems.com" title="Send email to admin@antwebsystems.com">admin@antwebsystems.com</a><br/>
                                         <span class="head">General information:</span><br />&nbsp;<a href="mailto:info@antwebsystems.com" title="Send email to info@antwebsystems.com">info@antwebsystems.com</a>
                                     </li>
-                                    <li><br /><b>By Skype:</b><br/>
-                                        <ul>
-                                            <li><span class="head">Skype chat:</span> ofbizsupport</li>
-                                        </ul>
-                                    </li>
                                     <li><br /><b>Telephone:</b><br/>
                                         <dl>
                                             <dd><span class="head">LandLine:</span> +66-(0)53-355753</dd>
@@ -716,7 +711,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <a href="products" class="sf-with-ul" id="products">Products</a>
                     <a href="services" class="sf-with-ul" id="services">Services</a>
                     <a href="aboutus" class="sf-with-ul" id="aboutus">About us</a>
-                    <a href="blog" class="sf-with-ul" id="blog">Blog</a>
+                    <!--a href="blog" class="sf-with-ul" id="blog">Blog</a -->
                     <a href="jobs" class="sf-with-ul" id="jobs">Jobs</a>
                     <a href="partner" class="sf-with-ul" id="partner">Partner</a>
                     <a href="contact" class="sf-with-ul" id="contact">Contact</a>
@@ -913,11 +908,11 @@ along with this software (see the LICENSE.md file). If not, see
                     <a href="products" class="sf-with-ul" id="products">ผลิตภัณฑ์</a>
                     <a href="services" class="sf-with-ul" id="services">บริการ</a>
                     <a href="aboutus" class="sf-with-ul" id="aboutus">เกี่ยวกับเรา</a>
-                    <a href="blog" class="sf-with-ul" id="blog">บล็อค</a>
+                    <!-- a href="blog" class="sf-with-ul" id="blog">บล็อค</a -->
                     <a href="jobs" class="sf-with-ul" id="jobs">ตำแหน่งงาน</a>
                     <a href="partner" class="sf-with-ul" id="partner">ผู้ร่วมหุ้น</a>
                     <a href="contact" class="sf-with-ul" id="contact">ติดต่อเรา</a>
-                    <a href="https://demo.antwebsystems.com/vapps" class="sf-with-ul" id="login">เข้าสู่ระบบ</a>
+                    <!-- a href="https://demo.antwebsystems.com/vapps" class="sf-with-ul" id="login">เข้าสู่ระบบ</a -->
                     <a href="javascript:void(0);" class="icon" onclick="openMenu()">
                       เมนู
                       <i class="fa fa-bars"></i>
@@ -1707,11 +1702,6 @@ along with this software (see the LICENSE.md file). If not, see
                                             title="Send email to info@antwebsystems.com">info@antwebsystems.com</a>
                                         </li>
                                         <li><br />
-                                        <b>Skype:</b><br />
-                                            <ul>
-                                                <li><span class="head">Skype:</span> ofbizsupport</li>
-                                            </ul></li>
-                                        <li><br />
                                         <b>โทรศัพท์:</b><br />
                                             <dl>
                                                 <dd>
@@ -1751,7 +1741,7 @@ along with this software (see the LICENSE.md file). If not, see
     <!-- End of TH content of WebSite -->
 
     <!-- Wiki and ProductStore -->
-    <mantle.product.store.ProductStore productStoreId="aws" organizationPartyId="aws" defaultLocale="th_TH" defaultCurrencyUomId="THB"/>
+    <mantle.product.store.ProductStore productStoreId="aws" organizationPartyId="aws"/>
     <moqui.basic.EnumerationType enumTypeId="ProductStoreWikiSpaceType" description="Product Store Wiki Space Type"/>
     <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstTmpSrv" description="Template - Information (home, product, etc)"/>
     <moqui.basic.Enumeration enumTypeId="ProductStoreWikiSpaceType" enumId="PstFull" description="Content - Full Page"/>
