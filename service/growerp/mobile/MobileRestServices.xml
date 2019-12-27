@@ -306,8 +306,22 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
+    <service verb="print" noun="Item">
+        <description>
+            print an item depending on the item.type
+        </description>
+        <in-parameters>
+            <parameter name="item" type="Map" required="true"/>
+        </in-parameters>
+        <actions>
+            <set field="jobName" value="ShipmentLabel${shipmentId}-${packageRouteSeg.shipmentRouteSegmentSeqId}-${packageRouteSeg.shipmentPackageSeqId}"/>
+            <service-call name="org.moqui.impl.PrintServices.print#Document" out-map="printOut" out-map-add-to-existing="false"
+                    in-map="[networkPrinterId:networkPrinterId, jobName:jobName, serialBlob:labelImage, contentType:contentType]"/>
+            <message>Printed label for package ${packageRouteSeg.shipmentPackageSeqId} route segment ${packageRouteSeg.shipmentRouteSegmentSeqId}, print job ${printOut.printJobId} CUPS job ${printOut.jobId}</message>
+        </actions>
+    </service>
 
-    <service verb="get" noun="ItemInfo">
+    <service verb="get" noun="ItemInfo"><!-- local service -->
         <description>
             check security access(=true) to a party or product
         </description>
@@ -825,34 +839,38 @@ along with this software (see the LICENSE.md file). If not, see
         </actions></service>
 
     <service verb="report" noun="Sales">
-        <in-parameters><parameter name="period" default="day"/></in-parameters>
-        <out-parameters><parameter name="periods"/></out-parameters>
+        <in-parameters>
+            <parameter name="period" default="day"/>
+            <parameter name="periodNbr"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="periods"/>
+            <parameter name="fromDate"/>
+            <parameter name="thruDate"/>
+        </out-parameters>
         <actions>
             <set field="nowZdt" from="java.time.ZonedDateTime.ofInstant(java.time.Instant.now(), java.time.ZoneId.systemDefault())"/>
             <if condition="period == 'day'">
-                <set field="procPeriods" from="[]"/>
-                <set field="maxPeriod" value="7" type="Integer"/>
-                <set field="count" value="0" type="Integer"/>
-                <while condition="count &lt; maxPeriod">
-                    <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count).toInstant())"/>
-                    <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count - 1).toInstant())"/>
-                    <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
-                    <script>procPeriods.add(procPeriod)</script>
-                    <set field="count" from="++count"/>
-                </while>
-            </if>
-            <if condition="period == 'week'">
-                <set field="procPeriods" from="[]"/>
-                <set field="maxPeriod" value="4" type="Integer"/>
-                <set field="count" value="0" type="Integer"/>
-                <while condition="count &lt; maxPeriod">
-                    <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * 7).toInstant())"/>
-                    <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * 7 - 7).toInstant())"/>
-                    <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
-                    <script>procPeriods.add(procPeriod)</script>
-                    <set field="count" from="++count"/>
-                </while>
-            </if>
+                <set field="maxPeriod" from="periodNbr" default-value="7" type="Integer"/>
+                <set field="periodLength" value="1" type="Integer"/>
+            <else-if condition="period == 'week'">
+                <set field="maxPeriod" from="periodNbr" default-value="4" type="Integer"/>
+                <set field="periodLength" value="7" type="Integer"/></else-if>
+            <else-if condition="period == 'month'">
+                <set field="maxPeriod" from="periodNbr" default-value="12" type="Integer"/>
+                <set field="periodLength" value="30" type="Integer"/></else-if>
+            <else><log level="error" message="Invalid period...." /></else></if>
+
+            <set field="procPeriods" from="[]"/>
+            <set field="count" value="0" type="Integer"/>
+            <while condition="count &lt; maxPeriod">
+                <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * periodLength).toInstant())"/>
+                <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * periodLength - periodLength).toInstant())"/>
+                <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
+                <script>procPeriods.add(procPeriod)</script>
+                <set field="count" from="++count"/>
+            </while>
+
             <set field="periods" from="[]"/>
             <iterate entry="procPeriod" list="procPeriods">
                 <entity-find entity-name="mantle.order.OrderHeader" list="orders">
@@ -866,10 +884,13 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="orderCount" from="orderCount + 1"/>
                     <set field="periodTotal" from="periodTotal + order.grandTotal"/>
                 </iterate>
-                <set field="periodOut" from="[period: ec.l10n.format(procPeriod.start,'dd-MM'),
+                <set field="periodOut" from="[timeStamp: procPeriod.start,
+                                              period: ec.l10n.format(procPeriod.start,'dd-MM'),
                                               amount: periodTotal, orderCount: orderCount]"/>
                 <script>periods.add(periodOut)</script>
             </iterate>
+            <set field="fromDate" from="ec.l10n.format(periods[0].start,'dd/mm/yyyy')"/>
+            <set field="thruDate" from="ec.l10n.format(periods[periods.size()-1].end,'dd/mm/yyyy')"/>
         </actions>
     </service>
 

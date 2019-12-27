@@ -323,13 +323,14 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="growerp.mobile.MobileRestServices.reset#Password" in-map="[username: user.name]"/>
             </if>
             <if condition="roleTypeId == 'Customer'">
-                <service-call name="create#mantle.party.Party" in-map="[externalId: externalId, partyTypeEnumId: 'PtyPerson']"
+                <service-call name="create#mantle.party.Party"
+                    in-map="[externalId: externalId, partyTypeEnumId: 'PrtCustomer', ownerPartyId: compOut.company.partyId]"
                     out-map="context"/>
                 <service-call name="create#mantle.party.Person" in-map="context"/>
                 <!-- attach the user as an employee to the organization. -->
                 <service-call name="mantle.party.PartyServices.ensure#PartyRole" in-map="[context+ [roleTypeId: 'Customer']]"/>
                 <service-call name="create#mantle.party.PartyRelationship"
-                    in-map="[fromPartyId: partyId, fromRoleTypeId: 'Customer', relationshipTypeEnumId: 'PrtEmployee',
+                    in-map="[fromPartyId: partyId, fromRoleTypeId: 'Customer', relationshipTypeEnumId: 'PrtCustomer',
                         fromDate: ec.user.nowTimestamp, toPartyId: compOut.company.partyId, toRoleTypeId: 'OrgInternal']"/>
                 <service-call name="mantle.party.ContactServices.create#EmailAddress"
                     in-map="[partyId: partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: emailAddress]"/>
@@ -462,17 +463,16 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters><parameter name="userPartyId" default="ec.user.userAccount.partyId"/></in-parameters>
         <out-parameters><parameter name="partyId"/><parameter name="ownerPartyId"/></out-parameters>
         <actions>
-            <set field="fromPartyId" from="userPartyId"/>
             <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
                 <date-filter/>
-                <econdition field-name="fromPartyId"/>
+                <econdition field-name="fromPartyId" from="userPartyId"/>
                 <econdition field-name="toRoleTypeId" value="OrgInternal"/>
                 <select-field field-name="toPartyId"/>
             </entity-find>
             <if condition="relList">
                 <set field="partyId" from="fromPartyId"/>
                 <set field="ownerPartyId" from="relList[0].toPartyId"/>
-            <else><return message="User ${fromPartyId} has no related company!!" error="true"/></else></if>
+            <else><return message="User ${userPartyId} has no related company!!" error="true"/></else></if>
         </actions>
     </service>
     <service verb="get" noun="UserAndCompany">
@@ -518,7 +518,7 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
-    <service verb="find" noun="Customer"><!-- ===============not used?============== -->
+    <service verb="findxxx" noun="Customerxxx"><!-- ===============not used?============== -->
         <description>
             Get all or some customers of the company they belong to
         </description>

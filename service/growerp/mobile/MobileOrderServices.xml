@@ -36,9 +36,9 @@ along with this software (see the LICENSE.md file). If not, see
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="OrderHeaderItemAccommodationParty" list="items">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
-                <econdition field-name="statusId" operator="in" from="status" ignore-if-empty="true"/>
+                <econdition field-name="statusId" operator="in" from="statusList" ignore-if-empty="true"/>
                 <econdition field-name="placedDate" operator="less-equals" from="tsDate" ignore-if-empty="true"/>
-                <econdition field-name="accomodationAreaId" ignore-if-empty="true"/>
+                <econdition field-name="accommodationAreaId" ignore-if-empty="true"/>
                 <econdition field-name="spotNumber" ignore-if-empty="true"/>
                 <order-by field-name="-placedDate"/>
                 <order-by field-name="orderId"/>
@@ -246,6 +246,7 @@ along with this software (see the LICENSE.md file). If not, see
             <else><!--  new order -->
                 <set field="customerPartyId" value="_NA_"/>
                 <if condition="header.externalId"><!-- try find existing customer -->
+                    <set field="header.externalId" value="${header.externalId.substring(0, header.externalId.indexOf(' '))}"/>
                     <entity-find entity-name="CompanyPersonAndLogin"  list="customers">
                         <econdition field-name="fromRoleTypeId" value="Customer"/>
                         <econdition field-name="toPartyId" from="company.partyId"/>
@@ -253,21 +254,19 @@ along with this software (see the LICENSE.md file). If not, see
                     </entity-find>
                     <if condition="customers">
                         <set field="customerPartyId" from="customers[0].fromPartyId"/>
-                    <else><!-- customer not fond! should not happen, validated at input -->
+                    <else><!-- customer not found! should not happen, validated at input -->
                         <log level="error" message="Existing customer id not found id: ${header.externalId}"/>
                         <set field="customerPartyId" value="_NA_"/></else></if>
-                </if>
-                <if condition="header.newExternalId"><!-- enter new customer -->
-                    <set field="externalIds" from="header.newExternalId.trim().split(' ')"/>
+                <else-if condition="header.newExternalId"><!-- enter new customer -->
                     <service-call name="growerp.mobile.MobilePartyServices.create#User" out-map="newCustomer"
-                        in-map="[firstName: 'TBA', lastName: externalIds.size() &gt; 1?externalIds[1]:'TBA', emailAddress: 'notYet@provided.com',
-                            roleTypeId: 'Customer', externalId: externalIds[0]]"/>
+                        in-map="[firstName: header.newFirstName, lastName: header.newLastName, emailAddress: 'notYet@provided.com',
+                            roleTypeId: 'Customer', externalId: header.newExternalId]"/>
                     <if condition="newCustomer.partyId">
                         <set field="customerPartyId" from="newCustomer.partyId"/>
                     <else>
-                        <log level="error" message="Could not create new customer with externalId: ${externalIds[0]}"/>
+                        <log level="error" message="Could not create new customer with externalId: header.newExternalid and lastName: header.newLastName}"/>
                         <set field="customerPartyId" value="_NA_"/></else></if>
-                </if>
+                </else-if></if>
                 <set field="placedDate" from="ec.user.nowTimestamp"/>
                 <service-call name="mantle.order.OrderServices.create#Order"
                     in-map="context" out-map="context"/>
@@ -309,22 +308,36 @@ along with this software (see the LICENSE.md file). If not, see
     <service verb="change" noun="OrderPartStatus">
         <description> change the status of the order, when all status completed
             change the order status</description>
-        <in-parameters><parameter name="orderId" required="true"/>
+        <in-parameters>
+            <parameter name="orderId" required="true"/>
             <parameter name="orderPartSeqId"/>
             <parameter name="statusId" required="true"/></in-parameters>
         <actions>
-            <if condition="statusId == &quot;prep&quot;">
+            <set field="statusIdSave" from="statusId"/>
+            <if condition="statusId == &quot;prep&quot;"><!-- keep compatible with older status values -->
                 <set field="statusId" value="OrderOpen"/></if>
             <if condition="statusId == &quot;serv&quot;">
-                <set field="statusId" value="OrderPlaced"/>
-                <set field="roleTypeId" value="OrderPrepare"/></if>
+                <set field="statusId" value="OrderPlaced"/></if>
             <if condition="statusId == &quot;bill&quot;">
-                <set field="statusId" value="OrderApproved"/>
-                <set field="roleTypeId" value="OrderServe"/></if>
+                <set field="statusId" value="OrderApproved"/></if>
             <if condition="statusId == &quot;completed&quot;">
-                <set field="statusId" value="OrderCompleted"/>
+                <set field="statusId" value="OrderCompleted"/></if>
+            <if condition="statusId == &quot;cancelled&quot;">
+                <set field="statusId" value="OrderCancelled"/></if>
+
+            <if condition="statusId == &quot;OrderOpen&quot;">
+                <set field="roleTypeId" value="ordertaker"/></if>
+            <if condition="statusId == &quot;OrderPlaced&quot;">
+                    <set field="roleTypeId" value="OrderPrepare"/></if>
+            <if condition="statusId == &quot;OrderApproved&quot;">
+                <set field="roleTypeId" value="OrderServe"/></if>
+            <if condition="statusId == &quot;OrderCompleted&quot;">
                 <set field="roleTypeId" value="Cashier"/></if>
-            <if condition="statusId == &quot;cancelled&quot;"><set field="statusId" value="OrderCancelled"/></if>
+            <if condition="statusId == &quot;OrderCancelled&quot;">
+                <set field="roleTypeId" value="Cashier"/></if>
+            <if condition="!roleTypeId">
+                <return error="true" message="New status Id missing or not a valid value: ${statusIdSave}"/></if>
+
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <if condition="!orderPartSeqId &amp;&amp; statusId == 'OrderOpen'"><!-- parts where added so set back to open -->
                 <entity-find-one value-field="orderHeader" entity-name="mantle.order.OrderHeader" for-update="true">
@@ -332,7 +345,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="orderHeader.statusId" from="statusId"/>
                 <entity-update value-field="orderHeader"/>
                 <return/></if>
-            <if condition="!orderPartSeqId &amp;&amp; statusId == 'OrderCompleted'"><!-- set the whole order to completed -->
+            <if condition="!orderPartSeqId &amp;&amp; statusId in ['OrderCompleted','OrderApproved','OrderCancelled']"><!-- set the whole order to completed or approved -->
                 <service-call name="mantle.party.PartyServices.ensure#PartyRole" in-map="[context + [partyId: ec.user.userAccount.partyId]]"/>
                 <entity-find entity-name="mantle.order.OrderPart" list="orderParts" for-update="true">
                     <econdition field-name="vendorPartyId" from="ownerPartyId"/>
@@ -341,7 +354,8 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="orderPart.statusId" from="statusId"/>
                     <entity-update value-field="orderPart"/>
                     <entity-find entity-name="mantle.order.OrderPartParty" list="partiesExist">
-                        <econdition field-name="orderId"/><econdition field-name="orderPartSeqId" from="orderPart.orderPartSeqId"/>
+                        <econdition field-name="orderId"/>
+                        <econdition field-name="orderPartSeqId" from="orderPart.orderPartSeqId"/>
                         <econdition field-name="partyId" from="ec.user.userAccount.partyId"/>
                         <econdition field-name="roleTypeId"/></entity-find>
                     <if condition="!partiesExist">
@@ -427,12 +441,9 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="totalQuantity" value="0" type="Integer"/>
             <set field="totalAmount" value="0" type="BigDecimal"/>
             <iterate entry="item" list="ordersPartsItems">
-             <log message="=====current item: ${item}"/>
                 <if condition="(lastOrderId &amp;&amp; lastOrderId != item.orderId)">
-              <log message="========orderId: ${lastItem.orderId}"/>
                     <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
                         <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
-              <log message="==========spotparties size: ${spotParty.size()} index 0: ${spotParty[0]}"/>          
                     <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
                     <set field="orderOut" from="[

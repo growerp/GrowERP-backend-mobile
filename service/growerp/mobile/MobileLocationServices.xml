@@ -131,12 +131,20 @@ along with this software (see the LICENSE.md file). If not, see
                 </entity-find>
             <set field="accommodationSpots" from="[]"/>
             <iterate entry="spot" list="spots">
+                <entity-find entity-name="OrderHeaderItemAccommodationParty" list="orderFound">
+                    <econdition field-name="vendorPartyId" from="ownerPartyId"/>
+                    <econdition field-name="statusId" operator="in" 
+                        from="['OrderOpen','OrderPlaced','OrderApproved']"/>
+                    <econdition field-name="accommodationAreaId" from="spot.accommodationAreaId"/>
+                    <econdition field-name="accommodationSpotId" from="spot.accommodationSpotId"/>
+                </entity-find>
                 <set field="accommodationSpot" from="[
                     accommodationSpotId: spot.accommodationSpotId,
                     spotNumber: spot.spotNumber,
                     nbrOfSeats: spot.nbrOfSeats,
                     accommodationAreaId: spot.accommodationAreaId,
-                    description: spot.description
+                    description: spot.description,
+                    ordered: orderFound.size()?true:false
                     ]"/>
                 <script>accommodationSpots.add(accommodationSpot)</script>
             </iterate>
@@ -206,15 +214,22 @@ along with this software (see the LICENSE.md file). If not, see
            <set field="preparationAreas" from="[]"/>
            <iterate entry="prep" list="preps">
                 <set field="imageFile" value=""/>
-                    <entity-find-count entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" count-field="nbrOfCatg">
-                        <econdition field-name="preparationAreaId" from="prep.preparationAreaId"/></entity-find-count>
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: 'small', type: 'prep', id: prep.preparationAreaId]" out-map="context"/>
-                    <set field="preparationArea" from="[
-                        preparationAreaId: prep.preparationAreaId,
-                        description: prep.description,
-                        image: imageFile? imageFile : '~/assets/images/addImage.png',
-                        nbrOfCatg: nbrOfCatg]"/>
+                <entity-find-count entity-name="growerp.mobile.party.category.ProductCategoryParentsAndChild" count-field="nbrOfCatg">
+                    <econdition field-name="preparationAreaId" from="prep.preparationAreaId"/></entity-find-count>
+                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                    in-map="[size: 'small', type: 'prep', id: prep.preparationAreaId]" out-map="context"/>
+                <if condition="prep.networkPrinterId">
+                    <entity-find-one entity-name="moqui.basic.print.NetworkPrinter" value-field="printer">
+                        <field-map field-name="networkPrinterId" from="prep.networkPrinterId"/>
+                    </entity-find-one>
+                </if>
+                <set field="preparationArea" from="[
+                    preparationAreaId: prep.preparationAreaId,
+                    description: prep.description,
+                    image: imageFile? imageFile : '~/assets/images/addImage.png',
+                    printerHostUrl: prep.networkPrinterId?printer.serverHost:null,
+                    printerName: prep.networkPrinterId?printer.printerName:null,
+                    nbrOfCatg: nbrOfCatg]"/>
                 <script>preparationAreas.add(preparationArea)</script>
             </iterate>
             <if condition="preparationAreas.size() > 1">
@@ -226,9 +241,18 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="create" noun="PreparationArea">
         <description>Add a Preparation area</description>
-        <in-parameters><parameter name="description"/></in-parameters>
-        <out-parameters><parameter name="preparationAreaId" type="Map"/></out-parameters>
+        <in-parameters>
+            <parameter name="description"/>
+            <parameter name="printerHostUrl"/>
+            <parameter name="printerName"/>
+        </in-parameters>
+        <out-parameters><parameter name="preparationAreaId"/></out-parameters>
         <actions>
+            <if condition="printerHosturl || printerName">
+                <service-call name="create#moqui.basic.print.NetworkPrinter" out-map="context" 
+                    in-map="[serverHost: printerHostUrl, printerName: printerName]"/>
+                <!--service-call name="org.moqui.impl.PrintServices.make#CupsPrinter" in-map="context"/--> 
+            </if>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <set field="fromDate" from="ec.user.nowTimestamp"/>
             <service-call name="create#growerp.mobile.location.PreparationArea" in-map="context"  out-map="context"/>
@@ -237,13 +261,36 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="update" noun="PreparationArea">
         <description>Update a single preparation area</description>
-        <in-parameters><parameter name="preparationAreaId" required="true"/>
-            <parameter name="description"/></in-parameters>
+        <in-parameters>
+            <parameter name="preparationAreaId" required="true"/>
+            <parameter name="description"/>
+            <parameter name="printerHostUrl"/>
+            <parameter name="printerName"/>
+        </in-parameters>
         <actions>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
                 <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
             <set field="preparationArea.description" from="description"/>
+            <if condition="printerHosturl || printerName">
+                <if condition="!preparationArea.networkPrinterId">
+                    <service-call name="create#moqui.basic.print.NetworkPrinter" out-map="context" 
+                        in-map="[serverHost: printerHostUrl, printerName: printerName]"/>
+                    <!--service-call name="org.moqui.impl.PrintServices.make#CupsPrinter" in-map="context"/--> 
+                    <set field="preparationArea.networkPrinterId" from="networkPrinterId"/>
+                    <else>
+                        <entity-find-one entity-name="moqui.basic.print.NetworkPrinter" value-field="current">
+                            <field-map field-name="networkPrinterId" from="preparationArea.networkPrinterId"/>
+                        </entity-find-one>
+                        <set field="current.serverHost" from="printerHostUrl"/>
+                        <set field="current.printerName" from="printerName"/>
+                        <entity-update value-field="current"/>
+                    </else>
+                </if>
+                <else>
+                    <set field="preparationArea.networkPrinterId" value="null"/>
+                </else>
+            </if>
             <entity-update value-field="preparationArea"/>
         </actions>
     </service>
@@ -267,8 +314,6 @@ along with this software (see the LICENSE.md file). If not, see
         </actions>
     </service>
 
-
-    <!-- ============ depreciated =========================-->
     <service verb="get" noun="PrepAreasAndCategories">
         <description>Get categories allocated to preparation areas</description>
         <in-parameters><parameter name="preparationAreaId"></parameter></in-parameters>
@@ -326,7 +371,7 @@ along with this software (see the LICENSE.md file). If not, see
                     ]"/>
                 <script>accommodationSpots.add(accommodationSpot)</script></iterate></actions></service>
 
-    <service verb="get" noun="TableAreasAndSpots"><!-- depreciated -->
+    <service verb="get" noun="TableAreasAndSpots">
         <description>
             Get table data for data entry starting with areas and spots
         </description>

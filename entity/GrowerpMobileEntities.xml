@@ -14,16 +14,19 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-2.1.xsd">
 
-    <entity entity-name="PreparationArea" package="growerp.mobile.location">
+    <entity entity-name="PreparationArea" package="growerp.mobile.location"><!-- depreciated, replaced by facility -->
         <description>An area where the orders are prepared: bar kitchen etc</description> 
         <field name="preparationAreaId" type="id" is-pk="true"/>
         <field name="ownerPartyId" type="id" enable-audit-log="update" default="'_NA_'"/>
         <field name="description" type="text-medium"/>
         <field name="fromDate" type="date-time" default="ec.user.nowTimestamp"/>
         <field name="thruDate" type="date-time"/>
+        <field name="networkPrinterId" type="id"/>
         <relationship type="one" title="Owner" related="mantle.party.Party" short-alias="owner">
             <key-map field-name="ownerPartyId"/></relationship>
-    </entity>
+        <relationship type="one" title="Printer" related="moqui.basic.print.NetworkPrinter" short-alias="printer">
+            <key-map field-name="networkPrinterId"/></relationship>
+        </entity>
 
     <entity entity-name="AccommodationArea" package="growerp.mobile.location">
         <description>A group of tables rooms seats etc..</description> 
@@ -74,7 +77,7 @@ along with this software (see the LICENSE.md file). If not, see
         <relationship type="one" related="growerp.mobile.location.AccommodationArea"/>
     </entity>
 
-    <entity entity-name="PreparationAreaContent" package="growerp.mobile.location">
+    <entity entity-name="PreparationAreaContent" package="growerp.mobile.location"><!-- depreciated, use facilityContent -->
         <field name="preparationAreaContentId" type="id" is-pk="true"/>
         <field name="preparationAreaId" type="id"/>
         <field name="contentLocation" type="text-medium"/>
