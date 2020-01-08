@@ -302,6 +302,14 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="growerp.mobile.MobileTaskRequestServices.create#WorkEffort"
                     in-map="[workEffortName:'This a first task for me',
                         priority: '5']"/>
+                <entity-find entity-name="PreparationArea" list="prepAreas">
+                    <econdition field-name="ownerPartyId" from="company.partyId"/>
+                </entity-find>
+                <set field="index" value="0" type="Integer"/>
+                <iterate list="prepAreas" entry="prepArea">
+                   <service-call name="growerp.mobile.MobileLocationServices.update#PreparationArea"
+                   in-map="[preparationAreaId: prepArea.preparationAreaId, description: prepArea.description, printerIp: ':' + (9100 + index++)]"/>
+                </iterate>
             </if>
         </actions>
     </service>

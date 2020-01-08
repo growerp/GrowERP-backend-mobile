@@ -227,8 +227,7 @@ along with this software (see the LICENSE.md file). If not, see
                     preparationAreaId: prep.preparationAreaId,
                     description: prep.description,
                     image: imageFile? imageFile : '~/assets/images/addImage.png',
-                    printerHostUrl: prep.networkPrinterId?printer.serverHost:null,
-                    printerName: prep.networkPrinterId?printer.printerName:null,
+                    printerIp: prep.networkPrinterId?printer.serverHost:null,
                     nbrOfCatg: nbrOfCatg]"/>
                 <script>preparationAreas.add(preparationArea)</script>
             </iterate>
@@ -243,14 +242,13 @@ along with this software (see the LICENSE.md file). If not, see
         <description>Add a Preparation area</description>
         <in-parameters>
             <parameter name="description"/>
-            <parameter name="printerHostUrl"/>
-            <parameter name="printerName"/>
+            <parameter name="printerIp"/>
         </in-parameters>
         <out-parameters><parameter name="preparationAreaId"/></out-parameters>
         <actions>
             <if condition="printerHosturl || printerName">
                 <service-call name="create#moqui.basic.print.NetworkPrinter" out-map="context" 
-                    in-map="[serverHost: printerHostUrl, printerName: printerName]"/>
+                    in-map="[serverHost: printerIp]"/>
                 <!--service-call name="org.moqui.impl.PrintServices.make#CupsPrinter" in-map="context"/--> 
             </if>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
@@ -264,33 +262,27 @@ along with this software (see the LICENSE.md file). If not, see
         <in-parameters>
             <parameter name="preparationAreaId" required="true"/>
             <parameter name="description"/>
-            <parameter name="printerHostUrl"/>
-            <parameter name="printerName"/>
+            <parameter name="printerIp"/>
         </in-parameters>
         <actions>
             <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find-one entity-name="growerp.mobile.location.PreparationArea" value-field="preparationArea" for-update="true">
-                <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/><field-map field-name="fromDate"/></entity-find-one>
-            <set field="preparationArea.description" from="description"/>
-            <if condition="printerHosturl || printerName">
-                <if condition="!preparationArea.networkPrinterId">
-                    <service-call name="create#moqui.basic.print.NetworkPrinter" out-map="context" 
-                        in-map="[serverHost: printerHostUrl, printerName: printerName]"/>
-                    <!--service-call name="org.moqui.impl.PrintServices.make#CupsPrinter" in-map="context"/--> 
-                    <set field="preparationArea.networkPrinterId" from="networkPrinterId"/>
-                    <else>
-                        <entity-find-one entity-name="moqui.basic.print.NetworkPrinter" value-field="current">
-                            <field-map field-name="networkPrinterId" from="preparationArea.networkPrinterId"/>
-                        </entity-find-one>
-                        <set field="current.serverHost" from="printerHostUrl"/>
-                        <set field="current.printerName" from="printerName"/>
-                        <entity-update value-field="current"/>
-                    </else>
-                </if>
-                <else>
-                    <set field="preparationArea.networkPrinterId" value="null"/>
-                </else>
+                <field-map field-name="ownerPartyId"/><field-map field-name="preparationAreaId"/></entity-find-one>
+            <if condition="!preparationArea">
+                <return error="true"  message="preparation Area id ${preparationAreaId} not found for update"/>
             </if>
+            <set field="preparationArea.description" from="description"/>
+            <if condition="preparationArea.networkPrinterId">
+                <entity-find-one entity-name="moqui.basic.print.NetworkPrinter" value-field="current" for-update="true">
+                    <field-map field-name="networkPrinterId" from="preparationArea.networkPrinterId"/>
+                </entity-find-one>
+                <set field="current.serverHost" from="printerIp"/>
+                <entity-update value-field="current"/>
+            <else-if condition="printerIp">
+                <service-call name="create#moqui.basic.print.NetworkPrinter" out-map="context" in-map="[serverHost: printerIp]"/>
+                <!--service-call name="org.moqui.impl.PrintServices.make#CupsPrinter" in-map="context"/--> 
+                <set field="preparationArea.networkPrinterId" from="networkPrinterId"/>
+            </else-if></if>
             <entity-update value-field="preparationArea"/>
         </actions>
     </service>
