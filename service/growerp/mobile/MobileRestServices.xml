@@ -199,6 +199,17 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="transData" type="List"/><!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
         </in-parameters>
         <actions>
+            <!-- billing -->
+            <service-call name="growerp.mobile.MobileLocationServices.create#PreparationArea" 
+                in-map="[description: transData[8]]" out-map="context"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/billingSmall.png']"/>
+            <service-call name="create#PreparationAreaContent"
+                in-map="[
+                    preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/billingMedium.png']"/>
             <!-- kitchen -->
             <service-call name="growerp.mobile.MobileLocationServices.create#PreparationArea" 
                 in-map="[description: transData[0]]" out-map="context"/>
@@ -306,7 +317,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <econdition field-name="ownerPartyId" from="company.partyId"/>
                 </entity-find>
                 <set field="index" value="0" type="Integer"/>
-                <iterate list="prepAreas" entry="prepArea">
+                <iterate list="prepAreas" entry="prepArea"><!-- setup up ports for virtual escpos printers -->
                    <service-call name="growerp.mobile.MobileLocationServices.update#PreparationArea"
                    in-map="[preparationAreaId: prepArea.preparationAreaId, description: prepArea.description, printerIp: ':' + (9100 + index++)]"/>
                 </iterate>
