@@ -204,8 +204,12 @@ along with this software (see the LICENSE.md file). If not, see
     </view-entity>
     <view-entity entity-name="OrderHeaderPartPrepAndItems" package="growerp.mobile.order">
         <member-entity entity-alias="ORHD" entity-name="mantle.order.OrderHeader"/>
+        <member-entity entity-alias="ORDERSPOT" entity-name="AccommodationSpotParty" join-from-alias="ORHD">
+            <key-map field-name="orderId"/></member-entity>
         <member-entity entity-alias="PART" entity-name="mantle.order.OrderPart" join-from-alias="ORHD">
             <key-map field-name="orderId"/></member-entity>
+        <member-entity entity-alias="PERSON" entity-name="mantle.party.Person" join-from-alias="PART">
+            <key-map field-name="customerPartyId" related="partyId"/></member-entity>
         <member-entity entity-alias="PREP" entity-name="growerp.mobile.location.PreparationArea" join-from-alias="PART">
             <key-map field-name="preparationAreaId"/></member-entity>
         <member-entity entity-alias="ITEM" entity-name="mantle.order.OrderItem" join-from-alias="PART">
@@ -216,10 +220,13 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="grandTotal" entity-alias="ORHD"/>
         <alias name="currencyUomId" entity-alias="ORHD"/>
         <alias name="orderStatusId" entity-alias="ORHD" field="statusId"/>
-        <alias name="vendorPartyId" entity-alias="PART"/>
-        <alias name="customerPartyId" entity-alias="PART"/>
+        <alias name="accommodationSpotId" entity-alias="ORDERSPOT"></alias>
         <alias name="partStatusId" entity-alias="PART" field="statusId"/>
         <alias name="orderPartSeqId" entity-alias="PART"/>
+        <alias name="vendorPartyId" entity-alias="PART"/>
+        <alias name="customerPartyId" entity-alias="PART"/>
+        <alias name="firstName" entity-alias="PERSON"/>
+        <alias name="lastName" entity-alias="PERSON"/>
         <alias name="preparationAreaId" entity-alias="PREP"/>
         <alias name="prepDescription" entity-alias="PREP" field="description"/>
         <alias name="orderItemSeqId" entity-alias="ITEM"/>

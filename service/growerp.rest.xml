@@ -152,7 +152,7 @@
         <method type="post"><service name="growerp.mobile.MobileRestServices.get#ProductCategory"/></method></resource>
 
     <!-- order -->
-    <resource name="GetOrders">
+    <resource name="GetOrders"><!-- depreciated -->
         <method type="post"><service name="growerp.mobile.MobileOrderServices.get#Orders"/></method></resource>
     <resource name="GetOrdersAndItemsByPrepAreas">
         <method type="get"><service name="growerp.mobile.MobileOrderServices.get#OrdersAndItemsByPrepAreas"/></method></resource>

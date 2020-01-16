@@ -52,7 +52,7 @@ along with this software (see the LICENSE.md file). If not, see
     <entity entity-name="AccommodationSpotParty" package="growerp.mobile.location">
         <description>relation between a customer and the table number and the order </description>
         <field name="accommodationSpotId" type="id" is-pk="true"/>
-        <field name="partyId" type="id" is-pk="true"/>
+        <field name="partyId" type="id" is-pk="true"/><!-- redundent field? already present on order with customerPartyId-->
         <field name="date" type="date-time" is-pk="true" default="ec.user.nowTimestamp"/>
         <field name="nbrOfGuests" type="number-decimal"/>
         <field name="orderId" type="id"/>
