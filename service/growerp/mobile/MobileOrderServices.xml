@@ -159,25 +159,6 @@ along with this software (see the LICENSE.md file). If not, see
                         <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
                     <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
-                    <set field="partOut" from="[
-                        preparationAreaId: lastItem.orderStatusId == 'OrderApproved'? billingPreparationAreaId : lastItem.preparationAreaId,
-                        prepDescription: lastItem.orderStatusId == 'OrderApproved'? billingPrepDescription : lastItem.prepDescription,
-                        orderPartSeqId: lastItem.orderPartSeqId,
-                        partStatusId: lastItem.partStatusId,
-                        quantity: totalQuantity,
-                        nbrOfItems: totalQuantity,
-                        image: imageFile,
-                        items: itemsOut
-                    ]"/>
-                    <script>partsOut.add(partOut)</script>
-                    <set field="totalQuantity" value="0" type="Integer"/>
-                    <set field="itemsOut" from="[]"/>
-                </if>
-                <if condition="lastOrderId &amp;&amp; lastOrderId != item.orderId">
-                    <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
-                        <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
                     <set field="orderOut" from="[
                         orderId: lastItem.orderId,
                         statusId: lastItem.orderStatusId,
@@ -191,10 +172,19 @@ along with this software (see the LICENSE.md file). If not, see
                         table: spotParty[0].description + '-' + spotParty[0].spotNumber, 
                         grandTotal: totalAmount,
                         image: imageFile,
-                        parts: partsOut]"/>
+                        preparationAreaId: lastItem.orderStatusId == 'OrderApproved'? billingPreparationAreaId : lastItem.preparationAreaId,
+                        prepDescription: lastItem.orderStatusId == 'OrderApproved'? billingPrepDescription : lastItem.prepDescription,
+                        orderPartSeqId: lastItem.orderPartSeqId,
+                        partStatusId: lastItem.partStatusId,
+                        quantity: totalQuantity,
+                        nbrOfItems: totalQuantity,
+                        image: imageFile,
+                        items: itemsOut
+                        ]"/>
                     <script>ordersAndItemsByPrepAreas.add(orderOut)</script>
+                    <set field="totalQuantity" value="0" type="Integer"/>
                     <set field="totalAmount" value="0" type="BigDecimal"/>
-                    <set field="partsOut" from="[]"/>
+                    <set field="itemsOut" from="[]"/>
                 </if>
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
                         in-map="[size: 'small', type: 'product', id: item.productId]" out-map="context"/>
@@ -218,17 +208,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <entity-find entity-name="growerp.mobile.location.AccommodationAreaSpotAndParty" list="spotParty">
                     <econdition field-name="orderId" from="lastItem.orderId"/></entity-find>
                 <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
-                <set field="partOut" from="[
-                    preparationAreaId: lastItem.orderStatusId == 'OrderApproved'? billingPreparationAreaId : lastItem.preparationAreaId,
-                    prepDescription: lastItem.orderStatusId == 'OrderApproved'? billingPrepDescription : lastItem.prepDescription,
-                    orderPartSeqId: lastItem.orderPartSeqId,
-                    statusId: lastItem.partStatusId,
-                    nbrOfItems: totalQuantity,
-                    image: imageFile,
-                    items: itemsOut
-                    ]"/>
-                <script>partsOut.add(partOut)</script>
+                    in-map="[size: 'small', type: 'area', id: spotParty[0].accommodationAreaId]" out-map="context"/>
                 <set field="orderOut" from="[
                     orderId: lastItem.orderId,
                     statusId: lastItem.orderStatusId,
@@ -242,7 +222,15 @@ along with this software (see the LICENSE.md file). If not, see
                     table: spotParty[0].description + '-' + spotParty[0].spotNumber, 
                     grandTotal: totalAmount,
                     image: imageFile,
-                    parts: partsOut]"/>
+                    preparationAreaId: lastItem.orderStatusId == 'OrderApproved'? billingPreparationAreaId : lastItem.preparationAreaId,
+                    prepDescription: lastItem.orderStatusId == 'OrderApproved'? billingPrepDescription : lastItem.prepDescription,
+                    orderPartSeqId: lastItem.orderPartSeqId,
+                    partStatusId: lastItem.partStatusId,
+                    quantity: totalQuantity,
+                    nbrOfItems: totalQuantity,
+                    image: imageFile,
+                    items: itemsOut
+                    ]"/>
                 <script>ordersAndItemsByPrepAreas.add(orderOut)</script>
             </if>
             <log message="===All prepArea orders: ${ordersAndItemsByPrepAreas.size()}"/>
