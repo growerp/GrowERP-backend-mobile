@@ -859,7 +859,7 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="report" noun="Sales">
         <in-parameters>
-            <parameter name="period" default="day"/>
+            <parameter name="period" default="Day"/>
             <parameter name="periodNbr"/>
         </in-parameters>
         <out-parameters>
@@ -868,28 +868,38 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="thruDate"/>
         </out-parameters>
         <actions>
-            <set field="nowZdt" from="java.time.ZonedDateTime.ofInstant(java.time.Instant.now(), java.time.ZoneId.systemDefault())"/>
-            <if condition="period == 'day'">
-                <set field="maxPeriod" from="periodNbr" default-value="7" type="Integer"/>
-                <set field="periodLength" value="1" type="Integer"/>
-            <else-if condition="period == 'week'">
-                <set field="maxPeriod" from="periodNbr" default-value="4" type="Integer"/>
-                <set field="periodLength" value="7" type="Integer"/></else-if>
-            <else-if condition="period == 'month'">
-                <set field="maxPeriod" from="periodNbr" default-value="12" type="Integer"/>
-                <set field="periodLength" value="30" type="Integer"/></else-if>
-            <else><log level="error" message="Invalid period...." /></else></if>
-
+            <set field="nowZdt" from="java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).plusDays(1)"/>
             <set field="procPeriods" from="[]"/>
-            <set field="count" value="0" type="Integer"/>
-            <while condition="count &lt; maxPeriod">
-                <set field="startDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * periodLength).toInstant())"/>
-                <set field="endDate" from="java.sql.Timestamp.from(nowZdt.minusDays(count * periodLength - periodLength).toInstant())"/>
-                <set field="procPeriod" from="[ start: startDate, end: endDate]"/>
-                <script>procPeriods.add(procPeriod)</script>
-                <set field="count" from="++count"/>
-            </while>
-
+            <set field="count" value="0" type="Long"/>
+            <if condition="period == 'Day'">
+                <set field="periodNbr" default-value="7" type="Long"/>
+                <set field="periodStart" from="nowZdt.minusDays(periodNbr)"/>
+                <while condition="count &lt; periodNbr">
+                    <set field="procPeriod" from="[
+                        start: java.sql.Timestamp.from(periodStart.plusDays(count).toInstant()),
+                        end: java.sql.Timestamp.from(periodStart.plusDays((count++)+1).toInstant())]"/>
+                    <script>procPeriods.add(procPeriod)</script>
+                </while>
+            <else-if condition="period == 'Week'">
+                <set field="periodNbr" default-value="6" type="Long"/>
+                <set field="periodStart" from="nowZdt.minusWeeks(periodNbr)"/>
+                <while condition="count &lt; periodNbr">
+                    <set field="procPeriod" from="[
+                        start: java.sql.Timestamp.from(periodStart.plusWeeks(count).toInstant()),
+                        end: java.sql.Timestamp.from(periodStart.plusWeeks((count++)+1).toInstant())]"/>
+                    <script>procPeriods.add(procPeriod)</script>
+                </while></else-if>
+            <else-if condition="period == 'Month'">
+                <set field="periodNbr" default-value="12" type="Long"/>
+                <set field="periodStart" from="nowZdt.minusMonths(periodNbr).withDayOfMonth(1).plusMonths(1)"/>
+                <while condition="count &lt; periodNbr">
+                    <set field="procPeriod" from="[
+                        start: java.sql.Timestamp.from(periodStart.plusMonths(count).toInstant()),
+                        end: java.sql.Timestamp.from(periodStart.plusMonths((count++)+1).toInstant())]"/>
+                    <script>procPeriods.add(procPeriod)</script>
+                </while></else-if>
+            <else><log level="error" message="Invalid period...." /></else></if>
+            <log message="====procperiods: ${procPeriods}"/>
             <set field="periods" from="[]"/>
             <iterate entry="procPeriod" list="procPeriods">
                 <entity-find entity-name="mantle.order.OrderHeader" list="orders">
@@ -904,12 +914,13 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="periodTotal" from="periodTotal + order.grandTotal"/>
                 </iterate>
                 <set field="periodOut" from="[timeStamp: procPeriod.start,
-                                              period: ec.l10n.format(procPeriod.start,'dd-MM'),
+                                              period: ec.l10n.format(procPeriod.start,'dd-MM-yyyy'),
                                               amount: periodTotal, orderCount: orderCount]"/>
                 <script>periods.add(periodOut)</script>
             </iterate>
-            <set field="fromDate" from="ec.l10n.format(periods[0].start,'dd/mm/yyyy')"/>
-            <set field="thruDate" from="ec.l10n.format(periods[periods.size()-1].end,'dd/mm/yyyy')"/>
+            <set field="fromDate" from="ec.l10n.format(procPeriods[0].start,'dd/MM/yyyy')"/>
+            <set field="thruDate" from="ec.l10n.format(procPeriods[procPeriods.size()-1].end,'dd/MM/yyyy')"/>
+            <log message="=== output report sales: fromDate / thruDate: ${fromDate} / ${thruDate} periods: ${periods.size()}"/>
         </actions>
     </service>
 
