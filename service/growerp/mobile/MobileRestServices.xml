@@ -868,6 +868,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="thruDate"/>
         </out-parameters>
         <actions>
+            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
             <set field="nowZdt" from="java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).plusDays(1)"/>
             <set field="procPeriods" from="[]"/>
             <set field="count" value="0" type="Long"/>
@@ -902,16 +903,21 @@ along with this software (see the LICENSE.md file). If not, see
             <log message="====procperiods: ${procPeriods}"/>
             <set field="periods" from="[]"/>
             <iterate entry="procPeriod" list="procPeriods">
-                <entity-find entity-name="mantle.order.OrderHeader" list="orders">
+                <entity-find entity-name="mantle.order.OrderHeaderAndPart" list="orders">
                     <econdition field-name="placedDate" operator="greater-equals" from="procPeriod.start"/>
                     <econdition field-name="placedDate" operator="less-equals" from="procPeriod.end"/>
-                    <select-field field-name="grandTotal"/>
+                    <econdition field-name="vendorPartyId" from="company.partyId"/>
+                    <order-by field-name="orderId" />
                 </entity-find>
                 <set field="periodTotal" value="0" type="BigDecimal"/>
                 <set field="orderCount" value="0" type="Integer"/>
+                <set field="lastOrderid" value=""/>
                 <iterate entry="order" list="orders">
-                    <set field="orderCount" from="orderCount + 1"/>
-                    <set field="periodTotal" from="periodTotal + order.grandTotal"/>
+                    <if condition="!lastOrderId || order.orderId != lastOrderId">
+                        <set field="orderCount" from="orderCount + 1"/>
+                        <set field="periodTotal" from="periodTotal + order.grandTotal"/>
+                    </if>
+                    <set field="lastOrderId" from="order.orderId"/>
                 </iterate>
                 <set field="periodOut" from="[timeStamp: procPeriod.start,
                                               period: ec.l10n.format(procPeriod.start,'dd-MM-yyyy'),
