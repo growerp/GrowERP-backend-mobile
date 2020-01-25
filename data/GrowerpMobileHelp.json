@@ -1,34 +1,42 @@
 [
-    {
-        "_entity": "mantle.request.Request",
-        "requestId": "GROWERP-HELP-001",
-        "requestName": "1-How to use the mobile application?",
-        "description": "You obviously registered yourself successfully. Below follows a number of hints and tips to use the application efficiently. <h3>Menus</h3>The application has two menu systems, clicking on the menu text at the topleft corner and second by icons you can arrange yourself on the home and setup Page. <h3>Item lists</h3> All item lists like products, tablenumbers etc allow you click on an item which provides you more information and the ability to modify them.<h3>Detailed screens</h3>On the detailed informationscreens to can modify the related information, the data is saved when you press the SAVE button. BACK at the top left corner will go back to the list you came from",
-        "requestTypeEnumId": "RqtFAQ",
-        "statusId": "ReqCompleted"
-    },
-    {
-        "_entity": "mantle.request.Request",
-        "requestId": "GROWERP-HELP-002",
-        "requestName": "2 How to start?",
-        "description": "The application is by default loaded with some data to get your started... You can however modify and add more, whatever you need.<br/>First of all adjust your products within categories: the meals and drinks  you have on offer, then the table numbers within tableareas (outside/inside and more) and the locations where you want to prepare your orders like bar and kitchen.<br/> <h3>Products and Categories</h3> First adjust or define your categoeries in the Catgories Tab. Then add your poducts like food and drinks to the categories. <h3>Areas with Tables</h3> We already defined two area for you, adjust it for your location",
-        "requestTypeEnumId": "RqtFAQ",
-        "statusId": "ReqCompleted"
-    },
-    {
-        "_entity": "mantle.request.Request",
-        "requestId": "GROWERP-HELP-003",
-        "requestName": "3 I have another question not listed here?",
-        "description": "In the help function you can enter in the second tab, your own questions which will be answered within 24 hours by the system support team.",
-        "requestTypeEnumId": "RqtFAQ",
-        "statusId": "ReqCompleted"
-    },
-    {
-        "_entity": "mantle.request.Request",
-        "requestId": "GROWERP-HELP-004",
-        "requestName": "4 Using a receipt printer",
-        "description": "<p>The system is prepared to print receipts automatically when an order is created in preparation areas like bar and kitchen and when the billed option is pressed in the table detail page. In order to be able to print directly from your phone/tablet, you need a receipt printer. Just a cheap ESCPOS ip network printer will do, either WIFI or cable. We Advice to use a normal Ethernet cable and connect it to your router. if you installed the printer you need to know its ip address in the form of 192.168.X.XX.</p><p>You can find it by making your printer do a selftest:<br />1. switch power off.<br />2. push the feed button and keep it pressed until about 2-3 seconds after you switched on the power at the seem time you keep the feed button pressed.<br />3. on the selftest print you can find the IP address.</p><p>Now go the setup/prepare area definition and enter the IP address there.</p>",
-        "requestTypeEnumId": "RqtFAQ",
-        "statusId": "ReqCompleted"
-    }
+ {
+ "_entity": "mantle.request.Request",
+ "requestId": "GROWERP-HELP-001",
+ "requestName": "1-How to use the mobile application?",
+ "description": "You obviously registered yourself successfully. Below follows a number of hints and tips to use the application efficiently. <h3>Menus</h3>The application has two menu systems, clicking on the menu text at the topleft corner and second by icons you can arrange yourself on the home and setup Page. <h3>Item lists</h3> All item lists like products, tablenumbers etc allow you click on an item which provides you more information and the ability to modify them.<h3>Detailed screens</h3>On the detailed informationscreens to can modify the related information, the data is saved when you press the SAVE button. BACK at the top left corner will go back to the list you came from",
+ "requestTypeEnumId": "RqtFAQ",
+ "statusId": "ReqCompleted"
+ },
+ {
+ "_entity": "mantle.request.Request",
+ "requestId": "GROWERP-HELP-002",
+ "requestName": "2 How to start?",
+ "description": "The application is by default loaded with some data to get your started... You can however modify and add more, whatever you need.<br/>First of all adjust your products within categories: the meals and drinks you have on offer, then the table numbers within tableareas (outside/inside and more) and the locations where you want to prepare your orders like bar and kitchen.<br/> <h3>Products and Categories</h3> First adjust or define your categoeries in the Catgories Tab. Then add your poducts like food and drinks to the categories. <h3>Areas with Tables</h3> We already defined two area for you, adjust it for your location",
+ "requestTypeEnumId": "RqtFAQ",
+ "statusId": "ReqCompleted"
+ },
+ {
+ "_entity": "mantle.request.Request",
+ "requestId": "GROWERP-HELP-003",
+ "requestName": "3 Restaurant Workflow.",
+ "description": "Find below the general workflow in a restaurant.<br/><br/><h3>Enter order.</h3><ol><li>On the dashboard, select the area and table, you want to enter an order for.</li> <li>The next page is optional: enter the number(can be telno) of an existing customer, enter the number of guests(used in reporting) or enter a new customer</li> <li>On the next pae select the items the customer ordered. expand: show all products, if finished select continue..</li> <li>On the next page verify with the custoer the ordered items, select  &quot;save Order &quot; to continue,  &quot;goBack: topLeft, to correct od  &quot;cancel &quot; to cancel the order.</li> <li> After a while the message will a appear the order is saved.</li><li>After the order is saved and printers are defined, the order will be printed in the Bar and kitcen or any other are you have defined.</li></ol> <h3>Customer wants to pay</h3><ol> <li>On the dashboard, select the area and table, you want to enter an order for.</li> <li>On the next page select  &quot;bill order &quot;</li> <li>When a printer is defined for billing, the receipt will be printed automatically</li></ol> <h3>Close the order</h3><ol> <li>On the dashboard, select  &quot;InProcess&quot; select the order and press the button  &quot;Done &quot;</li> <li>The order is now complete, and is kept for future reference and statistics</li></ol> <h3>Customer has additional orders</h3><ol> <li>On the dashboard, select the area and table, you want to enter new items.</li> <li>On the next page select  &quot;Add To &quot; for adding to and existing order, or  &quot;NewOrder &quot; to create a new order</li></ol> ",
+ "requestTypeEnumId": "RqtFAQ",
+ "statusId": "ReqCompleted"
+ },
+ {
+ "_entity": "mantle.request.Request",
+ "requestId": "GROWERP-HELP-004",
+ "requestName": "4 I have another question not listed here?",
+ "description": "In the help function you can enter in the second tab, your own questions which will be answered within 24 hours by the system support team.",
+ "requestTypeEnumId": "RqtFAQ",
+ "statusId": "ReqCompleted"
+ },
+ {
+ "_entity": "mantle.request.Request",
+ "requestId": "GROWERP-HELP-005",
+ "requestName": "5 Using a receipt printer",
+ "description": "The system is prepared to print receipts automatically when an order is created in preparation areas like bar and kitchen and when the billed option is pressed in the table detail page. In order to be able to print directly from your phone/tablet, you need a receipt printer. Just a cheap ESCPOS ip network printer will do, either WIFI or cable. We Advice to use a normal Ethernet cable and connect it to your router. if you installed the printer you need to know its ip address in the form of 192.168.X.XX.</p><p>You can find it by making your printer do a selftest:<br />1. switch power off.<br />2. push the feed button and keep it pressed until about 2-3 seconds after you switched on the power at the seem time you keep the feed button pressed.<br />3. on the selftest print you can find the IP address.</p><p>Now go the setup/prepare area definition and enter the IP address there.",
+ "requestTypeEnumId": "RqtFAQ",
+ "statusId": "ReqCompleted"
+ }
 ]
