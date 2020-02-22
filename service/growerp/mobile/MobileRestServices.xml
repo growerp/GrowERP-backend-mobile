@@ -109,7 +109,10 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo"/>
                 <!-- fill user map -->
                 <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
-                <if condition="login"><script>ec.user.logoutUser()</script></if>
+                <if condition="login">
+                    <service-call name="org.moqui.impl.UserServices.reset#Password" in-map="[userId: userAccount.userId]"/>
+                    <script>ec.user.logoutUser()</script>
+                </if>
             </if>
         </actions>
     </service>
