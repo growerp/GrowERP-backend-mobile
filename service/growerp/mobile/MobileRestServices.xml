@@ -34,6 +34,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="companyEmailAddress" default="emailAddress"/>
             <parameter name="currencyUomId"/>
             <parameter name="partyClassificationId"/><!-- allocate party to mobile application -->
+            <!-- default setup -->
+            <parameter name="environment"/>
+            <parameter name="transData" type="List"/><!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
         </in-parameters>
         <out-parameters>
             <parameter name="user"/>
@@ -46,6 +49,7 @@ along with this software (see the LICENSE.md file). If not, see
                 in-map="context + [roleTypeId: 'Employee', loginAfterCreate: login]"
                 out-map="userAccount"/>
             <if condition="userAccount.partyId != null">
+                
                 <if condition="companyPartyId == null">
                     <service-call name="mantle.party.PartyServices.create#Organization"
                         in-map="context + [roleTypeId: 'OrgInternal',organizationName: companyName]"
@@ -110,7 +114,9 @@ along with this software (see the LICENSE.md file). If not, see
                 <!-- fill user map -->
                 <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
                 <if condition="login">
-                    <service-call name="org.moqui.impl.UserServices.reset#Password" in-map="[userId: userAccount.userId]"/>
+                    <log message="============sending email with username: ${username}"/>
+                    <service-call name="org.moqui.impl.UserServices.reset#Password" async="true" in-map="[username: username]"/>
+                    <service-call name="growerp.mobile.MobileRestServices.load#DefaultData" async="true" in-map="context"/>
                     <script>ec.user.logoutUser()</script>
                 </if>
             </if>
