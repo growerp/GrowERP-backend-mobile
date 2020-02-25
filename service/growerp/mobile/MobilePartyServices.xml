@@ -320,7 +320,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="newPassword" value="justTemp99!"/>
                 <service-call name="growerp.mobile.MobileRestServices.register#UserAndCompany"
                     in-map="[context + [companyPartyId: compOut.company.partyId]]" out-map="context"/>
-                <service-call name="growerp.mobile.MobileRestServices.reset#Password" in-map="[username: user.name]"/>
             </if>
             <if condition="roleTypeId == 'Customer'">
                 <service-call name="create#mantle.party.Party"

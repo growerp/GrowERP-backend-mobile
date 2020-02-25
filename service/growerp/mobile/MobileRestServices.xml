@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
-    <service verb="register" noun="UserAndCompany" require-authentication="anonymous-all">
+    <service verb="register" noun="UserAndCompany" authenticate="anonymous-all">
         <description>
             registers with a minimal setup for a user with a given role to an existing company or when not provided
             will create an accounting organization with the provided name and currency
@@ -43,10 +43,8 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="partyId"/>
         </out-parameters>
         <actions>
-            <!-- create account and login -->
-            <set field="login" from="companyPartyId?false:true"/>
             <service-call name="mantle.party.PartyServices.create#Account"
-                in-map="context + [roleTypeId: 'Employee', loginAfterCreate: login]"
+                in-map="context + [roleTypeId: 'Employee', loginAfterCreate: false]"
                 out-map="userAccount"/>
             <if condition="userAccount.partyId != null">
                 
@@ -62,9 +60,6 @@ along with this software (see the LICENSE.md file). If not, see
                     <!-- register as a restaurant App user -->
                     <service-call name="create#mantle.party.PartyClassificationAppl"
                         in-map="[partyId: companyPartyId, partyClassificationId: 'AppRestaurant']"/>
-                    <!-- add the user as admin -->
-                    <service-call name="create#moqui.security.UserGroupMember"
-                        in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]"/>
                     <!-- create productStore -->
                     <set field="productCategoryTypeEnumId" value="PctCatalog"/><!-- Default product category type -->
                     <if condition="partyClassificationId == 'AppRestaurant'">
@@ -99,9 +94,6 @@ along with this software (see the LICENSE.md file). If not, see
                         <set field="userGroupId" from="userGroups[0].userGroupId"/></if></if>
                 <if condition="!userGroupId">
                     <set field="userGroupId" value="GROWERP_M_EMPLOYEE"/></if> 
-                <!-- add the user as an employee to a security group -->
-                <service-call name="create#moqui.security.UserGroupMember"
-                    in-map="[userGroupId: userGroupId, userId: userAccount.userId]"/>
                 <!-- attach the user as an employee to the organization. -->
                 <service-call name="create#mantle.party.PartyRelationship"
                     in-map="[fromPartyId: userAccount.partyId, fromRoleTypeId: 'Employee', relationshipTypeEnumId: 'PrtEmployee',
@@ -111,13 +103,19 @@ along with this software (see the LICENSE.md file). If not, see
                     in-map="[userId: userAccount.userId, preferenceKey: 'ACTIVE_ORGANIZATION', preferenceValue: companyPartyId]"/>
                 <!-- setup the organization -->
                 <service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo"/>
-                <!-- fill user map -->
-                <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
-                <if condition="login">
-                    <log message="============sending email with username: ${username}"/>
-                    <service-call name="org.moqui.impl.UserServices.reset#Password" async="true" in-map="[username: username]"/>
+                <log message="============sending email with username: ${username}"/>
+                <service-call name="org.moqui.impl.UserServices.reset#Password" async="true" in-map="[username: username]"/>
+                <if condition="company"><!-- initial company/user needs login for loading default data (create#user calls this service)-->
+                    <!-- add the user as admin -->
+                    <service-call name="create#moqui.security.UserGroupMember"
+                        in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]"/>
+                    <script>ec.user.loginUser(username, newPassword)</script>
                     <service-call name="growerp.mobile.MobileRestServices.load#DefaultData" async="true" in-map="context"/>
-                    <script>ec.user.logoutUser()</script>
+                    <else><!-- no need for logging when adding employees -->
+                        <!-- add the user as an employee(or what is provided) to a security group -->
+                        <service-call name="create#moqui.security.UserGroupMember"
+                        in-map="[userGroupId: userGroupId, userId: userAccount.userId]"/>
+                    </else>
                 </if>
             </if>
         </actions>
@@ -202,7 +200,7 @@ along with this software (see the LICENSE.md file). If not, see
         <actions><set field="ok" value="ok"/></actions>
     </service>
 
-    <service verb="load" noun="DefaultData">
+    <service verb="load" noun="DefaultData" authenticate="anonymous-all"><!-- not reachable outside -->
         <in-parameters>
             <parameter name="environment"/>
             <parameter name="transData" type="List"/><!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
