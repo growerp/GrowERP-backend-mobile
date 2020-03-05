@@ -31,10 +31,10 @@ along with this software (see the LICENSE.md file). If not, see
     <mantle.party.Person partyId="EX_JOHN_DOE" firstName="John" middleName="" lastName="Doe"/>
     <mantle.party.PartyRole partyId="EX_JOHN_DOE" roleTypeId="Manager"/>
     <mantle.party.PartyRelationship partyRelationshipId="EX_JOHN_DOE_OBS" relationshipTypeEnumId="PrtRepresentative"
-            fromPartyId="EX_JOHN_DOE" fromRoleTypeId="Manager" toPartyId="ORG_ZIZI_CORP" toRoleTypeId="Vendor"
+            fromPartyId="EX_JOHN_DOE" fromRoleTypeId="Manager" toPartyId="aws" toRoleTypeId="Vendor"
             fromDate="1265184000000"/>
     <mantle.party.PartyRelationship relationshipTypeEnumId="PrtAgent" fromPartyId="EX_JOHN_DOE"
-            toPartyId="ORG_ZIZI_CORP" toRoleTypeId="OrgInternal"/>
+            toPartyId="aws" toRoleTypeId="OrgInternal"/>
     <!-- NOTE: Party could have an email address ContactMech, but use the UserAccount.emailAddress as the primary address or when only one is needed/desired -->
     <moqui.security.UserAccount userId="EX_JOHN_DOE" partyId="EX_JOHN_DOE"/>
     <!-- default billing and payment rates for EX_JOHN_DOE -->
