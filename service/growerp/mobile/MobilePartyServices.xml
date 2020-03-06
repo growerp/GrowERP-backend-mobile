@@ -317,7 +317,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <return/></if>
             <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="compOut"/>
             <if condition="roleTypeId == 'Employee'">
-                <set field="newPassword" value="justTemp99!"/>
                 <service-call name="growerp.mobile.MobileRestServices.register#UserAndCompany"
                     in-map="[context + [companyPartyId: compOut.company.partyId]]" out-map="context"/>
             </if>

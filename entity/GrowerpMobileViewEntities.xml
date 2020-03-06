@@ -56,6 +56,8 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="PR" name="toRoleTypeId"/>
         <alias entity-alias="PR" name="fromPartyId"/>
         <alias entity-alias="PR" name="fromRoleTypeId"/>
+        <alias entity-alias="PR" name="fromDate"/><!-- date registered in the system -->
+        <alias entity-alias="PR" name="thruDate"/>
         <alias entity-alias="PTYPERSON" name="personDisabled" field="disabled"/>
         <alias entity-alias="PTYPERSON" name="externalId"/>
         <alias entity-alias="PTYORG" name="orgDisabled" field="disabled"/>
