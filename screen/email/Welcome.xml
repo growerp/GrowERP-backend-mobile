@@ -13,9 +13,6 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd">
-    <actions>
-        <set field="fromAddress" value="support@growerp.com"/>
-    </actions>
     <widgets>
         <render-mode>
             <text type="html"><![CDATA[

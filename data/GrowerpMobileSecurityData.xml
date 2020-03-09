@@ -48,12 +48,4 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.security.UserGroupPermission userGroupId="GROWERP_M_SYSTEM" userPermissionId="ADMIN_PASSWORD" fromDate="0"/>
     <moqui.security.UserGroupPermission userGroupId="GROWERP_M_ADMIN" userPermissionId="ADMIN_PASSWORD" fromDate="0"/>
 
-    <!-- EmailTemplate for password reset email -->
-    <moqui.basic.email.EmailTemplate emailTemplateId="PASSWORD_RESET" description="Default Password Reset" emailServerId="SYSTEM"
-            emailTypeEnumId="EMT_PWD_RESET" bodyScreenLocation="classpath://screen/PasswordReset.xml" webappName="webroot"
-            fromAddress="mobile@growerp.com" ccAddresses="" bccAddresses="" subject="Password Reset" sendPartial="Y"/>
-    <!-- EmailTemplate for general notifications -->
-    <moqui.basic.email.EmailTemplate emailTemplateId="NOTIFICATION" description="Default Notification" emailServerId="SYSTEM"
-            emailTypeEnumId="EMT_NOTIFICATION" bodyScreenLocation="classpath://screen/NotificationEmail.xml" webappName="webroot"
-            fromAddress="mobile@growerp.com" fromName="" ccAddresses="" bccAddresses="" subject="${title}" sendPartial="Y"/>
 </entity-facade-xml>
