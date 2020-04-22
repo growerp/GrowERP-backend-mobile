@@ -40,6 +40,7 @@ along with this software (see the LICENSE.md file). If not, see
         </in-parameters>
         <out-parameters>
             <parameter name="user"/>
+            <parameter name="company"/>
             <parameter name="partyId"/>
         </out-parameters>
         <actions>
@@ -122,6 +123,8 @@ along with this software (see the LICENSE.md file). If not, see
                         in-map="[userGroupId: userGroupId, userId: userAccount.userId]"/>
                     </else>
                 </if>
+                <set field="user" from="[firstName: firstName, lastName: lastName, name: emailAddress]"/>
+                <set field="company" from="[name: companyName]"/>
             </if>
         </actions>
     </service>
@@ -169,6 +172,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="apiKey"/>
             <parameter name="moquiSessionToken"/>
             <parameter name="user" type="Map"/>
+            <parameter name="company" type="Map"/>
             <parameter name="passwordChange" default="false"/>
         </out-parameters>
         <actions>
@@ -194,8 +198,8 @@ along with this software (see the LICENSE.md file). If not, see
                     </if>
                 </if>
             <if condition="!passwordChange">
-                <service-call name="growerp.mobile.MobilePartyServices.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>
                 <script>ec.user.loginUser(username, password)</script>
+                <service-call name="growerp.mobile.MobilePartyServices.get#UserAndCompany" out-map="context"/>
                 <set field="apiKey" from="ec.user.getLoginKey()"/>
                 <set field="moquiSessionToken" from="ec.web.sessionToken"/></if>
             </actions></service>
