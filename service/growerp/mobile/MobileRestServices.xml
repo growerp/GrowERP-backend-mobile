@@ -123,7 +123,7 @@ along with this software (see the LICENSE.md file). If not, see
                         in-map="[userGroupId: userGroupId, userId: userAccount.userId]"/>
                     </else>
                 </if>
-                <set field="user" from="[firstName: firstName, lastName: lastName, name: emailAddress]"/>
+                <set field="user" from="[firstName: firstName, lastName: lastName, name: emailAddress, email: emailAddress]"/>
                 <set field="company" from="[name: companyName]"/>
             </if>
         </actions>
@@ -137,6 +137,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="response"/>
         </out-parameters>
         <actions>
+            <log message="===reset pw with user: ${username}"/>
             <service-call name="org.moqui.impl.UserServices.reset#Password" in-map="[username: username]"
                 out-map="response"/>
         </actions>
@@ -182,33 +183,40 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="passwordChange" default="false"/>
         </out-parameters>
         <actions>
+            <log message="=====logging in with username: ${username} and pw: ${password}"/>
             <entity-find-one entity-name="moqui.security.UserAccount" value-field="userAccount" cache="false">
                 <field-map field-name="username"/></entity-find-one>
             <set field="oldPassword" from="password"/>
             <if condition="!userAccount"><return error="true" message="cannot find username: ${username}" public="true"/></if>
-                <script>
-                    def token = new org.apache.shiro.authc.UsernamePasswordToken((String) userAccount.username, (String) oldPassword)
-                    def info = new org.apache.shiro.authc.SimpleAuthenticationInfo(userAccount.username, userAccount.currentPassword,
-                            userAccount.passwordSalt ? new org.apache.shiro.util.SimpleByteSource((String) userAccount.passwordSalt) : null, "moquiRealm")
-                </script>
-                <if condition="!userAccount.currentPassword || !ec.ecfi.getCredentialsMatcher(userAccount.passwordHashType, 'Y'.equals(userAccount.passwordBase64)).doCredentialsMatch(token, info)">
-                    <if condition="userAccount.resetPassword">
-                        <!-- try the resetPassword -->
-                        <script>
-                            info = new org.apache.shiro.authc.SimpleAuthenticationInfo(userAccount.username, userAccount.resetPassword,
-                                    userAccount.passwordSalt ? new org.apache.shiro.util.SimpleByteSource((String) userAccount.passwordSalt) : null, "moquiRealm")
-                        </script>
-                        <if condition="ec.ecfi.getCredentialsMatcher(userAccount.passwordHashType, 'Y'.equals(userAccount.passwordBase64)).doCredentialsMatch(token, info)">
-                            <set field="passwordChange" value="true"/>
-                        </if>
+            <script>
+                def token = new org.apache.shiro.authc.UsernamePasswordToken((String) userAccount.username, (String) oldPassword)
+                def info = new org.apache.shiro.authc.SimpleAuthenticationInfo(userAccount.username, userAccount.currentPassword,
+                        userAccount.passwordSalt ? new org.apache.shiro.util.SimpleByteSource((String) userAccount.passwordSalt) : null, "moquiRealm")
+            </script>
+            <if condition="!userAccount.currentPassword || !ec.ecfi.getCredentialsMatcher(userAccount.passwordHashType, 'Y'.equals(userAccount.passwordBase64)).doCredentialsMatch(token, info)">
+                <log message="======checking if userAccount has reset password....."/>
+                <if condition="userAccount.resetPassword">
+                    <log message="======try reset passwor...."/>
+                    <!-- try the resetPassword -->
+                    <script>
+                        info = new org.apache.shiro.authc.SimpleAuthenticationInfo(userAccount.username, userAccount.resetPassword,
+                                userAccount.passwordSalt ? new org.apache.shiro.util.SimpleByteSource((String) userAccount.passwordSalt) : null, "moquiRealm")
+                    </script>
+                    <log message="===after script"/>
+                    <if condition="ec.ecfi.getCredentialsMatcher(userAccount.passwordHashType, 'Y'.equals(userAccount.passwordBase64)).doCredentialsMatch(token, info)">
+                        <set field="passwordChange" value="true"/>
+                        <log message="====reset password ok!"/>
                     </if>
                 </if>
+            </if>
             <if condition="!passwordChange">
                 <script>ec.user.loginUser(username, password)</script>
                 <service-call name="growerp.mobile.MobilePartyServices.get#UserAndCompany" out-map="context"/>
                 <set field="apiKey" from="ec.user.getLoginKey()"/>
-                <set field="moquiSessionToken" from="ec.web.sessionToken"/></if>
-            </actions></service>
+                <set field="moquiSessionToken" from="ec.web.sessionToken"/>
+            </if>
+        </actions>
+    </service>
 
     <service verb="check" noun="ApiKey">
         <out-parameters><parameter name="ok"/></out-parameters>

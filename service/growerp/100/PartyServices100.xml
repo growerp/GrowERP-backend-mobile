@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a 
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domaicrn Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+    <service verb="get" noun="UserAndCompany">
+        <description>
+            get user and related company information from the current logged in user
+        </description>
+        <out-parameters>
+            <parameter name="user" type="Map"/>
+            <parameter name="company" type="Map"/>
+        </out-parameters>
+        <actions>
+            <set field="partyId" from="ec.user.userAccount.partyId"/>
+            <entity-find-one entity-name="mantle.party.Person" value-field="person">
+                <field-map field-name="partyId" from="partyId"/></entity-find-one>
+            <entity-find entity-name="moqui.security.UserAccount" list="accounts">
+                <econdition field-name="partyId"/></entity-find>
+            <entity-find entity-name="mantle.party.PartyRole" list="roles">
+                <econdition field-name="partyId"/></entity-find>
+            <if condition="accounts">
+                <entity-find entity-name="moqui.security.UserGroupAndMember" list="groups">
+                    <econdition field-name="userId" from="accounts[0].userId"/><date-filter/></entity-find>
+                <set field="emailAddress" from="accounts[0].emailAddress"/>
+            <else>
+                <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
+                    in-map="[partyId: partyId]" out-map="context"/></else></if>
+            <set field="user" from="[
+                partyId: partyId,
+                userId: accounts? accounts[0].userId: null,
+                firstName: person.firstName,
+                lastName: person.lastName,
+                name: accounts? accounts[0].username: null,
+                email: emailAddress,
+                groupDescription: accounts?groups[0].description: null,
+                roles: roles,
+                userGroupId: accounts?groups[0].userGroupId: null,
+                locale: accounts?accounts[0].locale: null,
+                externalId: party?party.externalId: null]"/>
+
+            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context"/>
+            <entity-find-one entity-name="mantle.party.Organization" value-field="org">
+                <field-map field-name="partyId"/></entity-find-one>
+            <entity-find-one entity-name="mantle.ledger.config.PartyAcctgPreference" value-field="pref">
+                <field-map field-name="organizationPartyId" from="partyId"/></entity-find-one>
+            <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress"
+                in-map="[partyId: partyId]" out-map="context"/>
+            <set field="company" from="[
+                partyId: partyId,
+                name: org.organizationName,
+                email: emailAddress,
+                currencyId: pref.baseCurrencyUomId
+                ]"/>
+        </actions>
+    </service>
+
+</services>
