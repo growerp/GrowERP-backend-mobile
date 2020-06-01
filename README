@@ -1,6 +1,6 @@
 
 
-The easiest start is with docker:
+The easiest start is with docker:(adjust the docker-compose.yml file for domainnnames, usernames and passwords)
 
 in the docker directory:
 docker-compose -p moqui up -d
