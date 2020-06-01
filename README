@@ -29,7 +29,9 @@ it will show the screen to initial create admin user for the GrowERP mobile back
 runtime/mobile should be an external directory and not in the docker instance
 
 
-the mobile frontend can be downloaded with:
+the mobile frontends can be downloaded here iwth git hub: 
+growerp branch ecommerce: https://github.com/growerp/growerp/ecommerce
+growerp-mobile: https://github.com/growerp/growerp-backend-mobile
 git clone ssh://USERNAME@antwebsystems.com:55555/GrowERP-Mobile branch: restaurant
 
 
