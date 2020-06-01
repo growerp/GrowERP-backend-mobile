@@ -1,37 +1,28 @@
 
-How to get started with the GrowERP mobile backend?
 
-execute the following script file to load standard Moqui and 
-our specific component mobile backend.
+The easiest start is with docker:
 
-1. Clone the Moqui.
+in the docker directory:
+docker-compose -p moqui up -d
 
-	$ git clone https://github.com/moqui/moqui-framework.git moqui && cd moqui
+will create all instances required, taking the images from hub.docker.com
 
-2. Copy myaddons.xml from GrowERP-backend-mobile repository to the moqui dir.
+to run locally:
+git clone https://github.com/growerp/moqui-framework.git moqui && cd moqui
+./gradlew getRuntime
+git clone https://github.com/growerp/GrowERP-Mobile.git runtime/component/backend
+rm -rf runtime/backend/templateWebsite
+git clone https://github.com/growerp/PopCommerce.git runtime/component/PopCommerce
+git clone https://github.com/growerp/mantle-udm.git runtime/component/mantle-udm
+git clone https://github.com/growerp/mantle-usl.git runtime/component/mantle-usl
+git clone https://github.com/growerp/SimpleScreens.git runtime/component/SimpleScreens
+git clone https://github.com/growerp/moqui-fop.git runtime/component/moqui-fop
+./gradlew load
+java -jar moqui.war
+browser: http://localhost:8080 
 
-	$ git archive --remote=ssh://awsadmin@www.antwebsystems.com:55555/GrowERP-backend-mobile.git HEAD myaddons.xml | tar -x
-
-3. Get the "GrowERP-backend-mobile" component and its dependencies.
-
-	$ ./gradlew getComponent -Pcomponent=GrowERP-backend-mobile
-
-4. Build and Load seed data.
-
-	$ ./gradlew build
-	$ java -jar moqui.war load types=seed,seed-initial
-	$ java -jar moqui.war
-
-5. Go to the browser for local (URL : http:localhost:8080), 
-it will show the screen to initial create admin user for the GrowERP mobile backejava -jar moqui.warnd.
-
-
-runtime/mobile should be an external directory and not in the docker instance
-
-
-the mobile frontends can be downloaded here iwth git hub: 
-growerp branch ecommerce: https://github.com/growerp/growerp/ecommerce
-growerp-mobile: https://github.com/growerp/growerp-backend-mobile
-git clone ssh://USERNAME@antwebsystems.com:55555/GrowERP-Mobile branch: restaurant
-
-
+the mobile frontends can be downloaded here: 
+--------------------------------------------
+flutter: growerp branch ecommerce: https://github.com/growerp/growerp/ecommerce
+flutter: growerp branch hotel: https://github.com/growerp/growerp/hotel
+NativescriptVue: https://github.com/growerp/GrowERP-Mobile
