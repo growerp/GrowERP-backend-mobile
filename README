@@ -19,10 +19,10 @@ git clone https://github.com/growerp/SimpleScreens.git runtime/component/SimpleS
 git clone https://github.com/growerp/moqui-fop.git runtime/component/moqui-fop
 ./gradlew load
 java -jar moqui.war
-browser: http://localhost:8080 
+browser: http://localhost:8080/vapps 
 
 the mobile frontends can be downloaded here: 
 --------------------------------------------
-flutter: growerp branch ecommerce: https://github.com/growerp/growerp/ecommerce
-flutter: growerp branch hotel: https://github.com/growerp/growerp/hotel
-NativescriptVue: https://github.com/growerp/GrowERP-Mobile
+ecommerce flutter: growerp branch ecommerce: https://github.com/growerp/growerp/ecommerce
+hotel flutter: growerp branch hotel: https://github.com/growerp/growerp/hotel
+restaurant NativescriptVue: https://github.com/growerp/GrowERP-Mobile
