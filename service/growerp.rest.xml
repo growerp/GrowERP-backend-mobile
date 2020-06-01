@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/rest-api-2.1.xsd"
         name="growerp" displayName="GrowERP REST API" version="1.0.0" description="Services for GrowERP mobile apps">
-    <!-- flutter REST interface based on the model directory witin the application -->
 
+
+    <!-- flutter versioned REST interface synced with the model directory within the application -->
     <resource name="100">
         <!-- general -->
         <resource name="CurrencyList" require-authentication="anonymous-all">
@@ -14,8 +15,11 @@
         <resource name="Password" require-authentication="anonymous-all">
             <method type="put"><service name="growerp.100.GeneralServices100.update#Password"/></method></resource>
         <resource name="UserAndCompany" require-authentication="anonymous-all">
-            <method type="post"><service name="growerp.100.GeneralServices100.register#UserAndCompany"/></method></resource>
-    </resource>
+            <method type="post"><service name="growerp.100.PartyServices100.register#UserAndCompany"/></method>
+            <method type="get"><service name="growerp.100.PartyServices100.get#UserAndCompany"/></method></resource>
+        <resource name="CategoriesAndProducts" require-authentication="anonymous-all">
+            <method type="get"><service name="growerp.100.CatgProdServices100.get#CategoriesAndProducts"/></method></resource>
+        </resource>
 
     <!-- nativescript REST interface -->
     <!-- Login and Register, security -->

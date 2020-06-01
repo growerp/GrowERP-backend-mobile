@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 This software is in the public domain under CC0 1.0 Universal plus a 
 Grant of Patent License.
@@ -15,19 +15,35 @@ along with this software (see the LICENSE.md file). If not, see
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
     <service verb="get" noun="RelatedCompanyPartyId">
-        <in-parameters><parameter name="userPartyId" default="ec.user.userAccount.partyId"/></in-parameters>
-        <out-parameters><parameter name="ownerPartyId"/><parameter name="partyId"/></out-parameters>
+        <in-parameters>
+            <parameter name="userPartyId" />
+        </in-parameters>
+        <out-parameters>
+            <parameter name="ownerPartyId" />
+            <parameter name="partyId" />
+        </out-parameters>
         <actions>
+            <if condition="!userPartyId">
+                <if condition="ec.user &amp;&amp; ec.user.userAccount &amp;&amp; ec.user.userAccount.partyId">
+                    <set field="userPartyId" from="ec.user.userAccount.partyId" />
+                    <else>
+                        <return message="User partyId not found or not logged in for getting company..." error="true" />
+                    </else>
+                </if>
+            </if>
             <entity-find entity-name="mantle.party.PartyRelationship" list="relList">
-                <date-filter/>
-                <econdition field-name="fromPartyId" from="userPartyId"/>
-                <econdition field-name="toRoleTypeId" value="OrgInternal"/>
-                <select-field field-name="toPartyId"/>
+                <date-filter />
+                <econdition field-name="fromPartyId" from="userPartyId" />
+                <econdition field-name="toRoleTypeId" value="OrgInternal" />
+                <select-field field-name="toPartyId" />
             </entity-find>
             <if condition="relList">
-                <set field="ownerPartyId" from="relList[0].toPartyId"/>
-                <set field="partyId" from="ownerPartyId"/>
-            <else><return message="User ${userPartyId} has no related company!!" error="true"/></else></if>
+                <set field="ownerPartyId" from="relList[0].toPartyId" />
+                <set field="partyId" from="ownerPartyId" />
+                <else>
+                    <return message="User ${userPartyId} has no related company!!" error="true" />
+                </else>
+            </if>
         </actions>
     </service>
 </services>

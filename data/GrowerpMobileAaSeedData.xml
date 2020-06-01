@@ -55,7 +55,7 @@ along with this software (see the LICENSE.md file). If not, see
     <moqui.basic.Enumeration enumId="RqtFAQ" description="Frequently Asked Questions" enumTypeId="RequestType"/>
     <moqui.basic.Enumeration enumId="RqtQUEST" description="Question or request" enumTypeId="RequestType"/>
 
-    <!-- define a top level category for a restaurant menu -->
+    <!-- define a top level category type for a restaurant menu -->
     <moqui.basic.Enumeration enumId="PctRestaurant" description="Menu for Restauarant" enumTypeId="ProductCategoryType"/>
 
     <!-- additional roles -->

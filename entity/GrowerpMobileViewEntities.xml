@@ -264,6 +264,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="productThruDate" field="salesDiscontinuationDate" entity-alias="PROD"/>
         <alias name="productPriceId" entity-alias="PRICE"/>
         <alias name="price" entity-alias="PRICE"/>
+        <alias name="priceUomId" entity-alias="PRICE"/>
         <alias name="priceTypeEnumId" entity-alias="PRICE"/>
         <alias name="priceFromDate" entity-alias="PRICE" field="fromDate"/>
         <alias name="priceThruDate" entity-alias="PRICE" field="thruDate"/>
@@ -383,6 +384,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="partyId" entity-alias="PARTY"/>
         <alias name="organizationName" entity-alias="ORG"/>
         <alias name="baseCurrencyUomId" entity-alias="PP"/>
+        <alias name="partyClassificationId" entity-alias="CLASS"/>
         <alias name="description" entity-alias="CLASS"/>
     </view-entity>
     <view-entity entity-name="ProductCategoryParentsAndChild" package="growerp.mobile.party.category">

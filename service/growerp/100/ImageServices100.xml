@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This software is in the public domain under CC0 1.0 Universal plus a
+Grant of Patent License.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this software to the
+public domain worldwide. This software is distributed without any
+warranty.
+
+You should have received a copy of the CC0 Public Domaicrn Dedication
+along with this software (see the LICENSE.md file). If not, see
+<http://creativecommons.org/publicdomain/zero/1.0/>.
+-->
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+
+    <service verb="download" noun="Image">
+        <description>
+            download an image connected to party (company or user) or product
+            providing just a size and type or when type = 'product', a productId
+            type: company , user , product
+        </description>
+        <in-parameters>
+            <parameter name="ownerPartyId"/><!-- optional for free access -->
+            <parameter name="size" required="true"/>
+            <parameter name="type" required="true"/>
+            <parameter name="id" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="imageFile" default-value=""/>
+        </out-parameters>
+        <actions>
+            <service-call name="growerp.100.ImageServices100.get#ItemInfo" in-map="context" out-map="context"/>
+            <if condition="size != 'small' &amp;&amp; size != 'medium'">
+                <return error="true"
+                    message="imageDownload parameter error, size = ${size} valid values: small, medium"/>
+            </if>
+            <if condition="companyPartyId">
+                <if condition="size == 'small'">
+                    <set field="partyContentTypeEnumId" value="PcntLogoThumbImage"/></if>
+                <if condition="size == 'medium'">
+                    <set field="partyContentTypeEnumId" value="PcntLogoImage"/></if></if>
+            <if condition="partyId">
+                <if condition="size == 'small'">
+                    <set field="partyContentTypeEnumId" value="PcntFaceThumbImage"/></if>
+                <if condition="size == 'medium'">
+                    <set field="partyContentTypeEnumId" value="PcntFaceImage"/></if></if>
+            <if condition="workEffortId">
+                <if condition="size == 'small'">
+                    <set field="contentTypeEnumId" value="WectImageSmall"/></if>
+                <if condition="size == 'medium'">
+                    <set field="contentTypeEnumId" value="WectImageMedium"/></if></if>
+            <if condition="productId">
+                <if condition="size == 'small'">
+                    <set field="productContentTypeEnumId" value="PcntImageSmall"/></if>
+                <if condition="size == 'medium'">
+                    <set field="productContentTypeEnumId" value="PcntImageMedium"/></if>
+                <entity-find entity-name="mantle.product.ProductContent" list="productContents">
+                    <econdition field-name="productId"/><econdition field-name="productContentTypeEnumId"/>
+                        <date-filter/></entity-find>
+                <if condition="productContents &amp;&amp; productContents[0].contentLocation">
+                    <set field="contentLocation" from="productContents[0].contentLocation"/></if></if>
+            <if condition="productCategoryId">
+                <if condition="size == 'small'">
+                    <set field="categoryContentTypeEnumId" value="PcctImageThumbNail"/></if>
+                <if condition="size == 'medium'">
+                    <set field="categoryContentTypeEnumId" value="PcctImageMedium"/></if>
+                <entity-find entity-name="mantle.product.category.ProductCategoryContent" list="productCategoryContents">
+                    <econdition field-name="productCategoryId"/><econdition field-name="categoryContentTypeEnumId"/>
+                    <date-filter/></entity-find>
+                <if condition="productCategoryContents &amp;&amp; productCategoryContents[0].contentLocation">
+                    <set field="contentLocation" from="productCategoryContents[0].contentLocation"/></if></if>
+            <if condition="companyPartyId || partyId"><!-- download for company or user -->
+                <if condition="companyPartyId"><set field="partyId" from="companyPartyId"/></if>
+                <entity-find entity-name="mantle.party.PartyContent" list="parties" cache="true">
+                    <econdition field-name="partyId"/><econdition field-name="partyContentTypeEnumId"/>
+                    <order-by field-name="-contentDate"/> </entity-find>
+                <if condition="parties">
+                    <set field="contentLocation" from="parties[0].contentLocation"/></if></if>
+            <if condition="workEffortId">
+                <entity-find entity-name="mantle.work.effort.WorkEffortContent" list="workEfforts" cache="true">
+                    <econdition field-name="workEffortId"/><econdition field-name="contentTypeEnumId"/>
+                    <order-by field-name="-contentDate"/> </entity-find>
+                <if condition="workEfforts">
+                    <set field="contentLocation" from="workEfforts[0].contentLocation"/></if></if>
+            <if condition="accommodationAreaId">
+                <if condition="size == 'small'">
+                    <set field="accommodationAreaContentTypeEnumId" value="AactImageThumbNail"/></if>
+                <if condition="size == 'medium'">
+                    <set field="accommodationAreaContentTypeEnumId" value="AactImageMedium"/></if>
+                <entity-find entity-name="growerp.mobile.location.AccommodationAreaContent" list="areas">
+                    <econdition field-name="accommodationAreaId"/><econdition field-name="accommodationAreaContentTypeEnumId"/>
+                    <date-filter/></entity-find>
+                <if condition="areas &amp;&amp; areas[0].contentLocation">
+                    <set field="contentLocation" from="areas[0].contentLocation"/></if></if>
+            <if condition="preparationAreaId">
+                <if condition="size == 'small'">
+                    <set field="preparationAreaContentTypeEnumId" value="PactImageThumbNail"/></if>
+                <if condition="size == 'medium'">
+                    <set field="preparationAreaContentTypeEnumId" value="PactImageMedium"/></if>
+                <entity-find entity-name="growerp.mobile.location.PreparationAreaContent" list="preps">
+                    <econdition field-name="preparationAreaId"/><econdition field-name="preparationAreaContentTypeEnumId"/>
+                    <date-filter/></entity-find>
+                <if condition="preps &amp;&amp; preps[0].contentLocation">
+                    <set field="contentLocation" from="preps[0].contentLocation"/></if></if>
+            <if condition="contentLocation">
+                <set field="resourceReference" from="ec.resource.getLocationReference(contentLocation)"/>
+                <if condition="!resourceReference == null || !resourceReference.getExists()">
+                    <log level="error" message="Could not find resource at [${contentLocation}]!!!!!!!!!!!!!!!! should always be there!!!!!!"/>
+                    <set field="imageFile" value="~/assets/images/addImage.png"/><!-- service should with local image.. -->
+                <else>
+                    <set field="inputStream" from="resourceReference.openStream()"/>
+                    <set field="docBytes" from="org.apache.commons.io.IOUtils.toByteArray(inputStream)"/>
+                    <set field="imageFile" from="'data:image/png;base64,' + org.apache.commons.codec.binary.Base64.encodeBase64String(docBytes)"/>
+                    </else></if>
+            <else>
+                <set field="imageFile" value="~/assets/images/addImage.png"/><!-- service should with local image.. -->
+                </else></if>
+        </actions>
+    </service>
+
+    <service verb="get" noun="ItemInfo"><!-- local service -->
+        <description>
+            check security access(=true) to a party or product
+        </description>
+        <in-parameters>
+            <parameter name="ownerPartyId"/>
+            <parameter name="type"/>
+            <parameter name="id"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="productId"/>
+            <parameter name="productCategoryId"/>
+            <parameter name="partyId"/>
+            <parameter name="accommodationAreaId"/>
+            <parameter name="preparationAreaId"/>
+            <parameter name="companyPartyId"/><!-- requested company -->
+            <parameter name="ownerPartyId"/><!-- related company -->
+            <parameter name="workEffortId"/>
+        </out-parameters>
+        <actions>
+            <if condition="!ownerPartyId">
+                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
+                <if condition="type == 'company'">
+                    <set field="companyPartyId" from="relCompany.ownerPartyId"/>
+                    <set field="ownerPartyId" from="relCompany.ownerPartyId"/>
+                </if>
+                <if condition="type == 'user'">
+                    <set field="partyId" from="id"/>
+                    <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId"
+                        in-map="[userPartyId: partyId]" out-map="check"/>
+                    <if condition="check.ownerPartyId != relCompany.ownerPartyId">
+                            <return error="true" message="can only access persons within your own company"/>
+                    </if>
+                </if>
+                <else>
+                    <set field="companyPartyId" from="ownerPartyId"/>
+                </else>
+            </if>
+            <!-- following record have ownerPartyId in their records and will be searched on that -->
+            <if condition="type == 'product'"><set field="productId" from="id"/></if>
+            <if condition="type == 'category'"><set field="productCategoryId" from="id"/></if>
+            <if condition="type == 'area'"><set field="accommodationAreaId" from="id"/></if>
+            <if condition="type == 'prep'"><set field="preparationAreaId" from="id"/></if>
+            <if condition="type == 'task'"><set field="workEffortId" from="id"/></if>
+        </actions>
+    </service>
+
+</services>
