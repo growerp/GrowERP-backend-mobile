@@ -73,18 +73,18 @@ services:
      - entity_ds_port=5432
      - entity_ds_database=prod-growerpbackend-mobile
      - entity_ds_schema=public
-     - entity_ds_user=growerpprod
-     - entity_ds_password=aws456
+     - entity_ds_user=CHANGEME
+     - entity_ds_password=CHANGEME
      - entity_ds_crypt_pass='MoquiDefaultPassword:CHANGEME'
       # configuration for ElasticFacade.ElasticClient, make sure moqui-elasticsearch is NOT included in the Moqui build
      - elasticsearch_url=http://elasticsearch:9200
      # CHANGE ME - note that VIRTUAL_HOST is for nginx-proxy so it picks up this container as one it should reverse proxy
      # this can be a comma separate list of hosts like 'example.com,www.example.com'
-     - VIRTUAL_HOST=mobile.growerp.com, www.growerp.com, growerp.com
-     - LETSENCRYPT_HOST=mobile.growerp.com, www.growerp.com
+     - VIRTUAL_HOST=CHANGEME.com
+     - LETSENCRYPT_HOST=CHANGEME.com
      # moqui will accept traffic from other hosts but these are the values used for URL writing when specified:
      - webapp_allow_origins=*
-     - webapp_http_host=mobile.growerp.com
+     - webapp_http_host=CHANGEME.com
      - webapp_http_port=80
      - webapp_https_port=443
      - webapp_https_enabled=true
@@ -105,41 +105,9 @@ services:
     environment:
      - POSTGRES_DB=prod-growerpbackend-mobile
      - POSTGRES_DB_SCHEMA=public
-     - POSTGRES_USER=growerpprod
-     - POSTGRES_PASSWORD=aws456
+     - POSTGRES_USER=CHANGEME
+     - POSTGRES_PASSWORD=CHANGEME
      # PGDATA, POSTGRES_INITDB_ARGS
-
-  antwebsystemsvue:
-    container_name: "antwebsystemsvue"
-    image: "growerpsupport/antwebsystemsvue"
-    mem_limit: 200m
-    restart: unless-stopped
-    expose:
-      - 80
-    links:
-      - moqui-server
-    environment:
-     - LETSENCRYPT_HOST=www.antwebsystems.com
-     - VIRTUAL_HOST=www.antwebsystems.com,antwebsystems.com
-
-  nagios:
-    container_name: "nagios"
-    image: "jasonrivers/nagios:latest"
-    mem_limit: 200m
-    restart: unless-stopped
-    expose:
-      - 8080
-    volumes:
-      - ./nagios/etc/servers:/opt/nagios/etc/servers
-      - ./nagios/etc/cgi.cfg:/opt/nagios/etc/cgi.cfg
-      - ./nagios/etc/nagios.cfg:/opt/nagios/etc/nagios.cfg
-      - ./nagios/etc/resource.cfg:/opt/nagios/etc/resource.cfg
-      - ./nagios/etc/htpasswd.users:/opt/nagios/etc/htpasswd.users
-      - ./nagios/plugins:/usr/lib/nagios/plugins
-      - ./nagios/libexec:/usr/local/nagios/libexec  
-    environment:
-     - LETSENCRYPT_HOST=nagios.antwebsystems.com
-     - VIRTUAL_HOST=nagios.antwebsystems.com
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.4.2
