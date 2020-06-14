@@ -152,6 +152,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="ORHD" name="placedDate"/>
         <alias entity-alias="ORHD" name="grandTotal"/>
         <alias entity-alias="ORHD" name="statusId"/>
+        <alias entity-alias="ORHD" name="currencyUomId"/>
         <alias entity-alias="ORPART" name="vendorPartyId"/>
         <alias entity-alias="ORIT" name="orderItemSeqId"/>
         <alias entity-alias="ORIT" name="productId"/>
