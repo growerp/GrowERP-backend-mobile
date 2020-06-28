@@ -391,7 +391,10 @@ along with this software (see the LICENSE.md file). If not, see
     <view-entity entity-name="ProductCategoryParentsAndChild" package="growerp.mobile.party.category">
         <member-entity entity-alias="PARENT" entity-name="mantle.product.category.ProductCategory">
             <entity-condition>
-            <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/>
+                <econditions combine="or">
+                    <econdition field-name="productCategoryTypeEnumId" value="PctRestaurant"/><!-- used in nativescript -->
+                    <econdition field-name="productCategoryTypeEnumId" value="PctRoot"/>
+                </econditions>
             </entity-condition>
         </member-entity>
         <member-entity entity-alias="ROLLUP" entity-name="mantle.product.category.ProductCategoryRollup" join-from-alias="PARENT">
@@ -399,7 +402,7 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-condition><date-filter/></entity-condition></member-entity>
         <member-entity entity-alias="CHILD" entity-name="mantle.product.category.ProductCategory" join-from-alias="ROLLUP">
             <key-map field-name="productCategoryId"/></member-entity>
-        <member-entity entity-alias="PREP" entity-name="growerp.mobile.location.PreparationArea" join-from-alias="CHILD">
+        <member-entity entity-alias="PREP" entity-name="growerp.mobile.location.PreparationArea" join-from-alias="CHILD" join-optional="true">
             <key-map field-name="preparationAreaId"/>
             <entity-condition><date-filter/></entity-condition></member-entity>
         <alias name="parentProductCategoryId" entity-alias="ROLLUP"/>

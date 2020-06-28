@@ -56,30 +56,22 @@ along with this software (see the LICENSE.md file). If not, see
                     <set field="companyPartyId" from="company.partyId" />
                     <service-call name="mantle.party.ContactServices.create#EmailAddress" out-map="emailOut" in-map="[emailAddress:companyEmailAddress, partyId:companyPartyId, contactMechPurposeId:'EmailPrimary']" />
                     <service-call name="create#mantle.ledger.config.PartyAcctgPreference" in-map="[organizationPartyId: companyPartyId, baseCurrencyUomId: currencyUomId]" />
-                    <!-- register as a restaurant App user -->
                     <entity-find-one entity-name="mantle.party.PartyClassification" value-field="partyClassification">
                         <field-map field-name="partyClassificationId" />
                     </entity-find-one>
                     <service-call name="create#mantle.party.PartyClassificationAppl" in-map="[partyId: companyPartyId, partyClassificationId: partyClassificationId]" />
                     <!-- create productStore -->
-                    <set field="productCategoryTypeEnumId" value="PctCatalog" /> <!-- Default product category type -->
-                    <if condition="partyClassificationId == 'AppRestaurant'">
-                        <!--TODO: change this for restauarnt app , in app too? -->
-                        <set field="productCategoryTypeEnumId" value="PctRestaurant" />
-                        <set field="categoryName" value="Restaurant company root category" />
-                        <else>
-                            <set field="productCategoryTypeEnumId" value="PctCatalog" />
-                        </else>
-                    </if>
                     <service-call name="create#mantle.product.store.ProductStore" out-map="context" in-map="[organizationPartyId: companyPartyId,
                             requireInventory: 'N',
                             reservationOrderEnumId:'AsResAutoNone',
                             defaultCurrencyUomId: currencyUomId]" />
                     <!-- create root category -->
                     <set field="fromDate" from="ec.user.nowTimestamp" />
-                    <service-call name="create#mantle.product.category.ProductCategory" out-map="rootCat" in-map="[ownerPartyId: companyPartyId, productCategoryTypeEnumId: productCategoryTypeEnumId,
-                            categoryName: 'Root category for: ${partyClassification.description}']" />
-                    <service-call name="create#mantle.product.store.ProductStoreCategory" in-map="[productCategoryId: rootCat.productCategoryId, storeCategoryTypeEnumId: 'PsctBrowseRoot',
+                    <service-call name="create#mantle.product.category.ProductCategory" out-map="rootCat" 
+                        in-map="[ownerPartyId: companyPartyId, productCategoryTypeEnumId: 'PctRoot',
+                            categoryName: 'Root category for: ' + partyClassification.description]" />
+                    <service-call name="create#mantle.product.store.ProductStoreCategory" 
+                        in-map="[productCategoryId: rootCat.productCategoryId, storeCategoryTypeEnumId: 'PsctBrowseRoot',
                             productStoreId: context.productStoreId, fromDate: fromDate]" />
                 </if>
                 <if condition="groupDescription">
@@ -129,11 +121,45 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="currencyUomId"/>
             <parameter name="partyClassificationId" required="true" />
             <parameter name="environment" />
-            <parameter name="transData" type="List" /> <!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
+            <parameter name="transData" type="List" default="['kitchen','food','macaroni','bar','inside','garden','drinks','cola']"/>
         </in-parameters>
         <actions>
-            <if condition="partyClassificationId == 'AppHotel'">
-                <log message="TODO: ============create hotel data here...." />
+            <log message="============data: ${transData}"/>
+            <if condition="partyClassificationId == 'AppEcommerceShop'">
+                <service-call name="growerp.100.CatgProdServices100.create#ProductCategory" in-map="[
+                    categoryName: transData[1], preparationAreaId: preparationAreaId]" out-map="context" /> <!-- food -->
+                <service-call name="create#ProductCategoryContent" in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/foodSmall.png']" />
+                <service-call name="create#ProductCategoryContent" in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/foodMedium.png']" />
+                <service-call name="growerp.mobile.MobileCatgProdServices.create#Product" in-map="[
+                    productName: transData[2], productCategoryId: productCategoryId, price: '10.00',
+                    currencyId: currencyUomId]" out-map="context" /> <!-- macaroni-->
+                <service-call name="create#ProductContent" in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageSmall',
+                    contentLocation: 'dbresource://GrowERP/images/macaroniSmall.png']" />
+                <service-call name="create#ProductContent" in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/macaroniMedium.png']" />
+                <service-call name="growerp.100.CatgProdServices100.create#ProductCategory" in-map="[
+                    categoryName: transData[6]]" out-map="context" /> <!-- drinks -->
+                <service-call name="create#ProductCategoryContent" in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
+                    contentLocation: 'dbresource://GrowERP/images/drinksSmall.png']" />
+                <service-call name="create#ProductCategoryContent" in-map="[
+                    productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/drinksMedium.png']" />
+                <service-call name="growerp.mobile.MobileCatgProdServices.create#Product" in-map="[
+                    productName: transData[7], productCategoryId: productCategoryId, price: '15.00', 
+                    currencyId: currencyUomId]" out-map="context" /> <!-- macaroni-->
+                <service-call name="create#ProductContent" in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageSmall',
+                    contentLocation: 'dbresource://GrowERP/images/colaSmall.png']" />
+                <service-call name="create#ProductContent" in-map="[
+                    productId: productId, productContentTypeEnumId: 'PcntImageMedium',
+                    contentLocation: 'dbresource://GrowERP/images/colaMedium.png']" />
             </if>
             <if condition="partyClassificationId == 'AppRestaurant'">
                 <!-- billing -->
@@ -152,7 +178,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="create#PreparationAreaContent" in-map="[
                     preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageMedium',
                     contentLocation: 'dbresource://GrowERP/images/kitchenMedium.png']" />
-                <service-call name="growerp.mobile.MobileCatgProdServices.create#ProductCategory" in-map="[
+                <service-call name="growerp.100.MobileCatgProdServices100.create#ProductCategory" in-map="[
                     categoryName: transData[1], preparationAreaId: preparationAreaId]" out-map="context" /> <!-- food -->
                 <service-call name="create#ProductCategoryContent" in-map="[
                     productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
@@ -177,7 +203,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <service-call name="create#PreparationAreaContent" in-map="[
                     preparationAreaId: preparationAreaId, preparationAreaContentTypeEnumId: 'PactImageMedium',
                     contentLocation: 'dbresource://GrowERP/images/barMedium.png']" />
-                <service-call name="growerp.mobile.MobileCatgProdServices.create#ProductCategory" in-map="[
+                <service-call name="growerp.100.CatgProdServices100.create#ProductCategory" in-map="[
                     categoryName: transData[6], preparationAreaId: preparationAreaId]" out-map="context" /> <!-- drinks -->
                 <service-call name="create#ProductCategoryContent" in-map="[
                     productCategoryId: productCategoryId, categoryContentTypeEnumId: 'PcctImageThumbNail',
