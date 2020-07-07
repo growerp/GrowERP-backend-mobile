@@ -260,6 +260,7 @@ along with this software (see the LICENSE.md file). If not, see
         <alias name="thruDate" entity-alias="MEM"/>
         <alias name="productId" entity-alias="PROD"/>
         <alias name="productName" entity-alias="PROD"/>
+        <alias name="description" entity-alias="PROD"/>
         <alias name="ownerPartyId" entity-alias="PROD"/>
         <alias name="productFromDate" field="salesIntroductionDate" entity-alias="PROD"/>
         <alias name="productThruDate" field="salesDiscontinuationDate" entity-alias="PROD"/>

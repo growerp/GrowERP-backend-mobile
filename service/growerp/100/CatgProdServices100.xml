@@ -23,17 +23,35 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="companyPartyId"/>
         </in-parameters>
         <out-parameters>
+            <parameter name="company" type="map"/>
             <parameter name="categories" type="List"/>
             <parameter name="products" type="List"/>
         </out-parameters>
         <actions>
-            <log message="==========catprod============companyPartyId: ${companyPartyId}"/>
             <if condition="!companyPartyId">
                 <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
                 <else>
                     <set field="ownerPartyId" from="companyPartyId"/>
                 </else></if>
+            <!-- company -->
+            <entity-find-one entity-name="growerp.mobile.party.CompanyPreferenceAndClassification" 
+                value-field="org">
+                <field-map field-name="partyId" from="ownerPartyId"/></entity-find-one>
+            <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress" 
+                in-map="[partyId: ownerPartyId]" out-map="context" />
+            <service-call name="growerp.100.ImageServices100.download#Image" 
+                in-map="[ownerPartyId: ownerPartyId, size: 'small', type: 'company', id: ownerPartyId]"
+                out-map="context" />
+            <set field="company" from="[
+                partyId: ownerPartyId,
+                name: org.organizationName,
+                classificationId: org.partyClassificationId,
+                classificationDescr: org.description,
+                email: emailAddress,
+                currencyId: org.baseCurrencyUomId,
+                image: imageFile]" />
 
+            <!-- categories -->
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="ownerPartyId"/>
                 <econdition field-name="productCategoryTypeEnumId" value="PctRoot"/></entity-find>
@@ -63,7 +81,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <script>categories.add(groupOut)</script>
             </iterate>
             <script>categories.sort{a, b -> a.categoryName.compareToIgnoreCase(b.categoryName) } </script>
-            <log message="=========categories retieved!(${categories?categories.size():0})"/>
 
             <!-- products -->
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
@@ -76,6 +93,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="productOut" from="[
                     productId: product.productId,
                     name: product.productName,
+                    name: product.productName,
+                    description: product.description,
                     price: product.price.toString(),
                     currencyId: product.priceUomId,
                     productCategoryId: product.productCategoryId,
@@ -84,8 +103,6 @@ along with this software (see the LICENSE.md file). If not, see
                 <script>products.add(productOut)</script>
             </iterate>
             <script>products.sort{a, b -> a.name.compareToIgnoreCase(b.name) } </script>
-
-            <log message="=========products retieved!(${products?products.size():0})"/>
         </actions>
     </service>
     <service verb="create" noun="ProductCategory">
