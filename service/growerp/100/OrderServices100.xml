@@ -33,7 +33,7 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="startDate">
                 <set field="tsDate" from="ec.l10n.parseTimestamp(ec.l10n.format(startDate, 'yyyy-MM-dd') + ' 23:59:59.999', 'yyyy-MM-dd HH:mm:ss.SSS')"/>
             </if>
-            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
+            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context" />
             <entity-find entity-name="OrderHeaderItemAccommodationParty" list="items">
                 <econdition field-name="vendorPartyId" from="ownerPartyId"/>
                 <econdition field-name="statusId" operator="in" from="status" ignore-if-empty="true"/>
@@ -118,7 +118,7 @@ along with this software (see the LICENSE.md file). If not, see
                 Object order = new JsonSlurper().parseText(orderJson)
             </script>
             <!-- check if productStore exist otherwise create -->
-            <service-call name="growerp.mobile.MobilePartyServices.get#Company" out-map="context"/>
+            <service-call name="growerp.100.PartyServices100.get#Company" out-map="context"/>
             <set field="currencyUomId" from="company.currency"/>
             <entity-find entity-name="mantle.product.store.ProductStore" list="productStores">
                 <econdition field-name="organizationPartyId" from="company.partyId"/></entity-find>

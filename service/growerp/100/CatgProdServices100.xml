@@ -28,29 +28,10 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="products" type="List"/>
         </out-parameters>
         <actions>
-            <if condition="!companyPartyId">
-                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context" />
-                <else>
-                    <set field="ownerPartyId" from="companyPartyId"/>
-                </else></if>
             <!-- company -->
-            <entity-find-one entity-name="growerp.mobile.party.CompanyPreferenceAndClassification" 
-                value-field="org">
-                <field-map field-name="partyId" from="ownerPartyId"/></entity-find-one>
-            <service-call name="mantle.party.ContactServices.get#PrimaryEmailAddress" 
-                in-map="[partyId: ownerPartyId]" out-map="context" />
-            <service-call name="growerp.100.ImageServices100.download#Image" 
-                in-map="[ownerPartyId: ownerPartyId, size: 'small', type: 'company', id: ownerPartyId]"
-                out-map="context" />
-            <set field="company" from="[
-                partyId: ownerPartyId,
-                name: org.organizationName,
-                classificationId: org.partyClassificationId,
-                classificationDescr: org.description,
-                email: emailAddress,
-                currencyId: org.baseCurrencyUomId,
-                image: imageFile]" />
-
+            <service-call name="growerp.100.PartyServices100.get#Company" 
+                in-map="[companyPartyId: companyPartyId]" out-map="context" />
+            <set field="ownerPartyId" from="company.partyId"/>
             <!-- categories -->
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="ownerPartyId"/>
@@ -85,7 +66,7 @@ along with this software (see the LICENSE.md file). If not, see
             <!-- products -->
             <entity-find entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" list="productList">
                 <econdition field-name="ownerPartyId"/><econdition field-name="productCategoryId" ignore-if-empty="true"/>
-                </entity-find>
+            </entity-find>
             <set field="products" from="[]"/>
             <iterate entry="product" list="productList">
                 <service-call name="growerp.100.ImageServices100.download#Image"
@@ -111,7 +92,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="preparationAreaId"/></in-parameters>
         <out-parameters><parameter name="productCategoryId"/></out-parameters>
         <actions>
-            <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context"/>
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="productCategoryTypeEnumId" value="PctRoot"/>
                 <econdition field-name="ownerPartyId"/></entity-find>

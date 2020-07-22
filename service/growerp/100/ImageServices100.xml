@@ -21,7 +21,6 @@ along with this software (see the LICENSE.md file). If not, see
             type: company , user , product
         </description>
         <in-parameters>
-            <parameter name="ownerPartyId"/><!-- optional for free access -->
             <parameter name="size" required="true"/>
             <parameter name="type" required="true"/>
             <parameter name="id" required="true"/>
@@ -124,7 +123,6 @@ along with this software (see the LICENSE.md file). If not, see
             check security access(=true) to a party or product
         </description>
         <in-parameters>
-            <parameter name="ownerPartyId"/>
             <parameter name="type"/>
             <parameter name="id"/>
         </in-parameters>
@@ -134,30 +132,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="partyId"/>
             <parameter name="accommodationAreaId"/>
             <parameter name="preparationAreaId"/>
-            <parameter name="companyPartyId"/><!-- requested company -->
-            <parameter name="ownerPartyId"/><!-- related company -->
             <parameter name="workEffortId"/>
         </out-parameters>
         <actions>
-            <if condition="!ownerPartyId">
-                <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId" out-map="relCompany"/>
-                <if condition="type == 'company'">
-                    <set field="companyPartyId" from="relCompany.ownerPartyId"/>
-                    <set field="ownerPartyId" from="relCompany.ownerPartyId"/>
-                </if>
-                <if condition="type == 'user'">
-                    <set field="partyId" from="id"/>
-                    <service-call name="growerp.mobile.MobilePartyServices.get#RelatedCompanyPartyId"
-                        in-map="[userPartyId: partyId]" out-map="check"/>
-                    <if condition="check.ownerPartyId != relCompany.ownerPartyId">
-                            <return error="true" message="can only access persons within your own company"/>
-                    </if>
-                </if>
-                <else>
-                    <set field="companyPartyId" from="ownerPartyId"/>
-                </else>
-            </if>
-            <!-- following record have ownerPartyId in their records and will be searched on that -->
             <if condition="type == 'product'"><set field="productId" from="id"/></if>
             <if condition="type == 'category'"><set field="productCategoryId" from="id"/></if>
             <if condition="type == 'area'"><set field="accommodationAreaId" from="id"/></if>

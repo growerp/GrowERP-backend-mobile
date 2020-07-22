@@ -14,7 +14,7 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
 
-    <service verb="get" noun="CurrencyList">
+    <service verb="get" noun="CurrencyList" authenticate="anonymous-all">
         <description>
             Get currency list for registration.
         </description>
@@ -34,7 +34,9 @@ along with this software (see the LICENSE.md file). If not, see
 
     <service verb="login" noun="User" authenticate="anonymous-all"><description>service to return and apikey if user/password ok, when not check for a reset password</description>
         <in-parameters>
-            <parameter name="username" required="true"/><parameter name="password" required="true"/>
+            <parameter name="companyPartyId"/>
+            <parameter name="username" required="true"/>
+            <parameter name="password" required="true"/>
         </in-parameters>
         <out-parameters>
             <parameter name="apiKey"/>
@@ -67,7 +69,8 @@ along with this software (see the LICENSE.md file). If not, see
             </if>
             <if condition="!passwordChange">
                 <script>ec.user.loginUser(username, password)</script>
-                <service-call name="growerp.100.PartyServices100.get#UserAndCompany" out-map="context"/>
+                <service-call name="growerp.100.PartyServices100.get#User" in-map="[userPartyId: userAccount.partyId]" out-map="context"/>
+                <service-call name="growerp.100.PartyServices100.get#Company" in-map="[companyPartyId: companyPartyId]" out-map="context"/>
                 <set field="apiKey" from="ec.user.getLoginKey()"/>
                 <set field="moquiSessionToken" from="ec.web.sessionToken"/>
             </if>

@@ -384,6 +384,7 @@ along with this software (see the LICENSE.md file). If not, see
         <member-entity entity-alias="CLASS" entity-name="mantle.party.PartyClassification" join-from-alias="CLASSAPPL">
             <key-map field-name="partyClassificationId"/></member-entity>
         <alias name="partyId" entity-alias="PARTY"/>
+        <alias name="disabled" entity-alias="PARTY"/>
         <alias name="organizationName" entity-alias="ORG"/>
         <alias name="baseCurrencyUomId" entity-alias="PP"/>
         <alias name="partyClassificationId" entity-alias="CLASS"/>
