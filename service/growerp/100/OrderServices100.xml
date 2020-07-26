@@ -56,6 +56,7 @@ along with this software (see the LICENSE.md file). If not, see
                     currencyId: lastItem.currencyUomId
                     placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
                     placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
+                    companyPartyId: ownerPartyId,
                     partyId: lastItem.partyId,
                     firstName: lastItem.firstName,
                     lastName: lastItem.lastName,
@@ -90,6 +91,7 @@ along with this software (see the LICENSE.md file). If not, see
                     currencyId: lastItem.currencyUomId
                     placedDate: ec.l10n.format(lastItem.placedDate,'dd-MM-yyyy'),
                     placedTime: ec.l10n.format(lastItem.placedDate,'hh:mm'),
+                    companyPartyId: ownerPartyId,
                     partyId: lastItem.partyId,
                     firstName: lastItem.firstName,
                     lastName: lastItem.lastName,
