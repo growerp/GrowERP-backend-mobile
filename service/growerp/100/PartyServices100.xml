@@ -77,8 +77,8 @@ along with this software (see the LICENSE.md file). If not, see
         <out-parameters>
             <parameter name="user" type="Map"/>
         </out-parameters>
-        <actions>
-            <if condition="ec.user.userAccount.partyId == userPartyId || ec.user.hasPermission('GROWERP_M_COMPADMIN')">
+        <actions><!-- need to be logged in -->
+            <if condition="ec.user?.userAccount?.partyId == userPartyId || ec.user?.hasPermission('GROWERP_M_COMPADMIN')">
                 <entity-find-one entity-name="mantle.party.Person" value-field="person">
                     <field-map field-name="partyId" from="userPartyId" />
                 </entity-find-one>
@@ -119,12 +119,7 @@ along with this software (see the LICENSE.md file). If not, see
                     locale: accounts?accounts[0].locale: null,
                     externalId: party?party.externalId: null,
                     image: imageFile]" />
-
-                <else>
-                    <return error="true" message="User ${ec.user.userAccount.partyId} does not have the GROWERP_M_COMPADMIN permission"/>
-                </else>
             </if>
-
         </actions>
     </service>
 
@@ -205,7 +200,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <!-- set company in as ACTIVE_ORGANIZATION UserPreference to be sure only this company can be looked at-->
                 <service-call name="create#moqui.security.UserPreference" in-map="[userId: userAccount.userId, preferenceKey: 'ACTIVE_ORGANIZATION', preferenceValue: companyPartyId]" />
                 <!-- setup the organization -->
-                <service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo" />
+                <!--service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo" /-->
                 <service-call name="org.moqui.impl.EmailServices.send#EmailTemplate" async="true">
                     <field-map field-name="emailTemplateId" value="WELCOME" />
                     <field-map field-name="toAddresses" from="emailAddress" />
@@ -214,16 +209,14 @@ along with this software (see the LICENSE.md file). If not, see
                 <if condition="company">
                     <!-- initial company/user needs login for loading default data (create#user calls this service)-->
                     <!-- add the user as admin -->
-                    <service-call name="create#moqui.security.UserGroupMember" in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]" />
                     <script>ec.user.loginUser(username, newPassword)</script>
+                    <service-call name="create#moqui.security.UserGroupMember" in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]" />
                     <service-call name="growerp.100.PartyServices100.load#DefaultData" in-map="context" />
                     <else>
-                        <!-- no need for logging when adding employees -->
-                        <!-- add the user as an employee(or what is provided) to a security group -->
                         <service-call name="create#moqui.security.UserGroupMember" in-map="[userGroupId: userGroupId, userId: userAccount.userId]" />
+                        <script>ec.user.loginUser(username, newPassword)</script>
                     </else>
                 </if>
-                <set field="user" from="[firstName: firstName, lastName: lastName, name: emailAddress, email: emailAddress]" />
                 <service-call name="growerp.100.PartyServices100.get#User" in-map="[userPartyId: userAccount.partyId]" out-map="context"/>
                 <service-call name="growerp.100.PartyServices100.get#Company" in-map="[companyPartyId: companyPartyId]" out-map="context"/>
             </if>
