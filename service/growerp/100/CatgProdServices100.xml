@@ -28,11 +28,7 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="products" type="List"/>
         </out-parameters>
         <actions>
-            <!-- company -->
-            <log message="=====11========companypart: ${companyPartyId}"/>
-            <service-call name="growerp.100.PartyServices100.get#Company" 
-                in-map="[companyPartyId: companyPartyId]" out-map="context" />
-            <set field="ownerPartyId" from="company.partyId"/>
+            <set field="ownerPartyId" from="companyPartyId"/>
             <!-- categories -->
             <entity-find entity-name="mantle.product.category.ProductCategory" list="rootList">
                 <econdition field-name="ownerPartyId"/>
