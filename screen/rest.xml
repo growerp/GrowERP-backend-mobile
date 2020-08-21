@@ -13,12 +13,12 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
-        require-authentication="false" track-artifact-hit="false" default-menu-include="false">
+        track-artifact-hit="false" default-menu-include="false">
 
-        <transition name="testing" method="get" begin-transaction="false">
-            <service-call name="growerp.100.GeneralServices100.getCurrencyList"
-            web-send-json-response="true"/>
+        <transition name="uploadImage" method="post">
+            <service-call name="growerp.100.ImageServices100.upload#Image"/>
             <default-response type="none"/>
         </transition>
+
         <widgets><!-- this should never be viewed... --></widgets>
 </screen>

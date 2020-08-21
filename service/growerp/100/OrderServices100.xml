@@ -48,8 +48,9 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="orderItems" from="[]"/>
             <iterate entry="item" list="items">
                 <if condition="lastItem &amp;&amp; lastItem.orderId != item.orderId">
-                    <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                        in-map="[size: 'small', type: 'area', id: lastItem.accommodationAreaId]" out-map="context"/>
+                    <service-call name="growerp.100.ImageServices100.download#Image"
+                        in-map="[companyPartyId: companyPartyId, size: 'small', type: 'area', id: lastItem.accommodationAreaId]"
+                        out-map="context"/>
                     <set field="order" from="[
                     orderId: lastItem.orderId,
                     orderStatusId: lastItem.statusId,
@@ -70,7 +71,7 @@ along with this software (see the LICENSE.md file). If not, see
                     <script>ordersAndItems.add(order)</script>
                     <set field="orderItems" from="[]"/>
                 </if>
-                <service-call name="growerp.mobile.MobileRestServices.download#Image"
+                <service-call name="growerp.100.ImageServices100.download#Image"
                     in-map="[size: 'small', type: 'product', id: item.productId]" out-map="context"/>
                 <set field="orderItem" from="[
                     orderItemSeqId: item.orderItemSeqId,
@@ -83,8 +84,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="lastItem" from="item"/>
             </iterate>
             <if condition="lastItem">
-                <service-call name="growerp.mobile.MobileRestServices.download#Image"
-                    in-map="[size: 'small', type: 'area', id: lastItem.accommodationAreaId]" out-map="context"/>
+                <service-call name="growerp.100.ImageServices100.download#Image"
+                    in-map="[companyPartyId: companyPartyId, size: 'small', type: 'area', id: lastItem.accommodationAreaId]" out-map="context"/>
                 <set field="order" from="[
                     orderId: lastItem.orderId,
                     orderStatusId: lastItem.statusId,

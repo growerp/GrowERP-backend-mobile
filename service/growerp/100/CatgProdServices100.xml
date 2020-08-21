@@ -44,7 +44,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="categories" from="[]"/>
             <iterate entry="group" list="groups">
                 <service-call name="growerp.100.ImageServices100.download#Image"
-                    in-map="[ownerPartyId: ownerPartyId, size: 'small', type: 'category', id: group.productCategoryId]" out-map="context"/>
+                    in-map="[companyPartyId: companyPartyId, size: 'small', type: 'category', id: group.productCategoryId]" out-map="context"/>
                 <entity-find-count entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" count-field="nbrOfProducts">
                     <econdition field-name="ownerPartyId"/>
                     <econdition field-name="productCategoryId" from="group.productCategoryId"/></entity-find-count>
@@ -67,7 +67,7 @@ along with this software (see the LICENSE.md file). If not, see
             <set field="products" from="[]"/>
             <iterate entry="product" list="productList">
                 <service-call name="growerp.100.ImageServices100.download#Image"
-                    in-map="[ownerPartyId: ownerPartyId, size: 'small', type: 'product', id: product.productId]" out-map="context"/>
+                    in-map="[companyPartyId: companyPartyId, size: 'small', type: 'product', id: product.productId]" out-map="context"/>
                 <set field="productOut" from="[
                     productId: product.productId,
                     name: product.productName,
@@ -77,7 +77,7 @@ along with this software (see the LICENSE.md file). If not, see
                     currencyId: product.priceUomId,
                     productCategoryId: product.productCategoryId,
                     categoryName: product.categoryName,
-                    image: imageFile? imageFile : '~/assets/images/addImage.png']"/>
+                    image: imageFile? imageFile : null]"/>
                 <script>products.add(productOut)</script>
             </iterate>
             <script>products.sort{a, b -> a.name.compareToIgnoreCase(b.name) } </script>

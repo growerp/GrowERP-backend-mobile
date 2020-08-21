@@ -20,13 +20,16 @@ along with this software (see the LICENSE.md file). If not, see
         <moqui.security.UserGroupMember userGroupId="GROWERP_M_SYSTEM" userId="EX_JOHN_DOE" fromDate="1265184000000"/>
     <moqui.security.UserGroup userGroupId="GROWERP_M_ADMIN" description="Admin" groupTypeEnumId="GROWERPMOBILE"/>
     <moqui.security.UserGroup userGroupId="GROWERP_M_EMPLOYEE" description="Employee" groupTypeEnumId="GROWERPMOBILE"/>
+    <moqui.security.UserGroup userGroupId="GROWERP_M_CUSTOMER" description="Customer" groupTypeEnumId="GROWERPMOBILE"/>
 
     <!-- Artifact group for all of the GROWERP REST API via the GROWERP resource (the root resource) -->
     <moqui.security.ArtifactGroup artifactGroupId="GROWERP_API" description="GROWERP REST API (via root resource)"/>
     <moqui.security.ArtifactGroupMember artifactGroupId="GROWERP_API" artifactTypeEnumId="AT_REST_PATH"
-            inheritAuthz="Y" artifactName="/growerp"/>
+        inheritAuthz="Y" artifactName="/growerp"/>
     <moqui.security.ArtifactGroupMember artifactGroupId="GROWERP_API" artifactTypeEnumId="AT_XML_SCREEN"
-            inheritAuthz="Y" artifactName="component://GrowERP-backend-mobile/screen/MobileAdmin.xml"/>
+        inheritAuthz="Y" artifactName="component://GrowERP-backend-mobile/screen/MobileAdmin.xml"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="GROWERP_API" artifactTypeEnumId="AT_XML_SCREEN"
+        inheritAuthz="Y" artifactName="component://GrowERP-backend-mobile/screen/rest.xml"/>
     <!-- Full company permissions for the ADMIN and system user group -->
     <moqui.security.ArtifactAuthz artifactAuthzId="GROWERPAPI_AUTHZ_ADMIN_SYS" userGroupId="GROWERP_M_SYSTEM" 
         artifactGroupId="GROWERP_API" authzTypeEnumId="AUTHZT_ALLOW" authzActionEnumId="AUTHZA_ALL"/>
