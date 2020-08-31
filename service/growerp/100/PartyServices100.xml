@@ -41,8 +41,9 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="company" type="Map"/>
         </out-parameters>
         <actions>
-            <if condition="companyPartyId == null &amp;&amp; ec.user &amp;&amp; ec.user.userAccount?.partyId">
+            <if condition="!companyPartyId &amp;&amp; ec.user &amp;&amp; ec.user.userAccount?.partyId">
                 <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context"/>
+                <set field="companyPartyId" from="ownerPartyId"/>
             </if>
             <if condition="!companyPartyId"><return error="true" message="Company partyId not supplied"/></if>
             <entity-find-one entity-name="growerp.mobile.party.CompanyPreferenceAndClassification" value-field="org">

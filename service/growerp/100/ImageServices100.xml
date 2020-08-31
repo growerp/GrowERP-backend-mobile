@@ -80,38 +80,49 @@ along with this software (see the LICENSE.md file). If not, see
                 fileStreamLarge.close()
                 ]]></script>
                 <if condition="type == 'user'  || type == 'company">
-                    <service-call name="create#PartyContent" in-map="[
+                    <service-call name="create#mantle.party.PartyContent" in-map="[
                         partyId: id, partyContentTypeEnumId: 'PcntImageSmall',
                         contentLocation: contentLocationSmall]" />
-                    <service-call name="create#PartyContent" in-map="[
+                    <service-call name="create#mantle.party.PartyContent" in-map="[
                         partyId: id, partyContentTypeEnumId: 'PcntImageMedium',
                         contentLocation: contentLocationMedium]" />
-                    <service-call name="create#PartyContent" in-map="[
+                    <service-call name="create#mantle.party.PartyContent" in-map="[
                         partyId: id, partyContentTypeEnumId: 'PcntImageLarge',
                         contentLocation: contentLocationLarge]" />
                 </if>
                 <if condition="type == 'product'">
-                    <service-call name="create#ProductContent" in-map="[
+                    <service-call name="create#mantle.product.ProductContent" in-map="[
                         productId: id, productContentTypeEnumId: 'PcntImageSmall',
                         contentLocation: contentLocationSmall]" />
-                    <service-call name="create#ProductContent" in-map="[
+                    <service-call name="create#mantle.product.ProductContent" in-map="[
                         productId: id, productContentTypeEnumId: 'PcntImageMedium',
                         contentLocation: contentLocationMedium]" />
-                    <service-call name="create#ProductContent" in-map="[
+                    <service-call name="create#mantle.product.ProductContent" in-map="[
                         productId: id, productContentTypeEnumId: 'PcntImageLarge',
                         contentLocation: contentLocationLarge]" />
                 </if>
                 <if condition="type == category">
-                    <service-call name="create#ProductCategoryContent" in-map="[
+                    <service-call name="create#mantle.product.category.ProductCategoryContent" in-map="[
                         productCategoryId: id, categoryContentTypeEnumId: 'PcctImageThumbNail',
                         contentLocation: contentLocationSmall]" />
-                    <service-call name="create#ProductCategoryContent" in-map="[
+                    <service-call name="create#mantle.product.category.ProductCategoryContent" in-map="[
                         productCategoryId: id, categoryContentTypeEnumId: 'PcctImageMedium',
                         contentLocation: contentLocationMedium]" />
-                    <service-call name="create#ProductCategoryContent" in-map="[
+                    <service-call name="create#mantle.product.category.ProductCategoryContent" in-map="[
                         productCategoryId: id, categoryContentTypeEnumId: 'PcctImageLarge',
                         contentLocation: contentLocationLarge]" />
                 </if>
+                <if condition="type == area">
+                    <service-call name="create#growerp.mobile.location.AccommodationAreaContent" in-map="[
+                        accommodationAreaId: id, accommodationAreaContentTypeEnumId: 'AactImageThumbNail',
+                        contentLocation: contentLocationSmall]" />
+                    <service-call name="create#growerp.mobile.location.AccommodationAreaContent" in-map="[
+                        accommodationAreaId: id, accommodationAreaContentTypeEnumId: 'AactImageMedium',
+                        contentLocation: contentLocationMedium]" />
+                    <service-call name="create#growerp.mobile.location.AccommodationAreaContent" in-map="[
+                        accommodationAreaId: id, accommodationAreaContentTypeEnumId: 'AactImageLarge',
+                        contentLocation: contentLocationLarge]" />
+                    </if>
                 <log message="Uploaded ${contentLocation}"/>
             </actions>
     </service>

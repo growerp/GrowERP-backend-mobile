@@ -23,7 +23,6 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="companyPartyId"/>
         </in-parameters>
         <out-parameters>
-            <parameter name="company" type="map"/>
             <parameter name="categories" type="List"/>
             <parameter name="products" type="List"/>
         </out-parameters>
@@ -43,8 +42,13 @@ along with this software (see the LICENSE.md file). If not, see
                 <econdition field-name="productCategoryId" ignore-if-empty="true"/></entity-find>
             <set field="categories" from="[]"/>
             <iterate entry="group" list="groups">
-                <service-call name="growerp.100.ImageServices100.download#Image"
-                    in-map="[companyPartyId: companyPartyId, size: 'small', type: 'category', id: group.productCategoryId]" out-map="context"/>
+                <entity-find entity-name="mantle.product.category.ProductCategoryContent" list="contents">
+                    <econdition field-name="productCategoryId" from="group.productCategoryId"/>
+                    <econdition field-name="categoryContentTypeEnumId" value="PcctImageThumbNail" />
+                </entity-find>
+                <if condition="contents">
+                    <service-call name="growerp.100.ImageServices100.download#Image"
+                        in-map="[contentLocation: contents[0].contentLocation]" out-map="context"/></if>
                 <entity-find-count entity-name="growerp.mobile.product.ProductAndPriceAndProductCategory" count-field="nbrOfProducts">
                     <econdition field-name="ownerPartyId"/>
                     <econdition field-name="productCategoryId" from="group.productCategoryId"/></entity-find-count>
@@ -66,8 +70,13 @@ along with this software (see the LICENSE.md file). If not, see
             </entity-find>
             <set field="products" from="[]"/>
             <iterate entry="product" list="productList">
-                <service-call name="growerp.100.ImageServices100.download#Image"
-                    in-map="[companyPartyId: companyPartyId, size: 'small', type: 'product', id: product.productId]" out-map="context"/>
+                <entity-find entity-name="mantle.product.ProductContent" list="contents">
+                    <econdition field-name="productId" from="product.productId"/>
+                    <econdition field-name="productContentTypeEnumId" value="PcntImageSmall" />
+                </entity-find>
+                <if condition="contents">
+                    <service-call name="growerp.100.ImageServices100.download#Image"
+                        in-map="[contentLocation: contents[0].contentLocation]" out-map="context"/></if>
                 <set field="productOut" from="[
                     productId: product.productId,
                     name: product.productName,
