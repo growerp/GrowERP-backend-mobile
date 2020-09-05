@@ -27,7 +27,8 @@ along with this software (see the LICENSE.md file). If not, see
             </entity-find>
             <set field="companies" from="[]" />
             <iterate list="parties" entry="party">
-                <service-call name="growerp.100.PartyServices100.get#Company" out-map="context" in-map="[companyPartyId: party.partyId]"/>
+                <service-call name="growerp.100.PartyServices100.get#Company" out-map="context"
+                    in-map="[companyPartyId: party.partyId]"/>
                 <script>companies.add(company)</script>
             </iterate>
         </actions>
@@ -58,6 +59,17 @@ along with this software (see the LICENSE.md file). If not, see
             <if condition="contents">
                 <service-call name="growerp.100.ImageServices100.download#Image"
                     in-map="[contentLocation: contents[0].contentLocation]" out-map="context"/></if>
+            <entity-find entity-name="CompanyPersonAndLoginGroup" list="compEmployees">
+                <econdition field-name="companyPartyId" />
+            </entity-find>
+            <set field="employees" from="[]"/>
+            <if condition="ec.getUser().getUsername()"><!-- provide only users when logged in -->
+                <iterate list="compEmployees" entry="employee">
+                    <service-call name="growerp.100.PartyServices100.get#User" out-map="context"
+                        in-map="[partyId: employee.userPartyId]"></service-call>
+                    <script>employees.add(user)</script>
+                </iterate>
+            </if>
             <set field="company" from="[
                 partyId: companyPartyId,
                 name: org.organizationName,
@@ -65,13 +77,14 @@ along with this software (see the LICENSE.md file). If not, see
                 classificationDescr: org.description,
                 email: emailAddress,
                 currencyId: org.baseCurrencyUomId,
-                image: imageFile]" />
+                image: imageFile,
+                employees: employees]"/>
         </actions>
     </service>
 
     <service verb="get" noun="User">
         <description>
-            Get all users of the company they belong to(no party, or a single party with PartyId)
+            Get all users of the company or usergroup they belong to(with partyId just a single party with PartyId)
         </description>
         <in-parameters>
             <parameter name="partyId"/><!-- if present select a single user, else a list -->
@@ -84,17 +97,16 @@ along with this software (see the LICENSE.md file). If not, see
         <actions>
             <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="company"/>
             <entity-find entity-name="CompanyPersonAndLoginGroup"  list="userInfos">
-                <econdition field-name="fromPartyId" from="partyId" ignore-if-empty="true"/>
+                <econdition field-name="userPartyId" from="partyId" ignore-if-empty="true"/>
                 <econdition field-name="userGroupId" from="userGroupId" ignore-if-empty="true"/>
-                <econdition field-name="toPartyId" from="company.partyId"/>
-                <econdition field-name="toRoleTypeId" value="OrgInternal"/>
-                <date-filter />
+                <econdition field-name="companyPartyId" from="company.partyId"/>
+                <date-filter/><date-filter from-field-name="ugFromDate" thru-field-name="ugThruDate"/>
                 <order-by field-name="lastName"/><order-by field-name="firstName"/>
             </entity-find>
             <if condition="!partyId"><set field="users" from="[]"/></if>
             <iterate entry="userInfo" list="userInfos">
                 <entity-find entity-name="mantle.party.PartyContent" list="contents">
-                    <econdition field-name="partyId" from="userInfo.fromPartyId"/>
+                    <econdition field-name="partyId" from="userInfo.userPartyId"/>
                     <econdition field-name="partyContentTypeEnumId" value="partyId? PcntImageMedium : PcntImageSmall" />
                 </entity-find>
                 <if condition="contents">    
@@ -105,12 +117,13 @@ along with this software (see the LICENSE.md file). If not, see
                         in-map="[companyPartyId: company.partyId, size: partyId? 'medium':'small', type: 'user', 
                             id: userInfo.fromPartyId]" out-map="context"/></if>
                 <set field="userOut" from="[
-                    partyId: userInfo?.fromPartyId,
+                    partyId: userInfo?.userPartyId,
                     email: userInfo?.emailAddress,
                     name: userInfo?.username,
                     firstName: userInfo?.firstName,
                     lastName: userInfo?.lastName,
                     groupDescription: userInfo?.description,
+                    language: userInfo?.locale.toString(),
                     image: imageFile]"/>
 
                 <if condition="!partyId">
@@ -143,7 +156,7 @@ along with this software (see the LICENSE.md file). If not, see
             <script> // convert JSON data
                 import groovy.json.JsonSlurper
                 JsonSlurper slurper = new JsonSlurper()
-                Object userIn = new JsonSlurper().parseText(user)
+                Object userIn = new JsonSlurper().parseText(user).user
             </script>
             <service-call name="growerp.100.PartyServices100.get#Company" out-map="compOut"/>
             <service-call name="growerp.100.PartyServices100.register#UserAndCompany"
@@ -153,8 +166,9 @@ along with this software (see the LICENSE.md file). If not, see
                 emailAddress: userIn.email,
                 locale: userIn.locale,
                 externalId: userIn.externalid,
-                groupDescription: userIn.groupDescription,
-                companyPartyId: compOut.company.partyId]" out-map="context"/>
+                userGroupId: userIn.userGroupId,
+                companyPartyId: compOut.company.partyId]" out-map="userOut"/>
+            <set field="user" from="userOut.user"/>
         </actions>
     </service>
 
@@ -175,8 +189,8 @@ along with this software (see the LICENSE.md file). If not, see
                 Object userIn = new JsonSlurper().parseText(user).user
             </script>
             <service-call name="growerp.100.PartyServices100.get#User"
-                    in-map="[partyId: userIn.partyId]" out-map="oldValue"/>
-                <service-call name="update#mantle.party.Person" 
+                in-map="[partyId: userIn.partyId]" out-map="oldValue"/>
+            <service-call name="update#mantle.party.Person" 
                 in-map="[   partyId: userIn.partyId, 
                             firstName: userIn.firstName ? userIn.firstName : oldValue.user.firstName, 
                             lastName: userIn.lastName ? userIn.lastName : oldValue.user.lastName]"/>
@@ -184,38 +198,49 @@ along with this software (see the LICENSE.md file). If not, see
                 in-map="[   partyId: userIn.partyId, 
                             emailAddress: userIn.email ? userIn.email : oldValue.user.email,
                             username: userIn.name? userIn.name : oldValue.user.name,
+                            locale: language
                         ]"/>
-            <if condition="userIn.groupDescription &amp;&amp; userIn.groupDescription != oldValue.user.groupDescription">
-                <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
-                    <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
-                    <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                    <date-filter/></entity-find>
-                <if condition="admins.size() == 1">
-                    <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
-            <set field="growerpMobileGroups" from="[]"/>
-            <entity-find entity-name="moqui.security.UserGroup" list="mobileGroupMembers">
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
-            <iterate entry="mobileGroupMember" list="mobileGroupMembers">
-                <script>growerpMobileGroups.add(mobileGroupMember.userGroupId)</script>
-            </iterate>
-            <entity-find entity-name="moqui.security.UserGroupMember" list="groupMembers" for-update="true">
-                <econdition field-name="userId" from="oldValue.user.userId"/>
-                <econdition field-name="userGroupId" operator="in" from="growerpMobileGroups"/>
-                <date-filter/></entity-find>
-            <set field="groupMembers[0].thruDate" from="ec.user.nowTimestamp"/>
-            <entity-update value-field="groupMembers[0]"/>
-            <entity-find entity-name="moqui.security.UserGroup" list="groupValues">
-                <econdition field-name="description" from="userIn.groupDescription"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/></entity-find>
-            <if condition="!groupValues">
-                <return error="true" message="Updating security group failed, group description: ${userIn.groupDescription} not found"/></if>
-            <service-call name="create#moqui.security.UserGroupMember"
-                in-map="[userGroupId: groupValues[0].userGroupId, userId: oldValue.user.userId, fromDate: ec.user.nowTimestamp]"/></if>
+            <!--update user group -->
+            <if condition="!userIn.userGroupId">
+                <return error="true" message="userGroupId not supplied to update user"/></if>
+            <if condition="userIn.userGroupId != oldValue.user.userGroupId">
+                <if condition="oldValue.user.userGroupid == 'GROWERP_M_ADMIN'">
+                    <!-- check if only a single admin: cannot change -->
+                    <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" 
+                        in-map="[userPartyId: userIn.partyId]" out-map="company"/>
+                    <entity-find entity-name="growerp.mobile.CompanyPersonAndLoginGroup" list="admins">
+                        <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
+                        <econdition field-name="companyPartyId" from="company.partyId" />
+                        <date-filter/></entity-find>
+                    <if condition="admins.size() == 1">
+                        <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
+                </if>
+                <entity-find entity-name="moqui.security.UserGroupMember" list="groupMembers" for-update="true">
+                    <econdition field-name="userGroupId" from="oldValue.user.userGroupId"/>
+                    <econdition field-name="userId" from="oldValue.user.userId"/>
+                </entity-find>
+                <set field="groupMembers[0].thruDate" from="ec.user.nowTimestamp"/>
+                <entity-update value-field="groupMembers[0]"/>
+                <service-call name="create#moqui.security.UserGroupMember"
+                    in-map="[userGroupId: userIn.userGroupId, userId: oldValue.user.userId, fromDate: ec.user.nowTimestamp]"/>
+            </if>    
+            <!-- update external id for customer indentification -->
             <entity-find-one value-field="party" entity-name="mantle.party.Party" for-update="true">
                 <field-map field-name="partyId" from="userIn.partyId"/></entity-find-one>
             <if condition="userIn.externalId != party.externalId">
                 <set field="party.externalId" from="userIn.externalId"/>
                 <entity-update value-field="party"/></if>
+            <!-- update imag test to see if we can use base64-->
+            <!--if condition="userIn.image">
+                <set field="pagePath" value="/user/${userIn.partyId}/"/>
+                <set field="contentLocation" value="dbresource://C${ownerPartyId}/images${pagePath}"/>
+                <set field="attachmentReferenceMedium" from="ec.resource.getLocationReference(contentLocation + 'medium')"/>
+
+                <service-call name="create#mantle.party.PartyContent" in-map="[
+                    partyId: id, partyContentTypeEnumId: 'PcntImageMedium',
+                    contentLocation: contentLocationMedium]" />
+            </if-->
+        <!-- return updated user -->
             <service-call name="growerp.100.PartyServices100.get#User" in-map="[partyId: userIn.partyId]" out-map="context"/>
         </actions>
     </service>
@@ -225,29 +250,30 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="partyId" required="true"/>
         </in-parameters>
         <out-parameters>
-            <parameter name="user"/>
+            <parameter name="partyId"/>
         </out-parameters>
         <actions>
-            <entity-find entity-name="moqui.security.UserAccount" list="userAccounts">
-                <econdition field-name="partyId"/></entity-find><!-- assuming user has a single account -->
-            <entity-find entity-name="moqui.security.UserGroupAndMember" list="admins">
-                <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                <date-filter/></entity-find>
-            <entity-find entity-name="moqui.security.UserGroupAndMember" list="thisUsers">
-                <econdition field-name="userId" from="userAccounts[0].userId"/>
-                <econdition field-name="groupTypeEnumId" value="GROWERPMOBILE"/>
-                <date-filter/></entity-find>
-            <if condition="admins.size() == 1 &amp;&amp; thisUsers[0].userGroupId == 'GROWERP_M_ADMIN'">
-                <return error="true" message="You need at least a single Admin in your company: cannot remove this one!"/></if>
+            <!-- check if this user has an admin account -->
+            <service-call name="growerp.100.PartyServices100.get#User"
+                in-map="[partyId: partyId]" out-map="oldValue"/>
+            <if condition="oldValue.user.userGroupid == 'GROWERP_M_ADMIN'">
+                <!-- check if only a single admin: cannot change -->
+                <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" 
+                    in-map="[userPartyId: userIn.partyId]" out-map="company"/>
+                <entity-find entity-name="growerp.mobile.CompanyPersonAndLoginGroup" list="admins">
+                    <econdition field-name="userGroupId" value="GROWERP_M_ADMIN"/>
+                    <econdition field-name="companyPartyId" from="company.partyId" />
+                    <date-filter/></entity-find>
+                <if condition="admins.size() == 1">
+                    <return error="true" message="You need at least a single Admin in your company: cannot delete this one!"/></if>
+            </if>
             <service-call name="update#mantle.party.Party" in-map="[partyId: partyId, disabled: 'Y']"/>
-            <service-call name="growerp.100.MobilePartyServices100.get#User" out-map="context"/>
         </actions>
     </service>
 
     <service verb="register" noun="UserAndCompany" authenticate="anonymous-all">
         <description>
-            registers with a minimal setup for a user with a given role to an existing company or when not provided
+            registers with a minimal setup for a user with a given group to an existing company or when not provided
             will create an accounting organization with the provided name and currency
         </description>
         <in-parameters>
@@ -261,14 +287,14 @@ along with this software (see the LICENSE.md file). If not, see
             <parameter name="username" default="emailAddress" />
             <parameter name="newPassword" default="org.moqui.util.StringUtilities.getRandomString(6) + '9!'" />
             <parameter name="newPasswordVerify" default="newPassword" />
-            <parameter name="groupDescription" /> <!--securitygroup description-->
+            <parameter name="userGroupId"/> <!--securitygroup required for non admin users-->
             <parameter name="locale" />
             <!-- company information -->
             <parameter name="companyPartyId" /> <!-- add users for existing company -->
             <parameter name="companyName" />
             <parameter name="companyEmailAddress" default="emailAddress" />
             <parameter name="currencyUomId" />
-            <parameter name="partyClassificationId" required="true" /> <!-- allocate party to mobile application -->
+            <parameter name="partyClassificationId"/> <!-- allocate party to mobile application -->
             <!-- default setup -->
             <parameter name="environment" />
             <parameter name="transData" type="List" /> <!-- [ 'kitchen','food','macaroni','bar','inside','garden','drinks','cola' -->
@@ -294,10 +320,8 @@ along with this software (see the LICENSE.md file). If not, see
                             contactMechPurposeId:'EmailPrimary']" />
                     <service-call name="create#mantle.ledger.config.PartyAcctgPreference"
                         in-map="[organizationPartyId: companyPartyId, baseCurrencyUomId: currencyUomId]" />
-                    <entity-find-one entity-name="mantle.party.PartyClassification"
-                        value-field="partyClassification">
-                        <field-map field-name="partyClassificationId" />
-                    </entity-find-one>
+                    <if condition="!partyClassificationId">
+                        <return error="true" message="When creating a new company partyClassificationId is required" /></if>
                     <service-call name="create#mantle.party.PartyClassificationAppl"
                         in-map="[partyId: companyPartyId, partyClassificationId: partyClassificationId]" />
                     <!-- create productStore -->
@@ -307,7 +331,11 @@ along with this software (see the LICENSE.md file). If not, see
                             reservationOrderEnumId:'AsResAutoNone',
                             defaultCurrencyUomId: currencyUomId]" />
                     <!-- create root category -->
-                    <set field="fromDate" from="ec.user.nowTimestamp" />
+                    <set field="fromDate" from="ec.user.nowTimestamp"/>
+                    <entity-find-one entity-name="mantle.party.PartyClassification"
+                            value-field="partyClassification">
+                        <field-map field-name="partyClassificationId"/>
+                    </entity-find-one>
                     <service-call name="create#mantle.product.category.ProductCategory" out-map="rootCat" 
                         in-map="[ownerPartyId: companyPartyId, productCategoryTypeEnumId: 'PctRoot',
                             categoryName: 'Root category for: ' + partyClassification.description]" />
@@ -315,17 +343,14 @@ along with this software (see the LICENSE.md file). If not, see
                         in-map="[productCategoryId: rootCat.productCategoryId,
                             storeCategoryTypeEnumId: 'PsctBrowseRoot',
                             productStoreId: context.productStoreId, fromDate: fromDate]" />
-                </if>
-                <if condition="groupDescription">
-                    <entity-find entity-name="moqui.security.UserGroup" list="userGroups">
-                        <econdition field-name="description" from="groupDescription" />
-                    </entity-find>
-                    <if condition="userGroups">
-                        <set field="userGroupId" from="userGroups[0].userGroupId" />
-                    </if>
-                </if>
-                <if condition="!userGroupId">
-                    <set field="userGroupId" value="GROWERP_M_EMPLOYEE" />
+                    <else>
+                        <service-call name="growerp.100.PartyServices100.get#Company" out-map="compOut"/>
+                        <if condition="companyPartyId != compOut.company.partyId ||
+                                !ec.user.hasPermission('GROWERP_M_COMPANY')">
+                            <return error="true"
+                                message="User partyId: ${ec.user.userAccount.partyId} has no company admin access(GROWERP_M_COMPANY) to company ${companyPartyId}"/>
+                        </if>
+                    </else>
                 </if>
                 <!-- attach the user as an employee to the organization. -->
                 <service-call name="create#mantle.party.PartyRelationship"
@@ -338,21 +363,29 @@ along with this software (see the LICENSE.md file). If not, see
                      preferenceValue: companyPartyId]" />
                 <!-- setup the organization -->
                 <!--service-call name="mantle.party.PartyServices.setup#UserOrganizationInfo" /-->
+                <entity-find-one entity-name="mantle.party.PartyClassificationAppl"
+                         value-field="partyClassificationAppl">
+                    <field-map field-name="partyId" from="companyPartyId" />
+                </entity-find-one>
                 <service-call name="org.moqui.impl.EmailServices.send#EmailTemplate" async="true">
                     <field-map field-name="emailTemplateId" value="WELCOME" />
                     <field-map field-name="toAddresses" from="emailAddress" />
                     <field-map field-name="bodyParameters" 
-                    from="[classification: partyClassificationId.substring(3), newPassword:newPassword]" />
+                        from="[classification: partyClassificationAppl.partyClassificationId.substring(3),
+                            newPassword:newPassword]" />
                 </service-call>
                 <if condition="company">
                     <!-- initial company/user needs login for loading default data (create#user calls this service)-->
                     <!-- add the user as admin -->
                     <script>ec.user.loginUser(username, newPassword)</script>
-                    <service-call name="create#moqui.security.UserGroupMember" in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]" />
+                    <service-call name="create#moqui.security.UserGroupMember"
+                        in-map="[userGroupId: 'GROWERP_M_ADMIN', userId: userAccount.userId]" />
                     <service-call name="growerp.100.PartyServices100.load#DefaultData" in-map="context" />
-                    <else>
-                        <service-call name="create#moqui.security.UserGroupMember" in-map="[userGroupId: userGroupId, userId: userAccount.userId]" />
-                        <script>ec.user.loginUser(username, newPassword)</script>
+                    <else><!-- non admin user, company already exist -->
+                        <if condition="!userGroupId">
+                            <return error="true" message="UsergroupId required for non admin users!"/></if>
+                        <service-call name="create#moqui.security.UserGroupMember"
+                            in-map="[userGroupId: userGroupId, userId: userAccount.userId]" />
                     </else>
                 </if>
                 <service-call name="growerp.100.PartyServices100.get#User" in-map="[partyId: userAccount.partyId]" out-map="context"/>

@@ -35,7 +35,7 @@ along with this software (see the LICENSE.md file). If not, see
             <method type="get"><service name="growerp.100.PartyServices100.get#Companies"/></method></resource>
         <resource name="User">
             <method type="get"><service name="growerp.100.PartyServices100.get#User"/></method>
-            <method type="put"><service name="growerp.100.PartyServices100.add#User"/></method>
+            <method type="put"><service name="growerp.100.PartyServices100.create#User"/></method>
             <method type="patch"><service name="growerp.100.PartyServices100.update#User"/></method>
             <method type="delete"><service name="growerp.100.PartyServices100.delete#User"/></method></resource>
         <!--catalog (product and categories) -->

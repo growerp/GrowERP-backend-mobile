@@ -40,14 +40,17 @@ along with this software (see the LICENSE.md file). If not, see
         </member-entity>
         <member-entity entity-alias="UGMEM" entity-name="moqui.security.UserGroupMember" join-from-alias="ACCT">
             <key-map field-name="userId" related="userId"/>
+            <entity-condition>
+                <date-filter from-field-name="ugFromDate" thru-field-name="ugThruDate"/>
+            </entity-condition>
         </member-entity>
         <member-entity entity-alias="UG" entity-name="moqui.security.UserGroup" join-from-alias="UGMEM">
             <key-map field-name="userGroupId" related="userGroupId"/>
         </member-entity>
 
-        <alias entity-alias="PR" name="toPartyId"/>
-        <alias entity-alias="PR" name="toRoleTypeId"/>
-        <alias entity-alias="PR" name="fromPartyId"/>
+        <alias entity-alias="PR" name="companyPartyId" field="toPartyId"/>
+        <alias entity-alias="PR" name="companyRoleTypeId" field="toRoleTypeId"/>
+        <alias entity-alias="PR" name="userPartyId" field="fromPartyId"/>
         <alias entity-alias="PR" name="fromDate"/><!-- date registered in the system -->
         <alias entity-alias="PR" name="thruDate"/>
         <alias entity-alias="PTYPERSON" name="personDisabled" field="disabled"/>
@@ -62,6 +65,8 @@ along with this software (see the LICENSE.md file). If not, see
         <alias entity-alias="ACCT" name="locale"/>
         <alias entity-alias="UG" name="userGroupId"/>
         <alias entity-alias="UG" name="description"/>
+        <alias entity-alias="UGMEM" name="ugFromDate" field="fromDate"/>
+        <alias entity-alias="UGMEM" name="ugThruDate" field="thruDate"/>
    </view-entity>
 
    <view-entity entity-name="CompanyPersonAndLogin" package="growerp.mobile">
