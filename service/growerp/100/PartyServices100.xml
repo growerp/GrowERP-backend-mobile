@@ -63,7 +63,8 @@ along with this software (see the LICENSE.md file). If not, see
                 <econdition field-name="companyPartyId" />
             </entity-find>
             <set field="employees" from="[]"/>
-            <if condition="ec.getUser().getUsername()"><!-- provide only users when logged in -->
+            <!-- provide users when logged in and admin-->
+            <if condition="ec.getUser().getUsername() &amp;&amp; ec.user.hasPermission('GROWERP_M_COMPANY')">
                 <iterate list="compEmployees" entry="employee">
                     <service-call name="growerp.100.PartyServices100.get#User" out-map="context"
                         in-map="[partyId: employee.userPartyId]"></service-call>
@@ -79,6 +80,55 @@ along with this software (see the LICENSE.md file). If not, see
                 currencyId: org.baseCurrencyUomId,
                 image: imageFile,
                 employees: employees]"/>
+        </actions>
+    </service>
+
+    <service verb="update" noun="Company">
+        <description>
+            update company information
+        </description>
+        <in-parameters>
+            <parameter name="company"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="company" type="Map"/>
+        </out-parameters>
+        <actions>
+            <script> // convert JSON data
+                import groovy.json.JsonSlurper
+                JsonSlurper slurper = new JsonSlurper()
+                Object compIn = new JsonSlurper().parseText(company).company
+            </script>
+            <!-- check access user belongs to this company override companyPartyId-->
+            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context"/>
+            <set field="compIn.partyId" from="ownerPartyId"/>
+            <!-- get old values -->
+            <service-call name="growerp.100.PartyServices100.get#Company" out-map="oldValue"/>
+            <!-- update name -->
+            <if condition="compIn.name &amp;&amp; oldValue.company.name !=  compIn.name">
+                <service-call name="update#mantle.party.Organization"
+                    in-map="[partyId: oldValue.company.partyId, organizationName: compIn.name]"/>
+            </if>
+            <!-- update email -->
+            <if condition="compIn.email &amp;&amp; compIn.email != oldValue.company.emailAddress">
+                <entity-find entity-name="mantle.party.contact.PartyContactMech" for-update="true" list="partyContactMechs" >
+                    <econdition field-name="partyId" from="oldValue.company.partyId"/>
+                    <econdition field-name="contactMechPurposeId" value="EmailPrimary"/><date-filter/></entity-find>
+                <if condition="partyContactMechs">
+                    <set field="partyContactMechs[0].thruDate" from="ec.user.nowTimestamp"/>
+                    <entity-update value-field="partyContactMechs[0]"/> </if>
+                <service-call name="mantle.party.ContactServices.create#EmailAddress"
+                    in-map="[partyId: oldValue.company.partyId, contactMechPurposeId: 'EmailPrimary', emailAddress: compIn.email]"/>
+            </if>
+            <!-- update currency -->
+            <entity-find-one entity-name="mantle.ledger.config.PartyAcctgPreference" value-field="pref" for-update="true">
+                <field-map field-name="organizationPartyId" from="compIn.partyId"/>
+            </entity-find-one>
+            <if condition="pref.baseCurrencyUomId != compIn.currencyId">
+                <set field="pref.baseCurrencyUomId" from="compIn.currencyId"/>
+                <entity-update value-field="pref" />
+            </if>
+            <service-call name="growerp.100.PartyServices100.get#Company" out-map="context"/>
         </actions>
     </service>
 
