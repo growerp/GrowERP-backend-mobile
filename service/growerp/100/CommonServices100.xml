@@ -41,7 +41,7 @@ along with this software (see the LICENSE.md file). If not, see
                 <set field="ownerPartyId" from="relList[0].toPartyId" />
                 <set field="partyId" from="ownerPartyId" />
                 <else>
-                    <return message="User ${userPartyId} has no related company!!" error="true" />
+                    <return message="User ${userPartyId} has no related company!!"/>
                 </else>
             </if>
         </actions>

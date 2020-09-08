@@ -62,14 +62,15 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-find entity-name="CompanyPersonAndLoginGroup" list="compEmployees">
                 <econdition field-name="companyPartyId" />
             </entity-find>
-            <set field="employees" from="[]"/>
             <!-- provide users when logged in and admin-->
             <if condition="ec.getUser().getUsername() &amp;&amp; ec.user.hasPermission('GROWERP_M_COMPANY')">
+                <set field="employees" from="[]"/>
                 <iterate list="compEmployees" entry="employee">
                     <service-call name="growerp.100.PartyServices100.get#User" out-map="context"
                         in-map="[partyId: employee.userPartyId]"></service-call>
                     <script>employees.add(user)</script>
                 </iterate>
+                <set field="employees" from="null"/>
             </if>
             <set field="company" from="[
                 partyId: companyPartyId,
@@ -100,7 +101,8 @@ along with this software (see the LICENSE.md file). If not, see
                 Object compIn = new JsonSlurper().parseText(company).company
             </script>
             <!-- check access user belongs to this company override companyPartyId-->
-            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId" out-map="context"/>
+            <service-call name="growerp.100.CommonServices100.get#RelatedCompanyPartyId"
+                out-map="context"/>
             <set field="compIn.partyId" from="ownerPartyId"/>
             <!-- get old values -->
             <service-call name="growerp.100.PartyServices100.get#Company" out-map="oldValue"/>
